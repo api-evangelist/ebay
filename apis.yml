@@ -30,7 +30,7 @@ apis:
     aid: ebay:ebay-account-api
   - name: Analytics API
     description: >-
-      Provides information about an individual seller’s business performance
+      Provides information about an individual seller's business performance
       through different report and data gathering resources including customer
       service metrics, traffic reports, and seller profiles.
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
@@ -47,7 +47,7 @@ apis:
   - name: Compliance API
     description: >-
       Provides tools for validating listings to help sellers keep their listings
-      in compliance with eBay’s policies.
+      in compliance with eBay's policies.
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     humanURL: https://developer.ebay.com/api-docs/sell/compliance/resources/methods
     baseURL: https://api.example.com
@@ -606,4 +606,3 @@ overlays:
   - type: API Evangelist Ratings
     url: overlays/apis-io-search.yml
 aid: ebay
-
