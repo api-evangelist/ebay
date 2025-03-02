@@ -571,7 +571,10 @@ apis:
       The Key Management API creates keypairs that are required when creating
       digital signatures for multiple APIs.
 name: eBay
-tags: []
+tags:
+  - Auctions
+  - Products
+  - Commerce
 image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 common:
   - url: https://developer.ebay.com/develop/get-started
