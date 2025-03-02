@@ -25,7 +25,7 @@ apis:
       Account API offers sellers the flexibility and control they need to
       efficiently manage their online business on the eBay platform.
   - aid: ebay:analytics-api
-    name: Analytics API
+    name: eBay Analytics API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -48,7 +48,7 @@ apis:
       sources and analysis tools, making it easier for businesses to access and
       utilize valuable insights for better decision-making.
   - aid: ebay:compliance-api
-    name: Compliance API
+    name: eBay Compliance API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -62,7 +62,7 @@ apis:
       Provides tools for validating listings to help sellers keep their listings
       in compliance with eBay's policies.
   - aid: ebay:feed-api
-    name: Feed API
+    name: eBay Feed API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -79,7 +79,7 @@ apis:
       eBay infrastructure to use parallel execution and to automatically retry
       on errors.
   - aid: ebay:browse-api
-    name: Browse API
+    name: eBay Browse API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -95,7 +95,7 @@ apis:
       Using the Browse API, you can create a rich selection of items for your
       buyers to browse with keyword and category searches.
   - aid: ebay:deal-api
-    name: Deal API
+    name: eBay Deal API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -112,7 +112,7 @@ apis:
       about eBay deals and events, as well as the items associated with those
       deals and events.
   - aid: ebay:deal-api
-    name: Deal API
+    name: eBay Deal API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -129,7 +129,7 @@ apis:
       about eBay deals and events, as well as the items associated with those
       deals and events.
   - aid: ebay:market-api
-    name: Market API
+    name: eBay Market API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -145,7 +145,7 @@ apis:
       The Marketing API retrieves eBay products based on a metric, such as Best
       Selling, as well as products that were also bought and also viewed.
   - aid: ebay:market-api
-    name: Market API
+    name: eBay Market API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -161,7 +161,7 @@ apis:
       The Marketing API retrieves eBay products based on a metric, such as Best
       Selling, as well as products that were also bought and also viewed.
   - aid: ebay:marketplace-insights-api
-    name: Marketplace Insights API
+    name: eBay Marketplace Insights API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -181,7 +181,7 @@ apis:
       on eBay by keyword, GTIN, category, and product and returns the of sales
       history of those items.
   - aid: ebay:offer-api
-    name: Offer API
+    name: eBay Offer API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -197,7 +197,7 @@ apis:
       The Offer API provides the ability to place and retract a proxy bid for a
       buyer and to retrieve all the auctions where the buyer is bidding.
   - aid: ebay:order-api
-    name: Order API
+    name: eBay Order API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -217,7 +217,7 @@ apis:
       visiting the eBay site. The Buy APIs provide the ability to purchase eBay
       items from your app or website.
   - aid: ebay:finances-api
-    name: Finances API
+    name: eBay Finances API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -235,7 +235,7 @@ apis:
       loans/repayments, shipping costs, etc. The information returned is similar
       to that available under the Payments tab of the Seller Hub in My eBay.
   - aid: ebay:fulfillment-api
-    name: Fulfillment API
+    name: eBay Fulfillment API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -258,7 +258,7 @@ apis:
       and monitor these activities from the order to completion. Sellers' status
       on eBay depend partly on their record of timely fulfillment.
   - aid: ebay:inventory-api
-    name: Inventory API
+    name: eBay Inventory API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -275,7 +275,7 @@ apis:
       then convert these inventory items into product offers on eBay
       marketplaces. 
   - aid: ebay:logistics-api
-    name: Logistics API
+    name: eBay Logistics API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -292,7 +292,7 @@ apis:
       ecommerce orders by offering shipping labels for a range of shipping
       services, all priced with eBay-negotiated shipping rates.
   - aid: ebay:logistics-api
-    name: Logistics API
+    name: eBay Logistics API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -309,7 +309,7 @@ apis:
       ecommerce orders by offering shipping labels for a range of shipping
       services, all priced with eBay-negotiated shipping rates.
   - aid: ebay:metadata-api
-    name: Metadata API
+    name: eBay Metadata API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -327,7 +327,7 @@ apis:
       information, the API also has operations that get information that helps
       sellers list items on eBay.
   - aid: ebay:negotiation-api
-    name: Negotiation API
+    name: eBay Negotiation API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -347,7 +347,7 @@ apis:
       listings. The ability to partake in more detailed negotiations will
       increase as the functionality of the API is expanded.
   - aid: ebay:recommendation-api
-    name: Recommendation API
+    name: eBay Recommendation API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -364,7 +364,7 @@ apis:
       The Recommendation API returns information that sellers can use to
       configure Promoted Listings ad campaigns.
   - aid: ebay:stores-api
-    name: Recommendation API
+    name: eBay Recommendation API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -383,7 +383,7 @@ apis:
       add/rename/move/delete a single user's eBay store category, and retrieve
       the processing status of these tasks.
   - aid: ebay:catalog-api
-    name: Catalog API
+    name: eBay Catalog API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -403,7 +403,7 @@ apis:
       (based off of that catalog product) have complete and accurate
       information.
   - aid: ebay:charity-api
-    name: Charity API
+    name: eBay Charity API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -420,7 +420,7 @@ apis:
       The Charity API allows third-party developers to search for and access
       details on supported charitable organizations.
   - aid: ebay:identity-api
-    name: Identity API
+    name: eBay Identity API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -440,7 +440,7 @@ apis:
       for an individual, such as address, email, phone, etc. are returned based
       on the OAuth scope you use in the call. 
   - aid: ebay:media-api
-    name: Media API
+    name: eBay Media API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -457,7 +457,7 @@ apis:
       videos using the primary methods and fields listed in the sections that
       follow.
   - aid: ebay:notification-api
-    name: Notification API
+    name: eBay Notification API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -487,7 +487,7 @@ apis:
       The eBay Notification API allows users to manage notifications using the
       primary method and fields listed in the sections that follow.
   - aid: ebay:taxonomy-api
-    name: Taxonomy API
+    name: eBay Taxonomy API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -508,7 +508,7 @@ apis:
       required and recommended category aspects to include in listings, and also
       has two operations to retrieve parts compatibility information.
   - aid: ebay:translation-api
-    name: Taxonomy API
+    name: eBay Taxonomy API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -529,7 +529,7 @@ apis:
       foreign language search queries from the buyer and translates them for the
       target marketplace, as well.
   - aid: ebay:client-registration-api
-    name: Client Registration API
+    name: eBay Client Registration API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
@@ -553,7 +553,7 @@ apis:
       (ASPSPs) to provide secure APIs to access account and payment services on
       behalf of account holders.
   - aid: ebay:key-management-api
-    name: Key Management API
+    name: eBay Key Management API
     tags: []
     image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
