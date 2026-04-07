@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Charity API
+  title: eBay Charity API
   description: The Charity API allows third-party developers to search for and access details on supported charitable organizations.
   contact:
     name: eBay Inc,

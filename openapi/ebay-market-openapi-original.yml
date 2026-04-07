@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Buy Marketing API
+  title: eBay Buy Marketing API
   description: The Marketing API retrieves eBay products based on a metric, such as Best Selling, as well as products that were also bought and also viewed.
   contact:
     name: eBay Inc,

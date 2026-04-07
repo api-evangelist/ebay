@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Translation API
+  title: eBay Translation API
   description: This API allows 3rd party developers to translate item titles.
   contact:
     name: eBay Inc,

@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Catalog API
+  title: eBay Catalog API
   description: >-
     The Catalog API allows users to search for and locate an eBay catalog
     product that is a direct match for the product that they wish to sell.

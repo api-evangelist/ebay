@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Taxonomy API
+  title: eBay Taxonomy API
   description: Use the Taxonomy API to discover the most appropriate eBay categories under which sellers can offer inventory items for sale, and the most likely categories under which buyers can browse or search for items to purchase. In addition, the Taxonomy API provides metadata about the required and recommended category aspects to include in listings, and also has two operations to retrieve parts compatibility information.
   contact:
     name: eBay Inc,
@@ -19,7 +19,7 @@ paths:
     get:
       tags:
         - category_tree
-      summary: Get Aspects for All Leaf Categories in a Marketplace
+      summary: eBay Get Aspects for All Leaf Categories in a Marketplace
       description: This method returns a complete list of aspects for all of the leaf categories that belong to an eBay marketplace. The eBay marketplace is specified through the <b>category_tree_id</b> URI parameter.<br><br><span class="tablenote"> <strong>Note:</strong> A successful call returns a payload as a gzipped JSON file sent as a binary file using the content-type:application/octet-stream in the response. This file may be large (over 100 MB, compressed). Extract the JSON file from the compressed file with a utility that handles .gz or .gzip. The open source <a href="https://github.com/eBay/taxonomy-sdk " target="_blank">Taxonomy SDK</a> can be used to compare the aspect metadata that is returned in this response. The <b>Taxonomy SDK</b> uses this call to surface changes (new, modified, and removed entities) between an updated version of a bulk downloaded file relative to a previous version.</span>
       operationId: fetchItemAspects
       parameters:
@@ -62,7 +62,7 @@ paths:
     get:
       tags:
         - category_tree
-      summary: Get a Default Category Tree ID
+      summary: eBay Get a Default Category Tree ID
       description: A given eBay marketplace might use multiple category trees, but one of those trees is considered to be the default for that marketplace. This call retrieves a reference to the default category tree associated with the specified eBay marketplace ID. The response includes only the tree's unique identifier and version, which you can use to retrieve more details about the tree, its structure, and its individual category nodes.
       operationId: getDefaultCategoryTreeId
       parameters:
@@ -108,7 +108,7 @@ paths:
     get:
       tags:
         - category_tree
-      summary: Get a Category Tree
+      summary: eBay Get a Category Tree
       description: 'This method retrieves the complete category tree that is identified by the <b>category_tree_id</b> parameter. The value of <b>category_tree_id</b> was returned by the <b>getDefaultCategoryTreeId</b> method in the <b>categoryTreeId</b> field. The response contains details of all nodes of the specified eBay category tree, as well as the eBay marketplaces that use this category tree.<br><br><span class="tablenote"> <strong>Note:</strong> This method can return a very large payload, so gzip compression is supported. To enable gzip compression, include the <code>Accept-Encoding</code> header and set its value to <code>gzip</code> as shown below: <br><br><code>&nbsp;&nbsp;Accept-Encoding: gzip</code></span>'
       operationId: getCategoryTree
       parameters:
@@ -156,7 +156,7 @@ paths:
     get:
       tags:
         - category_tree
-      summary: Get a Category Subtree
+      summary: eBay Get a Category Subtree
       description: 'This call retrieves the details of all nodes of the category tree hierarchy (the subtree) below a specified category of a category tree. You identify the tree using the <b>category_tree_id</b> parameter, which was returned by the <b>getDefaultCategoryTreeId</b> call in the <b>categoryTreeId</b> field.<br><br><span class="tablenote"> <strong>Note:</strong> This method can return a very large payload, so gzip compression is supported. To enable gzip compression, include the <code>Accept-Encoding</code> header and set its value to <code>gzip</code> as shown below: <br><br><code>&nbsp;&nbsp;Accept-Encoding: gzip</code></span>'
       operationId: getCategorySubtree
       parameters:
@@ -222,7 +222,7 @@ paths:
     get:
       tags:
         - category_tree
-      summary: Get Suggested Categories
+      summary: eBay Get Suggested Categories
       description: This call returns an array of category tree leaf nodes in the specified category tree that are considered by eBay to most closely correspond to the query string <b>q</b>. Returned with each suggested node is a localized name for that category (based on the <b>Accept-Language</b> header specified for the call), and details about each of the category's ancestor nodes, extending from its immediate parent up to the root of the category tree.<br><br>You identify the tree using the <b>category_tree_id</b> parameter, which was returned by the <b>getDefaultCategoryTreeId</b> call in the <b>categoryTreeId</b> field.<br><br><span class="tablenote"> <strong><span style="color:red">Important:</span></strong> This call is not supported in the Sandbox environment. It will return a response payload in which the <b>categoryName</b> fields contain random or boilerplate text regardless of the query submitted.</span>
       operationId: getCategorySuggestions
       parameters:
@@ -342,7 +342,7 @@ paths:
     get:
       tags:
         - category_tree
-      summary: Get Compatibility Properties
+      summary: eBay Get Compatibility Properties
       description: This call retrieves the compatible vehicle aspects that are used to define a motor vehicle that is compatible with a motor vehicle part or accessory. The values that are retrieved here might include motor vehicle aspects such as 'Make', 'Model', 'Year', 'Engine', and 'Trim', and each of these aspects are localized for the eBay marketplace.<br><br> The <strong>category_tree_id</strong> value is passed in as a path parameter, and this value identifies the eBay category tree. The <strong>category_id</strong> value is passed in as a query parameter, as this parameter is also required. The specified category must be a category that supports parts compatibility.<br><br> At this time, this operation only supports parts and accessories listings for cars, trucks, and motorcycles (not boats, power sports, or any other vehicle types). Only the following eBay marketplaces support parts compatibility:<ul><li>eBay US (Motors and non-Motors categories)</li><li>eBay Canada (Motors and non-Motors categories)</li><li>eBay UK</li><li>eBay Germany</li><li>eBay Australia</li><li>eBay France</li><li>eBay Italy</li><li>eBay Spain</li></ul>
       operationId: getCompatibilityProperties
       parameters:
@@ -408,7 +408,7 @@ paths:
     get:
       tags:
         - category_tree
-      summary: Get Compatibility Property Values
+      summary: eBay Get Compatibility Property Values
       description: This call retrieves applicable compatible vehicle property values based on the specified eBay marketplace, specified eBay category, and filters used in the request. Compatible vehicle properties are returned in the <strong>compatibilityProperties.name</strong> field of a <strong>getCompatibilityProperties</strong> response. <br><br> One compatible vehicle property applicable to the specified eBay marketplace and eBay category is specified through the required <strong>compatibility_property</strong> filter. Then, the user has the option of further restricting the compatible vehicle property values that are returned in the response by specifying one or more compatible vehicle property name/value pairs through the <strong>filter</strong> query parameter.<br><br>See the documentation in <strong>URI parameters</strong> section for more information on using the <strong>compatibility_property</strong> and <strong>filter</strong> query parameters together to customize the data that is retrieved.
       operationId: getCompatibilityPropertyValues
       parameters:

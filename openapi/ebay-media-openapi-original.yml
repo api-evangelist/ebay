@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Media API
+  title: eBay Media API
   description: The Media API allows sellers to create, upload, and fetch videos.
   contact:
     name: eBay Inc,
@@ -348,8 +348,8 @@ components:
           description: The playable URL for this video.
         protocol:
           type: string
-          description: "The protocol for the video playlist. Supported protocols are DASH (Dynamic Adaptive Streaming over HTTP) and HLS (HTTP\_Live Streaming). For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/media/types/api:ProtocolEnum'>eBay API documentation</a>"
-      description: "The two streaming video URLs available for a successfully uploaded video with a status of <code>LIVE</code>. The supported streaming video protocols are DASH (Dynamic Adaptive Streaming over HTTP) and HLS (HTTP\_Live Streaming)."
+          description: "The protocol for the video playlist. Supported protocols are DASH (Dynamic Adaptive Streaming over HTTP) and HLS (HTTP Live Streaming). For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/media/types/api:ProtocolEnum'>eBay API documentation</a>"
+      description: "The two streaming video URLs available for a successfully uploaded video with a status of <code>LIVE</code>. The supported streaming video protocols are DASH (Dynamic Adaptive Streaming over HTTP) and HLS (HTTP Live Streaming)."
     Video:
       type: object
       properties:
@@ -370,7 +370,7 @@ components:
           $ref: '#/components/schemas/Moderation'
         playLists:
           type: array
-          description: "The playlist created for the uploaded video, which provides the streaming video URLs to play the video. The supported streaming video protocols are DASH (Dynamic Adaptive Streaming over HTTP) and HLS (HTTP\_Live Streaming). The playlist will only be generated if a video is successfully uploaded with a status of <code>LIVE</code>."
+          description: "The playlist created for the uploaded video, which provides the streaming video URLs to play the video. The supported streaming video protocols are DASH (Dynamic Adaptive Streaming over HTTP) and HLS (HTTP Live Streaming). The playlist will only be generated if a video is successfully uploaded with a status of <code>LIVE</code>."
           items:
             $ref: '#/components/schemas/Play'
         size:
