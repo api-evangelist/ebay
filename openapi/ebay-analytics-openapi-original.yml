@@ -18,7 +18,7 @@ paths:
   "/customer_service_metric/{customer_service_metric_type}/{evaluation_type}":
     get:
       tags:
-        - customer_service_metric
+        - Customer_service_metric
       description: 'Use this method to retrieve a seller''s performance and rating for the customer service metric.  <br><br>Control the response from the <b>getCustomerServiceMetric</b> method using the following path and query parameters: <ul><li><b>customer_service_metric_type</b> controls the type of customer service transactions evaluated for the metric rating.</li> <li><b>evaluation_type</b> controls the period you want to review.</li> <li><b>evaluation_marketplace_id</b> specifies the target marketplace for the evaluation.</li></ul> Currently, metric data is returned for only peer benchmarking. For details on the workings of peer benchmarking, see <a href="https://www.ebay.com/help/policies/selling-policies/seller-performance-policy/service-metrics-policy?id=4769" title="eBay Help pages" target="_blank">Service metrics policy</a>.  <br><br>For details on using and understanding the response from this method, see <a href="/api-docs/sell/static/performance/customer-service-metric.html" title="Selling Integration Guide">Interpreting customer service metric ratings</a>.'
       operationId: getCustomerServiceMetric
       parameters:
@@ -89,7 +89,7 @@ paths:
   "/seller_standards_profile":
     get:
       tags:
-        - seller_standards_profile
+        - Seller_standards_profile
       description: This call retrieves all the standards profiles for the associated seller.  <br><br>A <i>standards profile </i> is a set of eBay seller metrics and the seller's associated compliance values (either <code>TOP_RATED</code>, <code>ABOVE_STANDARD</code>, or <code>BELOW_STANDARD</code>).  <br><br>A seller's multiple profiles are distinguished by two criteria, a "program" and a "cycle." A profile's <i>program </i> is one of three regions where the seller may have done business, or <code>PROGRAM_GLOBAL</code> to indicate all marketplaces where the seller has done business. The <i>cycle</i> value specifies whether the standards compliance values were determined at the last official eBay evaluation or at the time of the request.
       operationId: findSellerStandardsProfiles
       responses:
@@ -109,7 +109,7 @@ paths:
   "/seller_standards_profile/{program}/{cycle}":
     get:
       tags:
-        - seller_standards_profile
+        - Seller_standards_profile
       description: This call retrieves a single standards profile for the associated seller.  <br><br>A <i>standards profile </i> is a set of eBay seller metrics and the seller's associated compliance values (either <code>TOP_RATED</code>, <code>ABOVE_STANDARD</code>, or <code>BELOW_STANDARD</code>).  <br><br>A seller can have multiple profiles distinguished by two criteria, a "program" and a "cycle." A profile's <i>program </i> is one of three regions where the seller may have done business, or <code>PROGRAM_GLOBAL</code> to indicate all marketplaces where the seller has done business. The <i>cycle</i> value specifies whether the standards compliance values were determined at the last official eBay evaluation (<code>CURRENT</code>) or at the time of the request (<code>PROJECTED</code>). Both cycle and a program values are required URI parameters for this method.
       operationId: getSellerStandardsProfile
       parameters:
@@ -170,7 +170,7 @@ paths:
   "/traffic_report":
     get:
       tags:
-        - traffic_report
+        - Traffic_report
       description: This method returns a report that details the user traffic received by a seller's listings. <br><br>A traffic report gives sellers the ability to review how often their listings appeared on eBay, how many times their listings are viewed, and how many purchases were made. The report also returns the report's start and end dates, and the date the information was last updated.  <br><br>For more information, see <a href="/api-docs/sell/static/performance/traffic-report.html" target="_blank">Traffic report details</a>
       operationId: getTrafficReport
       parameters:
@@ -684,3 +684,7 @@ components:
           tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
           scopes:
             https://api.ebay.com/oauth/api_scope/sell.analytics.readonly: View your selling analytics data, such as performance reports
+tags:
+  - name: Customer_service_metric
+  - name: Seller_standards_profile
+  - name: Traffic_report

@@ -18,7 +18,7 @@ paths:
   /config:
     get:
       tags:
-        - config
+        - Config
       description: This method allows applications to retrieve a previously created configuration.
       operationId: getConfig
       responses:
@@ -49,7 +49,7 @@ paths:
             - https://api.ebay.com/oauth/api_scope
     put:
       tags:
-        - config
+        - Config
       description: This method allows applications to create a new configuration or update an existing configuration. This app-level configuration allows developers to set up alerts.
       operationId: updateConfig
       parameters:
@@ -92,7 +92,7 @@ paths:
   /destination:
     get:
       tags:
-        - destination
+        - Destination
       description: This method allows applications to retrieve a paginated collection of destination resources and related details. The details include the destination names, statuses, and configurations, including the endpoints and verification tokens.
       operationId: getDestinations
       parameters:
@@ -140,7 +140,7 @@ paths:
             - https://api.ebay.com/oauth/api_scope
     post:
       tags:
-        - destination
+        - Destination
       description: This method allows applications to create a destination. A destination is an endpoint that receives HTTP push notifications.<br><br>A single destination for all topics is valid, as is individual destinations for each topic.<br><br>To update a destination, use the <strong>updateDestination</strong> call.<br><br>The destination created will need to be referenced while creating or updating a subscription to a topic.<br><br><span class="tablenote"><b>Note:</b> The destination should be created and ready to respond with the expected <b>challengeResponse</b> for the endpoint to be registered successfully. Refer to the <a href="/api-docs/commerce/notification/overview.html">Notification API overview</a> for more information.</span>
       operationId: createDestination
       parameters:
@@ -220,7 +220,7 @@ paths:
   /destination/{destination_id}:
     get:
       tags:
-        - destination
+        - Destination
       description: This method allows applications to fetch the details for a destination. The details include the destination name, status, and configuration, including the endpoint and verification token.
       operationId: getDestination
       parameters:
@@ -260,7 +260,7 @@ paths:
             - https://api.ebay.com/oauth/api_scope
     put:
       tags:
-        - destination
+        - Destination
       description: This method allows applications to update a destination.<br><br><span class="tablenote"><b>Note:</b> The destination should be created and ready to respond with the expected <b>challengeResponse</b> for the endpoint to be registered successfully. Refer to the <a href="/api-docs/commerce/notification/overview.html">Notification API overview</a> for more information.</span>
       operationId: updateDestination
       parameters:
@@ -340,7 +340,7 @@ paths:
             - https://api.ebay.com/oauth/api_scope
     delete:
       tags:
-        - destination
+        - Destination
       description: This method provides applications a way to delete a destination.<br><br>The same destination ID can be used by many destinations.<br><br>Trying to delete an active destination results in an error. You can disable a subscription, and when the destination is no longer in use, you can delete it.
       operationId: deleteDestination
       parameters:
@@ -385,7 +385,7 @@ paths:
   /public_key/{public_key_id}:
     get:
       tags:
-        - public_key
+        - Public_key
       description: 'This method allows users to retrieve a public key using a specified key ID. The public key that is returned in the response payload is used to process and validate eBay notifications.<br><br>The public key ID, which is a required request parameter for this method, is retrieved from the Base64-encoded <b>X-EBAY-SIGNATURE</b> header that is included in the eBay notification.<br><br><div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> The retrieved public key value should be cached for a temporary — but reasonable — amount of time (e.g., one-hour is recommended.) This key should not be requested for every notification since doing so can result in exceeding <a href="/develop/apis/api-call-limits" target="_blank">API call limits</a> if a large number of notification requests is received.</p></div><br><span class="tablenote"><b>Note:</b> For more details about how to process eBay push notifications and validate notification message payloads, see the <a href="/api-docs/commerce/notification/overview.html">Notification API overview</a>.</span>'
       operationId: getPublicKey
       parameters:
@@ -426,7 +426,7 @@ paths:
   /subscription:
     get:
       tags:
-        - subscription
+        - Subscription
       description: This method allows applications to retrieve a list of all subscriptions. The list returned is a paginated collection of subscription resources.<br><br>Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.
       operationId: getSubscriptions
       parameters:
@@ -476,7 +476,7 @@ paths:
             - https://api.ebay.com/oauth/api_scope/commerce.notification.subscription
     post:
       tags:
-        - subscription
+        - Subscription
       description: This method allows applications to create a subscription for a topic and supported schema version. Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.<br><br>Each application and topic-schema pairing to a subscription should have a 1:1 cardinality.<br><br>You can create the subscription in disabled mode, test it (see the <b>test</b> method), and when everything is ready, you can enable the subscription (see the <b>enableSubscription</b> method).<br><br><span class="tablenote"><b>Note:</b> If an application is not authorized to subscribe to a topic, for example, if your authorization does not include the list of scopes required for the topic, an error code of 195011 is returned.</span>
       operationId: createSubscription
       parameters:
@@ -573,7 +573,7 @@ paths:
   /subscription/{subscription_id}/filter:
     post:
       tags:
-        - subscription
+        - Subscription
       description: This method allows applications to create a filter for a subscription. Filters allow applications to only be sent notifications that match a provided criteria. Notifications that do not match this criteria will not be sent to the destination.<br><br>The <strong>filterSchema</strong> value must be a valid <a href="https://json-schema.org " target="_blank">JSON Schema Core document</a> (version 2020-12 or later). The <strong>filterSchema</strong> provided must describe the subscription's notification payload such that it supplies valid criteria to filter the subscription's notifications. The user does not need to provide <code>$schema</code> and <code>$id</code> definitions.<br><br>When a filter is first created, it is not immediately active on the subscription. If the request has a valid JSON body, the successful call returns the HTTP status code <b>201&nbsp;Created</b>. Newly created filters are in <code>PENDING</code> status until they are reviewed. If a filter is valid, it will move from <code>PENDING</code> status to <code>ENABLED</code> status. You can find the status of a filter using the <a href="/api-docs/commerce/notification/resources/subscription/methods/getSubscriptionFilter">getSubscriptionFilter</a> method. See <a href="/api-docs/commerce/notification/overview.html#create-filter" target="_blank">Creating a subscription filter for a topic</a> for additional information.<br><br><span class="tablenote"><b>Note:</b> Only one filter can be in <strong>ENABLED</strong> (which means active) status on a subscription at a time. If an <strong>ENABLED</strong> filter is overwritten by a new call to <strong>CREATE</strong> a filter for the subscription, it stays in <strong>ENABLED</strong> status until the new <strong>PENDING</strong> filter becomes the <strong>ENABLED</strong> filter, and the existing filter then becomes <strong>DISABLED</strong>.</span>
       operationId: createSubscriptionFilter
       parameters:
@@ -652,7 +652,7 @@ paths:
   /subscription/{subscription_id}:
     get:
       tags:
-        - subscription
+        - Subscription
       description: This method allows applications to retrieve subscription details for the specified subscription.<br><br>Specify the subscription to retrieve using the <strong>subscription_id</strong>. Use the <strong>getSubscriptions</strong> method to browse all subscriptions if you do not know the <strong>subscription_id</strong>.<br><br>Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.
       operationId: getSubscription
       parameters:
@@ -694,7 +694,7 @@ paths:
             - https://api.ebay.com/oauth/api_scope/commerce.notification.subscription
     put:
       tags:
-        - subscription
+        - Subscription
       description: This method allows applications to update a subscription. Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.<br><br><span class="tablenote"><b>Note:</b> This call returns an error if an application is not authorized to subscribe to a topic.</span><br><br>You can pause and restart a subscription. See the <b>disableSubscription</b> and <b>enableSubscription</b> methods.
       operationId: updateSubscription
       parameters:
@@ -783,7 +783,7 @@ paths:
             - https://api.ebay.com/oauth/api_scope/commerce.notification.subscription
     delete:
       tags:
-        - subscription
+        - Subscription
       description: This method allows applications to delete a subscription. Subscriptions can be deleted regardless of status.
       operationId: deleteSubscription
       parameters:
@@ -821,7 +821,7 @@ paths:
   /subscription/{subscription_id}/filter/{filter_id}:
     get:
       tags:
-        - subscription
+        - Subscription
       description: This method allows applications to retrieve the filter details for the specified subscription filter.<br><br>Specify the subscription filter to retrieve by using the <strong>subscription_id</strong> and the <strong>filter_id</strong> associated with the subscription filter. The <strong>filter_id</strong> can be found in the response body for the <strong>getSubscription</strong> method, if there is a filter applied on the subscription.<br><br>Filters allow applications to only be sent notifications that match a provided criteria. Notifications that do not match this criteria will not be sent to the destination.
       operationId: getSubscriptionFilter
       parameters:
@@ -887,7 +887,7 @@ paths:
             - https://api.ebay.com/oauth/api_scope/commerce.notification.subscription
     delete:
       tags:
-        - subscription
+        - Subscription
       description: This method allows applications to disable the active filter on a subscription, so that a new subscription filter may be added.<br><br><span class="tablenote"><b>Note:</b> Subscription filters in <strong>PENDING</strong> status can not be disabled. However, a new filter can be created instead with the <strong>createSubscriptionFilter</strong> method and this new filter will override the <strong>PENDING</strong> filter.</span>
       operationId: deleteSubscriptionFilter
       parameters:
@@ -949,7 +949,7 @@ paths:
   /subscription/{subscription_id}/disable:
     post:
       tags:
-        - subscription
+        - Subscription
       description: This method disables a subscription, which prevents the subscription from providing notifications. To restart a subscription, call <strong>enableSubscription</strong>.
       operationId: disableSubscription
       parameters:
@@ -987,7 +987,7 @@ paths:
   /subscription/{subscription_id}/enable:
     post:
       tags:
-        - subscription
+        - Subscription
       description: This method allows applications to enable a disabled subscription. To pause (or disable) an enabled subscription, call <strong>disableSubscription</strong>.
       operationId: enableSubscription
       parameters:
@@ -1037,7 +1037,7 @@ paths:
   /subscription/{subscription_id}/test:
     post:
       tags:
-        - subscription
+        - Subscription
       description: This method triggers a mocked test payload that includes a notification ID, publish date, and so on. Use this method to test your subscription end-to-end.<br><br>You can create the subscription in disabled mode, test it using this method, and when everything is ready, you can enable the subscription (see the <strong>enableSubscription</strong> method).<br><br><span class="tablenote"><b>Note:</b> Use the <strong>notificationId</strong> to tell the difference between a test payload and a real payload.</span>
       operationId: testSubscription
       parameters:
@@ -1075,7 +1075,7 @@ paths:
   /topic/{topic_id}:
     get:
       tags:
-        - topic
+        - Topic
       description: This method allows applications to retrieve details for the specified topic. This information includes supported schema versions, formats, and other metadata for the topic.<br><br>Applications can subscribe to any of the topics for a supported schema version and format, limited by the authorization scopes required to subscribe to the topic.<br><br>A topic specifies the type of information to be received and the data types associated with an event. An event occurs in the eBay system, such as when a user requests deletion or revokes access for an application. An event is an instance of an event type (topic).<br><br>Specify the topic to retrieve using the <b>topic_id</b> URI parameter.<br><br><span class="tablenote"><b>Note:</b> Use the <a href="/api-docs/commerce/notification/resources/topic/methods/getTopics">getTopics</a> method to find a topic if you do not know the topic ID.</span>
       operationId: getTopic
       parameters:
@@ -1116,7 +1116,7 @@ paths:
   /topic:
     get:
       tags:
-        - topic
+        - Topic
       description: This method returns a paginated collection of all supported topics, along with the details for the topics. This information includes supported schema versions, formats, and other metadata for the topics.<br><br>Applications can subscribe to any of the topics for a supported schema version and format, limited by the authorization scopes required to subscribe to the topic.<br><br>A topic specifies the type of information to be received and the data types associated with an event. An event occurs in the eBay system, such as when a user requests deletion or revokes access for an application. An event is an instance of an event type (topic).
       operationId: getTopics
       parameters:
@@ -1500,3 +1500,9 @@ components:
           scopes:
             https://api.ebay.com/oauth/api_scope/commerce.notification.subscription.readonly: View your event notification subscriptions
             https://api.ebay.com/oauth/api_scope/commerce.notification.subscription: View and manage your event notification subscriptions
+tags:
+  - name: Config
+  - name: Destination
+  - name: Public_key
+  - name: Subscription
+  - name: Topic

@@ -18,7 +18,7 @@ paths:
   /bidding/{item_id}:
     get:
       tags:
-        - bidding
+        - Bidding
       description: This method retrieves the bidding details that are specific to the buyer of the specified auction. This must be an auction where the buyer has already placed a bid. <br><br>To retrieve the bidding information you use a <a href="/api-docs/static/oauth-tokens.html">user access token</a> and pass in the item ID of the auction. You can also retrieve general bidding details about the auction, such as minimum bid price and the count of unique bidders, using the <b>Browse API</b> <a href="/api-docs/buy/browse/resources/item/methods/getItems">getItems</a> method.    <h3><b>Restrictions </b></h3> <p> For a list of supported sites and other restrictions, see <a href="/api-docs/buy/offer/overview.html#API">API Restrictions</a>.</p>
       operationId: getBidding
       parameters:
@@ -79,7 +79,7 @@ paths:
   /bidding/{item_id}/place_proxy_bid:
     post:
       tags:
-        - bidding
+        - Bidding
       description: 'This method uses a <a href="/api-docs/static/oauth-qref-auth-code-grant.html">user access token</a> to place a proxy bid for the buyer on a specific auction item. The item must offer <code>AUCTION</code> as one of the <b> buyingOptions</b>. <br><br>To place a bid, you pass in the item ID of the auction as a URI parameter and the buyer''s maximum bid amount (<b>maxAmount </b>) in the payload.   By placing a proxy bid, the buyer is agreeing to purchase the item if they win the auction. <p>After this bid is placed, if someone else outbids the buyer a bid, eBay automatically bids again for the buyer up to the amount of their maximum bid. When the bid exceeds the buyer''s maximum bid, eBay will notify them that they have been outbid.<br><br>To find auctions, you can use the <a href="/api-docs/buy/browse/resources/item_summary/methods/search">Browse API to search</a> for items and use a filter to return only auction items. For example: <br><br>   <code>/buy/browse/v1/item_summary/search?q=iphone&filter=buyingOptions:{AUCTION}</code> </p><h3><b>Restrictions </b></h3>For a list of supported sites and other restrictions, see <a href="/api-docs/buy/offer/overview.html#API">API Restrictions</a>.'
       operationId: placeProxyBid
       parameters:
@@ -402,3 +402,5 @@ components:
           tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
           scopes:
             https://api.ebay.com/oauth/api_scope/buy.offer.auction: View and manage bidding activities for auctions
+tags:
+  - name: Bidding

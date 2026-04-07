@@ -18,7 +18,7 @@ paths:
   /translate:
     post:
       tags:
-        - language
+        - Language
       description: >-
         This method translates listing title and listing description text from
         one language into another. For a full list of supported language
@@ -277,3 +277,5 @@ components:
           tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
           scopes:
             https://api.ebay.com/oauth/api_scope: View public data from eBay
+tags:
+  - name: Language

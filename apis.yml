@@ -1,21 +1,17 @@
 aid: ebay
-url: 
-  https://raw.githubusercontent.com/api-search/commerce/main/_apis/ebay/apis.md
+url: https://raw.githubusercontent.com/api-search/commerce/main/_apis/ebay/apis.md
 apis:
   - aid: ebay:ebay-account-api
     name: eBay Account API
     tags:
       - Auctions
-      - Products
       - Commerce
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer.ebay.com/api-docs/sell/account/static/overview.html
+    humanURL: https://developer.ebay.com/api-docs/sell/account/static/overview.html
     properties:
-      - url: 
-          https://developer.ebay.com/api-docs/sell/account/static/overview.html
+      - url: https://developer.ebay.com/api-docs/sell/account/static/overview.html
         type: Documentation
       - url: openapi/ebay-account-openapi-original.yml
         type: OpenAPI
@@ -29,15 +25,13 @@ apis:
   - aid: ebay:analytics-api
     name: eBay Analytics API
     tags:
-      - Auctions
-      - Products
-      - Commerce
       - Analytics
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Auctions
+      - Commerce
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer.ebay.com/api-docs/sell/analytics/static/overview.html
+    humanURL: https://developer.ebay.com/api-docs/sell/analytics/static/overview.html
     properties:
       - url: >-
           https://developer.ebay.com/api-docs/sell/analytics/static/overview.html
@@ -54,17 +48,14 @@ apis:
     name: eBay Compliance API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Compliance
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer.ebay.com/api-docs/sell/compliance/resources/methods
+    humanURL: https://developer.ebay.com/api-docs/sell/compliance/resources/methods
     properties:
-      - url: 
-          https://developer.ebay.com/api-docs/sell/compliance/resources/methods
+      - url: https://developer.ebay.com/api-docs/sell/compliance/resources/methods
         type: Documentation
       - url: openapi/ebay-compliance-openapi-original.yml
         type: OpenAPI
@@ -78,11 +69,10 @@ apis:
     name: eBay Feed API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Feed
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.ebay.com/api-docs/sell/feed/resources/methods
     properties:
@@ -101,11 +91,10 @@ apis:
     name: eBay Browse API
     tags:
       - Auctions
-      - Products
-      - Commerce
       - Browse
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Commerce
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.ebay.com/api-docs/buy/browse/overview.html
     properties:
@@ -125,11 +114,10 @@ apis:
     name: eBay Deal API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Deal
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.ebay.com/api-docs/buy/deal/resources/methods
     properties:
@@ -149,10 +137,9 @@ apis:
     name: eBay Deal API
     tags:
       - Auctions
-      - Products
       - Commerce
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.ebay.com/api-docs/buy/deal/resources/methods
     properties:
@@ -172,21 +159,18 @@ apis:
     name: eBay Market API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Market
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer.ebay.com/api-docs/buy/marketing/resources/methods
+    humanURL: https://developer.ebay.com/api-docs/buy/marketing/resources/methods
     properties:
       - url: https://developer.ebay.com/api-docs/buy/marketing/resources/methods
         type: Documentation
       - url: openapi/ebay-market-openapi-original.yml
         type: OpenAPI
-      - url: 
-          https://developer.ebay.com/api-docs/buy/marketing/release-notes.html
+      - url: https://developer.ebay.com/api-docs/buy/marketing/release-notes.html
         type: Release Notes
     description: >-
       eBay Market API is a powerful tool that allows developers and sellers to access
@@ -199,20 +183,17 @@ apis:
     name: eBay Market API
     tags:
       - Auctions
-      - Products
       - Commerce
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer.ebay.com/api-docs/buy/marketing/resources/methods
+    humanURL: https://developer.ebay.com/api-docs/buy/marketing/resources/methods
     properties:
       - url: https://developer.ebay.com/api-docs/buy/marketing/resources/methods
         type: Documentation
       - url: openapi/ebay-market-openapi-original.yml
         type: OpenAPI
-      - url: 
-          https://developer.ebay.com/api-docs/buy/marketing/release-notes.html
+      - url: https://developer.ebay.com/api-docs/buy/marketing/release-notes.html
         type: Release Notes
     description: >-
       eBay Market API is a powerful tool that allows developers and sellers to access
@@ -225,11 +206,10 @@ apis:
     name: eBay Marketplace Insights API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Insights
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: >-
       https://developer.ebay.com/api-docs/buy/marketplace-insights/resources/methods
@@ -254,11 +234,10 @@ apis:
     name: eBay Offer API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Offer
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.ebay.com/api-docs/buy/offer/overview.html
     properties:
@@ -279,11 +258,10 @@ apis:
     name: eBay Order API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Orders
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.ebay.com/api-docs/buy/order/overview.html
     properties:
@@ -303,11 +281,10 @@ apis:
     name: eBay Finances API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Finances
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.ebay.com/api-docs/sell/finances/overview.html
     properties:
@@ -315,8 +292,7 @@ apis:
         type: Documentation
       - url: openapi/ebay-finances-openapi-original.yml
         type: OpenAPI
-      - url: 
-          https://developer.ebay.com/api-docs/sell/finances/release-notes.html
+      - url: https://developer.ebay.com/api-docs/sell/finances/release-notes.html
         type: Release Notes
     description: >-
       eBay Finances API is a tool that allows users to track, analyze, and manage
@@ -328,11 +304,10 @@ apis:
     name: eBay Fulfillment API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Fulfillment
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.ebay.com/api-docs/sell/fulfillment/overview.html
     properties:
@@ -355,11 +330,10 @@ apis:
     name: eBay Inventory API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Inventory
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.ebay.com/api-docs/sell/inventory/overview.html
     properties:
@@ -367,8 +341,7 @@ apis:
         type: Documentation
       - url: openapi/ebay-inventory-openapi-original.yml
         type: OpenAPI
-      - url: 
-          https://developer.ebay.com/api-docs/sell/inventory/release-notes.html
+      - url: https://developer.ebay.com/api-docs/sell/inventory/release-notes.html
         type: Release Notes
     description: >-
       The eBay Inventory API is a tool that allows sellers to manage and update their
@@ -380,11 +353,10 @@ apis:
     name: eBay Logistics API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Logistics
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.ebay.com/api-docs/sell/logistics/overview.html
     properties:
@@ -392,8 +364,7 @@ apis:
         type: Documentation
       - url: openapi/ebay-logistics-openapi-original.yml
         type: OpenAPI
-      - url: 
-          https://developer.ebay.com/api-docs/sell/logistics/release-notes.html
+      - url: https://developer.ebay.com/api-docs/sell/logistics/release-notes.html
         type: Release Notes
     description: >-
       eBay Logistics API is a tool that provides access to comprehensive shipping
@@ -407,10 +378,9 @@ apis:
     name: eBay Logistics API
     tags:
       - Auctions
-      - Products
       - Commerce
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.ebay.com/api-docs/sell/logistics/overview.html
     properties:
@@ -418,8 +388,7 @@ apis:
         type: Documentation
       - url: openapi/ebay-logistics-openapi-original.yml
         type: OpenAPI
-      - url: 
-          https://developer.ebay.com/api-docs/sell/logistics/release-notes.html
+      - url: https://developer.ebay.com/api-docs/sell/logistics/release-notes.html
         type: Release Notes
     description: >-
       eBay Logistics API is a tool that provides access to comprehensive shipping
@@ -433,11 +402,10 @@ apis:
     name: eBay Metadata API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Metadata
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.ebay.com/api-docs/sell/metadata/overview.html
     properties:
@@ -445,8 +413,7 @@ apis:
         type: Documentation
       - url: openapi/ebay-metadata-openapi-original.yml
         type: OpenAPI
-      - url: 
-          https://developer.ebay.com/api-docs/sell/metadata/release-notes.html
+      - url: https://developer.ebay.com/api-docs/sell/metadata/release-notes.html
         type: Release Notes
     description: >-
       The eBay Metadata API is a tool that allows developers to obtain detailed information
@@ -459,11 +426,10 @@ apis:
     name: eBay Negotiation API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Negotiation
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.ebay.com/api-docs/sell/negotiation/overview.html
     properties:
@@ -484,17 +450,14 @@ apis:
     name: eBay Recommendation API
     tags:
       - Auctions
-      - Products
       - Commerce
+      - Products
       - Recommendations
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer.ebay.com/api-docs/sell/recommendation/overview.html
+    humanURL: https://developer.ebay.com/api-docs/sell/recommendation/overview.html
     properties:
-      - url: 
-          https://developer.ebay.com/api-docs/sell/recommendation/overview.html
+      - url: https://developer.ebay.com/api-docs/sell/recommendation/overview.html
         type: Documentation
       - url: openapi/ebay-recommendation-openapi-original.yml
         type: OpenAPI
@@ -513,10 +476,9 @@ apis:
     name: eBay Recommendation API
     tags:
       - Auctions
-      - Products
       - Commerce
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.ebay.com/api-docs/sell/stores/overview.html
     properties:
@@ -538,17 +500,14 @@ apis:
     name: eBay Catalog API
     tags:
       - Auctions
-      - Products
-      - Commerce
       - Catalogs
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Commerce
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer.ebay.com/api-docs/commerce/catalog/resources/methods
+    humanURL: https://developer.ebay.com/api-docs/commerce/catalog/resources/methods
     properties:
-      - url: 
-          https://developer.ebay.com/api-docs/commerce/catalog/resources/methods
+      - url: https://developer.ebay.com/api-docs/commerce/catalog/resources/methods
         type: Documentation
       - url: openapi/ebay-catalog-openapi-original.yml
         type: OpenAPI
@@ -564,10 +523,9 @@ apis:
     name: eBay Charity API
     tags:
       - Auctions
-      - Products
       - Commerce
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.ebay.com/api-docs/commerce/charity/overview.html
     properties:
@@ -589,14 +547,12 @@ apis:
     name: eBay Identity API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Identity
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer.ebay.com/api-docs/commerce/identity/overview.html
+    humanURL: https://developer.ebay.com/api-docs/commerce/identity/overview.html
     properties:
       - url: https://developer.ebay.com/api-docs/commerce/identity/overview.html
         type: Documentation
@@ -616,11 +572,10 @@ apis:
     name: eBay Media API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Media
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: https://developer.ebay.com/api-docs/commerce/media/overview.html
     properties:
@@ -628,8 +583,7 @@ apis:
         type: Documentation
       - url: openapi/ebay-media-openapi-original.yml
         type: OpenAPI
-      - url: 
-          https://developer.ebay.com/api-docs/commerce/media/release-notes.html
+      - url: https://developer.ebay.com/api-docs/commerce/media/release-notes.html
         type: Release Notes
     description: >-
       The eBay Media API is a tool provided by eBay that allows developers to access
@@ -641,14 +595,12 @@ apis:
     name: eBay Notification API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Notifications
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer.ebay.com/api-docs/commerce/notification/overview.html
+    humanURL: https://developer.ebay.com/api-docs/commerce/notification/overview.html
     properties:
       - url: >-
           https://developer.ebay.com/api-docs/commerce/notification/overview.html
@@ -681,14 +633,12 @@ apis:
     name: eBay Taxonomy API
     tags:
       - Auctions
-      - Products
       - Commerce
+      - Products
       - Taxonomies
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer.ebay.com/api-docs/commerce/taxonomy/overview.html
+    humanURL: https://developer.ebay.com/api-docs/commerce/taxonomy/overview.html
     properties:
       - url: https://developer.ebay.com/api-docs/commerce/taxonomy/overview.html
         type: Documentation
@@ -707,16 +657,13 @@ apis:
     name: eBay Taxonomy API
     tags:
       - Auctions
-      - Products
       - Commerce
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer.ebay.com/api-docs/commerce/translation/overview.html
+    humanURL: https://developer.ebay.com/api-docs/commerce/translation/overview.html
     properties:
-      - url: 
-          https://developer.ebay.com/api-docs/commerce/translation/overview.html
+      - url: https://developer.ebay.com/api-docs/commerce/translation/overview.html
         type: Documentation
       - url: openapi/ebay-translation-openapi-original.yml
         type: OpenAPI
@@ -733,12 +680,11 @@ apis:
     name: eBay Client Registration API
     tags:
       - Auctions
-      - Products
-      - Commerce
-      - Registrations
       - Clients
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Commerce
+      - Products
+      - Registrations
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
     humanURL: >-
       https://developer.ebay.com/api-docs/developer/client-registration/overview.html
@@ -761,14 +707,12 @@ apis:
     name: eBay Key Management API
     tags:
       - Auctions
-      - Products
       - Commerce
       - Keys
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+      - Products
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.example.com
-    humanURL: 
-      https://developer.ebay.com/api-docs/developer/key-management/overview.html
+    humanURL: https://developer.ebay.com/api-docs/developer/key-management/overview.html
     properties:
       - url: >-
           https://developer.ebay.com/api-docs/developer/key-management/overview.html
@@ -787,10 +731,9 @@ apis:
 name: eBay
 tags:
   - Auctions
-  - Products
   - Commerce
-image: 
-  https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+  - Products
+image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 common:
   - url: https://developer.ebay.com/develop/get-started
     type: Getting Started

@@ -28,7 +28,7 @@ paths:
   /product/{epid}:
     get:
       tags:
-        - product
+        - Product
       description: >-
         This method retrieves details of the catalog product identified by the
         eBay product identifier (ePID) specified in the request. These details
@@ -119,7 +119,7 @@ paths:
   /product_summary/search:
     get:
       tags:
-        - product_summary
+        - Product_summary
       description: >-
         This method searches for and retrieves summaries of one or more products
         in the eBay catalog that match the search criteria provided by a seller.
@@ -908,3 +908,6 @@ components:
           scopes:
             https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly: ' This scope would allow signed in user to read catalog data.'
             https://api.ebay.com/oauth/api_scope/sell.inventory: View and manage your inventory and offers
+tags:
+  - name: Product
+  - name: Product_summary
