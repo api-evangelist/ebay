@@ -4,216 +4,236 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: eBay
 providerId: ebay
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - Auctions
-  - Commerce
-  - Products
   - Marketplace
-description: Machine-readable plans and pricing scaffold for this API provider. Conforms to the API Commons
-  Plans schema. Tier limits and prices are scaffold defaults; replace with provider-published values.
+  - Commerce
+  - Auctions
+  - Products
+description: eBay's developer APIs are free to use (registration required); commercial value flows from
+  the underlying marketplace, which charges insertion fees, final-value fees (FVF), and optional eBay
+  Store subscriptions. Plans below capture the developer-program access plus the seller-fee surface that
+  most API integrations interact with.
+sources:
+  - https://developer.ebay.com/develop/get-started
+  - https://developer.ebay.com/join/api-license-agreement
+  - https://www.ebay.com/sellercenter/selling/seller-fees
+  - https://www.ebay.com/help/selling/fees-credits-invoices/store-selling-fees?id=4809
 plans:
-  - id: ebay-free
-    name: Free
+  - id: ebay-developer-program
+    name: Developer Program
     type: freemium
-    description: Free entry tier for the eBay API surface. Intended for evaluation, prototyping, and low-volume
-      integrations. Real limits and pricing must be reconciled with the provider's published plan documentation.
+    description: Free access to eBay's REST and Trading APIs (Buy, Sell, Commerce, Developer namespaces)
+      after creating an eBay developer account and obtaining App ID, Cert ID, Dev ID. Production access
+      requires Application Growth Check.
     entries:
-      - label: API Requests
-        description: Monthly API request quota across all included endpoints
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 1000
+      - label: Developer registration
+        name: developer_registration
+        type: subscription
+        metric: account
+        limit: -1
         timeFrame: month
         geo: global
-        domains:
-          - https://api.ebay.com
-          - https://apiz.ebay.com
-          - https://apim.ebay.com
         unit: 1
         price: '0.00'
         userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the free tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 10
-        timeFrame: minute
+      - label: Default daily API call quota (per app, per API)
+        name: api_daily_default
+        type: quota
+        metric: requests
+        limit: 5000
+        timeFrame: day
         geo: global
-        domains:
-          - https://api.ebay.com
-          - https://apiz.ebay.com
-          - https://apim.ebay.com
         unit: 1
         price: '0.00'
         userMultiplied: false
     elements:
-      - name: Public Documentation
-      - name: Community Support
-      - name: Sandbox Access
-      - name: eBay Account API
-      - name: eBay Analytics API
-      - name: eBay Compliance API
-      - name: eBay Feed API
-      - name: eBay Browse API
-      - name: eBay Deal API
-      - name: eBay Marketing API
-      - name: eBay Marketplace Insights API
-  - id: ebay-pro
-    name: Professional
-    type: paid
-    description: Production tier for eBay. Provides higher quotas, priority support, and access to the
-      broader API portfolio. Pricing placeholder; align with the provider's pricing page.
+      - name: Sandbox + production environments
+      - name: OAuth user tokens and application tokens
+      - name: All Buy / Sell / Commerce / Developer APIs
+      - name: Higher quotas via Application Growth Check
+  - id: ebay-marketplace-fees
+    name: Marketplace Seller Fees
+    type: usage-based
+    description: Per-listing and per-sale fees applied by eBay to sellers. Pricing varies by category;
+      standard FVF for most categories is 13.25% + $0.30 per order under $7,500 (with reduced 2.35% on
+      portion above $7,500).
     entries:
-      - label: API Requests
-        description: Monthly API request quota
-        name: api_requests
-        type: quota
-        metric: requests
-        limit: 100000
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.ebay.com
-          - https://apiz.ebay.com
-          - https://apim.ebay.com
-        unit: 1
-        price: TBD
-        userMultiplied: false
-      - label: Rate Limit
-        description: Maximum requests per minute on the professional tier
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 100
-        timeFrame: minute
-        geo: global
-        domains:
-          - https://api.ebay.com
-          - https://apiz.ebay.com
-          - https://apim.ebay.com
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Overage
-        description: Per-request price after monthly quota is exceeded
-        name: overage
+      - label: Standard final-value fee (most categories)
+        name: fvf_standard
         type: metered
-        metric: requests
+        metric: order
         limit: -1
-        timeFrame: month
-        geo: global
-        domains:
-          - https://api.ebay.com
-          - https://apiz.ebay.com
-          - https://apim.ebay.com
-        unit: 1000
-        price: TBD
+        timeFrame: usage
+        geo: US
+        unit: 1
+        price: 13.25% + $0.30
+        userMultiplied: false
+      - label: Final-value fee on portion above $7,500
+        name: fvf_above_threshold
+        type: metered
+        metric: order
+        limit: -1
+        timeFrame: usage
+        geo: US
+        unit: 1
+        price: 2.35%
+        userMultiplied: false
+      - label: International fee
+        name: fvf_international
+        type: metered
+        metric: order
+        limit: -1
+        timeFrame: usage
+        geo: non-US
+        unit: 1
+        price: +1.65%
+        userMultiplied: false
+      - label: Insertion fee (after free monthly allowance)
+        name: insertion_fee
+        type: metered
+        metric: listing
+        limit: -1
+        timeFrame: usage
+        geo: US
+        unit: 1
+        price: '0.35'
         userMultiplied: false
     elements:
-      - name: All Production Endpoints
-      - name: Email Support
-      - name: SLA Targets
-      - name: Webhook Subscriptions
-      - name: eBay Account API
-      - name: eBay Analytics API
-      - name: eBay Compliance API
-      - name: eBay Feed API
-      - name: eBay Browse API
-      - name: eBay Deal API
-      - name: eBay Marketing API
-      - name: eBay Marketplace Insights API
-      - name: eBay Offer API
-      - name: eBay Order API
-      - name: eBay Finances API
-      - name: eBay Fulfillment API
-      - name: eBay Inventory API
-      - name: eBay Logistics API
-      - name: eBay Metadata API
-      - name: eBay Negotiation API
-      - name: eBay Recommendation API
-      - name: eBay Stores API
-      - name: eBay Catalog API
-      - name: eBay Charity API
-      - name: eBay Identity API
-      - name: eBay Media API
-      - name: eBay Notification API
-      - name: eBay Taxonomy API
-      - name: eBay Translation API
-      - name: eBay Client Registration API
-      - name: eBay Key Management API
-  - id: ebay-enterprise
-    name: Enterprise
-    type: enterprise
-    description: Custom-negotiated tier for eBay. Includes dedicated capacity, contractual SLAs, security
-      review, data residency options, and named technical account management.
+      - name: Free zero-insertion listings (250/month no-store; varies by Store tier)
+      - name: Promoted Listings (optional ad fees)
+      - name: Per-category fee schedule
+  - id: ebay-store-starter
+    name: eBay Store - Starter
+    type: subscription
+    description: Entry-tier eBay Store subscription with 250 free listings/month.
     entries:
-      - label: API Requests
-        description: Negotiated request volume; -1 indicates uncapped subject to fair use
-        name: api_requests
-        type: quota
-        metric: requests
+      - label: Store subscription (monthly)
+        name: store_starter_monthly
+        type: subscription
+        metric: month
         limit: -1
         timeFrame: month
-        geo: configurable
-        domains:
-          - https://api.ebay.com
-          - https://apiz.ebay.com
-          - https://apim.ebay.com
+        geo: US
         unit: 1
-        price: custom
-        userMultiplied: false
-      - label: Rate Limit
-        description: Negotiated burst and steady-state rate
-        name: rate_limit
-        type: rate
-        metric: requests_per_minute
-        limit: 1000
-        timeFrame: minute
-        geo: configurable
-        domains:
-          - https://api.ebay.com
-          - https://apiz.ebay.com
-          - https://apim.ebay.com
+        price: '7.95'
+        userMultiplied: true
+      - label: Store subscription (annual)
+        name: store_starter_annual
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: US
         unit: 1
-        price: custom
-        userMultiplied: false
+        price: '4.95'
+        userMultiplied: true
     elements:
-      - name: Unlimited / Negotiated Volume
-      - name: 24/7 Dedicated Support
-      - name: Contractual SLA
-      - name: Security & Compliance Review
-      - name: Dedicated Account Manager
-      - name: Custom Data Residency
-      - name: eBay Account API
-      - name: eBay Analytics API
-      - name: eBay Compliance API
-      - name: eBay Feed API
-      - name: eBay Browse API
-      - name: eBay Deal API
-      - name: eBay Marketing API
-      - name: eBay Marketplace Insights API
-      - name: eBay Offer API
-      - name: eBay Order API
-      - name: eBay Finances API
-      - name: eBay Fulfillment API
-      - name: eBay Inventory API
-      - name: eBay Logistics API
-      - name: eBay Metadata API
-      - name: eBay Negotiation API
-      - name: eBay Recommendation API
-      - name: eBay Stores API
-      - name: eBay Catalog API
-      - name: eBay Charity API
-      - name: eBay Identity API
-      - name: eBay Media API
-      - name: eBay Notification API
-      - name: eBay Taxonomy API
-      - name: eBay Translation API
-      - name: eBay Client Registration API
-      - name: eBay Key Management API
+      - name: 250 free fixed-price listings/month
+      - name: Storefront page
+  - id: ebay-store-basic
+    name: eBay Store - Basic
+    type: subscription
+    description: Mid-tier Store subscription with reduced FVF and higher free-listing allowance.
+    entries:
+      - label: Store subscription (monthly)
+        name: store_basic_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: US
+        unit: 1
+        price: '27.95'
+        userMultiplied: true
+      - label: Store subscription (annual)
+        name: store_basic_annual
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: US
+        unit: 1
+        price: '21.95'
+        userMultiplied: true
+    elements:
+      - name: 1,000 free fixed-price listings/month
+      - name: Reduced FVF on most categories
+  - id: ebay-store-premium
+    name: eBay Store - Premium
+    type: subscription
+    description: Higher-volume Store subscription.
+    entries:
+      - label: Store subscription (monthly)
+        name: store_premium_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: US
+        unit: 1
+        price: '74.95'
+        userMultiplied: true
+      - label: Store subscription (annual)
+        name: store_premium_annual
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: US
+        unit: 1
+        price: '59.95'
+        userMultiplied: true
+    elements:
+      - name: 10,000 free fixed-price listings/month
+      - name: Vacation hold and dedicated support
+  - id: ebay-store-anchor
+    name: eBay Store - Anchor
+    type: subscription
+    description: Top-tier Store subscription targeting heavy sellers.
+    entries:
+      - label: Store subscription (monthly)
+        name: store_anchor_monthly
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: US
+        unit: 1
+        price: '349.95'
+        userMultiplied: true
+      - label: Store subscription (annual)
+        name: store_anchor_annual
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: US
+        unit: 1
+        price: '299.95'
+        userMultiplied: true
+    elements:
+      - name: 25,000 free fixed-price listings/month
+      - name: Dedicated customer support
+  - id: ebay-store-enterprise
+    name: eBay Store - Enterprise
+    type: subscription
+    description: Enterprise-tier Store subscription with unlimited fixed-price listings.
+    entries:
+      - label: Store subscription (annual)
+        name: store_enterprise_annual
+        type: subscription
+        metric: month
+        limit: -1
+        timeFrame: month
+        geo: US
+        unit: 1
+        price: '2999.95'
+        userMultiplied: true
+    elements:
+      - name: 100,000 free fixed-price listings/month
+      - name: Dedicated team support
 maintainers:
   - FN: API Evangelist
     url: http://apievangelist.com

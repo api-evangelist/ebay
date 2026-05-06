@@ -4,215 +4,71 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: eBay
 providerId: ebay
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: true
 tags:
-  - Auctions
-  - Commerce
-  - Products
-  - Marketplace
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the eBay API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
+  - Marketplace
+  - Commerce
+description: eBay rate-limits each application against per-API daily call quotas (per app, per API,
+  per day). Default for most production REST APIs is 5,000 calls/day; quotas are raised by passing eBay's
+  Application Growth Check. Rate limits are enforced per developer App ID and reset daily at midnight
+  Pacific Time.
+sources:
+  - https://developer.ebay.com/develop/apis/api-call-limits
+  - https://developer.ebay.com/api-docs/static/rate-limits.html
 headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  rateLimit: X-EBAY-C-RATE-LIMIT
 responseCodes:
   throttled: 429
   quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - eBay Account API
-      - eBay Analytics API
-      - eBay Compliance API
-      - eBay Feed API
-      - eBay Browse API
-      - eBay Deal API
-      - eBay Marketing API
-      - eBay Marketplace Insights API
-      - eBay Offer API
-      - eBay Order API
-      - eBay Finances API
-      - eBay Fulfillment API
-      - eBay Inventory API
-      - eBay Logistics API
-      - eBay Metadata API
-      - eBay Negotiation API
-      - eBay Recommendation API
-      - eBay Stores API
-      - eBay Catalog API
-      - eBay Charity API
-      - eBay Identity API
-      - eBay Media API
-      - eBay Notification API
-      - eBay Taxonomy API
-      - eBay Translation API
-      - eBay Client Registration API
-      - eBay Key Management API
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
+  - name: Default per-API daily quota (production)
+    scope: app/api
+    metric: requests_per_day
+    limit: 5000
+    timeFrame: day
+    notes: Most Sell, Buy, and Commerce REST APIs default to 5,000 calls/day per app per API; raise via
+      Application Growth Check.
+  - name: Sandbox per-API daily quota
+    scope: app/api
+    metric: requests_per_day
+    limit: 5000
+    timeFrame: day
+    notes: Sandbox quotas are typically equal to or lower than production defaults; not for load testing.
+  - name: Trading API daily call quota
+    scope: app
+    metric: requests_per_day
+    limit: 5000
+    timeFrame: day
+    notes: Legacy Trading API; subject to Compatibility Level checks.
+  - name: Browse API daily quota
+    scope: app
+    metric: requests_per_day
+    limit: 5000
+    timeFrame: day
+  - name: Feed API hourly bulk download
+    scope: app
+    metric: requests_per_hour
     limit: 1000
-    timeFrame: month
-    applies:
-      - eBay Account API
-      - eBay Analytics API
-      - eBay Compliance API
-      - eBay Feed API
-      - eBay Browse API
-      - eBay Deal API
-      - eBay Marketing API
-      - eBay Marketplace Insights API
-      - eBay Offer API
-      - eBay Order API
-      - eBay Finances API
-      - eBay Fulfillment API
-      - eBay Inventory API
-      - eBay Logistics API
-      - eBay Metadata API
-      - eBay Negotiation API
-      - eBay Recommendation API
-      - eBay Stores API
-      - eBay Catalog API
-      - eBay Charity API
-      - eBay Identity API
-      - eBay Media API
-      - eBay Notification API
-      - eBay Taxonomy API
-      - eBay Translation API
-      - eBay Client Registration API
-      - eBay Key Management API
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - eBay Account API
-      - eBay Analytics API
-      - eBay Compliance API
-      - eBay Feed API
-      - eBay Browse API
-      - eBay Deal API
-      - eBay Marketing API
-      - eBay Marketplace Insights API
-      - eBay Offer API
-      - eBay Order API
-      - eBay Finances API
-      - eBay Fulfillment API
-      - eBay Inventory API
-      - eBay Logistics API
-      - eBay Metadata API
-      - eBay Negotiation API
-      - eBay Recommendation API
-      - eBay Stores API
-      - eBay Catalog API
-      - eBay Charity API
-      - eBay Identity API
-      - eBay Media API
-      - eBay Notification API
-      - eBay Taxonomy API
-      - eBay Translation API
-      - eBay Client Registration API
-      - eBay Key Management API
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - eBay Account API
-      - eBay Analytics API
-      - eBay Compliance API
-      - eBay Feed API
-      - eBay Browse API
-      - eBay Deal API
-      - eBay Marketing API
-      - eBay Marketplace Insights API
-      - eBay Offer API
-      - eBay Order API
-      - eBay Finances API
-      - eBay Fulfillment API
-      - eBay Inventory API
-      - eBay Logistics API
-      - eBay Metadata API
-      - eBay Negotiation API
-      - eBay Recommendation API
-      - eBay Stores API
-      - eBay Catalog API
-      - eBay Charity API
-      - eBay Identity API
-      - eBay Media API
-      - eBay Notification API
-      - eBay Taxonomy API
-      - eBay Translation API
-      - eBay Client Registration API
-      - eBay Key Management API
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
-    scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - eBay Account API
-      - eBay Analytics API
-      - eBay Compliance API
-      - eBay Feed API
-      - eBay Browse API
-      - eBay Deal API
-      - eBay Marketing API
-      - eBay Marketplace Insights API
-      - eBay Offer API
-      - eBay Order API
-      - eBay Finances API
-      - eBay Fulfillment API
-      - eBay Inventory API
-      - eBay Logistics API
-      - eBay Metadata API
-      - eBay Negotiation API
-      - eBay Recommendation API
-      - eBay Stores API
-      - eBay Catalog API
-      - eBay Charity API
-      - eBay Identity API
-      - eBay Media API
-      - eBay Notification API
-      - eBay Taxonomy API
-      - eBay Translation API
-      - eBay Client Registration API
-      - eBay Key Management API
+    timeFrame: hour
+    notes: Bulk feed downloads (item, product, snapshot) have separate hourly throttles; consult Feed
+      API rate-limits.
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Application Growth Check
+    description: Production access and higher quotas require passing eBay's Application Growth Check
+      (formerly Compatible Application Check); submit via the developer dashboard.
+  - name: Per-API quotas
+    description: Quotas are enforced per app per API (e.g., Browse, Sell-Inventory, Sell-Account); aggregating
+      across APIs is not supported.
+  - name: Daily reset
+    description: Daily counters reset at midnight Pacific Time.
+  - name: Backoff
+    description: Honor 429 + Retry-After signaling; implement exponential backoff with jitter.
+  - name: OAuth-token scope
+    description: Per-call quotas are tied to the App ID, not the user OAuth token; tokens may carry per-user
+      restrictions in addition to app quotas.
 maintainers:
   - FN: API Evangelist
     url: http://apievangelist.com
