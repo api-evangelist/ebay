@@ -1,0 +1,1885 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Account API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's
+    policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure
+    sales tax tables, and get account information. <br><br>For details on the availability of the methods in this API, see
+    <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  tags:
+  - Ebay
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: ebay
+    baseUri: https://api.ebay.com/sell/account/v1
+    description: eBay Account API HTTP API.
+    authentication:
+      type: bearer
+      token: '{{EBAY_TOKEN}}'
+    resources:
+    - name: custom-policy
+      path: /custom_policy/
+      operations:
+      - name: getcustompolicies
+        method: GET
+        description: This method retrieves the list of custom policies specified by the <b>policy_types</b> query parameter.<br><br><span
+          class="tablenote"><b>Note:</b> Custom policies are no longer coupled with a specific eBay marketplace, so the <b>EBAY-C-MAR
+        inputParameters:
+        - name: policy_types
+          in: query
+          type: string
+          description: This query parameter specifies the type of custom policies to be returned.<br><br>Multiple policy types
+            may be requested in a single call by providing a comma-d
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createcustompolicy
+        method: POST
+        description: 'This method creates a new custom policy in which a seller specifies their terms for complying with local
+          governmental regulations. <br/><br/>Two Custom Policy types are supported: <ul><li>Product Compliance (PRODUCT_COMPLIANCE)</li>
+          <li>Tak'
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          required: true
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: custom-policy-custom-policy-id
+      path: /custom_policy/{custom_policy_id}
+      operations:
+      - name: getcustompolicy
+        method: GET
+        description: This method retrieves the custom policy specified by the <b>custom_policy_id</b> path parameter.<br><br><span
+          class="tablenote"><b>Note:</b> Custom policies are no longer coupled with a specific eBay marketplace, so the <b>EBAY-C-MARKETPLAC
+        inputParameters:
+        - name: custom_policy_id
+          in: path
+          type: string
+          required: true
+          description: This path parameter is the unique identifier of the custom policy to retrieve.<br><br> This ID can
+            be retrieved for a custom policy by using the <a href="/api-d
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatecustompolicy
+        method: PUT
+        description: This method updates an existing custom policy specified by the <b>custom_policy_id</b> path parameter.
+          This method overwrites the policy's <b>Name</b>, <b>Label</b>, and <b>Description</b> fields. Therefore, the complete,
+          current text of al
+        inputParameters:
+        - name: custom_policy_id
+          in: path
+          type: string
+          required: true
+          description: This path parameter is the unique identifier of the custom policy to retrieve.<br><br> This ID can
+            be retrieved for a custom policy by using the <a href="/api-d
+        - name: Content-Type
+          in: header
+          type: string
+          required: true
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: fulfillment-policy
+      path: /fulfillment_policy/
+      operations:
+      - name: createfulfillmentpolicy
+        method: POST
+        description: This method creates a new fulfillment policy where the policy encapsulates seller's terms for fulfilling
+          item purchases. Fulfillment policies include the shipment options that the seller offers to buyers. <br><br>Each
+          policy targets a speci
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          required: true
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: fulfillment-policy-fulfillmentpolicyid
+      path: /fulfillment_policy/{fulfillmentPolicyId}
+      operations:
+      - name: getfulfillmentpolicy
+        method: GET
+        description: This method retrieves the complete details of a fulfillment policy. Supply the ID of the policy you want
+          to retrieve using the <b>fulfillmentPolicyId</b> path parameter.
+        inputParameters:
+        - name: fulfillmentPolicyId
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the ID of the fulfillment policy you want to retrieve.<br><br> This ID
+            can be retrieved for a fulfillment policy by using the <a h
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatefulfillmentpolicy
+        method: PUT
+        description: This method updates an existing fulfillment policy. Specify the policy you want to update using the <b>fulfillment_policy_id</b>
+          path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the ex
+        inputParameters:
+        - name: fulfillmentPolicyId
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the ID of the fulfillment policy you want to update.<br><br>This ID can
+            be retrieved for a specific fulfillment policy by using th
+        - name: Content-Type
+          in: header
+          type: string
+          required: true
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletefulfillmentpolicy
+        method: DELETE
+        description: This method deletes a fulfillment policy. Supply the ID of the policy you want to delete in the <b>fulfillmentPolicyId</b>
+          path parameter.
+        inputParameters:
+        - name: fulfillmentPolicyId
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the ID of the fulfillment policy to delete.<br><br> This ID can be retrieved
+            for a fulfillment policy by using the <a href="/api-d
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: fulfillment-policy
+      path: /fulfillment_policy
+      operations:
+      - name: getfulfillmentpolicies
+        method: GET
+        description: 'This method retrieves all the fulfillment policies configured for the marketplace you specify using
+          the <code>marketplace_id</code> query parameter. <br><br><b>Marketplaces and locales</b> <br><br>Get the correct
+          policies for a marketplace '
+        inputParameters:
+        - name: marketplace_id
+          in: query
+          type: string
+          required: true
+          description: This query parameter specifies the eBay marketplace of the policies you want to retrieve. For implementation
+            help, refer to eBay API documentation at https://de
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: fulfillment-policy-get-by-policy-name
+      path: /fulfillment_policy/get_by_policy_name
+      operations:
+      - name: getfulfillmentpolicybyname
+        method: GET
+        description: This method retrieves the details for a specific fulfillment policy. In the request, supply both the
+          policy <code>name</code> and its associated <code>marketplace_id</code> as query parameters. <br><br><b>Marketplaces
+          and locales</b> <br><b
+        inputParameters:
+        - name: marketplace_id
+          in: query
+          type: string
+          required: true
+          description: This query parameter specifies the eBay marketplace of the policy you want to retrieve. For implementation
+            help, refer to eBay API documentation at https://deve
+        - name: name
+          in: query
+          type: string
+          required: true
+          description: This query parameter specifies the seller-defined name of the fulfillment policy you want to retrieve.<br><br>This
+            value can be retrieved for a fulfillment poli
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: payment-policy
+      path: /payment_policy
+      operations:
+      - name: getpaymentpolicies
+        method: GET
+        description: This method retrieves all the payment policies configured for the marketplace you specify using the <code>marketplace_id</code>
+          query parameter. <br><br><b>Marketplaces and locales</b> <br><br>Get the correct policies for a marketplace that
+        inputParameters:
+        - name: marketplace_id
+          in: query
+          type: string
+          required: true
+          description: This query parameter specifies the eBay marketplace of the policies you want to retrieve. For implementation
+            help, refer to eBay API documentation at https://de
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createpaymentpolicy
+        method: POST
+        description: This method creates a new payment policy where the policy encapsulates seller's terms for order payments.
+          <br><br>Each policy targets a specific eBay marketplace and category group, and you can create multiple policies
+          for each combination.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          required: true
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: payment-policy-payment-policy-id
+      path: /payment_policy/{payment_policy_id}
+      operations:
+      - name: getpaymentpolicy
+        method: GET
+        description: This method retrieves the complete details of a payment policy. Supply the ID of the policy you want
+          to retrieve using the <b>paymentPolicyId</b> path parameter.
+        inputParameters:
+        - name: payment_policy_id
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the ID of the payment policy you want to retrieve. <br><br> This ID can
+            be retrieved for a payment policy by using the <a href="/a
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatepaymentpolicy
+        method: PUT
+        description: This method updates an existing payment policy. Specify the policy you want to update using the <b>payment_policy_id</b>
+          path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing
+          p
+        inputParameters:
+        - name: payment_policy_id
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the ID of the payment policy you want to update. <br><br> This ID can
+            be retrieved for a payment policy by using the <a href="/api
+        - name: Content-Type
+          in: header
+          type: string
+          required: true
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletepaymentpolicy
+        method: DELETE
+        description: This method deletes a payment policy. Supply the ID of the policy you want to delete in the <b>paymentPolicyId</b>
+          path parameter.
+        inputParameters:
+        - name: payment_policy_id
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the unique identifier of the payment policy you want to delete.<br><br>
+            This ID can be retrieved for a payment policy by using the
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: payment-policy-get-by-policy-name
+      path: /payment_policy/get_by_policy_name
+      operations:
+      - name: getpaymentpolicybyname
+        method: GET
+        description: This method retrieves the details of a specific payment policy. Supply both the policy <code>name</code>
+          and its associated <code>marketplace_id</code> in the request query parameters. <br><br><b>Marketplaces and locales</b>
+          <br><br>Get the
+        inputParameters:
+        - name: marketplace_id
+          in: query
+          type: string
+          required: true
+          description: This query parameter specifies the eBay marketplace of the policy you want to retrieve. For implementation
+            help, refer to eBay API documentation at https://deve
+        - name: name
+          in: query
+          type: string
+          required: true
+          description: This query parameter specifies the seller-defined name of the payment policy you want to retrieve.<br><br>
+            This value can be retrieved for a payment policy by u
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: payments-program-marketplace-id-payments-program
+      path: /payments_program/{marketplace_id}/{payments_program_type}
+      operations:
+      - name: getpaymentsprogram
+        method: GET
+        description: <span class="tablenote"><b>Note:</b> This method is no longer applicable, as all seller accounts globally
+          have been enabled for the new eBay payment and checkout flow.</span><br>This method returns whether or not the user
+          is opted-in to the
+        inputParameters:
+        - name: marketplace_id
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the eBay marketplace of the payments program for which you want to retrieve
+            the seller's status.
+        - name: payments_program_type
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the payments program whose status is returned by the call.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: payments-program-marketplace-id-payments-program
+      path: /payments_program/{marketplace_id}/{payments_program_type}/onboarding
+      operations:
+      - name: getpaymentsprogramonboarding
+        method: GET
+        description: <span class="tablenote"><b>Note:</b> This method is no longer applicable, as all seller accounts globally
+          have been enabled for the new eBay payment and checkout flow.</span><br>This method retrieves a seller's onboarding
+          status for a payme
+        inputParameters:
+        - name: marketplace_id
+          in: path
+          type: string
+          required: true
+          description: The eBay marketplace ID associated with the onboarding status to retrieve.
+        - name: payments_program_type
+          in: path
+          type: string
+          required: true
+          description: The type of payments program whose status is returned by the method.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: privilege
+      path: /privilege
+      operations:
+      - name: getprivileges
+        method: GET
+        description: This method retrieves the seller's current set of privileges, including whether or not the seller's eBay
+          registration has been completed, as well as the details of their site-wide <b>sellingLimt</b> (the amount and quantity
+          they can sell on
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: program-get-opted-in-programs
+      path: /program/get_opted_in_programs
+      operations:
+      - name: getoptedinprograms
+        method: GET
+        description: This method gets a list of the seller programs that the seller has opted-in to.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: program-opt-in
+      path: /program/opt_in
+      operations:
+      - name: optintoprogram
+        method: POST
+        description: This method opts the seller in to an eBay seller program. Refer to the <a href="/api-docs/sell/account/overview.html#opt-in"
+          target="_blank">Account API overview</a> for information about available eBay seller programs.<br><br><span class="
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          required: true
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: program-opt-out
+      path: /program/opt_out
+      operations:
+      - name: optoutofprogram
+        method: POST
+        description: This method opts the seller out of a seller program to which you have previously opted-in to. Get a list
+          of the seller programs you have opted-in to using the <b>getOptedInPrograms</b> call.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          required: true
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: rate-table
+      path: /rate_table
+      operations:
+      - name: getratetables
+        method: GET
+        description: This method retrieves a seller's <i>shipping rate tables</i> for the country specified in the <b>country_code</b>
+          query parameter. If you call this method without specifying a country code, the call returns all of the seller's
+          shipping rate
+        inputParameters:
+        - name: country_code
+          in: query
+          type: string
+          description: This query parameter specifies the two-letter <a href="https://www.iso.org/iso-3166-country-codes.html
+            " title="https://www.iso.org " target="_blank">ISO 3166</
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: return-policy
+      path: /return_policy
+      operations:
+      - name: getreturnpolicies
+        method: GET
+        description: 'This method retrieves all the return policies configured for the marketplace you specify using the <code>marketplace_id</code>
+          query parameter. <br><br><b>Marketplaces and locales</b> <br><br>Get the correct policies for a marketplace that '
+        inputParameters:
+        - name: marketplace_id
+          in: query
+          type: string
+          required: true
+          description: This query parameter specifies the ID of the eBay marketplace of the policy you want to retrieve. For
+            implementation help, refer to eBay API documentation at ht
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createreturnpolicy
+        method: POST
+        description: This method creates a new return policy where the policy encapsulates seller's terms for returning items.
+          <br><br>Each policy targets a specific marketplace, and you can create multiple policies for each marketplace. Return
+          policies are not
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          required: true
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: return-policy-return-policy-id
+      path: /return_policy/{return_policy_id}
+      operations:
+      - name: getreturnpolicy
+        method: GET
+        description: This method retrieves the complete details of the return policy specified by the <b>returnPolicyId</b>
+          path parameter.
+        inputParameters:
+        - name: return_policy_id
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the unique identifier of the return policy you want to retrieve. <br><br>
+            This ID can be retrieved for a return policy by using th
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: updatereturnpolicy
+        method: PUT
+        description: This method updates an existing return policy. Specify the policy you want to update using the <b>return_policy_id</b>
+          path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing
+          pol
+        inputParameters:
+        - name: return_policy_id
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the ID of the return policy you want to update. <br><br> This ID can
+            be retrieved for a return policy by using the <a href="/api-d
+        - name: Content-Type
+          in: header
+          type: string
+          required: true
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletereturnpolicy
+        method: DELETE
+        description: This method deletes a return policy. Supply the ID of the policy you want to delete in the <b>returnPolicyId</b>
+          path parameter.
+        inputParameters:
+        - name: return_policy_id
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the unique identifier of the return policy you want to delete.<br><br>
+            This ID can be retrieved for a return policy by using the <
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: return-policy-get-by-policy-name
+      path: /return_policy/get_by_policy_name
+      operations:
+      - name: getreturnpolicybyname
+        method: GET
+        description: 'This method retrieves the details of a specific return policy. Supply both the policy <code>name</code>
+          and its associated <code>marketplace_id</code> in the request query parameters. <br><br><b>Marketplaces and locales</b>
+          <br><br>Get the '
+        inputParameters:
+        - name: marketplace_id
+          in: query
+          type: string
+          required: true
+          description: This query parameter specifies the ID of the eBay marketplace of the policy you want to retrieve. For
+            implementation help, refer to eBay API documentation at ht
+        - name: name
+          in: query
+          type: string
+          required: true
+          description: This query parameter specifies the seller-defined name of the return policy you want to retrieve.<br><br>
+            This value can be retrieved for a return policy by usi
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: sales-tax-countrycode-jurisdictionid
+      path: /sales_tax/{countryCode}/{jurisdictionId}
+      operations:
+      - name: getsalestax
+        method: GET
+        description: This call retrieves the current sales-tax table entry for a specific tax jurisdiction. Specify the jurisdiction
+          to retrieve using the <b>countryCode</b> and <b>jurisdictionId</b> path parameters. All four response fields will
+          be returned if
+        inputParameters:
+        - name: countryCode
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the two-letter <a href="https://www.iso.org/iso-3166-country-codes.html
+            " title="https://www.iso.org " target="_blank">ISO 3166</a
+        - name: jurisdictionId
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the ID of the sales tax jurisdiction for the tax table entry to be retrieved.<br><br>Valid
+            jurisdiction IDs can be retrieved using
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: createorreplacesalestax
+        method: PUT
+        description: 'This method creates or updates a sales-tax table entry for a jurisdiction. Specify the tax table entry
+          you want to configure using the two path parameters: <b>countryCode</b> and <b>jurisdictionId</b>. <br><br>A tax
+          table entry for a jurisd'
+        inputParameters:
+        - name: countryCode
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the two-letter <a href="https://www.iso.org/iso-3166-country-codes.html
+            " title="https://www.iso.org " target="_blank">ISO 3166</a
+        - name: jurisdictionId
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the ID of the tax jurisdiction for the table entry to be created.<br><br>Valid
+            jurisdiction IDs can be retrieved using the <a href
+        - name: Content-Type
+          in: header
+          type: string
+          required: true
+          description: This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>.<br><br>For more information, re
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+      - name: deletesalestax
+        method: DELETE
+        description: This call deletes a sales-tax table entry for a jurisdiction. Specify the jurisdiction to delete using
+          the <b>countryCode</b> and <b>jurisdictionId</b> path parameters.<br><br><span class="tablenote"><b>Note:</b> Sales-tax
+          tables are only a
+        inputParameters:
+        - name: countryCode
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the two-letter <a href="https://www.iso.org/iso-3166-country-codes.html
+            " title="https://www.iso.org " target="_blank">ISO 3166</a
+        - name: jurisdictionId
+          in: path
+          type: string
+          required: true
+          description: This path parameter specifies the ID of the sales tax jurisdiction whose table entry you want to delete.<br><br>Valid
+            jurisdiction IDs can be retrieved using th
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: sales-tax
+      path: /sales_tax
+      operations:
+      - name: getsalestaxes
+        method: GET
+        description: Use this call to retrieve all sales tax table entries that the seller has defined for a specific country.
+          All four response fields will be returned for each tax jurisdiction that matches the search criteria. <br><br><span
+          class="tablenote">
+        inputParameters:
+        - name: country_code
+          in: query
+          type: string
+          required: true
+          description: This path parameter specifies the two-letter <a href="https://www.iso.org/iso-3166-country-codes.html
+            " title="https://www.iso.org " target="_blank">ISO 3166</a
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: subscription
+      path: /subscription
+      operations:
+      - name: getsubscription
+        method: GET
+        description: This method retrieves a list of subscriptions associated with the seller account.
+        inputParameters:
+        - name: limit
+          in: query
+          type: string
+          description: This field is for future use.
+        - name: continuation_token
+          in: query
+          type: string
+          description: This field is for future use.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: kyc
+      path: /kyc
+      operations:
+      - name: getkyc
+        method: GET
+        description: <span class="tablenote"><b>Note:</b>This method was originally created to see which onboarding requirements
+          were still pending for sellers being onboarded for eBay managed payments, but now that all seller accounts are onboarded
+          globally, t
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: advertising-eligibility
+      path: /advertising_eligibility
+      operations:
+      - name: getadvertisingeligibility
+        method: GET
+        description: This method allows developers to check the seller eligibility status for eBay advertising programs.
+        inputParameters:
+        - name: program_types
+          in: query
+          type: string
+          description: A comma-separated list of eBay advertising programs for which eligibility status will be returned.<br><br>
+            See the <a href="/api-docs/sell/account/types/plser:A
+        - name: X-EBAY-C-MARKETPLACE-ID
+          in: header
+          type: string
+          required: true
+          description: The unique identifier of the eBay marketplace for which the seller eligibility status shall be checked.
+            This header is required or the call will fail.<br><br>Se
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: ebay-rest
+    description: REST adapter for eBay Account API.
+    resources:
+    - path: /custom_policy/
+      name: getcustompolicies
+      operations:
+      - method: GET
+        name: getcustompolicies
+        description: This method retrieves the list of custom policies specified by the <b>policy_types</b> query parameter.<br><br><span
+          class="tablenote"><b>Note:</b> Custom policies are no longer coupled with a specific eBay marketplace, so the <b>EBAY-C-MAR
+        call: ebay.getcustompolicies
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /custom_policy/
+      name: createcustompolicy
+      operations:
+      - method: POST
+        name: createcustompolicy
+        description: 'This method creates a new custom policy in which a seller specifies their terms for complying with local
+          governmental regulations. <br/><br/>Two Custom Policy types are supported: <ul><li>Product Compliance (PRODUCT_COMPLIANCE)</li>
+          <li>Tak'
+        call: ebay.createcustompolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /custom_policy/{custom_policy_id}
+      name: getcustompolicy
+      operations:
+      - method: GET
+        name: getcustompolicy
+        description: This method retrieves the custom policy specified by the <b>custom_policy_id</b> path parameter.<br><br><span
+          class="tablenote"><b>Note:</b> Custom policies are no longer coupled with a specific eBay marketplace, so the <b>EBAY-C-MARKETPLAC
+        call: ebay.getcustompolicy
+        with:
+          custom_policy_id: rest.custom_policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /custom_policy/{custom_policy_id}
+      name: updatecustompolicy
+      operations:
+      - method: PUT
+        name: updatecustompolicy
+        description: This method updates an existing custom policy specified by the <b>custom_policy_id</b> path parameter.
+          This method overwrites the policy's <b>Name</b>, <b>Label</b>, and <b>Description</b> fields. Therefore, the complete,
+          current text of al
+        call: ebay.updatecustompolicy
+        with:
+          custom_policy_id: rest.custom_policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /fulfillment_policy/
+      name: createfulfillmentpolicy
+      operations:
+      - method: POST
+        name: createfulfillmentpolicy
+        description: This method creates a new fulfillment policy where the policy encapsulates seller's terms for fulfilling
+          item purchases. Fulfillment policies include the shipment options that the seller offers to buyers. <br><br>Each
+          policy targets a speci
+        call: ebay.createfulfillmentpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /fulfillment_policy/{fulfillmentPolicyId}
+      name: getfulfillmentpolicy
+      operations:
+      - method: GET
+        name: getfulfillmentpolicy
+        description: This method retrieves the complete details of a fulfillment policy. Supply the ID of the policy you want
+          to retrieve using the <b>fulfillmentPolicyId</b> path parameter.
+        call: ebay.getfulfillmentpolicy
+        with:
+          fulfillmentPolicyId: rest.fulfillmentPolicyId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /fulfillment_policy/{fulfillmentPolicyId}
+      name: updatefulfillmentpolicy
+      operations:
+      - method: PUT
+        name: updatefulfillmentpolicy
+        description: This method updates an existing fulfillment policy. Specify the policy you want to update using the <b>fulfillment_policy_id</b>
+          path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the ex
+        call: ebay.updatefulfillmentpolicy
+        with:
+          fulfillmentPolicyId: rest.fulfillmentPolicyId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /fulfillment_policy/{fulfillmentPolicyId}
+      name: deletefulfillmentpolicy
+      operations:
+      - method: DELETE
+        name: deletefulfillmentpolicy
+        description: This method deletes a fulfillment policy. Supply the ID of the policy you want to delete in the <b>fulfillmentPolicyId</b>
+          path parameter.
+        call: ebay.deletefulfillmentpolicy
+        with:
+          fulfillmentPolicyId: rest.fulfillmentPolicyId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /fulfillment_policy
+      name: getfulfillmentpolicies
+      operations:
+      - method: GET
+        name: getfulfillmentpolicies
+        description: 'This method retrieves all the fulfillment policies configured for the marketplace you specify using
+          the <code>marketplace_id</code> query parameter. <br><br><b>Marketplaces and locales</b> <br><br>Get the correct
+          policies for a marketplace '
+        call: ebay.getfulfillmentpolicies
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /fulfillment_policy/get_by_policy_name
+      name: getfulfillmentpolicybyname
+      operations:
+      - method: GET
+        name: getfulfillmentpolicybyname
+        description: This method retrieves the details for a specific fulfillment policy. In the request, supply both the
+          policy <code>name</code> and its associated <code>marketplace_id</code> as query parameters. <br><br><b>Marketplaces
+          and locales</b> <br><b
+        call: ebay.getfulfillmentpolicybyname
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /payment_policy
+      name: getpaymentpolicies
+      operations:
+      - method: GET
+        name: getpaymentpolicies
+        description: This method retrieves all the payment policies configured for the marketplace you specify using the <code>marketplace_id</code>
+          query parameter. <br><br><b>Marketplaces and locales</b> <br><br>Get the correct policies for a marketplace that
+        call: ebay.getpaymentpolicies
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /payment_policy
+      name: createpaymentpolicy
+      operations:
+      - method: POST
+        name: createpaymentpolicy
+        description: This method creates a new payment policy where the policy encapsulates seller's terms for order payments.
+          <br><br>Each policy targets a specific eBay marketplace and category group, and you can create multiple policies
+          for each combination.
+        call: ebay.createpaymentpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /payment_policy/{payment_policy_id}
+      name: getpaymentpolicy
+      operations:
+      - method: GET
+        name: getpaymentpolicy
+        description: This method retrieves the complete details of a payment policy. Supply the ID of the policy you want
+          to retrieve using the <b>paymentPolicyId</b> path parameter.
+        call: ebay.getpaymentpolicy
+        with:
+          payment_policy_id: rest.payment_policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /payment_policy/{payment_policy_id}
+      name: updatepaymentpolicy
+      operations:
+      - method: PUT
+        name: updatepaymentpolicy
+        description: This method updates an existing payment policy. Specify the policy you want to update using the <b>payment_policy_id</b>
+          path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing
+          p
+        call: ebay.updatepaymentpolicy
+        with:
+          payment_policy_id: rest.payment_policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /payment_policy/{payment_policy_id}
+      name: deletepaymentpolicy
+      operations:
+      - method: DELETE
+        name: deletepaymentpolicy
+        description: This method deletes a payment policy. Supply the ID of the policy you want to delete in the <b>paymentPolicyId</b>
+          path parameter.
+        call: ebay.deletepaymentpolicy
+        with:
+          payment_policy_id: rest.payment_policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /payment_policy/get_by_policy_name
+      name: getpaymentpolicybyname
+      operations:
+      - method: GET
+        name: getpaymentpolicybyname
+        description: This method retrieves the details of a specific payment policy. Supply both the policy <code>name</code>
+          and its associated <code>marketplace_id</code> in the request query parameters. <br><br><b>Marketplaces and locales</b>
+          <br><br>Get the
+        call: ebay.getpaymentpolicybyname
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /payments_program/{marketplace_id}/{payments_program_type}
+      name: getpaymentsprogram
+      operations:
+      - method: GET
+        name: getpaymentsprogram
+        description: <span class="tablenote"><b>Note:</b> This method is no longer applicable, as all seller accounts globally
+          have been enabled for the new eBay payment and checkout flow.</span><br>This method returns whether or not the user
+          is opted-in to the
+        call: ebay.getpaymentsprogram
+        with:
+          marketplace_id: rest.marketplace_id
+          payments_program_type: rest.payments_program_type
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /payments_program/{marketplace_id}/{payments_program_type}/onboarding
+      name: getpaymentsprogramonboarding
+      operations:
+      - method: GET
+        name: getpaymentsprogramonboarding
+        description: <span class="tablenote"><b>Note:</b> This method is no longer applicable, as all seller accounts globally
+          have been enabled for the new eBay payment and checkout flow.</span><br>This method retrieves a seller's onboarding
+          status for a payme
+        call: ebay.getpaymentsprogramonboarding
+        with:
+          marketplace_id: rest.marketplace_id
+          payments_program_type: rest.payments_program_type
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /privilege
+      name: getprivileges
+      operations:
+      - method: GET
+        name: getprivileges
+        description: This method retrieves the seller's current set of privileges, including whether or not the seller's eBay
+          registration has been completed, as well as the details of their site-wide <b>sellingLimt</b> (the amount and quantity
+          they can sell on
+        call: ebay.getprivileges
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /program/get_opted_in_programs
+      name: getoptedinprograms
+      operations:
+      - method: GET
+        name: getoptedinprograms
+        description: This method gets a list of the seller programs that the seller has opted-in to.
+        call: ebay.getoptedinprograms
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /program/opt_in
+      name: optintoprogram
+      operations:
+      - method: POST
+        name: optintoprogram
+        description: This method opts the seller in to an eBay seller program. Refer to the <a href="/api-docs/sell/account/overview.html#opt-in"
+          target="_blank">Account API overview</a> for information about available eBay seller programs.<br><br><span class="
+        call: ebay.optintoprogram
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /program/opt_out
+      name: optoutofprogram
+      operations:
+      - method: POST
+        name: optoutofprogram
+        description: This method opts the seller out of a seller program to which you have previously opted-in to. Get a list
+          of the seller programs you have opted-in to using the <b>getOptedInPrograms</b> call.
+        call: ebay.optoutofprogram
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /rate_table
+      name: getratetables
+      operations:
+      - method: GET
+        name: getratetables
+        description: This method retrieves a seller's <i>shipping rate tables</i> for the country specified in the <b>country_code</b>
+          query parameter. If you call this method without specifying a country code, the call returns all of the seller's
+          shipping rate
+        call: ebay.getratetables
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /return_policy
+      name: getreturnpolicies
+      operations:
+      - method: GET
+        name: getreturnpolicies
+        description: 'This method retrieves all the return policies configured for the marketplace you specify using the <code>marketplace_id</code>
+          query parameter. <br><br><b>Marketplaces and locales</b> <br><br>Get the correct policies for a marketplace that '
+        call: ebay.getreturnpolicies
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /return_policy
+      name: createreturnpolicy
+      operations:
+      - method: POST
+        name: createreturnpolicy
+        description: This method creates a new return policy where the policy encapsulates seller's terms for returning items.
+          <br><br>Each policy targets a specific marketplace, and you can create multiple policies for each marketplace. Return
+          policies are not
+        call: ebay.createreturnpolicy
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /return_policy/{return_policy_id}
+      name: getreturnpolicy
+      operations:
+      - method: GET
+        name: getreturnpolicy
+        description: This method retrieves the complete details of the return policy specified by the <b>returnPolicyId</b>
+          path parameter.
+        call: ebay.getreturnpolicy
+        with:
+          return_policy_id: rest.return_policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /return_policy/{return_policy_id}
+      name: updatereturnpolicy
+      operations:
+      - method: PUT
+        name: updatereturnpolicy
+        description: This method updates an existing return policy. Specify the policy you want to update using the <b>return_policy_id</b>
+          path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing
+          pol
+        call: ebay.updatereturnpolicy
+        with:
+          return_policy_id: rest.return_policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /return_policy/{return_policy_id}
+      name: deletereturnpolicy
+      operations:
+      - method: DELETE
+        name: deletereturnpolicy
+        description: This method deletes a return policy. Supply the ID of the policy you want to delete in the <b>returnPolicyId</b>
+          path parameter.
+        call: ebay.deletereturnpolicy
+        with:
+          return_policy_id: rest.return_policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /return_policy/get_by_policy_name
+      name: getreturnpolicybyname
+      operations:
+      - method: GET
+        name: getreturnpolicybyname
+        description: 'This method retrieves the details of a specific return policy. Supply both the policy <code>name</code>
+          and its associated <code>marketplace_id</code> in the request query parameters. <br><br><b>Marketplaces and locales</b>
+          <br><br>Get the '
+        call: ebay.getreturnpolicybyname
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sales_tax/{countryCode}/{jurisdictionId}
+      name: getsalestax
+      operations:
+      - method: GET
+        name: getsalestax
+        description: This call retrieves the current sales-tax table entry for a specific tax jurisdiction. Specify the jurisdiction
+          to retrieve using the <b>countryCode</b> and <b>jurisdictionId</b> path parameters. All four response fields will
+          be returned if
+        call: ebay.getsalestax
+        with:
+          countryCode: rest.countryCode
+          jurisdictionId: rest.jurisdictionId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sales_tax/{countryCode}/{jurisdictionId}
+      name: createorreplacesalestax
+      operations:
+      - method: PUT
+        name: createorreplacesalestax
+        description: 'This method creates or updates a sales-tax table entry for a jurisdiction. Specify the tax table entry
+          you want to configure using the two path parameters: <b>countryCode</b> and <b>jurisdictionId</b>. <br><br>A tax
+          table entry for a jurisd'
+        call: ebay.createorreplacesalestax
+        with:
+          countryCode: rest.countryCode
+          jurisdictionId: rest.jurisdictionId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sales_tax/{countryCode}/{jurisdictionId}
+      name: deletesalestax
+      operations:
+      - method: DELETE
+        name: deletesalestax
+        description: This call deletes a sales-tax table entry for a jurisdiction. Specify the jurisdiction to delete using
+          the <b>countryCode</b> and <b>jurisdictionId</b> path parameters.<br><br><span class="tablenote"><b>Note:</b> Sales-tax
+          tables are only a
+        call: ebay.deletesalestax
+        with:
+          countryCode: rest.countryCode
+          jurisdictionId: rest.jurisdictionId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /sales_tax
+      name: getsalestaxes
+      operations:
+      - method: GET
+        name: getsalestaxes
+        description: Use this call to retrieve all sales tax table entries that the seller has defined for a specific country.
+          All four response fields will be returned for each tax jurisdiction that matches the search criteria. <br><br><span
+          class="tablenote">
+        call: ebay.getsalestaxes
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /subscription
+      name: getsubscription
+      operations:
+      - method: GET
+        name: getsubscription
+        description: This method retrieves a list of subscriptions associated with the seller account.
+        call: ebay.getsubscription
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /kyc
+      name: getkyc
+      operations:
+      - method: GET
+        name: getkyc
+        description: <span class="tablenote"><b>Note:</b>This method was originally created to see which onboarding requirements
+          were still pending for sellers being onboarded for eBay managed payments, but now that all seller accounts are onboarded
+          globally, t
+        call: ebay.getkyc
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /advertising_eligibility
+      name: getadvertisingeligibility
+      operations:
+      - method: GET
+        name: getadvertisingeligibility
+        description: This method allows developers to check the seller eligibility status for eBay advertising programs.
+        call: ebay.getadvertisingeligibility
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: ebay-mcp
+    transport: http
+    description: MCP adapter for eBay Account API for AI agent use.
+    tools:
+    - name: getcustompolicies
+      description: This method retrieves the list of custom policies specified by the <b>policy_types</b> query parameter.<br><br><span
+        class="tablenote"><b>Note:</b> Custom policies are no longer coupled with a specific eBay marketplace, so the <b>EBAY-C-MAR
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getcustompolicies
+      with:
+        policy_types: tools.policy_types
+      inputParameters:
+      - name: policy_types
+        type: string
+        description: This query parameter specifies the type of custom policies to be returned.<br><br>Multiple policy types
+          may be requested in a single call by providing a comma-d
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createcustompolicy
+      description: 'This method creates a new custom policy in which a seller specifies their terms for complying with local
+        governmental regulations. <br/><br/>Two Custom Policy types are supported: <ul><li>Product Compliance (PRODUCT_COMPLIANCE)</li>
+        <li>Tak'
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: ebay.createcustompolicy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getcustompolicy
+      description: This method retrieves the custom policy specified by the <b>custom_policy_id</b> path parameter.<br><br><span
+        class="tablenote"><b>Note:</b> Custom policies are no longer coupled with a specific eBay marketplace, so the <b>EBAY-C-MARKETPLAC
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getcustompolicy
+      with:
+        custom_policy_id: tools.custom_policy_id
+      inputParameters:
+      - name: custom_policy_id
+        type: string
+        description: This path parameter is the unique identifier of the custom policy to retrieve.<br><br> This ID can be
+          retrieved for a custom policy by using the <a href="/api-d
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatecustompolicy
+      description: This method updates an existing custom policy specified by the <b>custom_policy_id</b> path parameter.
+        This method overwrites the policy's <b>Name</b>, <b>Label</b>, and <b>Description</b> fields. Therefore, the complete,
+        current text of al
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: ebay.updatecustompolicy
+      with:
+        custom_policy_id: tools.custom_policy_id
+      inputParameters:
+      - name: custom_policy_id
+        type: string
+        description: This path parameter is the unique identifier of the custom policy to retrieve.<br><br> This ID can be
+          retrieved for a custom policy by using the <a href="/api-d
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createfulfillmentpolicy
+      description: This method creates a new fulfillment policy where the policy encapsulates seller's terms for fulfilling
+        item purchases. Fulfillment policies include the shipment options that the seller offers to buyers. <br><br>Each policy
+        targets a speci
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: ebay.createfulfillmentpolicy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getfulfillmentpolicy
+      description: This method retrieves the complete details of a fulfillment policy. Supply the ID of the policy you want
+        to retrieve using the <b>fulfillmentPolicyId</b> path parameter.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getfulfillmentpolicy
+      with:
+        fulfillmentPolicyId: tools.fulfillmentPolicyId
+      inputParameters:
+      - name: fulfillmentPolicyId
+        type: string
+        description: This path parameter specifies the ID of the fulfillment policy you want to retrieve.<br><br> This ID
+          can be retrieved for a fulfillment policy by using the <a h
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatefulfillmentpolicy
+      description: This method updates an existing fulfillment policy. Specify the policy you want to update using the <b>fulfillment_policy_id</b>
+        path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the ex
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: ebay.updatefulfillmentpolicy
+      with:
+        fulfillmentPolicyId: tools.fulfillmentPolicyId
+      inputParameters:
+      - name: fulfillmentPolicyId
+        type: string
+        description: This path parameter specifies the ID of the fulfillment policy you want to update.<br><br>This ID can
+          be retrieved for a specific fulfillment policy by using th
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletefulfillmentpolicy
+      description: This method deletes a fulfillment policy. Supply the ID of the policy you want to delete in the <b>fulfillmentPolicyId</b>
+        path parameter.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: ebay.deletefulfillmentpolicy
+      with:
+        fulfillmentPolicyId: tools.fulfillmentPolicyId
+      inputParameters:
+      - name: fulfillmentPolicyId
+        type: string
+        description: This path parameter specifies the ID of the fulfillment policy to delete.<br><br> This ID can be retrieved
+          for a fulfillment policy by using the <a href="/api-d
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getfulfillmentpolicies
+      description: 'This method retrieves all the fulfillment policies configured for the marketplace you specify using the
+        <code>marketplace_id</code> query parameter. <br><br><b>Marketplaces and locales</b> <br><br>Get the correct policies
+        for a marketplace '
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getfulfillmentpolicies
+      with:
+        marketplace_id: tools.marketplace_id
+      inputParameters:
+      - name: marketplace_id
+        type: string
+        description: This query parameter specifies the eBay marketplace of the policies you want to retrieve. For implementation
+          help, refer to eBay API documentation at https://de
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getfulfillmentpolicybyname
+      description: This method retrieves the details for a specific fulfillment policy. In the request, supply both the policy
+        <code>name</code> and its associated <code>marketplace_id</code> as query parameters. <br><br><b>Marketplaces and
+        locales</b> <br><b
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getfulfillmentpolicybyname
+      with:
+        marketplace_id: tools.marketplace_id
+        name: tools.name
+      inputParameters:
+      - name: marketplace_id
+        type: string
+        description: This query parameter specifies the eBay marketplace of the policy you want to retrieve. For implementation
+          help, refer to eBay API documentation at https://deve
+        required: true
+      - name: name
+        type: string
+        description: This query parameter specifies the seller-defined name of the fulfillment policy you want to retrieve.<br><br>This
+          value can be retrieved for a fulfillment poli
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getpaymentpolicies
+      description: This method retrieves all the payment policies configured for the marketplace you specify using the <code>marketplace_id</code>
+        query parameter. <br><br><b>Marketplaces and locales</b> <br><br>Get the correct policies for a marketplace that
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getpaymentpolicies
+      with:
+        marketplace_id: tools.marketplace_id
+      inputParameters:
+      - name: marketplace_id
+        type: string
+        description: This query parameter specifies the eBay marketplace of the policies you want to retrieve. For implementation
+          help, refer to eBay API documentation at https://de
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createpaymentpolicy
+      description: This method creates a new payment policy where the policy encapsulates seller's terms for order payments.
+        <br><br>Each policy targets a specific eBay marketplace and category group, and you can create multiple policies for
+        each combination.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: ebay.createpaymentpolicy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getpaymentpolicy
+      description: This method retrieves the complete details of a payment policy. Supply the ID of the policy you want to
+        retrieve using the <b>paymentPolicyId</b> path parameter.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getpaymentpolicy
+      with:
+        payment_policy_id: tools.payment_policy_id
+      inputParameters:
+      - name: payment_policy_id
+        type: string
+        description: This path parameter specifies the ID of the payment policy you want to retrieve. <br><br> This ID can
+          be retrieved for a payment policy by using the <a href="/a
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatepaymentpolicy
+      description: This method updates an existing payment policy. Specify the policy you want to update using the <b>payment_policy_id</b>
+        path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing
+        p
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: ebay.updatepaymentpolicy
+      with:
+        payment_policy_id: tools.payment_policy_id
+      inputParameters:
+      - name: payment_policy_id
+        type: string
+        description: This path parameter specifies the ID of the payment policy you want to update. <br><br> This ID can be
+          retrieved for a payment policy by using the <a href="/api
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletepaymentpolicy
+      description: This method deletes a payment policy. Supply the ID of the policy you want to delete in the <b>paymentPolicyId</b>
+        path parameter.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: ebay.deletepaymentpolicy
+      with:
+        payment_policy_id: tools.payment_policy_id
+      inputParameters:
+      - name: payment_policy_id
+        type: string
+        description: This path parameter specifies the unique identifier of the payment policy you want to delete.<br><br>
+          This ID can be retrieved for a payment policy by using the
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getpaymentpolicybyname
+      description: This method retrieves the details of a specific payment policy. Supply both the policy <code>name</code>
+        and its associated <code>marketplace_id</code> in the request query parameters. <br><br><b>Marketplaces and locales</b>
+        <br><br>Get the
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getpaymentpolicybyname
+      with:
+        marketplace_id: tools.marketplace_id
+        name: tools.name
+      inputParameters:
+      - name: marketplace_id
+        type: string
+        description: This query parameter specifies the eBay marketplace of the policy you want to retrieve. For implementation
+          help, refer to eBay API documentation at https://deve
+        required: true
+      - name: name
+        type: string
+        description: This query parameter specifies the seller-defined name of the payment policy you want to retrieve.<br><br>
+          This value can be retrieved for a payment policy by u
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getpaymentsprogram
+      description: <span class="tablenote"><b>Note:</b> This method is no longer applicable, as all seller accounts globally
+        have been enabled for the new eBay payment and checkout flow.</span><br>This method returns whether or not the user
+        is opted-in to the
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getpaymentsprogram
+      with:
+        marketplace_id: tools.marketplace_id
+        payments_program_type: tools.payments_program_type
+      inputParameters:
+      - name: marketplace_id
+        type: string
+        description: This path parameter specifies the eBay marketplace of the payments program for which you want to retrieve
+          the seller's status.
+        required: true
+      - name: payments_program_type
+        type: string
+        description: This path parameter specifies the payments program whose status is returned by the call.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getpaymentsprogramonboarding
+      description: <span class="tablenote"><b>Note:</b> This method is no longer applicable, as all seller accounts globally
+        have been enabled for the new eBay payment and checkout flow.</span><br>This method retrieves a seller's onboarding
+        status for a payme
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getpaymentsprogramonboarding
+      with:
+        marketplace_id: tools.marketplace_id
+        payments_program_type: tools.payments_program_type
+      inputParameters:
+      - name: marketplace_id
+        type: string
+        description: The eBay marketplace ID associated with the onboarding status to retrieve.
+        required: true
+      - name: payments_program_type
+        type: string
+        description: The type of payments program whose status is returned by the method.
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getprivileges
+      description: This method retrieves the seller's current set of privileges, including whether or not the seller's eBay
+        registration has been completed, as well as the details of their site-wide <b>sellingLimt</b> (the amount and quantity
+        they can sell on
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getprivileges
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getoptedinprograms
+      description: This method gets a list of the seller programs that the seller has opted-in to.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getoptedinprograms
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: optintoprogram
+      description: This method opts the seller in to an eBay seller program. Refer to the <a href="/api-docs/sell/account/overview.html#opt-in"
+        target="_blank">Account API overview</a> for information about available eBay seller programs.<br><br><span class="
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: ebay.optintoprogram
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: optoutofprogram
+      description: This method opts the seller out of a seller program to which you have previously opted-in to. Get a list
+        of the seller programs you have opted-in to using the <b>getOptedInPrograms</b> call.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: ebay.optoutofprogram
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getratetables
+      description: This method retrieves a seller's <i>shipping rate tables</i> for the country specified in the <b>country_code</b>
+        query parameter. If you call this method without specifying a country code, the call returns all of the seller's shipping
+        rate
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getratetables
+      with:
+        country_code: tools.country_code
+      inputParameters:
+      - name: country_code
+        type: string
+        description: This query parameter specifies the two-letter <a href="https://www.iso.org/iso-3166-country-codes.html
+          " title="https://www.iso.org " target="_blank">ISO 3166</
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getreturnpolicies
+      description: 'This method retrieves all the return policies configured for the marketplace you specify using the <code>marketplace_id</code>
+        query parameter. <br><br><b>Marketplaces and locales</b> <br><br>Get the correct policies for a marketplace that '
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getreturnpolicies
+      with:
+        marketplace_id: tools.marketplace_id
+      inputParameters:
+      - name: marketplace_id
+        type: string
+        description: This query parameter specifies the ID of the eBay marketplace of the policy you want to retrieve. For
+          implementation help, refer to eBay API documentation at ht
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createreturnpolicy
+      description: This method creates a new return policy where the policy encapsulates seller's terms for returning items.
+        <br><br>Each policy targets a specific marketplace, and you can create multiple policies for each marketplace. Return
+        policies are not
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: ebay.createreturnpolicy
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getreturnpolicy
+      description: This method retrieves the complete details of the return policy specified by the <b>returnPolicyId</b>
+        path parameter.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getreturnpolicy
+      with:
+        return_policy_id: tools.return_policy_id
+      inputParameters:
+      - name: return_policy_id
+        type: string
+        description: This path parameter specifies the unique identifier of the return policy you want to retrieve. <br><br>
+          This ID can be retrieved for a return policy by using th
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: updatereturnpolicy
+      description: This method updates an existing return policy. Specify the policy you want to update using the <b>return_policy_id</b>
+        path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing
+        pol
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: ebay.updatereturnpolicy
+      with:
+        return_policy_id: tools.return_policy_id
+      inputParameters:
+      - name: return_policy_id
+        type: string
+        description: This path parameter specifies the ID of the return policy you want to update. <br><br> This ID can be
+          retrieved for a return policy by using the <a href="/api-d
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletereturnpolicy
+      description: This method deletes a return policy. Supply the ID of the policy you want to delete in the <b>returnPolicyId</b>
+        path parameter.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: ebay.deletereturnpolicy
+      with:
+        return_policy_id: tools.return_policy_id
+      inputParameters:
+      - name: return_policy_id
+        type: string
+        description: This path parameter specifies the unique identifier of the return policy you want to delete.<br><br>
+          This ID can be retrieved for a return policy by using the <
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getreturnpolicybyname
+      description: 'This method retrieves the details of a specific return policy. Supply both the policy <code>name</code>
+        and its associated <code>marketplace_id</code> in the request query parameters. <br><br><b>Marketplaces and locales</b>
+        <br><br>Get the '
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getreturnpolicybyname
+      with:
+        marketplace_id: tools.marketplace_id
+        name: tools.name
+      inputParameters:
+      - name: marketplace_id
+        type: string
+        description: This query parameter specifies the ID of the eBay marketplace of the policy you want to retrieve. For
+          implementation help, refer to eBay API documentation at ht
+        required: true
+      - name: name
+        type: string
+        description: This query parameter specifies the seller-defined name of the return policy you want to retrieve.<br><br>
+          This value can be retrieved for a return policy by usi
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getsalestax
+      description: This call retrieves the current sales-tax table entry for a specific tax jurisdiction. Specify the jurisdiction
+        to retrieve using the <b>countryCode</b> and <b>jurisdictionId</b> path parameters. All four response fields will
+        be returned if
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getsalestax
+      with:
+        countryCode: tools.countryCode
+        jurisdictionId: tools.jurisdictionId
+      inputParameters:
+      - name: countryCode
+        type: string
+        description: This path parameter specifies the two-letter <a href="https://www.iso.org/iso-3166-country-codes.html
+          " title="https://www.iso.org " target="_blank">ISO 3166</a
+        required: true
+      - name: jurisdictionId
+        type: string
+        description: This path parameter specifies the ID of the sales tax jurisdiction for the tax table entry to be retrieved.<br><br>Valid
+          jurisdiction IDs can be retrieved using
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: createorreplacesalestax
+      description: 'This method creates or updates a sales-tax table entry for a jurisdiction. Specify the tax table entry
+        you want to configure using the two path parameters: <b>countryCode</b> and <b>jurisdictionId</b>. <br><br>A tax table
+        entry for a jurisd'
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: ebay.createorreplacesalestax
+      with:
+        countryCode: tools.countryCode
+        jurisdictionId: tools.jurisdictionId
+      inputParameters:
+      - name: countryCode
+        type: string
+        description: This path parameter specifies the two-letter <a href="https://www.iso.org/iso-3166-country-codes.html
+          " title="https://www.iso.org " target="_blank">ISO 3166</a
+        required: true
+      - name: jurisdictionId
+        type: string
+        description: This path parameter specifies the ID of the tax jurisdiction for the table entry to be created.<br><br>Valid
+          jurisdiction IDs can be retrieved using the <a href
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: deletesalestax
+      description: This call deletes a sales-tax table entry for a jurisdiction. Specify the jurisdiction to delete using
+        the <b>countryCode</b> and <b>jurisdictionId</b> path parameters.<br><br><span class="tablenote"><b>Note:</b> Sales-tax
+        tables are only a
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: ebay.deletesalestax
+      with:
+        countryCode: tools.countryCode
+        jurisdictionId: tools.jurisdictionId
+      inputParameters:
+      - name: countryCode
+        type: string
+        description: This path parameter specifies the two-letter <a href="https://www.iso.org/iso-3166-country-codes.html
+          " title="https://www.iso.org " target="_blank">ISO 3166</a
+        required: true
+      - name: jurisdictionId
+        type: string
+        description: This path parameter specifies the ID of the sales tax jurisdiction whose table entry you want to delete.<br><br>Valid
+          jurisdiction IDs can be retrieved using th
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getsalestaxes
+      description: Use this call to retrieve all sales tax table entries that the seller has defined for a specific country.
+        All four response fields will be returned for each tax jurisdiction that matches the search criteria. <br><br><span
+        class="tablenote">
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getsalestaxes
+      with:
+        country_code: tools.country_code
+      inputParameters:
+      - name: country_code
+        type: string
+        description: This path parameter specifies the two-letter <a href="https://www.iso.org/iso-3166-country-codes.html
+          " title="https://www.iso.org " target="_blank">ISO 3166</a
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getsubscription
+      description: This method retrieves a list of subscriptions associated with the seller account.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getsubscription
+      with:
+        limit: tools.limit
+        continuation_token: tools.continuation_token
+      inputParameters:
+      - name: limit
+        type: string
+        description: This field is for future use.
+      - name: continuation_token
+        type: string
+        description: This field is for future use.
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getkyc
+      description: <span class="tablenote"><b>Note:</b>This method was originally created to see which onboarding requirements
+        were still pending for sellers being onboarded for eBay managed payments, but now that all seller accounts are onboarded
+        globally, t
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getkyc
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getadvertisingeligibility
+      description: This method allows developers to check the seller eligibility status for eBay advertising programs.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: ebay.getadvertisingeligibility
+      with:
+        program_types: tools.program_types
+      inputParameters:
+      - name: program_types
+        type: string
+        description: A comma-separated list of eBay advertising programs for which eligibility status will be returned.<br><br>
+          See the <a href="/api-docs/sell/account/types/plser:A
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    EBAY_TOKEN: EBAY_TOKEN
