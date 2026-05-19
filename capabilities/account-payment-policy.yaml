@@ -1,0 +1,326 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Account API — Payment_policy
+  description: 'eBay Account API — Payment_policy. 6 operations. Lead operation: Payment_policy. Self-contained Naftiko capability
+    covering one Ebay business surface.'
+  tags:
+  - Ebay
+  - Payment_policy
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: account-payment-policy
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Account API — Payment_policy business capability. Self-contained, no shared references.
+    resources:
+    - name: payment_policy
+      path: /payment_policy
+      operations:
+      - name: getpaymentpolicies
+        method: GET
+        description: This method retrieves all the payment policies configured for the marketplace you specify using the <code>marketplace_id</code>
+          query parameter.  <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policies for a marketplace th
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: marketplace_id
+          in: query
+          type: string
+          description: This query parameter specifies the eBay marketplace of the policies you want to retrieve. For implementation
+            help, refer to eBay API documentation at https://de
+          required: true
+      - name: createpaymentpolicy
+        method: POST
+        description: This method creates a new payment policy where the policy encapsulates seller's terms for order payments.  <br><br>Each
+          policy targets a specific eBay marketplace and category group, and you can create multiple policies for each combination
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: payment_policy-get_by_policy_name
+      path: /payment_policy/get_by_policy_name
+      operations:
+      - name: getpaymentpolicybyname
+        method: GET
+        description: 'This method retrieves the details of a specific payment policy. Supply both the policy <code>name</code>
+          and its associated <code>marketplace_id</code> in the request query parameters.   <br><br><b>Marketplaces and locales</b>  <br><br>Get '
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: marketplace_id
+          in: query
+          type: string
+          description: This query parameter specifies the eBay marketplace of the policy you want to retrieve. For implementation
+            help, refer to eBay API documentation at https://deve
+          required: true
+        - name: name
+          in: query
+          type: string
+          description: This query parameter specifies the seller-defined name of the payment policy you want to retrieve.<br><br>
+            This value can be retrieved for a payment policy by u
+          required: true
+    - name: payment_policy-payment_policy_id
+      path: /payment_policy/{payment_policy_id}
+      operations:
+      - name: getpaymentpolicy
+        method: GET
+        description: This method retrieves the complete details of a payment policy. Supply the ID of the policy you want
+          to retrieve using the <b>paymentPolicyId</b> path parameter.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: payment_policy_id
+          in: path
+          type: string
+          description: This path parameter specifies the ID of the payment policy you want to retrieve. <br><br> This ID can
+            be retrieved for a payment policy by using the <a href="/a
+          required: true
+      - name: updatepaymentpolicy
+        method: PUT
+        description: This method updates an existing payment policy. Specify the policy you want to update using the <b>payment_policy_id</b>
+          path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing
+          p
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: payment_policy_id
+          in: path
+          type: string
+          description: This path parameter specifies the ID of the payment policy you want to update. <br><br> This ID can
+            be retrieved for a payment policy by using the <a href="/api
+          required: true
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletepaymentpolicy
+        method: DELETE
+        description: This method deletes a payment policy. Supply the ID of the policy you want to delete in the <b>paymentPolicyId</b>
+          path parameter.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: payment_policy_id
+          in: path
+          type: string
+          description: This path parameter specifies the unique identifier of the payment policy you want to delete.<br><br>
+            This ID can be retrieved for a payment policy by using the
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: account-payment-policy-rest
+    port: 8080
+    description: REST adapter for eBay Account API — Payment_policy. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/payment-policy
+      name: payment-policy
+      description: REST surface for payment_policy.
+      operations:
+      - method: GET
+        name: getpaymentpolicies
+        description: This method retrieves all the payment policies configured for the marketplace you specify using the <code>marketplace_id</code>
+          query parameter.  <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policies for a marketplace th
+        call: account-payment-policy.getpaymentpolicies
+        with:
+          marketplace_id: rest.marketplace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createpaymentpolicy
+        description: This method creates a new payment policy where the policy encapsulates seller's terms for order payments.  <br><br>Each
+          policy targets a specific eBay marketplace and category group, and you can create multiple policies for each combination
+        call: account-payment-policy.createpaymentpolicy
+        with:
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment-policy/get-by-policy-name
+      name: payment-policy-get-by-policy-name
+      description: REST surface for payment_policy-get_by_policy_name.
+      operations:
+      - method: GET
+        name: getpaymentpolicybyname
+        description: 'This method retrieves the details of a specific payment policy. Supply both the policy <code>name</code>
+          and its associated <code>marketplace_id</code> in the request query parameters.   <br><br><b>Marketplaces and locales</b>  <br><br>Get '
+        call: account-payment-policy.getpaymentpolicybyname
+        with:
+          marketplace_id: rest.marketplace_id
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payment-policy/{payment-policy-id}
+      name: payment-policy-payment-policy-id
+      description: REST surface for payment_policy-payment_policy_id.
+      operations:
+      - method: GET
+        name: getpaymentpolicy
+        description: This method retrieves the complete details of a payment policy. Supply the ID of the policy you want
+          to retrieve using the <b>paymentPolicyId</b> path parameter.
+        call: account-payment-policy.getpaymentpolicy
+        with:
+          payment_policy_id: rest.payment_policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatepaymentpolicy
+        description: This method updates an existing payment policy. Specify the policy you want to update using the <b>payment_policy_id</b>
+          path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing
+          p
+        call: account-payment-policy.updatepaymentpolicy
+        with:
+          payment_policy_id: rest.payment_policy_id
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletepaymentpolicy
+        description: This method deletes a payment policy. Supply the ID of the policy you want to delete in the <b>paymentPolicyId</b>
+          path parameter.
+        call: account-payment-policy.deletepaymentpolicy
+        with:
+          payment_policy_id: rest.payment_policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: account-payment-policy-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Account API — Payment_policy. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: this-method-retrieves-all-payment
+      description: This method retrieves all the payment policies configured for the marketplace you specify using the <code>marketplace_id</code>
+        query parameter.  <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policies for a marketplace th
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-payment-policy.getpaymentpolicies
+      with:
+        marketplace_id: tools.marketplace_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-creates-new-payment
+      description: This method creates a new payment policy where the policy encapsulates seller's terms for order payments.  <br><br>Each
+        policy targets a specific eBay marketplace and category group, and you can create multiple policies for each combination
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: account-payment-policy.createpaymentpolicy
+      with:
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-retrieves-details-specific
+      description: 'This method retrieves the details of a specific payment policy. Supply both the policy <code>name</code>
+        and its associated <code>marketplace_id</code> in the request query parameters.   <br><br><b>Marketplaces and locales</b>  <br><br>Get '
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-payment-policy.getpaymentpolicybyname
+      with:
+        marketplace_id: tools.marketplace_id
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-retrieves-complete-details
+      description: This method retrieves the complete details of a payment policy. Supply the ID of the policy you want to
+        retrieve using the <b>paymentPolicyId</b> path parameter.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-payment-policy.getpaymentpolicy
+      with:
+        payment_policy_id: tools.payment_policy_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-updates-existing-payment
+      description: This method updates an existing payment policy. Specify the policy you want to update using the <b>payment_policy_id</b>
+        path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing
+        p
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: account-payment-policy.updatepaymentpolicy
+      with:
+        payment_policy_id: tools.payment_policy_id
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-deletes-payment-policy
+      description: This method deletes a payment policy. Supply the ID of the policy you want to delete in the <b>paymentPolicyId</b>
+        path parameter.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: account-payment-policy.deletepaymentpolicy
+      with:
+        payment_policy_id: tools.payment_policy_id
+      outputParameters:
+      - type: object
+        mapping: $.

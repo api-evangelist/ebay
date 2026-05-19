@@ -1,0 +1,87 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Notification API — Public_key
+  description: 'eBay Notification API — Public_key. 1 operations. Lead operation: Public_key. Self-contained Naftiko capability
+    covering one Ebay business surface.'
+  tags:
+  - Ebay
+  - Public_key
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: notification-public-key
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Notification API — Public_key business capability. Self-contained, no shared references.
+    resources:
+    - name: public_key-public_key_id
+      path: /public_key/{public_key_id}
+      operations:
+      - name: getpublickey
+        method: GET
+        description: This method allows users to retrieve a public key using a specified key ID. The public key that is returned
+          in the response payload is used to process and validate eBay notifications.<br><br>The public key ID, which is a
+          required request pa
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: public_key_id
+          in: path
+          type: string
+          description: 'The unique key ID that is used to retrieve the public key.<br><br><span class="tablenote"><b>Note:
+            </b>This is retrieved from the <b>X-EBAY-SIGNATURE</b> header'
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: notification-public-key-rest
+    port: 8080
+    description: REST adapter for eBay Notification API — Public_key. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/public-key/{public-key-id}
+      name: public-key-public-key-id
+      description: REST surface for public_key-public_key_id.
+      operations:
+      - method: GET
+        name: getpublickey
+        description: This method allows users to retrieve a public key using a specified key ID. The public key that is returned
+          in the response payload is used to process and validate eBay notifications.<br><br>The public key ID, which is a
+          required request pa
+        call: notification-public-key.getpublickey
+        with:
+          public_key_id: rest.public_key_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: notification-public-key-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Notification API — Public_key. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: this-method-allows-users-retrieve
+      description: This method allows users to retrieve a public key using a specified key ID. The public key that is returned
+        in the response payload is used to process and validate eBay notifications.<br><br>The public key ID, which is a required
+        request pa
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: notification-public-key.getpublickey
+      with:
+        public_key_id: tools.public_key_id
+      outputParameters:
+      - type: object
+        mapping: $.

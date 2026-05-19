@@ -1,0 +1,212 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Media API — Video
+  description: 'eBay Media API — Video. 3 operations. Lead operation: Video. Self-contained Naftiko capability covering one
+    Ebay business surface.'
+  tags:
+  - Ebay
+  - Video
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: media-video
+    baseUri: https://apim.ebay.com{basePath}
+    description: eBay Media API — Video business capability. Self-contained, no shared references.
+    resources:
+    - name: video
+      path: /video
+      operations:
+      - name: createvideo
+        method: POST
+        description: This method creates a video. When using this method, specify the <b>title</b>, <b>size</b>, and <b>classification</b>
+          of the video to be created. <b>Description</b> is an optional field for this method.<br /><br /><span class="tablenote"><s
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: video-video_id
+      path: /video/{video_id}
+      operations:
+      - name: getvideo
+        method: GET
+        description: 'This method retrieves a video''s metadata and content given a specified <b>video ID</b>. The method
+          returns the <b>title</b>, <b>size</b>, <b>classification</b>, <b>description</b>, <b>video ID</b>, <b>playList</b>,
+          <b>status</b>, <b>status '
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: video_id
+          in: path
+          type: string
+          description: The unique identifier of the video to be retrieved.
+          required: true
+    - name: video-video_id-upload
+      path: /video/{video_id}/upload
+      operations:
+      - name: uploadvideo
+        method: POST
+        description: This method associates the specified file with the specified <b>video ID</b> and uploads the input file.
+          After the file has been uploaded the processing of the file begins.<br /><br /><span class="tablenote"><span style="color:#004680"><str
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Length
+          in: header
+          type: string
+          description: 'Use this header to specify the content length for the upload. Use Content-Range: bytes {1}-{2}/{3}
+            and Content-Length:{4} headers.<br /><br /><span class="table'
+        - name: Content-Range
+          in: header
+          type: string
+          description: Use this header to specify the content range for the upload. The Content-Range should be of the following
+            bytes ((?:[0-9]+-[0-9]+)|\\\\*)/([0-9]+|\\\\*) pattern
+        - name: Content-Type
+          in: header
+          type: string
+          description: Use this header to specify the content type for the upload. The Content-Type should be set to <code>application/octet-stream</code>.
+          required: true
+        - name: video_id
+          in: path
+          type: string
+          description: The unique identifier of the video to be uploaded.
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: media-video-rest
+    port: 8080
+    description: REST adapter for eBay Media API — Video. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/video
+      name: video
+      description: REST surface for video.
+      operations:
+      - method: POST
+        name: createvideo
+        description: This method creates a video. When using this method, specify the <b>title</b>, <b>size</b>, and <b>classification</b>
+          of the video to be created. <b>Description</b> is an optional field for this method.<br /><br /><span class="tablenote"><s
+        call: media-video.createvideo
+        with:
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/video/{video-id}
+      name: video-video-id
+      description: REST surface for video-video_id.
+      operations:
+      - method: GET
+        name: getvideo
+        description: 'This method retrieves a video''s metadata and content given a specified <b>video ID</b>. The method
+          returns the <b>title</b>, <b>size</b>, <b>classification</b>, <b>description</b>, <b>video ID</b>, <b>playList</b>,
+          <b>status</b>, <b>status '
+        call: media-video.getvideo
+        with:
+          video_id: rest.video_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/video/{video-id}/upload
+      name: video-video-id-upload
+      description: REST surface for video-video_id-upload.
+      operations:
+      - method: POST
+        name: uploadvideo
+        description: This method associates the specified file with the specified <b>video ID</b> and uploads the input file.
+          After the file has been uploaded the processing of the file begins.<br /><br /><span class="tablenote"><span style="color:#004680"><str
+        call: media-video.uploadvideo
+        with:
+          Content-Length: rest.Content-Length
+          Content-Range: rest.Content-Range
+          Content-Type: rest.Content-Type
+          video_id: rest.video_id
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: media-video-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Media API — Video. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: this-method-creates-video-when
+      description: This method creates a video. When using this method, specify the <b>title</b>, <b>size</b>, and <b>classification</b>
+        of the video to be created. <b>Description</b> is an optional field for this method.<br /><br /><span class="tablenote"><s
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: media-video.createvideo
+      with:
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-retrieves-video-s-metadata
+      description: 'This method retrieves a video''s metadata and content given a specified <b>video ID</b>. The method returns
+        the <b>title</b>, <b>size</b>, <b>classification</b>, <b>description</b>, <b>video ID</b>, <b>playList</b>, <b>status</b>,
+        <b>status '
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: media-video.getvideo
+      with:
+        video_id: tools.video_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-associates-specified-file
+      description: This method associates the specified file with the specified <b>video ID</b> and uploads the input file.
+        After the file has been uploaded the processing of the file begins.<br /><br /><span class="tablenote"><span style="color:#004680"><str
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: media-video.uploadvideo
+      with:
+        Content-Length: tools.Content-Length
+        Content-Range: tools.Content-Range
+        Content-Type: tools.Content-Type
+        video_id: tools.video_id
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

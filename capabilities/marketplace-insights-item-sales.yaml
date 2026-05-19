@@ -1,0 +1,164 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Marketplace Insights API — Item_sales
+  description: 'eBay Marketplace Insights API — Item_sales. 1 operations. Lead operation: Item_sales. Self-contained Naftiko
+    capability covering one Ebay business surface.'
+  tags:
+  - Ebay
+  - Item_sales
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: marketplace-insights-item-sales
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Marketplace Insights API — Item_sales business capability. Self-contained, no shared references.
+    resources:
+    - name: item_sales-search
+      path: /item_sales/search
+      operations:
+      - name: search
+        method: GET
+        description: <span class="tablenote"><b>Note:</b> This is a <a href="/api-docs/static/versioning.html#limited" target="_blank">
+          <img src="/cms/img/docs/partners-api.svg" class="legend-icon partners-icon" title="Limited Release"  alt="Limited
+          Release" />
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: aspect_filter
+          in: query
+          type: string
+          description: This query parameter lets you filter by item aspects. The aspect name/value pairs and category, which
+            is required, is used to limit the results to specific aspe
+        - name: category_ids
+          in: query
+          type: string
+          description: This query parameter specifies the category ID used to limit the result set. For example, if you search
+            for 'shirt' the result set will be very large. But if yo
+        - name: epid
+          in: query
+          type: string
+          description: The ePID is the eBay product identifier of a product from the eBay product catalog. This query parameter
+            limits the results to only items in the specified ePID.
+        - name: fieldgroups
+          in: query
+          type: string
+          description: This query parameter lets you control what is to be returned in the response and accepts a comma separated
+            list of values. <br><br>The default is <b> MATCHING_I
+        - name: filter
+          in: query
+          type: string
+          description: 'This query parameter supports multiple field filters that can be used to limit/customize the result
+            set. <br><br>The following lists the supported filters. For '
+        - name: gtin
+          in: query
+          type: string
+          description: This query parameter lets you search by the Global Trade Item Number of the item as defined by <a href="https://www.gtin.info
+            " target="_blank">https://www.gtin
+        - name: limit
+          in: query
+          type: string
+          description: This query parameter specifies the number of items from the result set returned in a single page. <br><br><span
+            class="tablenote"><b>Note:</b> If a value is set
+        - name: offset
+          in: query
+          type: string
+          description: 'This query parameter specifies the number of items to skip in the result set. This is used with the
+            <b>limit</b> field to control the pagination of the output. '
+        - name: q
+          in: query
+          type: string
+          description: A string consisting of one or more keywords that are used to search for items on eBay. The keywords
+            are handled as follows:<br><ul><li>If the keywords are separ
+        - name: sort
+          in: query
+          type: string
+          description: This query parameter specifies the order and the field name to use to sort the items. To sort in descending
+            order use <code>-</code> before the field name.  Cur
+        - name: X-EBAY-C-ENDUSERCTX
+          in: header
+          type: string
+          description: This header is required to support revenue sharing for eBay Partner Network and to improve the accuracy
+            of shipping and delivery time estimations.<br><br>If you
+        - name: X-EBAY-C-MARKETPLACE-ID
+          in: header
+          type: string
+          description: This header identifies the seller's eBay marketplace.<br><br>See <a href="/api-docs/static/rest-request-components.html#marketpl
+            " target="_blank ">HTTP request
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: marketplace-insights-item-sales-rest
+    port: 8080
+    description: REST adapter for eBay Marketplace Insights API — Item_sales. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/item-sales/search
+      name: item-sales-search
+      description: REST surface for item_sales-search.
+      operations:
+      - method: GET
+        name: search
+        description: <span class="tablenote"><b>Note:</b> This is a <a href="/api-docs/static/versioning.html#limited" target="_blank">
+          <img src="/cms/img/docs/partners-api.svg" class="legend-icon partners-icon" title="Limited Release"  alt="Limited
+          Release" />
+        call: marketplace-insights-item-sales.search
+        with:
+          aspect_filter: rest.aspect_filter
+          category_ids: rest.category_ids
+          epid: rest.epid
+          fieldgroups: rest.fieldgroups
+          filter: rest.filter
+          gtin: rest.gtin
+          limit: rest.limit
+          offset: rest.offset
+          q: rest.q
+          sort: rest.sort
+          X-EBAY-C-ENDUSERCTX: rest.X-EBAY-C-ENDUSERCTX
+          X-EBAY-C-MARKETPLACE-ID: rest.X-EBAY-C-MARKETPLACE-ID
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: marketplace-insights-item-sales-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Marketplace Insights API — Item_sales. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: span-class-tablenote-b-note-b-this-is
+      description: <span class="tablenote"><b>Note:</b> This is a <a href="/api-docs/static/versioning.html#limited" target="_blank">
+        <img src="/cms/img/docs/partners-api.svg" class="legend-icon partners-icon" title="Limited Release"  alt="Limited
+        Release" />
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: marketplace-insights-item-sales.search
+      with:
+        aspect_filter: tools.aspect_filter
+        category_ids: tools.category_ids
+        epid: tools.epid
+        fieldgroups: tools.fieldgroups
+        filter: tools.filter
+        gtin: tools.gtin
+        limit: tools.limit
+        offset: tools.offset
+        q: tools.q
+        sort: tools.sort
+        X-EBAY-C-ENDUSERCTX: tools.X-EBAY-C-ENDUSERCTX
+        X-EBAY-C-MARKETPLACE-ID: tools.X-EBAY-C-MARKETPLACE-ID
+      outputParameters:
+      - type: object
+        mapping: $.

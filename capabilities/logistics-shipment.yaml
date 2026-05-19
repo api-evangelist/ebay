@@ -1,0 +1,246 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Logistics API — Shipment
+  description: 'eBay Logistics API — Shipment. 4 operations. Lead operation: Shipment. Self-contained Naftiko capability covering
+    one Ebay business surface.'
+  tags:
+  - Ebay
+  - Shipment
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: logistics-shipment
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Logistics API — Shipment business capability. Self-contained, no shared references.
+    resources:
+    - name: shipment-create_from_shipping_quote
+      path: /shipment/create_from_shipping_quote
+      operations:
+      - name: createfromshippingquote
+        method: POST
+        description: 'This method creates a shipment based on the <b>shippingQuoteId</b> and <b>rateId</b> values supplied
+          in the request. The rate identified by the <b>rateId</b> value specifies the carrier and service for the package
+          shipment, and the rate ID '
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: shipment-shipmentId
+      path: /shipment/{shipmentId}
+      operations:
+      - name: getshipment
+        method: GET
+        description: This method retrieves the shipment details for the specified shipment ID. Call <b>createFromShippingQuote</b>
+          to generate a shipment ID.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: shipmentId
+          in: path
+          type: string
+          description: This path parameter specifies the unique eBay-assigned identifier of the shipment you want to retrieve.<br><br>The
+            <b>shipmentId</b> value is generated and retu
+          required: true
+    - name: shipment-shipmentId-cancel
+      path: /shipment/{shipmentId}/cancel
+      operations:
+      - name: cancelshipment
+        method: POST
+        description: This method cancels the shipment associated with the specified shipment ID and the associated shipping
+          label is deleted. When you cancel a shipment, the <b>totalShippingCost</b> of the canceled shipment is refunded
+          to the account establishe
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: shipmentId
+          in: path
+          type: string
+          description: This path parameter specifies the unique eBay-assigned ID of the shipment to be canceled.<br><br>The
+            <b>shipmentId</b> value is generated and returned by the <a
+          required: true
+    - name: shipment-shipmentId-download_label_file
+      path: /shipment/{shipmentId}/download_label_file
+      operations:
+      - name: downloadlabelfile
+        method: GET
+        description: This method returns the shipping label file that was generated for the <b>shipmentId</b> value specified
+          in the request. Call <b>createFromShippingQuote</b> to generate a shipment ID.<br><br><span class="tablenote"><b>Note:</b>
+          The Logistic
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: shipmentId
+          in: path
+          type: string
+          description: This path parameter specifies the unique eBay-assigned identifier of the shipment associated with the
+            shipping label you want to download.<br><br> The <b>shipme
+          required: true
+        - name: Accept
+          in: header
+          type: string
+          description: 'This header specifies the format of the returned file. For this method, the value of the header should
+            be <code>Accept: application/pdf</code>.'
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: logistics-shipment-rest
+    port: 8080
+    description: REST adapter for eBay Logistics API — Shipment. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/shipment/create-from-shipping-quote
+      name: shipment-create-from-shipping-quote
+      description: REST surface for shipment-create_from_shipping_quote.
+      operations:
+      - method: POST
+        name: createfromshippingquote
+        description: 'This method creates a shipment based on the <b>shippingQuoteId</b> and <b>rateId</b> values supplied
+          in the request. The rate identified by the <b>rateId</b> value specifies the carrier and service for the package
+          shipment, and the rate ID '
+        call: logistics-shipment.createfromshippingquote
+        with:
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/shipment/{shipmentid}
+      name: shipment-shipmentid
+      description: REST surface for shipment-shipmentId.
+      operations:
+      - method: GET
+        name: getshipment
+        description: This method retrieves the shipment details for the specified shipment ID. Call <b>createFromShippingQuote</b>
+          to generate a shipment ID.
+        call: logistics-shipment.getshipment
+        with:
+          shipmentId: rest.shipmentId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/shipment/{shipmentid}/cancel
+      name: shipment-shipmentid-cancel
+      description: REST surface for shipment-shipmentId-cancel.
+      operations:
+      - method: POST
+        name: cancelshipment
+        description: This method cancels the shipment associated with the specified shipment ID and the associated shipping
+          label is deleted. When you cancel a shipment, the <b>totalShippingCost</b> of the canceled shipment is refunded
+          to the account establishe
+        call: logistics-shipment.cancelshipment
+        with:
+          shipmentId: rest.shipmentId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/shipment/{shipmentid}/download-label-file
+      name: shipment-shipmentid-download-label-file
+      description: REST surface for shipment-shipmentId-download_label_file.
+      operations:
+      - method: GET
+        name: downloadlabelfile
+        description: This method returns the shipping label file that was generated for the <b>shipmentId</b> value specified
+          in the request. Call <b>createFromShippingQuote</b> to generate a shipment ID.<br><br><span class="tablenote"><b>Note:</b>
+          The Logistic
+        call: logistics-shipment.downloadlabelfile
+        with:
+          shipmentId: rest.shipmentId
+          Accept: rest.Accept
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: logistics-shipment-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Logistics API — Shipment. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: this-method-creates-shipment-based
+      description: 'This method creates a shipment based on the <b>shippingQuoteId</b> and <b>rateId</b> values supplied in
+        the request. The rate identified by the <b>rateId</b> value specifies the carrier and service for the package shipment,
+        and the rate ID '
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: logistics-shipment.createfromshippingquote
+      with:
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-retrieves-shipment-details
+      description: This method retrieves the shipment details for the specified shipment ID. Call <b>createFromShippingQuote</b>
+        to generate a shipment ID.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: logistics-shipment.getshipment
+      with:
+        shipmentId: tools.shipmentId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-cancels-shipment-associated
+      description: This method cancels the shipment associated with the specified shipment ID and the associated shipping
+        label is deleted. When you cancel a shipment, the <b>totalShippingCost</b> of the canceled shipment is refunded to
+        the account establishe
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: logistics-shipment.cancelshipment
+      with:
+        shipmentId: tools.shipmentId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-returns-shipping-label
+      description: This method returns the shipping label file that was generated for the <b>shipmentId</b> value specified
+        in the request. Call <b>createFromShippingQuote</b> to generate a shipment ID.<br><br><span class="tablenote"><b>Note:</b>
+        The Logistic
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: logistics-shipment.downloadlabelfile
+      with:
+        shipmentId: tools.shipmentId
+        Accept: tools.Accept
+      outputParameters:
+      - type: object
+        mapping: $.

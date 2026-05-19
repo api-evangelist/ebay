@@ -1,0 +1,425 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Inventory API — Inventory_item
+  description: 'eBay Inventory API — Inventory_item. 7 operations. Lead operation: Inventory_item. Self-contained Naftiko
+    capability covering one Ebay business surface.'
+  tags:
+  - Ebay
+  - Inventory_item
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: inventory-inventory-item
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Inventory API — Inventory_item business capability. Self-contained, no shared references.
+    resources:
+    - name: bulk_create_or_replace_inventory_item
+      path: /bulk_create_or_replace_inventory_item
+      operations:
+      - name: bulkcreateorreplaceinventoryitem
+        method: POST
+        description: <span class="tablenote"><strong>Note:</strong> Please note that any eBay listing created using the Inventory
+          API cannot be revised or relisted using the Trading API calls.</span><br><span class="tablenote"><strong>Note:</strong>
+          Each listin
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: Content-Language
+          in: header
+          type: string
+          description: This header sets the natural language that will be used in the field values of the request payload.
+            For example, the value passed in this header should be <code
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: bulk_get_inventory_item
+      path: /bulk_get_inventory_item
+      operations:
+      - name: bulkgetinventoryitem
+        method: POST
+        description: This call retrieves up to 25 inventory item records. The SKU value of each inventory item record to retrieve
+          is specified in the request payload.<br><br><span class="tablenote"><b>Note:</b> In addition to the <code>authorization</code>
+          head
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: bulk_update_price_quantity
+      path: /bulk_update_price_quantity
+      operations:
+      - name: bulkupdatepricequantity
+        method: POST
+        description: This call is used by the seller to update the total ship-to-home quantity of one inventory item, and/or
+          to update the price and/or quantity of one or more offers associated with one inventory item. Up to 25 offers associated
+          with an invento
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: inventory_item
+      path: /inventory_item
+      operations:
+      - name: getinventoryitems
+        method: GET
+        description: This call retrieves all inventory item records defined for the seller's account. The <strong>limit</strong>
+          query parameter allows the seller to control how many records are returned per page, and the <strong>offset</strong>
+          query parameter
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: limit
+          in: query
+          type: string
+          description: The value passed in this query parameter sets the maximum number of records to return per page of data.
+            Although this field is a string, the value passed in thi
+        - name: offset
+          in: query
+          type: string
+          description: The value passed in this query parameter sets the page number to retrieve. The first page of records
+            has a value of <code>0</code>, the second page of records h
+    - name: inventory_item-sku
+      path: /inventory_item/{sku}
+      operations:
+      - name: getinventoryitem
+        method: GET
+        description: This call retrieves the inventory item record for a given SKU. The SKU value is passed in at the end
+          of the call URI. There is no request payload for this call.<br><br>The <code>authorization</code> header is the
+          only required HTTP header f
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sku
+          in: path
+          type: string
+          description: This path parameter specifies the seller-defined SKU value of the product whose inventory item record
+            you wish to retrieve.<br><br>Use the <a href="/api-docs/se
+          required: true
+      - name: createorreplaceinventoryitem
+        method: PUT
+        description: <span class="tablenote"><strong>Note:</strong> Please note that any eBay listing created using the Inventory
+          API cannot be revised or relisted using the Trading API calls.</span><br><span class="tablenote"><strong>Note:</strong>
+          Each listin
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Language
+          in: header
+          type: string
+          description: This header sets the natural language that will be used in the field values of the request payload.
+            For example, the value passed in this header should be <code
+          required: true
+        - name: sku
+          in: path
+          type: string
+          description: This path parameter specifies the seller-defined SKU value for the inventory item being created or
+            updated. SKU values must be unique across the seller's invent
+          required: true
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteinventoryitem
+        method: DELETE
+        description: 'This call is used to delete an inventory item record associated with a specified SKU. A successful call
+          will not only delete that inventory item record, but will also have the following effects:<ul><li>Delete any and
+          all unpublished offers '
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: sku
+          in: path
+          type: string
+          description: This path parameter specifies the seller-defined SKU value of the product whose inventory item record
+            you wish to delete.<br><br>Use the <a href="/api-docs/sell
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: inventory-inventory-item-rest
+    port: 8080
+    description: REST adapter for eBay Inventory API — Inventory_item. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/bulk-create-or-replace-inventory-item
+      name: bulk-create-or-replace-inventory-item
+      description: REST surface for bulk_create_or_replace_inventory_item.
+      operations:
+      - method: POST
+        name: bulkcreateorreplaceinventoryitem
+        description: <span class="tablenote"><strong>Note:</strong> Please note that any eBay listing created using the Inventory
+          API cannot be revised or relisted using the Trading API calls.</span><br><span class="tablenote"><strong>Note:</strong>
+          Each listin
+        call: inventory-inventory-item.bulkcreateorreplaceinventoryitem
+        with:
+          Content-Type: rest.Content-Type
+          Content-Language: rest.Content-Language
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/bulk-get-inventory-item
+      name: bulk-get-inventory-item
+      description: REST surface for bulk_get_inventory_item.
+      operations:
+      - method: POST
+        name: bulkgetinventoryitem
+        description: This call retrieves up to 25 inventory item records. The SKU value of each inventory item record to retrieve
+          is specified in the request payload.<br><br><span class="tablenote"><b>Note:</b> In addition to the <code>authorization</code>
+          head
+        call: inventory-inventory-item.bulkgetinventoryitem
+        with:
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/bulk-update-price-quantity
+      name: bulk-update-price-quantity
+      description: REST surface for bulk_update_price_quantity.
+      operations:
+      - method: POST
+        name: bulkupdatepricequantity
+        description: This call is used by the seller to update the total ship-to-home quantity of one inventory item, and/or
+          to update the price and/or quantity of one or more offers associated with one inventory item. Up to 25 offers associated
+          with an invento
+        call: inventory-inventory-item.bulkupdatepricequantity
+        with:
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/inventory-item
+      name: inventory-item
+      description: REST surface for inventory_item.
+      operations:
+      - method: GET
+        name: getinventoryitems
+        description: This call retrieves all inventory item records defined for the seller's account. The <strong>limit</strong>
+          query parameter allows the seller to control how many records are returned per page, and the <strong>offset</strong>
+          query parameter
+        call: inventory-inventory-item.getinventoryitems
+        with:
+          limit: rest.limit
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/inventory-item/{sku}
+      name: inventory-item-sku
+      description: REST surface for inventory_item-sku.
+      operations:
+      - method: GET
+        name: getinventoryitem
+        description: This call retrieves the inventory item record for a given SKU. The SKU value is passed in at the end
+          of the call URI. There is no request payload for this call.<br><br>The <code>authorization</code> header is the
+          only required HTTP header f
+        call: inventory-inventory-item.getinventoryitem
+        with:
+          sku: rest.sku
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: createorreplaceinventoryitem
+        description: <span class="tablenote"><strong>Note:</strong> Please note that any eBay listing created using the Inventory
+          API cannot be revised or relisted using the Trading API calls.</span><br><span class="tablenote"><strong>Note:</strong>
+          Each listin
+        call: inventory-inventory-item.createorreplaceinventoryitem
+        with:
+          Content-Language: rest.Content-Language
+          sku: rest.sku
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteinventoryitem
+        description: 'This call is used to delete an inventory item record associated with a specified SKU. A successful call
+          will not only delete that inventory item record, but will also have the following effects:<ul><li>Delete any and
+          all unpublished offers '
+        call: inventory-inventory-item.deleteinventoryitem
+        with:
+          sku: rest.sku
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: inventory-inventory-item-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Inventory API — Inventory_item. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: span-class-tablenote-strong-note-strong-please-note
+      description: <span class="tablenote"><strong>Note:</strong> Please note that any eBay listing created using the Inventory
+        API cannot be revised or relisted using the Trading API calls.</span><br><span class="tablenote"><strong>Note:</strong>
+        Each listin
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inventory-inventory-item.bulkcreateorreplaceinventoryitem
+      with:
+        Content-Type: tools.Content-Type
+        Content-Language: tools.Content-Language
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-call-retrieves-up-25
+      description: This call retrieves up to 25 inventory item records. The SKU value of each inventory item record to retrieve
+        is specified in the request payload.<br><br><span class="tablenote"><b>Note:</b> In addition to the <code>authorization</code>
+        head
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: inventory-inventory-item.bulkgetinventoryitem
+      with:
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-call-is-used-seller
+      description: This call is used by the seller to update the total ship-to-home quantity of one inventory item, and/or
+        to update the price and/or quantity of one or more offers associated with one inventory item. Up to 25 offers associated
+        with an invento
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inventory-inventory-item.bulkupdatepricequantity
+      with:
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-call-retrieves-all-inventory
+      description: This call retrieves all inventory item records defined for the seller's account. The <strong>limit</strong>
+        query parameter allows the seller to control how many records are returned per page, and the <strong>offset</strong>
+        query parameter
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: inventory-inventory-item.getinventoryitems
+      with:
+        limit: tools.limit
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-call-retrieves-inventory-item
+      description: This call retrieves the inventory item record for a given SKU. The SKU value is passed in at the end of
+        the call URI. There is no request payload for this call.<br><br>The <code>authorization</code> header is the only
+        required HTTP header f
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: inventory-inventory-item.getinventoryitem
+      with:
+        sku: tools.sku
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: span-class-tablenote-strong-note-strong-please-note-2
+      description: <span class="tablenote"><strong>Note:</strong> Please note that any eBay listing created using the Inventory
+        API cannot be revised or relisted using the Trading API calls.</span><br><span class="tablenote"><strong>Note:</strong>
+        Each listin
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: inventory-inventory-item.createorreplaceinventoryitem
+      with:
+        Content-Language: tools.Content-Language
+        sku: tools.sku
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-call-is-used-delete
+      description: 'This call is used to delete an inventory item record associated with a specified SKU. A successful call
+        will not only delete that inventory item record, but will also have the following effects:<ul><li>Delete any and all
+        unpublished offers '
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: inventory-inventory-item.deleteinventoryitem
+      with:
+        sku: tools.sku
+      outputParameters:
+      - type: object
+        mapping: $.

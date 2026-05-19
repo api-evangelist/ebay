@@ -1,0 +1,142 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Notification API — Topic
+  description: 'eBay Notification API — Topic. 2 operations. Lead operation: Topic. Self-contained Naftiko capability covering
+    one Ebay business surface.'
+  tags:
+  - Ebay
+  - Topic
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: notification-topic
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Notification API — Topic business capability. Self-contained, no shared references.
+    resources:
+    - name: topic
+      path: /topic
+      operations:
+      - name: gettopics
+        method: GET
+        description: This method returns a paginated collection of all supported topics, along with the details for the topics.
+          This information includes supported schema versions, formats, and other metadata for the topics.<br><br>Applications
+          can subscribe to
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: continuation_token
+          in: query
+          type: string
+          description: This string value can be used to return the next page in the result set. The string to use here is
+            returned in the <b>next</b> field of the current page of resu
+        - name: limit
+          in: query
+          type: string
+          description: The maximum number of notification topics to return per page from the result set.<br><br><b>Min:</b>
+            10<br><br><b>Max:</b> 100<br><br><b>Default:</b> 20
+    - name: topic-topic_id
+      path: /topic/{topic_id}
+      operations:
+      - name: gettopic
+        method: GET
+        description: This method allows applications to retrieve details for the specified topic. This information includes
+          supported schema versions, formats, and other metadata for the topic.<br><br>Applications can subscribe to any of
+          the topics for a suppor
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: topic_id
+          in: path
+          type: string
+          description: The unique identifier of the notification topic for which the details are retrieved. Use <b>getTopics</b>
+            to retrieve the topic ID.
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: notification-topic-rest
+    port: 8080
+    description: REST adapter for eBay Notification API — Topic. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/topic
+      name: topic
+      description: REST surface for topic.
+      operations:
+      - method: GET
+        name: gettopics
+        description: This method returns a paginated collection of all supported topics, along with the details for the topics.
+          This information includes supported schema versions, formats, and other metadata for the topics.<br><br>Applications
+          can subscribe to
+        call: notification-topic.gettopics
+        with:
+          continuation_token: rest.continuation_token
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/topic/{topic-id}
+      name: topic-topic-id
+      description: REST surface for topic-topic_id.
+      operations:
+      - method: GET
+        name: gettopic
+        description: This method allows applications to retrieve details for the specified topic. This information includes
+          supported schema versions, formats, and other metadata for the topic.<br><br>Applications can subscribe to any of
+          the topics for a suppor
+        call: notification-topic.gettopic
+        with:
+          topic_id: rest.topic_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: notification-topic-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Notification API — Topic. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: this-method-returns-paginated-collection
+      description: This method returns a paginated collection of all supported topics, along with the details for the topics.
+        This information includes supported schema versions, formats, and other metadata for the topics.<br><br>Applications
+        can subscribe to
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: notification-topic.gettopics
+      with:
+        continuation_token: tools.continuation_token
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-allows-applications-retrieve
+      description: This method allows applications to retrieve details for the specified topic. This information includes
+        supported schema versions, formats, and other metadata for the topic.<br><br>Applications can subscribe to any of
+        the topics for a suppor
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: notification-topic.gettopic
+      with:
+        topic_id: tools.topic_id
+      outputParameters:
+      - type: object
+        mapping: $.

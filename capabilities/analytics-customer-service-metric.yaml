@@ -1,0 +1,101 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Seller Service Metrics API — Customer_service_metric
+  description: 'eBay Seller Service Metrics API — Customer_service_metric. 1 operations. Lead operation: Customer_service_metric.
+    Self-contained Naftiko capability covering one Ebay business surface.'
+  tags:
+  - Ebay
+  - Customer_service_metric
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: analytics-customer-service-metric
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Seller Service Metrics API — Customer_service_metric business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: customer_service_metric-customer_service_metric_type-evaluation_type
+      path: /customer_service_metric/{customer_service_metric_type}/{evaluation_type}
+      operations:
+      - name: getcustomerservicemetric
+        method: GET
+        description: 'Use this method to retrieve a seller''s performance and rating for the customer service metric.  <br><br>Control
+          the response from the <b>getCustomerServiceMetric</b> method using the following path and query parameters: <ul><li><b>customer_'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: customer_service_metric_type
+          in: path
+          type: string
+          description: Use this path parameter to specify the type of customer service metrics and benchmark data you want
+            returned for the seller. Supported types are:<br> <ul><li><c
+          required: true
+        - name: evaluation_marketplace_id
+          in: query
+          type: string
+          description: Use this query parameter to specify the Marketplace ID to evaluate for the customer service metrics
+            and benchmark data.  <br><br>For the list of supported marke
+          required: true
+        - name: evaluation_type
+          in: path
+          type: string
+          description: Use this path parameter to specify the evaluation period to use for the performance metrics. See <a
+            href="/api-docs/sell/analytics/types/api:EvaluationTypeEnum"
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: analytics-customer-service-metric-rest
+    port: 8080
+    description: REST adapter for eBay Seller Service Metrics API — Customer_service_metric. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/customer-service-metric/{customer-service-metric-type}/{evaluation-type}
+      name: customer-service-metric-customer-service-metric-type-evaluation-type
+      description: REST surface for customer_service_metric-customer_service_metric_type-evaluation_type.
+      operations:
+      - method: GET
+        name: getcustomerservicemetric
+        description: 'Use this method to retrieve a seller''s performance and rating for the customer service metric.  <br><br>Control
+          the response from the <b>getCustomerServiceMetric</b> method using the following path and query parameters: <ul><li><b>customer_'
+        call: analytics-customer-service-metric.getcustomerservicemetric
+        with:
+          customer_service_metric_type: rest.customer_service_metric_type
+          evaluation_marketplace_id: rest.evaluation_marketplace_id
+          evaluation_type: rest.evaluation_type
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: analytics-customer-service-metric-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Seller Service Metrics API — Customer_service_metric. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: use-this-method-retrieve-seller-s
+      description: 'Use this method to retrieve a seller''s performance and rating for the customer service metric.  <br><br>Control
+        the response from the <b>getCustomerServiceMetric</b> method using the following path and query parameters: <ul><li><b>customer_'
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: analytics-customer-service-metric.getcustomerservicemetric
+      with:
+        customer_service_metric_type: tools.customer_service_metric_type
+        evaluation_marketplace_id: tools.evaluation_marketplace_id
+        evaluation_type: tools.evaluation_type
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,88 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Account API — Advertising_eligibility
+  description: 'eBay Account API — Advertising_eligibility. 1 operations. Lead operation: Advertising_eligibility. Self-contained
+    Naftiko capability covering one Ebay business surface.'
+  tags:
+  - Ebay
+  - Advertising_eligibility
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: account-advertising-eligibility
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Account API — Advertising_eligibility business capability. Self-contained, no shared references.
+    resources:
+    - name: advertising_eligibility
+      path: /advertising_eligibility
+      operations:
+      - name: getadvertisingeligibility
+        method: GET
+        description: This method allows developers to check the seller eligibility status for eBay advertising programs.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: program_types
+          in: query
+          type: string
+          description: A comma-separated list of eBay advertising programs for which eligibility status will be returned.<br><br>
+            See the <a href="/api-docs/sell/account/types/plser:A
+        - name: X-EBAY-C-MARKETPLACE-ID
+          in: header
+          type: string
+          description: The unique identifier of the eBay marketplace for which the seller eligibility status shall be checked.
+            This header is required or the call will fail.<br><br>Se
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: account-advertising-eligibility-rest
+    port: 8080
+    description: REST adapter for eBay Account API — Advertising_eligibility. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/advertising-eligibility
+      name: advertising-eligibility
+      description: REST surface for advertising_eligibility.
+      operations:
+      - method: GET
+        name: getadvertisingeligibility
+        description: This method allows developers to check the seller eligibility status for eBay advertising programs.
+        call: account-advertising-eligibility.getadvertisingeligibility
+        with:
+          program_types: rest.program_types
+          X-EBAY-C-MARKETPLACE-ID: rest.X-EBAY-C-MARKETPLACE-ID
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: account-advertising-eligibility-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Account API — Advertising_eligibility. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: this-method-allows-developers-check
+      description: This method allows developers to check the seller eligibility status for eBay advertising programs.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-advertising-eligibility.getadvertisingeligibility
+      with:
+        program_types: tools.program_types
+        X-EBAY-C-MARKETPLACE-ID: tools.X-EBAY-C-MARKETPLACE-ID
+      outputParameters:
+      - type: object
+        mapping: $.

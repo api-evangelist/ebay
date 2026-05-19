@@ -1,0 +1,128 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Deal API — Deal_item
+  description: 'eBay Deal API — Deal_item. 1 operations. Lead operation: Deal_item. Self-contained Naftiko capability covering
+    one Ebay business surface.'
+  tags:
+  - Ebay
+  - Deal_item
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: deal-deal-item
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Deal API — Deal_item business capability. Self-contained, no shared references.
+    resources:
+    - name: deal_item
+      path: /deal_item
+      operations:
+      - name: getdealitems
+        method: GET
+        description: This method retrieves a paginated set of deal items. The result set contains all deal items associated
+          with the specified search criteria and marketplace ID.<h3>Restrictions</h3>This method can return a maximum of 10,000
+          items. For a list o
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: category_ids
+          in: query
+          type: string
+          description: This query parameter specifies the unique identifier of the eBay category for the search.<br><br>For
+            details see <a href="/api-docs/buy/buy-categories.html" tar
+        - name: commissionable
+          in: query
+          type: string
+          description: This query parameter allows the response to filter by commissionable items.<br><br>If set to <code>true</code>,
+            only commissionable items will be returned in th
+        - name: delivery_country
+          in: query
+          type: string
+          description: This query parameter allows the response to only return items that can be shipped to the specified
+            country (2-digit ISO code).
+        - name: limit
+          in: query
+          type: string
+          description: The maximum number of items, from the current result set, returned on a single page.
+        - name: offset
+          in: query
+          type: string
+          description: The number of items that will be skipped in the result set. This is used with the <b>limit</b> field
+            to control the pagination of the output.<br /><br />For exa
+        - name: X-EBAY-C-MARKETPLACE-ID
+          in: header
+          type: string
+          description: This header identifies the eBay marketplace.<br><br>See <a href="/api-docs/static/rest-request-components.html#marketpl
+            " target="_blank ">HTTP request headers<
+          required: true
+        - name: X-EBAY-C-ENDUSERCTX
+          in: header
+          type: string
+          description: This header is required to support revenue sharing for eBay Partner Network and to improve the accuracy
+            of shipping and delivery time estimations.<br><br>For ad
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: deal-deal-item-rest
+    port: 8080
+    description: REST adapter for eBay Deal API — Deal_item. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/deal-item
+      name: deal-item
+      description: REST surface for deal_item.
+      operations:
+      - method: GET
+        name: getdealitems
+        description: This method retrieves a paginated set of deal items. The result set contains all deal items associated
+          with the specified search criteria and marketplace ID.<h3>Restrictions</h3>This method can return a maximum of 10,000
+          items. For a list o
+        call: deal-deal-item.getdealitems
+        with:
+          category_ids: rest.category_ids
+          commissionable: rest.commissionable
+          delivery_country: rest.delivery_country
+          limit: rest.limit
+          offset: rest.offset
+          X-EBAY-C-MARKETPLACE-ID: rest.X-EBAY-C-MARKETPLACE-ID
+          X-EBAY-C-ENDUSERCTX: rest.X-EBAY-C-ENDUSERCTX
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: deal-deal-item-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Deal API — Deal_item. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: this-method-retrieves-paginated-set
+      description: This method retrieves a paginated set of deal items. The result set contains all deal items associated
+        with the specified search criteria and marketplace ID.<h3>Restrictions</h3>This method can return a maximum of 10,000
+        items. For a list o
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: deal-deal-item.getdealitems
+      with:
+        category_ids: tools.category_ids
+        commissionable: tools.commissionable
+        delivery_country: tools.delivery_country
+        limit: tools.limit
+        offset: tools.offset
+        X-EBAY-C-MARKETPLACE-ID: tools.X-EBAY-C-MARKETPLACE-ID
+        X-EBAY-C-ENDUSERCTX: tools.X-EBAY-C-ENDUSERCTX
+      outputParameters:
+      - type: object
+        mapping: $.

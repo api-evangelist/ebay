@@ -1,0 +1,94 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Inventory API — Listing
+  description: 'eBay Inventory API — Listing. 1 operations. Lead operation: Listing. Self-contained Naftiko capability covering
+    one Ebay business surface.'
+  tags:
+  - Ebay
+  - Listing
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: inventory-listing
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Inventory API — Listing business capability. Self-contained, no shared references.
+    resources:
+    - name: bulk_migrate_listing
+      path: /bulk_migrate_listing
+      operations:
+      - name: bulkmigratelisting
+        method: POST
+        description: This call is used to convert existing eBay Listings to the corresponding Inventory API objects. If an
+          eBay listing is successfully migrated to the Inventory API model, new Inventory Location, Inventory Item, and Offer
+          objects are created. F
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: inventory-listing-rest
+    port: 8080
+    description: REST adapter for eBay Inventory API — Listing. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/bulk-migrate-listing
+      name: bulk-migrate-listing
+      description: REST surface for bulk_migrate_listing.
+      operations:
+      - method: POST
+        name: bulkmigratelisting
+        description: This call is used to convert existing eBay Listings to the corresponding Inventory API objects. If an
+          eBay listing is successfully migrated to the Inventory API model, new Inventory Location, Inventory Item, and Offer
+          objects are created. F
+        call: inventory-listing.bulkmigratelisting
+        with:
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: inventory-listing-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Inventory API — Listing. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: this-call-is-used-convert
+      description: This call is used to convert existing eBay Listings to the corresponding Inventory API objects. If an eBay
+        listing is successfully migrated to the Inventory API model, new Inventory Location, Inventory Item, and Offer objects
+        are created. F
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inventory-listing.bulkmigratelisting
+      with:
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

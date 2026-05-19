@@ -1,0 +1,216 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Feed API — Customer_service_metric_task
+  description: 'eBay Feed API — Customer_service_metric_task. 3 operations. Lead operation: Customer_service_metric_task.
+    Self-contained Naftiko capability covering one Ebay business surface.'
+  tags:
+  - Ebay
+  - Customer_service_metric_task
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: feed-customer-service-metric-task
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Feed API — Customer_service_metric_task business capability. Self-contained, no shared references.
+    resources:
+    - name: customer_service_metric_task
+      path: /customer_service_metric_task
+      operations:
+      - name: getcustomerservicemetrictasks
+        method: GET
+        description: Use this method to return an array of customer service metric tasks. You can limit the tasks returned
+          by specifying a date range. </p> <p> <span class="tablenote"><strong>Note:</strong> You can pass in either the <code>look_back_days
+          </code
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: date_range
+          in: query
+          type: string
+          description: The task creation date range. The results are filtered to include only tasks with a creation date that
+            is equal to the dates specified or is within the specifie
+        - name: feed_type
+          in: query
+          type: string
+          description: The feed type associated with the tasks being retrieved. The only presently supported value is <code>CUSTOMER_SERVICE_METRICS_REPORT</code>.
+        - name: limit
+          in: query
+          type: string
+          description: The number of customer service metric tasks to return per page of the result set. Use this parameter
+            in conjunction with the offset parameter to control the pag
+        - name: look_back_days
+          in: query
+          type: string
+          description: The number of previous days in which to search for tasks. Do not use with the <code>date_range</code>
+            parameter. If both <code>date_range</code> and <code>look_
+        - name: offset
+          in: query
+          type: string
+          description: The number of customer service metric tasks to skip in the result set before returning the first task
+            in the paginated response. <p>Combine <strong>offset</stro
+      - name: createcustomerservicemetrictask
+        method: POST
+        description: '<p>Use this method to create a customer service metrics download task with filter criteria for the customer
+          service metrics report. When using this method, specify the <strong>feedType</strong> and <strong>filterCriteria</strong>
+          including '
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Accept-Language
+          in: header
+          type: string
+          description: Use this header to specify the natural language in which the authenticated user desires the response.
+            For example, <code>en-US</code> for English or <code>de-DE
+          required: true
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: customer_service_metric_task-task_id
+      path: /customer_service_metric_task/{task_id}
+      operations:
+      - name: getcustomerservicemetrictask
+        method: GET
+        description: <p>Use this method to retrieve customer service metric task details for the specified task. The input
+          is <strong>task_id</strong>.</p>
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: task_id
+          in: path
+          type: string
+          description: This path parameter is the unique identifier of the customer service metric task being retrieved.<br><br>Use
+            the <a href="/api-docs/sell/feed/resources/customer
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: feed-customer-service-metric-task-rest
+    port: 8080
+    description: REST adapter for eBay Feed API — Customer_service_metric_task. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/customer-service-metric-task
+      name: customer-service-metric-task
+      description: REST surface for customer_service_metric_task.
+      operations:
+      - method: GET
+        name: getcustomerservicemetrictasks
+        description: Use this method to return an array of customer service metric tasks. You can limit the tasks returned
+          by specifying a date range. </p> <p> <span class="tablenote"><strong>Note:</strong> You can pass in either the <code>look_back_days
+          </code
+        call: feed-customer-service-metric-task.getcustomerservicemetrictasks
+        with:
+          date_range: rest.date_range
+          feed_type: rest.feed_type
+          limit: rest.limit
+          look_back_days: rest.look_back_days
+          offset: rest.offset
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcustomerservicemetrictask
+        description: '<p>Use this method to create a customer service metrics download task with filter criteria for the customer
+          service metrics report. When using this method, specify the <strong>feedType</strong> and <strong>filterCriteria</strong>
+          including '
+        call: feed-customer-service-metric-task.createcustomerservicemetrictask
+        with:
+          Accept-Language: rest.Accept-Language
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/customer-service-metric-task/{task-id}
+      name: customer-service-metric-task-task-id
+      description: REST surface for customer_service_metric_task-task_id.
+      operations:
+      - method: GET
+        name: getcustomerservicemetrictask
+        description: <p>Use this method to retrieve customer service metric task details for the specified task. The input
+          is <strong>task_id</strong>.</p>
+        call: feed-customer-service-metric-task.getcustomerservicemetrictask
+        with:
+          task_id: rest.task_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: feed-customer-service-metric-task-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Feed API — Customer_service_metric_task. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: use-this-method-return-array
+      description: Use this method to return an array of customer service metric tasks. You can limit the tasks returned by
+        specifying a date range. </p> <p> <span class="tablenote"><strong>Note:</strong> You can pass in either the <code>look_back_days
+        </code
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: feed-customer-service-metric-task.getcustomerservicemetrictasks
+      with:
+        date_range: tools.date_range
+        feed_type: tools.feed_type
+        limit: tools.limit
+        look_back_days: tools.look_back_days
+        offset: tools.offset
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: p-use-this-method-create-customer
+      description: '<p>Use this method to create a customer service metrics download task with filter criteria for the customer
+        service metrics report. When using this method, specify the <strong>feedType</strong> and <strong>filterCriteria</strong>
+        including '
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: feed-customer-service-metric-task.createcustomerservicemetrictask
+      with:
+        Accept-Language: tools.Accept-Language
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: p-use-this-method-retrieve-customer
+      description: <p>Use this method to retrieve customer service metric task details for the specified task. The input is
+        <strong>task_id</strong>.</p>
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: feed-customer-service-metric-task.getcustomerservicemetrictask
+      with:
+        task_id: tools.task_id
+      outputParameters:
+      - type: object
+        mapping: $.

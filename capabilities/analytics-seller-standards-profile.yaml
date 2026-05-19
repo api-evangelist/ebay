@@ -1,0 +1,134 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Seller Service Metrics API — Seller_standards_profile
+  description: 'eBay Seller Service Metrics API — Seller_standards_profile. 2 operations. Lead operation: Seller_standards_profile.
+    Self-contained Naftiko capability covering one Ebay business surface.'
+  tags:
+  - Ebay
+  - Seller_standards_profile
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: analytics-seller-standards-profile
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Seller Service Metrics API — Seller_standards_profile business capability. Self-contained, no shared
+      references.
+    resources:
+    - name: seller_standards_profile
+      path: /seller_standards_profile
+      operations:
+      - name: findsellerstandardsprofiles
+        method: GET
+        description: This call retrieves all the standards profiles for the associated seller.  <br><br>A <i>standards profile
+          </i> is a set of eBay seller metrics and the seller's associated compliance values (either <code>TOP_RATED</code>,
+          <code>ABOVE_STANDAR
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: seller_standards_profile-program-cycle
+      path: /seller_standards_profile/{program}/{cycle}
+      operations:
+      - name: getsellerstandardsprofile
+        method: GET
+        description: This call retrieves a single standards profile for the associated seller.  <br><br>A <i>standards profile
+          </i> is a set of eBay seller metrics and the seller's associated compliance values (either <code>TOP_RATED</code>,
+          <code>ABOVE_STANDAR
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: cycle
+          in: path
+          type: string
+          description: This path parameter is used to specify the cycle for which metrics and metadata will be retrieved.<br><br>See
+            <a href="/api-docs/sell/analytics/types/ssp:CycleT
+          required: true
+        - name: program
+          in: path
+          type: string
+          description: This path parameter is used to specify the seller standards program for which metrics and metadata
+            will be retrieved. <br><br>See <a href="/api-docs/sell/analyt
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: analytics-seller-standards-profile-rest
+    port: 8080
+    description: REST adapter for eBay Seller Service Metrics API — Seller_standards_profile. One Spectral-compliant resource
+      per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/seller-standards-profile
+      name: seller-standards-profile
+      description: REST surface for seller_standards_profile.
+      operations:
+      - method: GET
+        name: findsellerstandardsprofiles
+        description: This call retrieves all the standards profiles for the associated seller.  <br><br>A <i>standards profile
+          </i> is a set of eBay seller metrics and the seller's associated compliance values (either <code>TOP_RATED</code>,
+          <code>ABOVE_STANDAR
+        call: analytics-seller-standards-profile.findsellerstandardsprofiles
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/seller-standards-profile/{program}/{cycle}
+      name: seller-standards-profile-program-cycle
+      description: REST surface for seller_standards_profile-program-cycle.
+      operations:
+      - method: GET
+        name: getsellerstandardsprofile
+        description: This call retrieves a single standards profile for the associated seller.  <br><br>A <i>standards profile
+          </i> is a set of eBay seller metrics and the seller's associated compliance values (either <code>TOP_RATED</code>,
+          <code>ABOVE_STANDAR
+        call: analytics-seller-standards-profile.getsellerstandardsprofile
+        with:
+          cycle: rest.cycle
+          program: rest.program
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: analytics-seller-standards-profile-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Seller Service Metrics API — Seller_standards_profile. One tool per consumed operation,
+      routed inline through this capability's consumes block.
+    tools:
+    - name: this-call-retrieves-all-standards
+      description: This call retrieves all the standards profiles for the associated seller.  <br><br>A <i>standards profile
+        </i> is a set of eBay seller metrics and the seller's associated compliance values (either <code>TOP_RATED</code>,
+        <code>ABOVE_STANDAR
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: analytics-seller-standards-profile.findsellerstandardsprofiles
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-call-retrieves-single-standards
+      description: This call retrieves a single standards profile for the associated seller.  <br><br>A <i>standards profile
+        </i> is a set of eBay seller metrics and the seller's associated compliance values (either <code>TOP_RATED</code>,
+        <code>ABOVE_STANDAR
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: analytics-seller-standards-profile.getsellerstandardsprofile
+      with:
+        cycle: tools.cycle
+        program: tools.program
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,708 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Inventory API — Offer
+  description: 'eBay Inventory API — Offer. 12 operations. Lead operation: Offer. Self-contained Naftiko capability covering
+    one Ebay business surface.'
+  tags:
+  - Ebay
+  - Offer
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: inventory-offer
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Inventory API — Offer business capability. Self-contained, no shared references.
+    resources:
+    - name: bulk_create_offer
+      path: /bulk_create_offer
+      operations:
+      - name: bulkcreateoffer
+        method: POST
+        description: This call creates multiple offers (up to 25) for specific inventory items on a specific eBay marketplace.
+          Although it is not a requirement for the seller to create complete offers (with all necessary details) right from
+          the start, eBay reco
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Language
+          in: header
+          type: string
+          description: This header sets the natural language that will be used in the field values of the request payload.
+            For example, the value passed in this header should be <code
+          required: true
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: bulk_publish_offer
+      path: /bulk_publish_offer
+      operations:
+      - name: bulkpublishoffer
+        method: POST
+        description: <span class="tablenote"><strong>Note:</strong> Each listing can be revised up to 250 times in one calendar
+          day. If this revision threshold is reached, the seller will be blocked from revising the item until the next calendar
+          day.</span><br>
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: offer
+      path: /offer
+      operations:
+      - name: getoffers
+        method: GET
+        description: This call retrieves all existing offers for the specified SKU value. The seller has the option of limiting
+          the offers that are retrieved to a specific eBay marketplace, or to a listing format.<br><br><span class="tablenote"><strong>Note:</s
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: format
+          in: query
+          type: string
+          description: 'This enumeration value sets the listing format for the offers being retrieved. This query parameter
+            will be passed in if the seller only wants to see offers in '
+        - name: limit
+          in: query
+          type: string
+          description: The value passed in this query parameter sets the maximum number of records to return per page of data.
+            Although this field is a string, the value passed in thi
+        - name: marketplace_id
+          in: query
+          type: string
+          description: The unique identifier of the eBay marketplace. This query parameter will be passed in if the seller
+            only wants to see the product's offers on a specific eBay ma
+        - name: offset
+          in: query
+          type: string
+          description: The value passed in this query parameter sets the page number to retrieve. Although this field is a
+            string, the value passed in this field should be a integer v
+        - name: sku
+          in: query
+          type: string
+          description: The seller-defined SKU value is passed in as a query parameter. All offers associated with this product
+            are returned in the response. <br><br><span class="table
+      - name: createoffer
+        method: POST
+        description: This call creates an offer for a specific inventory item on a specific eBay marketplace. It is up to
+          the sellers whether they want to create a complete offer (with all necessary details) right from the start, or sellers
+          can provide only som
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Language
+          in: header
+          type: string
+          description: This header sets the natural language that will be used in the field values of the request payload.
+            For example, the value passed in this header should be <code
+          required: true
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: offer-get_listing_fees
+      path: /offer/get_listing_fees
+      operations:
+      - name: getlistingfees
+        method: POST
+        description: This call is used to retrieve the expected listing fees for up to 250 unpublished offers. An array of
+          one or more <strong>offerId</strong> values are passed in under the <strong>offers</strong> container.<br><br> In
+          the response payload, al
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    - name: offer-publish_by_inventory_item_group
+      path: /offer/publish_by_inventory_item_group/
+      operations:
+      - name: publishofferbyinventoryitemgroup
+        method: POST
+        description: <span class="tablenote"><strong>Note:</strong> Please note that any eBay listing created using the Inventory
+          API cannot be revised or relisted using the Trading API calls.</span><br><span class="tablenote"><strong>Note:</strong>
+          Each listin
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: offer-withdraw_by_inventory_item_group
+      path: /offer/withdraw_by_inventory_item_group
+      operations:
+      - name: withdrawofferbyinventoryitemgroup
+        method: POST
+        description: This call is used to end a multiple-variation eBay listing that is associated with the specified inventory
+          item group. This call only ends multiple-variation eBay listing associated with the inventory item group but does
+          not delete the inve
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: offer-offerId
+      path: /offer/{offerId}
+      operations:
+      - name: getoffer
+        method: GET
+        description: This call retrieves a specific published or unpublished offer. The unique identifier of the offer (<strong>offerId</strong>)
+          is passed in at the end of the call URI.<p>The <code>authorization</code> header is the only required HTTP header
+          f
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offerId
+          in: path
+          type: string
+          description: This path parameter specifies the unique identifier of the offer that is to be retrieved.<br><br>Use
+            the <a href="/api-docs/sell/inventory/resources/offer/metho
+          required: true
+      - name: updateoffer
+        method: PUT
+        description: This call updates an existing offer. An existing offer may be in published state (active eBay listing),
+          or in an unpublished state and yet to be published with the <strong>publishOffer</strong> call. The unique identifier
+          (<strong>offerId</
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Language
+          in: header
+          type: string
+          description: This header sets the natural language that will be used in the field values of the request payload.
+            For example, the value passed in this header should be <code
+          required: true
+        - name: offerId
+          in: path
+          type: string
+          description: This path parameter specifies the unique identifier of the offer being updated.<br><br>Use the <a href="/api-docs/sell/inventory/resources/offer/methods/getOffe
+          required: true
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deleteoffer
+        method: DELETE
+        description: If used against an unpublished offer, this call will permanently delete that offer. In the case of a
+          published offer (or live eBay listing), a successful call will either end the single-variation listing associated
+          with the offer, or it wil
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offerId
+          in: path
+          type: string
+          description: This path parameter specifies the unique identifier of the offer being deleted.<br><br>Use the <a href="/api-docs/sell/inventory/resources/offer/methods/getOffe
+          required: true
+    - name: offer-offerId-publish
+      path: /offer/{offerId}/publish/
+      operations:
+      - name: publishoffer
+        method: POST
+        description: <span class="tablenote"><strong>Note:</strong> Each listing can be revised up to 250 times in one calendar
+          day. If this revision threshold is reached, the seller will be blocked from revising the item until the next calendar
+          day.</span><br>
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offerId
+          in: path
+          type: string
+          description: This path parameter specifies the unique identifier of the offer that is to be published.<br><br>Use
+            the <a href="/api-docs/sell/inventory/resources/offer/metho
+          required: true
+    - name: offer-offerId-withdraw
+      path: /offer/{offerId}/withdraw
+      operations:
+      - name: withdrawoffer
+        method: POST
+        description: This call is used to end a single-variation listing that is associated with the specified offer. This
+          call is used in place of the <strong>deleteOffer</strong> call if the seller only wants to end the listing associated
+          with the offer but d
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: offerId
+          in: path
+          type: string
+          description: This path parameter specifies the unique identifier of the offer that is to be withdrawn.<br><br>Use
+            the <a href="/api-docs/sell/inventory/resources/offer/metho
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: inventory-offer-rest
+    port: 8080
+    description: REST adapter for eBay Inventory API — Offer. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/bulk-create-offer
+      name: bulk-create-offer
+      description: REST surface for bulk_create_offer.
+      operations:
+      - method: POST
+        name: bulkcreateoffer
+        description: This call creates multiple offers (up to 25) for specific inventory items on a specific eBay marketplace.
+          Although it is not a requirement for the seller to create complete offers (with all necessary details) right from
+          the start, eBay reco
+        call: inventory-offer.bulkcreateoffer
+        with:
+          Content-Language: rest.Content-Language
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/bulk-publish-offer
+      name: bulk-publish-offer
+      description: REST surface for bulk_publish_offer.
+      operations:
+      - method: POST
+        name: bulkpublishoffer
+        description: <span class="tablenote"><strong>Note:</strong> Each listing can be revised up to 250 times in one calendar
+          day. If this revision threshold is reached, the seller will be blocked from revising the item until the next calendar
+          day.</span><br>
+        call: inventory-offer.bulkpublishoffer
+        with:
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/offer
+      name: offer
+      description: REST surface for offer.
+      operations:
+      - method: GET
+        name: getoffers
+        description: This call retrieves all existing offers for the specified SKU value. The seller has the option of limiting
+          the offers that are retrieved to a specific eBay marketplace, or to a listing format.<br><br><span class="tablenote"><strong>Note:</s
+        call: inventory-offer.getoffers
+        with:
+          format: rest.format
+          limit: rest.limit
+          marketplace_id: rest.marketplace_id
+          offset: rest.offset
+          sku: rest.sku
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createoffer
+        description: This call creates an offer for a specific inventory item on a specific eBay marketplace. It is up to
+          the sellers whether they want to create a complete offer (with all necessary details) right from the start, or sellers
+          can provide only som
+        call: inventory-offer.createoffer
+        with:
+          Content-Language: rest.Content-Language
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/offer/get-listing-fees
+      name: offer-get-listing-fees
+      description: REST surface for offer-get_listing_fees.
+      operations:
+      - method: POST
+        name: getlistingfees
+        description: This call is used to retrieve the expected listing fees for up to 250 unpublished offers. An array of
+          one or more <strong>offerId</strong> values are passed in under the <strong>offers</strong> container.<br><br> In
+          the response payload, al
+        call: inventory-offer.getlistingfees
+        with:
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/offer/publish-by-inventory-item-group
+      name: offer-publish-by-inventory-item-group
+      description: REST surface for offer-publish_by_inventory_item_group.
+      operations:
+      - method: POST
+        name: publishofferbyinventoryitemgroup
+        description: <span class="tablenote"><strong>Note:</strong> Please note that any eBay listing created using the Inventory
+          API cannot be revised or relisted using the Trading API calls.</span><br><span class="tablenote"><strong>Note:</strong>
+          Each listin
+        call: inventory-offer.publishofferbyinventoryitemgroup
+        with:
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/offer/withdraw-by-inventory-item-group
+      name: offer-withdraw-by-inventory-item-group
+      description: REST surface for offer-withdraw_by_inventory_item_group.
+      operations:
+      - method: POST
+        name: withdrawofferbyinventoryitemgroup
+        description: This call is used to end a multiple-variation eBay listing that is associated with the specified inventory
+          item group. This call only ends multiple-variation eBay listing associated with the inventory item group but does
+          not delete the inve
+        call: inventory-offer.withdrawofferbyinventoryitemgroup
+        with:
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/offer/{offerid}
+      name: offer-offerid
+      description: REST surface for offer-offerId.
+      operations:
+      - method: GET
+        name: getoffer
+        description: This call retrieves a specific published or unpublished offer. The unique identifier of the offer (<strong>offerId</strong>)
+          is passed in at the end of the call URI.<p>The <code>authorization</code> header is the only required HTTP header
+          f
+        call: inventory-offer.getoffer
+        with:
+          offerId: rest.offerId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updateoffer
+        description: This call updates an existing offer. An existing offer may be in published state (active eBay listing),
+          or in an unpublished state and yet to be published with the <strong>publishOffer</strong> call. The unique identifier
+          (<strong>offerId</
+        call: inventory-offer.updateoffer
+        with:
+          Content-Language: rest.Content-Language
+          offerId: rest.offerId
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deleteoffer
+        description: If used against an unpublished offer, this call will permanently delete that offer. In the case of a
+          published offer (or live eBay listing), a successful call will either end the single-variation listing associated
+          with the offer, or it wil
+        call: inventory-offer.deleteoffer
+        with:
+          offerId: rest.offerId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/offer/{offerid}/publish
+      name: offer-offerid-publish
+      description: REST surface for offer-offerId-publish.
+      operations:
+      - method: POST
+        name: publishoffer
+        description: <span class="tablenote"><strong>Note:</strong> Each listing can be revised up to 250 times in one calendar
+          day. If this revision threshold is reached, the seller will be blocked from revising the item until the next calendar
+          day.</span><br>
+        call: inventory-offer.publishoffer
+        with:
+          offerId: rest.offerId
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/offer/{offerid}/withdraw
+      name: offer-offerid-withdraw
+      description: REST surface for offer-offerId-withdraw.
+      operations:
+      - method: POST
+        name: withdrawoffer
+        description: This call is used to end a single-variation listing that is associated with the specified offer. This
+          call is used in place of the <strong>deleteOffer</strong> call if the seller only wants to end the listing associated
+          with the offer but d
+        call: inventory-offer.withdrawoffer
+        with:
+          offerId: rest.offerId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: inventory-offer-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Inventory API — Offer. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: this-call-creates-multiple-offers
+      description: This call creates multiple offers (up to 25) for specific inventory items on a specific eBay marketplace.
+        Although it is not a requirement for the seller to create complete offers (with all necessary details) right from
+        the start, eBay reco
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inventory-offer.bulkcreateoffer
+      with:
+        Content-Language: tools.Content-Language
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: span-class-tablenote-strong-note-strong-each-listing
+      description: <span class="tablenote"><strong>Note:</strong> Each listing can be revised up to 250 times in one calendar
+        day. If this revision threshold is reached, the seller will be blocked from revising the item until the next calendar
+        day.</span><br>
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inventory-offer.bulkpublishoffer
+      with:
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-call-retrieves-all-existing
+      description: This call retrieves all existing offers for the specified SKU value. The seller has the option of limiting
+        the offers that are retrieved to a specific eBay marketplace, or to a listing format.<br><br><span class="tablenote"><strong>Note:</s
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: inventory-offer.getoffers
+      with:
+        format: tools.format
+        limit: tools.limit
+        marketplace_id: tools.marketplace_id
+        offset: tools.offset
+        sku: tools.sku
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-call-creates-offer-specific
+      description: This call creates an offer for a specific inventory item on a specific eBay marketplace. It is up to the
+        sellers whether they want to create a complete offer (with all necessary details) right from the start, or sellers
+        can provide only som
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inventory-offer.createoffer
+      with:
+        Content-Language: tools.Content-Language
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-call-is-used-retrieve
+      description: This call is used to retrieve the expected listing fees for up to 250 unpublished offers. An array of one
+        or more <strong>offerId</strong> values are passed in under the <strong>offers</strong> container.<br><br> In the
+        response payload, al
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: inventory-offer.getlistingfees
+      with:
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: span-class-tablenote-strong-note-strong-please-note
+      description: <span class="tablenote"><strong>Note:</strong> Please note that any eBay listing created using the Inventory
+        API cannot be revised or relisted using the Trading API calls.</span><br><span class="tablenote"><strong>Note:</strong>
+        Each listin
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inventory-offer.publishofferbyinventoryitemgroup
+      with:
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-call-is-used-end
+      description: This call is used to end a multiple-variation eBay listing that is associated with the specified inventory
+        item group. This call only ends multiple-variation eBay listing associated with the inventory item group but does
+        not delete the inve
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inventory-offer.withdrawofferbyinventoryitemgroup
+      with:
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-call-retrieves-specific-published
+      description: This call retrieves a specific published or unpublished offer. The unique identifier of the offer (<strong>offerId</strong>)
+        is passed in at the end of the call URI.<p>The <code>authorization</code> header is the only required HTTP header
+        f
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: inventory-offer.getoffer
+      with:
+        offerId: tools.offerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-call-updates-existing-offer
+      description: This call updates an existing offer. An existing offer may be in published state (active eBay listing),
+        or in an unpublished state and yet to be published with the <strong>publishOffer</strong> call. The unique identifier
+        (<strong>offerId</
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: inventory-offer.updateoffer
+      with:
+        Content-Language: tools.Content-Language
+        offerId: tools.offerId
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: if-used-against-unpublished-offer
+      description: If used against an unpublished offer, this call will permanently delete that offer. In the case of a published
+        offer (or live eBay listing), a successful call will either end the single-variation listing associated with the offer,
+        or it wil
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: inventory-offer.deleteoffer
+      with:
+        offerId: tools.offerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: span-class-tablenote-strong-note-strong-each-listing-2
+      description: <span class="tablenote"><strong>Note:</strong> Each listing can be revised up to 250 times in one calendar
+        day. If this revision threshold is reached, the seller will be blocked from revising the item until the next calendar
+        day.</span><br>
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inventory-offer.publishoffer
+      with:
+        offerId: tools.offerId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-call-is-used-end-2
+      description: This call is used to end a single-variation listing that is associated with the specified offer. This call
+        is used in place of the <strong>deleteOffer</strong> call if the seller only wants to end the listing associated with
+        the offer but d
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: inventory-offer.withdrawoffer
+      with:
+        offerId: tools.offerId
+      outputParameters:
+      - type: object
+        mapping: $.

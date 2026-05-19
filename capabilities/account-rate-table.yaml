@@ -1,0 +1,86 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Account API — Rate_table
+  description: 'eBay Account API — Rate_table. 1 operations. Lead operation: Rate_table. Self-contained Naftiko capability
+    covering one Ebay business surface.'
+  tags:
+  - Ebay
+  - Rate_table
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: account-rate-table
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Account API — Rate_table business capability. Self-contained, no shared references.
+    resources:
+    - name: rate_table
+      path: /rate_table
+      operations:
+      - name: getratetables
+        method: GET
+        description: This method retrieves a seller's <i>shipping rate tables</i> for the country specified in the <b>country_code</b>
+          query parameter. If you call this method without specifying a country code, the call returns all of the seller's
+          shipping rate
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: country_code
+          in: query
+          type: string
+          description: This query parameter specifies the two-letter <a href="https://www.iso.org/iso-3166-country-codes.html
+            " title="https://www.iso.org " target="_blank">ISO 3166</
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: account-rate-table-rest
+    port: 8080
+    description: REST adapter for eBay Account API — Rate_table. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/rate-table
+      name: rate-table
+      description: REST surface for rate_table.
+      operations:
+      - method: GET
+        name: getratetables
+        description: This method retrieves a seller's <i>shipping rate tables</i> for the country specified in the <b>country_code</b>
+          query parameter. If you call this method without specifying a country code, the call returns all of the seller's
+          shipping rate
+        call: account-rate-table.getratetables
+        with:
+          country_code: rest.country_code
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: account-rate-table-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Account API — Rate_table. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: this-method-retrieves-seller-s-i-shipping
+      description: This method retrieves a seller's <i>shipping rate tables</i> for the country specified in the <b>country_code</b>
+        query parameter. If you call this method without specifying a country code, the call returns all of the seller's shipping
+        rate
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-rate-table.getratetables
+      with:
+        country_code: tools.country_code
+      outputParameters:
+      - type: object
+        mapping: $.

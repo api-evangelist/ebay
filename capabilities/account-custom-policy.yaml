@@ -1,0 +1,235 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Account API — Custom_policy
+  description: 'eBay Account API — Custom_policy. 4 operations. Lead operation: Custom_policy. Self-contained Naftiko capability
+    covering one Ebay business surface.'
+  tags:
+  - Ebay
+  - Custom_policy
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: account-custom-policy
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Account API — Custom_policy business capability. Self-contained, no shared references.
+    resources:
+    - name: custom_policy
+      path: /custom_policy/
+      operations:
+      - name: getcustompolicies
+        method: GET
+        description: This method retrieves the list of custom policies specified by the <b>policy_types</b> query parameter.<br><br><span
+          class="tablenote"><b>Note:</b> Custom policies are no longer coupled with a specific eBay marketplace, so the <b>EBAY-C-MAR
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: policy_types
+          in: query
+          type: string
+          description: This query parameter specifies the type of custom policies to be returned.<br><br>Multiple policy types
+            may be requested in a single call by providing a comma-d
+      - name: createcustompolicy
+        method: POST
+        description: 'This method creates a new custom policy in which a seller specifies their terms for complying with local
+          governmental regulations. <br/><br/>Two Custom Policy types are supported: <ul><li>Product Compliance (PRODUCT_COMPLIANCE)</li>
+          <li>Tak'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: custom_policy-custom_policy_id
+      path: /custom_policy/{custom_policy_id}
+      operations:
+      - name: getcustompolicy
+        method: GET
+        description: This method retrieves the custom policy specified by the <b>custom_policy_id</b> path parameter.<br><br><span
+          class="tablenote"><b>Note:</b> Custom policies are no longer coupled with a specific eBay marketplace, so the <b>EBAY-C-MARKETPLAC
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: custom_policy_id
+          in: path
+          type: string
+          description: This path parameter is the unique identifier of the custom policy to retrieve.<br><br> This ID can
+            be retrieved for a custom policy by using the <a href="/api-d
+          required: true
+      - name: updatecustompolicy
+        method: PUT
+        description: This method updates an existing custom policy specified by the <b>custom_policy_id</b> path parameter.
+          This method overwrites the policy's <b>Name</b>, <b>Label</b>, and <b>Description</b> fields. Therefore, the complete,
+          current text of al
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: custom_policy_id
+          in: path
+          type: string
+          description: This path parameter is the unique identifier of the custom policy to retrieve.<br><br> This ID can
+            be retrieved for a custom policy by using the <a href="/api-d
+          required: true
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: account-custom-policy-rest
+    port: 8080
+    description: REST adapter for eBay Account API — Custom_policy. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/custom-policy
+      name: custom-policy
+      description: REST surface for custom_policy.
+      operations:
+      - method: GET
+        name: getcustompolicies
+        description: This method retrieves the list of custom policies specified by the <b>policy_types</b> query parameter.<br><br><span
+          class="tablenote"><b>Note:</b> Custom policies are no longer coupled with a specific eBay marketplace, so the <b>EBAY-C-MAR
+        call: account-custom-policy.getcustompolicies
+        with:
+          policy_types: rest.policy_types
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createcustompolicy
+        description: 'This method creates a new custom policy in which a seller specifies their terms for complying with local
+          governmental regulations. <br/><br/>Two Custom Policy types are supported: <ul><li>Product Compliance (PRODUCT_COMPLIANCE)</li>
+          <li>Tak'
+        call: account-custom-policy.createcustompolicy
+        with:
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/custom-policy/{custom-policy-id}
+      name: custom-policy-custom-policy-id
+      description: REST surface for custom_policy-custom_policy_id.
+      operations:
+      - method: GET
+        name: getcustompolicy
+        description: This method retrieves the custom policy specified by the <b>custom_policy_id</b> path parameter.<br><br><span
+          class="tablenote"><b>Note:</b> Custom policies are no longer coupled with a specific eBay marketplace, so the <b>EBAY-C-MARKETPLAC
+        call: account-custom-policy.getcustompolicy
+        with:
+          custom_policy_id: rest.custom_policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatecustompolicy
+        description: This method updates an existing custom policy specified by the <b>custom_policy_id</b> path parameter.
+          This method overwrites the policy's <b>Name</b>, <b>Label</b>, and <b>Description</b> fields. Therefore, the complete,
+          current text of al
+        call: account-custom-policy.updatecustompolicy
+        with:
+          custom_policy_id: rest.custom_policy_id
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: account-custom-policy-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Account API — Custom_policy. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: this-method-retrieves-list-custom
+      description: This method retrieves the list of custom policies specified by the <b>policy_types</b> query parameter.<br><br><span
+        class="tablenote"><b>Note:</b> Custom policies are no longer coupled with a specific eBay marketplace, so the <b>EBAY-C-MAR
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-custom-policy.getcustompolicies
+      with:
+        policy_types: tools.policy_types
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-creates-new-custom
+      description: 'This method creates a new custom policy in which a seller specifies their terms for complying with local
+        governmental regulations. <br/><br/>Two Custom Policy types are supported: <ul><li>Product Compliance (PRODUCT_COMPLIANCE)</li>
+        <li>Tak'
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: account-custom-policy.createcustompolicy
+      with:
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-retrieves-custom-policy
+      description: This method retrieves the custom policy specified by the <b>custom_policy_id</b> path parameter.<br><br><span
+        class="tablenote"><b>Note:</b> Custom policies are no longer coupled with a specific eBay marketplace, so the <b>EBAY-C-MARKETPLAC
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-custom-policy.getcustompolicy
+      with:
+        custom_policy_id: tools.custom_policy_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-updates-existing-custom
+      description: This method updates an existing custom policy specified by the <b>custom_policy_id</b> path parameter.
+        This method overwrites the policy's <b>Name</b>, <b>Label</b>, and <b>Description</b> fields. Therefore, the complete,
+        current text of al
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: account-custom-policy.updatecustompolicy
+      with:
+        custom_policy_id: tools.custom_policy_id
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

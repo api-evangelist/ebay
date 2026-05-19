@@ -1,0 +1,219 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Finances API — Payout
+  description: 'eBay Finances API — Payout. 3 operations. Lead operation: Payout. Self-contained Naftiko capability covering
+    one Ebay business surface.'
+  tags:
+  - Ebay
+  - Payout
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: finances-payout
+    baseUri: https://apiz.ebay.com{basePath}
+    description: eBay Finances API — Payout business capability. Self-contained, no shared references.
+    resources:
+    - name: payout
+      path: /payout
+      operations:
+      - name: getpayouts
+        method: GET
+        description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color:
+          #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><sp'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-EBAY-C-MARKETPLACE-ID
+          in: header
+          type: string
+          description: This header identifies the seller's eBay marketplace.<br><br>See <a href="/api-docs/static/rest-request-components.html#marketpl
+            " target="_blank ">HTTP request
+          required: true
+        - name: filter
+          in: query
+          type: string
+          description: The filter types that can be used here are discussed below. If none of these filters are used, all
+            recent payouts in all states are returned:<br><ul><li><b>payo
+        - name: limit
+          in: query
+          type: string
+          description: 'The number of payouts to return per page of the result set. Use this parameter in conjunction with
+            the <b>offset</b> parameter to control the pagination of the '
+        - name: offset
+          in: query
+          type: string
+          description: This integer value indicates the actual position that the first payout returned on the current page
+            has in the results set. So, if you wanted to view the 11th p
+        - name: sort
+          in: query
+          type: string
+          description: By default, payouts or failed payouts that match the input criteria are sorted in descending order
+            according to the payout date/last attempted payout date (i.e.
+    - name: payout-payout_Id
+      path: /payout/{payout_Id}
+      operations:
+      - name: getpayout
+        method: GET
+        description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color:
+          #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><sp'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-EBAY-C-MARKETPLACE-ID
+          in: header
+          type: string
+          description: This header identifies the seller's eBay marketplace.<br><br>See <a href="/api-docs/static/rest-request-components.html#marketpl
+            " target="_blank ">HTTP request
+          required: true
+        - name: payout_Id
+          in: path
+          type: string
+          description: This path parameter is used to specify the unique identifier of the payout being retrieved. <br><br>Use
+            the <a href="/api-docs/sell/finances/resources/payout/me
+          required: true
+    - name: payout_summary
+      path: /payout_summary
+      operations:
+      - name: getpayoutsummary
+        method: GET
+        description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color:
+          #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><sp'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-EBAY-C-MARKETPLACE-ID
+          in: header
+          type: string
+          description: This header identifies the seller's eBay marketplace.<br><br>See <a href="/api-docs/static/rest-request-components.html#marketpl
+            " target="_blank ">HTTP request
+          required: true
+        - name: filter
+          in: query
+          type: string
+          description: The two filter types that can be used here are discussed below. One or both of these filter types can
+            be used. If none of these filters are used, the data retur
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: finances-payout-rest
+    port: 8080
+    description: REST adapter for eBay Finances API — Payout. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/payout
+      name: payout
+      description: REST surface for payout.
+      operations:
+      - method: GET
+        name: getpayouts
+        description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color:
+          #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><sp'
+        call: finances-payout.getpayouts
+        with:
+          X-EBAY-C-MARKETPLACE-ID: rest.X-EBAY-C-MARKETPLACE-ID
+          filter: rest.filter
+          limit: rest.limit
+          offset: rest.offset
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payout/{payout-id}
+      name: payout-payout-id
+      description: REST surface for payout-payout_Id.
+      operations:
+      - method: GET
+        name: getpayout
+        description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color:
+          #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><sp'
+        call: finances-payout.getpayout
+        with:
+          X-EBAY-C-MARKETPLACE-ID: rest.X-EBAY-C-MARKETPLACE-ID
+          payout_Id: rest.payout_Id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/payout-summary
+      name: payout-summary
+      description: REST surface for payout_summary.
+      operations:
+      - method: GET
+        name: getpayoutsummary
+        description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color:
+          #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><sp'
+        call: finances-payout.getpayoutsummary
+        with:
+          X-EBAY-C-MARKETPLACE-ID: rest.X-EBAY-C-MARKETPLACE-ID
+          filter: rest.filter
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: finances-payout-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Finances API — Payout. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: div-class-msgbox-important-p-class-msgbox-importantindiv
+      description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color:
+        #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><sp'
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: finances-payout.getpayouts
+      with:
+        X-EBAY-C-MARKETPLACE-ID: tools.X-EBAY-C-MARKETPLACE-ID
+        filter: tools.filter
+        limit: tools.limit
+        offset: tools.offset
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: div-class-msgbox-important-p-class-msgbox-importantindiv-2
+      description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color:
+        #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><sp'
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: finances-payout.getpayout
+      with:
+        X-EBAY-C-MARKETPLACE-ID: tools.X-EBAY-C-MARKETPLACE-ID
+        payout_Id: tools.payout_Id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: div-class-msgbox-important-p-class-msgbox-importantindiv-3
+      description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color:
+        #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><sp'
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: finances-payout.getpayoutsummary
+      with:
+        X-EBAY-C-MARKETPLACE-ID: tools.X-EBAY-C-MARKETPLACE-ID
+        filter: tools.filter
+      outputParameters:
+      - type: object
+        mapping: $.

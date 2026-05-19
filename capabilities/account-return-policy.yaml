@@ -1,0 +1,332 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Account API — Return_policy
+  description: 'eBay Account API — Return_policy. 6 operations. Lead operation: Return_policy. Self-contained Naftiko capability
+    covering one Ebay business surface.'
+  tags:
+  - Ebay
+  - Return_policy
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: account-return-policy
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Account API — Return_policy business capability. Self-contained, no shared references.
+    resources:
+    - name: return_policy
+      path: /return_policy
+      operations:
+      - name: getreturnpolicies
+        method: GET
+        description: This method retrieves all the return policies configured for the marketplace you specify using the <code>marketplace_id</code>
+          query parameter.  <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policies for a marketplace tha
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: marketplace_id
+          in: query
+          type: string
+          description: This query parameter specifies the ID of the eBay marketplace of the policy you want to retrieve. For
+            implementation help, refer to eBay API documentation at ht
+          required: true
+      - name: createreturnpolicy
+        method: POST
+        description: This method creates a new return policy where the policy encapsulates seller's terms for returning items.  <br><br>Each
+          policy targets a specific marketplace, and you can create multiple policies for each marketplace. Return policies
+          are no
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: return_policy-get_by_policy_name
+      path: /return_policy/get_by_policy_name
+      operations:
+      - name: getreturnpolicybyname
+        method: GET
+        description: This method retrieves the details of a specific return policy. Supply both the policy <code>name</code>
+          and its associated <code>marketplace_id</code> in the request query parameters.   <br><br><b>Marketplaces and locales</b>  <br><br>Get
+          t
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: marketplace_id
+          in: query
+          type: string
+          description: This query parameter specifies the ID of the eBay marketplace of the policy you want to retrieve. For
+            implementation help, refer to eBay API documentation at ht
+          required: true
+        - name: name
+          in: query
+          type: string
+          description: This query parameter specifies the seller-defined name of the return policy you want to retrieve.<br><br>
+            This value can be retrieved for a return policy by usi
+          required: true
+    - name: return_policy-return_policy_id
+      path: /return_policy/{return_policy_id}
+      operations:
+      - name: getreturnpolicy
+        method: GET
+        description: This method retrieves the complete details of the return policy specified by the <b>returnPolicyId</b>
+          path parameter.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: return_policy_id
+          in: path
+          type: string
+          description: This path parameter specifies the unique identifier of the return policy you want to retrieve. <br><br>
+            This ID can be retrieved for a return policy by using th
+          required: true
+      - name: updatereturnpolicy
+        method: PUT
+        description: This method updates an existing return policy. Specify the policy you want to update using the <b>return_policy_id</b>
+          path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing
+          pol
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: return_policy_id
+          in: path
+          type: string
+          description: This path parameter specifies the ID of the return policy you want to update. <br><br> This ID can
+            be retrieved for a return policy by using the <a href="/api-d
+          required: true
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletereturnpolicy
+        method: DELETE
+        description: This method deletes a return policy. Supply the ID of the policy you want to delete in the <b>returnPolicyId</b>
+          path parameter.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: return_policy_id
+          in: path
+          type: string
+          description: This path parameter specifies the unique identifier of the return policy you want to delete.<br><br>
+            This ID can be retrieved for a return policy by using the <
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: account-return-policy-rest
+    port: 8080
+    description: REST adapter for eBay Account API — Return_policy. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/return-policy
+      name: return-policy
+      description: REST surface for return_policy.
+      operations:
+      - method: GET
+        name: getreturnpolicies
+        description: This method retrieves all the return policies configured for the marketplace you specify using the <code>marketplace_id</code>
+          query parameter.  <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policies for a marketplace tha
+        call: account-return-policy.getreturnpolicies
+        with:
+          marketplace_id: rest.marketplace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createreturnpolicy
+        description: This method creates a new return policy where the policy encapsulates seller's terms for returning items.  <br><br>Each
+          policy targets a specific marketplace, and you can create multiple policies for each marketplace. Return policies
+          are no
+        call: account-return-policy.createreturnpolicy
+        with:
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/return-policy/get-by-policy-name
+      name: return-policy-get-by-policy-name
+      description: REST surface for return_policy-get_by_policy_name.
+      operations:
+      - method: GET
+        name: getreturnpolicybyname
+        description: This method retrieves the details of a specific return policy. Supply both the policy <code>name</code>
+          and its associated <code>marketplace_id</code> in the request query parameters.   <br><br><b>Marketplaces and locales</b>  <br><br>Get
+          t
+        call: account-return-policy.getreturnpolicybyname
+        with:
+          marketplace_id: rest.marketplace_id
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/return-policy/{return-policy-id}
+      name: return-policy-return-policy-id
+      description: REST surface for return_policy-return_policy_id.
+      operations:
+      - method: GET
+        name: getreturnpolicy
+        description: This method retrieves the complete details of the return policy specified by the <b>returnPolicyId</b>
+          path parameter.
+        call: account-return-policy.getreturnpolicy
+        with:
+          return_policy_id: rest.return_policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatereturnpolicy
+        description: This method updates an existing return policy. Specify the policy you want to update using the <b>return_policy_id</b>
+          path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing
+          pol
+        call: account-return-policy.updatereturnpolicy
+        with:
+          return_policy_id: rest.return_policy_id
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletereturnpolicy
+        description: This method deletes a return policy. Supply the ID of the policy you want to delete in the <b>returnPolicyId</b>
+          path parameter.
+        call: account-return-policy.deletereturnpolicy
+        with:
+          return_policy_id: rest.return_policy_id
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: account-return-policy-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Account API — Return_policy. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: this-method-retrieves-all-return
+      description: This method retrieves all the return policies configured for the marketplace you specify using the <code>marketplace_id</code>
+        query parameter.  <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policies for a marketplace tha
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-return-policy.getreturnpolicies
+      with:
+        marketplace_id: tools.marketplace_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-creates-new-return
+      description: This method creates a new return policy where the policy encapsulates seller's terms for returning items.  <br><br>Each
+        policy targets a specific marketplace, and you can create multiple policies for each marketplace. Return policies
+        are no
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: account-return-policy.createreturnpolicy
+      with:
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-retrieves-details-specific
+      description: This method retrieves the details of a specific return policy. Supply both the policy <code>name</code>
+        and its associated <code>marketplace_id</code> in the request query parameters.   <br><br><b>Marketplaces and locales</b>  <br><br>Get
+        t
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-return-policy.getreturnpolicybyname
+      with:
+        marketplace_id: tools.marketplace_id
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-retrieves-complete-details
+      description: This method retrieves the complete details of the return policy specified by the <b>returnPolicyId</b>
+        path parameter.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-return-policy.getreturnpolicy
+      with:
+        return_policy_id: tools.return_policy_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-updates-existing-return
+      description: This method updates an existing return policy. Specify the policy you want to update using the <b>return_policy_id</b>
+        path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing
+        pol
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: account-return-policy.updatereturnpolicy
+      with:
+        return_policy_id: tools.return_policy_id
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-deletes-return-policy
+      description: This method deletes a return policy. Supply the ID of the policy you want to delete in the <b>returnPolicyId</b>
+        path parameter.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: account-return-policy.deletereturnpolicy
+      with:
+        return_policy_id: tools.return_policy_id
+      outputParameters:
+      - type: object
+        mapping: $.

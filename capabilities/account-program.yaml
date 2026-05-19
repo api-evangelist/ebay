@@ -1,0 +1,176 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Account API — Program
+  description: 'eBay Account API — Program. 3 operations. Lead operation: Program. Self-contained Naftiko capability covering
+    one Ebay business surface.'
+  tags:
+  - Ebay
+  - Program
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: account-program
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Account API — Program business capability. Self-contained, no shared references.
+    resources:
+    - name: program-get_opted_in_programs
+      path: /program/get_opted_in_programs
+      operations:
+      - name: getoptedinprograms
+        method: GET
+        description: This method gets a list of the seller programs that the seller has opted-in to.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: program-opt_in
+      path: /program/opt_in
+      operations:
+      - name: optintoprogram
+        method: POST
+        description: This method opts the seller in to an eBay seller program. Refer to the <a href="/api-docs/sell/account/overview.html#opt-in"
+          target="_blank">Account API overview</a> for information about available eBay seller programs.<br><br><span class="
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: program-opt_out
+      path: /program/opt_out
+      operations:
+      - name: optoutofprogram
+        method: POST
+        description: This method opts the seller out of a seller program to which you have previously opted-in to. Get a list
+          of the seller programs you have opted-in to using the <b>getOptedInPrograms</b> call.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: account-program-rest
+    port: 8080
+    description: REST adapter for eBay Account API — Program. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/program/get-opted-in-programs
+      name: program-get-opted-in-programs
+      description: REST surface for program-get_opted_in_programs.
+      operations:
+      - method: GET
+        name: getoptedinprograms
+        description: This method gets a list of the seller programs that the seller has opted-in to.
+        call: account-program.getoptedinprograms
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/program/opt-in
+      name: program-opt-in
+      description: REST surface for program-opt_in.
+      operations:
+      - method: POST
+        name: optintoprogram
+        description: This method opts the seller in to an eBay seller program. Refer to the <a href="/api-docs/sell/account/overview.html#opt-in"
+          target="_blank">Account API overview</a> for information about available eBay seller programs.<br><br><span class="
+        call: account-program.optintoprogram
+        with:
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/program/opt-out
+      name: program-opt-out
+      description: REST surface for program-opt_out.
+      operations:
+      - method: POST
+        name: optoutofprogram
+        description: This method opts the seller out of a seller program to which you have previously opted-in to. Get a list
+          of the seller programs you have opted-in to using the <b>getOptedInPrograms</b> call.
+        call: account-program.optoutofprogram
+        with:
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: account-program-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Account API — Program. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: this-method-gets-list-seller
+      description: This method gets a list of the seller programs that the seller has opted-in to.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-program.getoptedinprograms
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-opts-seller-ebay
+      description: This method opts the seller in to an eBay seller program. Refer to the <a href="/api-docs/sell/account/overview.html#opt-in"
+        target="_blank">Account API overview</a> for information about available eBay seller programs.<br><br><span class="
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: account-program.optintoprogram
+      with:
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-opts-seller-out
+      description: This method opts the seller out of a seller program to which you have previously opted-in to. Get a list
+        of the seller programs you have opted-in to using the <b>getOptedInPrograms</b> call.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: false
+      call: account-program.optoutofprogram
+      with:
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,107 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Seller Service Metrics API — Traffic_report
+  description: 'eBay Seller Service Metrics API — Traffic_report. 1 operations. Lead operation: Traffic_report. Self-contained
+    Naftiko capability covering one Ebay business surface.'
+  tags:
+  - Ebay
+  - Traffic_report
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: analytics-traffic-report
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Seller Service Metrics API — Traffic_report business capability. Self-contained, no shared references.
+    resources:
+    - name: traffic_report
+      path: /traffic_report
+      operations:
+      - name: gettrafficreport
+        method: GET
+        description: This method returns a report that details the user traffic received by a seller's listings. <br><br>A
+          traffic report gives sellers the ability to review how often their listings appeared on eBay, how many times their
+          listings are viewed, an
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: dimension
+          in: query
+          type: string
+          description: This query parameter specifies the <i>dimension</i>, or "attribute," that is applied to the report
+            <b>metric</b>.  <br><br><b>Valid values:</b> <code>DAY</code>
+        - name: filter
+          in: query
+          type: string
+          description: 'This query parameter refines the information returned in the traffic report. <br><p><span class="tablenote"><b>Note:
+            </b> URL encode all the values you supply i'
+        - name: metric
+          in: query
+          type: string
+          description: '<a name="metrics"></a>This query parameter specifies the metrics you want covered in the report. <br><p><span
+            class="tablenote"><b>Note: </b> Unlike names for p'
+        - name: sort
+          in: query
+          type: string
+          description: This query parameter sorts the report on the specified metric.  <br><br>You can only specify a single
+            metric in the sort parameter and the specified metric must
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: analytics-traffic-report-rest
+    port: 8080
+    description: REST adapter for eBay Seller Service Metrics API — Traffic_report. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/traffic-report
+      name: traffic-report
+      description: REST surface for traffic_report.
+      operations:
+      - method: GET
+        name: gettrafficreport
+        description: This method returns a report that details the user traffic received by a seller's listings. <br><br>A
+          traffic report gives sellers the ability to review how often their listings appeared on eBay, how many times their
+          listings are viewed, an
+        call: analytics-traffic-report.gettrafficreport
+        with:
+          dimension: rest.dimension
+          filter: rest.filter
+          metric: rest.metric
+          sort: rest.sort
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: analytics-traffic-report-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Seller Service Metrics API — Traffic_report. One tool per consumed operation, routed
+      inline through this capability's consumes block.
+    tools:
+    - name: this-method-returns-report-that
+      description: This method returns a report that details the user traffic received by a seller's listings. <br><br>A traffic
+        report gives sellers the ability to review how often their listings appeared on eBay, how many times their listings
+        are viewed, an
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: analytics-traffic-report.gettrafficreport
+      with:
+        dimension: tools.dimension
+        filter: tools.filter
+        metric: tools.metric
+        sort: tools.sort
+      outputParameters:
+      - type: object
+        mapping: $.

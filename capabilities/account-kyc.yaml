@@ -1,0 +1,76 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Account API — Kyc
+  description: 'eBay Account API — Kyc. 1 operations. Lead operation: Kyc. Self-contained Naftiko capability covering one
+    Ebay business surface.'
+  tags:
+  - Ebay
+  - Kyc
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: account-kyc
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Account API — Kyc business capability. Self-contained, no shared references.
+    resources:
+    - name: kyc
+      path: /kyc
+      operations:
+      - name: getkyc
+        method: GET
+        description: <span class="tablenote"><b>Note:</b>This method was originally created to see which onboarding requirements
+          were still pending for sellers being onboarded for eBay managed payments, but now that all seller accounts are onboarded
+          globally, t
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: account-kyc-rest
+    port: 8080
+    description: REST adapter for eBay Account API — Kyc. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/kyc
+      name: kyc
+      description: REST surface for kyc.
+      operations:
+      - method: GET
+        name: getkyc
+        description: <span class="tablenote"><b>Note:</b>This method was originally created to see which onboarding requirements
+          were still pending for sellers being onboarded for eBay managed payments, but now that all seller accounts are onboarded
+          globally, t
+        call: account-kyc.getkyc
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: account-kyc-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Account API — Kyc. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: span-class-tablenote-b-note-b-this-method-was
+      description: <span class="tablenote"><b>Note:</b>This method was originally created to see which onboarding requirements
+        were still pending for sellers being onboarded for eBay managed payments, but now that all seller accounts are onboarded
+        globally, t
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-kyc.getkyc
+      outputParameters:
+      - type: object
+        mapping: $.

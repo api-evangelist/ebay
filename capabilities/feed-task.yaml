@@ -1,0 +1,379 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Feed API — Task
+  description: 'eBay Feed API — Task. 6 operations. Lead operation: Task. Self-contained Naftiko capability covering one Ebay
+    business surface.'
+  tags:
+  - Ebay
+  - Task
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: feed-task
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Feed API — Task business capability. Self-contained, no shared references.
+    resources:
+    - name: task
+      path: /task
+      operations:
+      - name: gettasks
+        method: GET
+        description: This method returns the details and status for an array of tasks based on a specified <strong>feed_type</strong>
+          or <strong>schedule_id</strong>. Specifying both <strong>feed_type</strong> and <strong>schedule_id</strong> results
+          in an erro
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: date_range
+          in: query
+          type: string
+          description: Specifies the range of task creation dates used to filter the results. The results are filtered to
+            include only tasks with a creation date that is equal to this
+        - name: feed_type
+          in: query
+          type: string
+          description: 'The feed type associated with the tasks to be returned. Only use a <strong>feedType</strong> that
+            is available for your API: <ul><li>Order Feeds: <code>LMS_ORDE'
+        - name: limit
+          in: query
+          type: string
+          description: The maximum number of tasks that can be returned on each page of the paginated response. Use this parameter
+            in conjunction with the <strong>offset</strong> para
+        - name: look_back_days
+          in: query
+          type: string
+          description: The number of previous days in which to search for tasks. Do not use with the <code>date_range</code>
+            parameter. If both <code>date_range</code> and <code>look_
+        - name: offset
+          in: query
+          type: string
+          description: The number of tasks to skip in the result set before returning the first task in the paginated response.
+            <p>Combine <strong>offset</strong> with the <strong>lim
+        - name: schedule_id
+          in: query
+          type: string
+          description: The unique identifier associated with the tasks being returned. A schedule periodically generates a
+            report for the feed type specified by the schedule template.
+      - name: createtask
+        method: POST
+        description: This method creates an upload task or a download task without filter criteria. When using this method,
+          specify the <b> feedType</b> and the feed file <b> schemaVersion</b>. The feed type specified sets the task as a
+          download or an upload ta
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: X-EBAY-C-MARKETPLACE-ID
+          in: header
+          type: string
+          description: The ID of the eBay marketplace where the item is hosted. <br><br>For example:<br><br><code>X-EBAY-C-MARKETPLACE-ID:EBAY_US</code><br><br>This
+            identifies the eBa
+          required: true
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: task-task_id
+      path: /task/{task_id}
+      operations:
+      - name: gettask
+        method: GET
+        description: This method retrieves the details and status of the specified task. The input is <strong>task_id</strong>.
+          <br /><br />For details of how this method is used, see <a href="/api-docs/sell/static/orders/generating-and-retrieving-order-reports
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: task_id
+          in: path
+          type: string
+          description: This path parameter is the unique identifier of the task being retrieved.<br><br>Use the <a href="/api-docs/sell/feed/resources/task/methods/getTasks"
+            target="_
+          required: true
+    - name: task-task_id-download_input_file
+      path: /task/{task_id}/download_input_file
+      operations:
+      - name: getinputfile
+        method: GET
+        description: 'This method downloads the file previously uploaded using <strong>uploadFile</strong>. Specify the task_id
+          from the <strong>uploadFile</strong> call. <p><span class="tablenote"><strong>Note:</strong> With respect to LMS,
+          this method applies '
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: task_id
+          in: path
+          type: string
+          description: This path parameter is the unique identifier of the task associated with the input file to be downloaded.<br><br>Use
+            the <a href="/api-docs/sell/feed/resources/
+          required: true
+    - name: task-task_id-download_result_file
+      path: /task/{task_id}/download_result_file
+      operations:
+      - name: getresultfile
+        method: GET
+        description: 'This method retrieves the generated file that is associated with the specified task ID. The response
+          of this call is a compressed or uncompressed CSV, XML, or JSON file, with the applicable file extension (for example:
+          csv.gz). <p>For detai'
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: task_id
+          in: path
+          type: string
+          description: This path parameter is the unique identifier of the task associated with the file to be downloaded.
+            <br><br>Use the <a href="/api-docs/sell/feed/resources/task/
+          required: true
+    - name: task-task_id-upload_file
+      path: /task/{task_id}/upload_file
+      operations:
+      - name: uploadfile
+        method: POST
+        description: This method associates the specified file with the specified task ID and uploads the input file. After
+          the file has been uploaded, the processing of the file begins. <br><br>Reports often take time to generate and it's
+          common for this metho
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: task_id
+          in: path
+          type: string
+          description: This path parameter is the unique identifier of the task associated with the file that will be uploaded.<br><br>Use
+            the <a href="/api-docs/sell/feed/resources/t
+          required: true
+        - name: Content-Type
+          in: header
+          type: string
+          description: This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>multipart/form-data</b>. <br><br> For more informatio
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: feed-task-rest
+    port: 8080
+    description: REST adapter for eBay Feed API — Task. One Spectral-compliant resource per consumed operation, prefixed with
+      /v1.
+    resources:
+    - path: /v1/task
+      name: task
+      description: REST surface for task.
+      operations:
+      - method: GET
+        name: gettasks
+        description: This method returns the details and status for an array of tasks based on a specified <strong>feed_type</strong>
+          or <strong>schedule_id</strong>. Specifying both <strong>feed_type</strong> and <strong>schedule_id</strong> results
+          in an erro
+        call: feed-task.gettasks
+        with:
+          date_range: rest.date_range
+          feed_type: rest.feed_type
+          limit: rest.limit
+          look_back_days: rest.look_back_days
+          offset: rest.offset
+          schedule_id: rest.schedule_id
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: POST
+        name: createtask
+        description: This method creates an upload task or a download task without filter criteria. When using this method,
+          specify the <b> feedType</b> and the feed file <b> schemaVersion</b>. The feed type specified sets the task as a
+          download or an upload ta
+        call: feed-task.createtask
+        with:
+          X-EBAY-C-MARKETPLACE-ID: rest.X-EBAY-C-MARKETPLACE-ID
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/task/{task-id}
+      name: task-task-id
+      description: REST surface for task-task_id.
+      operations:
+      - method: GET
+        name: gettask
+        description: This method retrieves the details and status of the specified task. The input is <strong>task_id</strong>.
+          <br /><br />For details of how this method is used, see <a href="/api-docs/sell/static/orders/generating-and-retrieving-order-reports
+        call: feed-task.gettask
+        with:
+          task_id: rest.task_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/task/{task-id}/download-input-file
+      name: task-task-id-download-input-file
+      description: REST surface for task-task_id-download_input_file.
+      operations:
+      - method: GET
+        name: getinputfile
+        description: 'This method downloads the file previously uploaded using <strong>uploadFile</strong>. Specify the task_id
+          from the <strong>uploadFile</strong> call. <p><span class="tablenote"><strong>Note:</strong> With respect to LMS,
+          this method applies '
+        call: feed-task.getinputfile
+        with:
+          task_id: rest.task_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/task/{task-id}/download-result-file
+      name: task-task-id-download-result-file
+      description: REST surface for task-task_id-download_result_file.
+      operations:
+      - method: GET
+        name: getresultfile
+        description: 'This method retrieves the generated file that is associated with the specified task ID. The response
+          of this call is a compressed or uncompressed CSV, XML, or JSON file, with the applicable file extension (for example:
+          csv.gz). <p>For detai'
+        call: feed-task.getresultfile
+        with:
+          task_id: rest.task_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/task/{task-id}/upload-file
+      name: task-task-id-upload-file
+      description: REST surface for task-task_id-upload_file.
+      operations:
+      - method: POST
+        name: uploadfile
+        description: This method associates the specified file with the specified task ID and uploads the input file. After
+          the file has been uploaded, the processing of the file begins. <br><br>Reports often take time to generate and it's
+          common for this metho
+        call: feed-task.uploadfile
+        with:
+          task_id: rest.task_id
+          Content-Type: rest.Content-Type
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: feed-task-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Feed API — Task. One tool per consumed operation, routed inline through this capability's
+      consumes block.
+    tools:
+    - name: this-method-returns-details-and
+      description: This method returns the details and status for an array of tasks based on a specified <strong>feed_type</strong>
+        or <strong>schedule_id</strong>. Specifying both <strong>feed_type</strong> and <strong>schedule_id</strong> results
+        in an erro
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: feed-task.gettasks
+      with:
+        date_range: tools.date_range
+        feed_type: tools.feed_type
+        limit: tools.limit
+        look_back_days: tools.look_back_days
+        offset: tools.offset
+        schedule_id: tools.schedule_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-creates-upload-task
+      description: This method creates an upload task or a download task without filter criteria. When using this method,
+        specify the <b> feedType</b> and the feed file <b> schemaVersion</b>. The feed type specified sets the task as a download
+        or an upload ta
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: feed-task.createtask
+      with:
+        X-EBAY-C-MARKETPLACE-ID: tools.X-EBAY-C-MARKETPLACE-ID
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-retrieves-details-and
+      description: This method retrieves the details and status of the specified task. The input is <strong>task_id</strong>.
+        <br /><br />For details of how this method is used, see <a href="/api-docs/sell/static/orders/generating-and-retrieving-order-reports
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: feed-task.gettask
+      with:
+        task_id: tools.task_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-downloads-file-previously
+      description: 'This method downloads the file previously uploaded using <strong>uploadFile</strong>. Specify the task_id
+        from the <strong>uploadFile</strong> call. <p><span class="tablenote"><strong>Note:</strong> With respect to LMS,
+        this method applies '
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: feed-task.getinputfile
+      with:
+        task_id: tools.task_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-retrieves-generated-file
+      description: 'This method retrieves the generated file that is associated with the specified task ID. The response of
+        this call is a compressed or uncompressed CSV, XML, or JSON file, with the applicable file extension (for example:
+        csv.gz). <p>For detai'
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: feed-task.getresultfile
+      with:
+        task_id: tools.task_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-associates-specified-file
+      description: This method associates the specified file with the specified task ID and uploads the input file. After
+        the file has been uploaded, the processing of the file begins. <br><br>Reports often take time to generate and it's
+        common for this metho
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: feed-task.uploadfile
+      with:
+        task_id: tools.task_id
+        Content-Type: tools.Content-Type
+      outputParameters:
+      - type: object
+        mapping: $.

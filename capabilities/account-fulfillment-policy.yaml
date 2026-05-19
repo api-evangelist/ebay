@@ -1,0 +1,339 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Account API — Fulfillment_policy
+  description: 'eBay Account API — Fulfillment_policy. 6 operations. Lead operation: Fulfillment_policy. Self-contained Naftiko
+    capability covering one Ebay business surface.'
+  tags:
+  - Ebay
+  - Fulfillment_policy
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: account-fulfillment-policy
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Account API — Fulfillment_policy business capability. Self-contained, no shared references.
+    resources:
+    - name: fulfillment_policy
+      path: /fulfillment_policy
+      operations:
+      - name: getfulfillmentpolicies
+        method: GET
+        description: This method retrieves all the fulfillment policies configured for the marketplace you specify using the
+          <code>marketplace_id</code> query parameter.  <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policies
+          for a marketplac
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: marketplace_id
+          in: query
+          type: string
+          description: This query parameter specifies the eBay marketplace of the policies you want to retrieve. For implementation
+            help, refer to eBay API documentation at https://de
+          required: true
+    - name: fulfillment_policy
+      path: /fulfillment_policy/
+      operations:
+      - name: createfulfillmentpolicy
+        method: POST
+        description: This method creates a new fulfillment policy where the policy encapsulates seller's terms for fulfilling
+          item purchases. Fulfillment policies include the shipment options that the seller offers to buyers.  <br><br>Each
+          policy targets a spec
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    - name: fulfillment_policy-get_by_policy_name
+      path: /fulfillment_policy/get_by_policy_name
+      operations:
+      - name: getfulfillmentpolicybyname
+        method: GET
+        description: This method retrieves the details for a specific fulfillment policy. In the request, supply both the
+          policy <code>name</code> and its associated <code>marketplace_id</code> as query parameters.   <br><br><b>Marketplaces
+          and locales</b>  <br
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: marketplace_id
+          in: query
+          type: string
+          description: This query parameter specifies the eBay marketplace of the policy you want to retrieve. For implementation
+            help, refer to eBay API documentation at https://deve
+          required: true
+        - name: name
+          in: query
+          type: string
+          description: This query parameter specifies the seller-defined name of the fulfillment policy you want to retrieve.<br><br>This
+            value can be retrieved for a fulfillment poli
+          required: true
+    - name: fulfillment_policy-fulfillmentPolicyId
+      path: /fulfillment_policy/{fulfillmentPolicyId}
+      operations:
+      - name: getfulfillmentpolicy
+        method: GET
+        description: This method retrieves the complete details of a fulfillment policy. Supply the ID of the policy you want
+          to retrieve using the <b>fulfillmentPolicyId</b> path parameter.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fulfillmentPolicyId
+          in: path
+          type: string
+          description: This path parameter specifies the ID of the fulfillment policy you want to retrieve.<br><br> This ID
+            can be retrieved for a fulfillment policy by using the <a h
+          required: true
+      - name: updatefulfillmentpolicy
+        method: PUT
+        description: This method updates an existing fulfillment policy. Specify the policy you want to update using the <b>fulfillment_policy_id</b>
+          path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the ex
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fulfillmentPolicyId
+          in: path
+          type: string
+          description: This path parameter specifies the ID of the fulfillment policy you want to update.<br><br>This ID can
+            be retrieved for a specific fulfillment policy by using th
+          required: true
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+      - name: deletefulfillmentpolicy
+        method: DELETE
+        description: This method deletes a fulfillment policy. Supply the ID of the policy you want to delete in the <b>fulfillmentPolicyId</b>
+          path parameter.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: fulfillmentPolicyId
+          in: path
+          type: string
+          description: This path parameter specifies the ID of the fulfillment policy to delete.<br><br> This ID can be retrieved
+            for a fulfillment policy by using the <a href="/api-d
+          required: true
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: account-fulfillment-policy-rest
+    port: 8080
+    description: REST adapter for eBay Account API — Fulfillment_policy. One Spectral-compliant resource per consumed operation,
+      prefixed with /v1.
+    resources:
+    - path: /v1/fulfillment-policy
+      name: fulfillment-policy
+      description: REST surface for fulfillment_policy.
+      operations:
+      - method: GET
+        name: getfulfillmentpolicies
+        description: This method retrieves all the fulfillment policies configured for the marketplace you specify using the
+          <code>marketplace_id</code> query parameter.  <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policies
+          for a marketplac
+        call: account-fulfillment-policy.getfulfillmentpolicies
+        with:
+          marketplace_id: rest.marketplace_id
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/fulfillment-policy
+      name: fulfillment-policy
+      description: REST surface for fulfillment_policy.
+      operations:
+      - method: POST
+        name: createfulfillmentpolicy
+        description: This method creates a new fulfillment policy where the policy encapsulates seller's terms for fulfilling
+          item purchases. Fulfillment policies include the shipment options that the seller offers to buyers.  <br><br>Each
+          policy targets a spec
+        call: account-fulfillment-policy.createfulfillmentpolicy
+        with:
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/fulfillment-policy/get-by-policy-name
+      name: fulfillment-policy-get-by-policy-name
+      description: REST surface for fulfillment_policy-get_by_policy_name.
+      operations:
+      - method: GET
+        name: getfulfillmentpolicybyname
+        description: This method retrieves the details for a specific fulfillment policy. In the request, supply both the
+          policy <code>name</code> and its associated <code>marketplace_id</code> as query parameters.   <br><br><b>Marketplaces
+          and locales</b>  <br
+        call: account-fulfillment-policy.getfulfillmentpolicybyname
+        with:
+          marketplace_id: rest.marketplace_id
+          name: rest.name
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/fulfillment-policy/{fulfillmentpolicyid}
+      name: fulfillment-policy-fulfillmentpolicyid
+      description: REST surface for fulfillment_policy-fulfillmentPolicyId.
+      operations:
+      - method: GET
+        name: getfulfillmentpolicy
+        description: This method retrieves the complete details of a fulfillment policy. Supply the ID of the policy you want
+          to retrieve using the <b>fulfillmentPolicyId</b> path parameter.
+        call: account-fulfillment-policy.getfulfillmentpolicy
+        with:
+          fulfillmentPolicyId: rest.fulfillmentPolicyId
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: PUT
+        name: updatefulfillmentpolicy
+        description: This method updates an existing fulfillment policy. Specify the policy you want to update using the <b>fulfillment_policy_id</b>
+          path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the ex
+        call: account-fulfillment-policy.updatefulfillmentpolicy
+        with:
+          fulfillmentPolicyId: rest.fulfillmentPolicyId
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+      - method: DELETE
+        name: deletefulfillmentpolicy
+        description: This method deletes a fulfillment policy. Supply the ID of the policy you want to delete in the <b>fulfillmentPolicyId</b>
+          path parameter.
+        call: account-fulfillment-policy.deletefulfillmentpolicy
+        with:
+          fulfillmentPolicyId: rest.fulfillmentPolicyId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: account-fulfillment-policy-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Account API — Fulfillment_policy. One tool per consumed operation, routed inline through
+      this capability's consumes block.
+    tools:
+    - name: this-method-retrieves-all-fulfillment
+      description: This method retrieves all the fulfillment policies configured for the marketplace you specify using the
+        <code>marketplace_id</code> query parameter.  <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policies
+        for a marketplac
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-fulfillment-policy.getfulfillmentpolicies
+      with:
+        marketplace_id: tools.marketplace_id
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-creates-new-fulfillment
+      description: This method creates a new fulfillment policy where the policy encapsulates seller's terms for fulfilling
+        item purchases. Fulfillment policies include the shipment options that the seller offers to buyers.  <br><br>Each
+        policy targets a spec
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: account-fulfillment-policy.createfulfillmentpolicy
+      with:
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-retrieves-details-specific
+      description: This method retrieves the details for a specific fulfillment policy. In the request, supply both the policy
+        <code>name</code> and its associated <code>marketplace_id</code> as query parameters.   <br><br><b>Marketplaces and
+        locales</b>  <br
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-fulfillment-policy.getfulfillmentpolicybyname
+      with:
+        marketplace_id: tools.marketplace_id
+        name: tools.name
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-retrieves-complete-details
+      description: This method retrieves the complete details of a fulfillment policy. Supply the ID of the policy you want
+        to retrieve using the <b>fulfillmentPolicyId</b> path parameter.
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: account-fulfillment-policy.getfulfillmentpolicy
+      with:
+        fulfillmentPolicyId: tools.fulfillmentPolicyId
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-updates-existing-fulfillment
+      description: This method updates an existing fulfillment policy. Specify the policy you want to update using the <b>fulfillment_policy_id</b>
+        path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the ex
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: true
+      call: account-fulfillment-policy.updatefulfillmentpolicy
+      with:
+        fulfillmentPolicyId: tools.fulfillmentPolicyId
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-deletes-fulfillment-policy
+      description: This method deletes a fulfillment policy. Supply the ID of the policy you want to delete in the <b>fulfillmentPolicyId</b>
+        path parameter.
+      hints:
+        readOnly: false
+        destructive: true
+        idempotent: true
+      call: account-fulfillment-policy.deletefulfillmentpolicy
+      with:
+        fulfillmentPolicyId: tools.fulfillmentPolicyId
+      outputParameters:
+      - type: object
+        mapping: $.

@@ -1,0 +1,167 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: eBay Buy Offer API — Bidding
+  description: 'eBay Buy Offer API — Bidding. 2 operations. Lead operation: Bidding. Self-contained Naftiko capability covering
+    one Ebay business surface.'
+  tags:
+  - Ebay
+  - Bidding
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EBAY_API_KEY: EBAY_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: offer-bidding
+    baseUri: https://api.ebay.com{basePath}
+    description: eBay Buy Offer API — Bidding business capability. Self-contained, no shared references.
+    resources:
+    - name: bidding-item_id
+      path: /bidding/{item_id}
+      operations:
+      - name: getbidding
+        method: GET
+        description: This method retrieves the bidding details that are specific to the buyer of the specified auction. This
+          must be an auction where the buyer has already placed a bid. <br><br>To retrieve the bidding information you use
+          a <a href="/api-docs/st
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: item_id
+          in: path
+          type: string
+          description: This path parameter specifies the unique eBay RESTful identifier of an item for which you want the
+            buyer's bidding information.<br><br>This ID is returned by th
+          required: true
+        - name: X-EBAY-C-MARKETPLACE-ID
+          in: header
+          type: string
+          description: 'The ID of the eBay marketplace where the buyer is based. This value is case sensitive.<br><br>For
+            example: <br>&nbsp;&nbsp;<code>X-EBAY-C-MARKETPLACE-ID = EBAY_'
+          required: true
+    - name: bidding-item_id-place_proxy_bid
+      path: /bidding/{item_id}/place_proxy_bid
+      operations:
+      - name: placeproxybid
+        method: POST
+        description: This method uses a <a href="/api-docs/static/oauth-qref-auth-code-grant.html">user access token</a> to
+          place a proxy bid for the buyer on a specific auction item. The item must offer <code>AUCTION</code> as one of the
+          <b> buyingOptions</b>.
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: item_id
+          in: path
+          type: string
+          description: This path parameter specifies the unique eBay RESTful identifier of an item you want to bid on.<br><br>This
+            ID is returned by the <a href="/api-docs/buy/browse/
+          required: true
+        - name: X-EBAY-C-MARKETPLACE-ID
+          in: header
+          type: string
+          description: 'The ID of the eBay marketplace where the buyer is based. This value is case sensitive.<br><br> For
+            example: <br>&nbsp;&nbsp;<code>X-EBAY-C-MARKETPLACE-ID = EBAY'
+          required: true
+        - name: Content-Type
+          in: header
+          type: string
+          description: 'This header indicates the format of the request body provided by the client. Its value should be set
+            to <b>application/json</b>. <br><br> For more information, '
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: false
+    authentication:
+      type: bearer
+      token: '{{env.EBAY_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: offer-bidding-rest
+    port: 8080
+    description: REST adapter for eBay Buy Offer API — Bidding. One Spectral-compliant resource per consumed operation, prefixed
+      with /v1.
+    resources:
+    - path: /v1/bidding/{item-id}
+      name: bidding-item-id
+      description: REST surface for bidding-item_id.
+      operations:
+      - method: GET
+        name: getbidding
+        description: This method retrieves the bidding details that are specific to the buyer of the specified auction. This
+          must be an auction where the buyer has already placed a bid. <br><br>To retrieve the bidding information you use
+          a <a href="/api-docs/st
+        call: offer-bidding.getbidding
+        with:
+          item_id: rest.item_id
+          X-EBAY-C-MARKETPLACE-ID: rest.X-EBAY-C-MARKETPLACE-ID
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/bidding/{item-id}/place-proxy-bid
+      name: bidding-item-id-place-proxy-bid
+      description: REST surface for bidding-item_id-place_proxy_bid.
+      operations:
+      - method: POST
+        name: placeproxybid
+        description: This method uses a <a href="/api-docs/static/oauth-qref-auth-code-grant.html">user access token</a> to
+          place a proxy bid for the buyer on a specific auction item. The item must offer <code>AUCTION</code> as one of the
+          <b> buyingOptions</b>.
+        call: offer-bidding.placeproxybid
+        with:
+          item_id: rest.item_id
+          X-EBAY-C-MARKETPLACE-ID: rest.X-EBAY-C-MARKETPLACE-ID
+          Content-Type: rest.Content-Type
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: offer-bidding-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for eBay Buy Offer API — Bidding. One tool per consumed operation, routed inline through this
+      capability's consumes block.
+    tools:
+    - name: this-method-retrieves-bidding-details
+      description: This method retrieves the bidding details that are specific to the buyer of the specified auction. This
+        must be an auction where the buyer has already placed a bid. <br><br>To retrieve the bidding information you use a
+        <a href="/api-docs/st
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: offer-bidding.getbidding
+      with:
+        item_id: tools.item_id
+        X-EBAY-C-MARKETPLACE-ID: tools.X-EBAY-C-MARKETPLACE-ID
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: this-method-uses-href-api
+      description: This method uses a <a href="/api-docs/static/oauth-qref-auth-code-grant.html">user access token</a> to
+        place a proxy bid for the buyer on a specific auction item. The item must offer <code>AUCTION</code> as one of the
+        <b> buyingOptions</b>.
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: offer-bidding.placeproxybid
+      with:
+        item_id: tools.item_id
+        X-EBAY-C-MARKETPLACE-ID: tools.X-EBAY-C-MARKETPLACE-ID
+        Content-Type: tools.Content-Type
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
