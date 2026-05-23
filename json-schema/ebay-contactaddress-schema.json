@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ContactAddress",
+  "title": "ContactAddress",
+  "type": "object",
+  "properties": {
+    "addressLine1": {
+      "type": "string",
+      "description": "The first line of the street address."
+    },
+    "addressLine2": {
+      "type": "string",
+      "description": "The second line of the street address. Use this field for additional address information, such as a suite or apartment number."
+    },
+    "city": {
+      "type": "string",
+      "description": "The city in which the address is located."
+    },
+    "countryCode": {
+      "type": "string",
+      "description": "The country of the address, represented as two-letter <a href=\"https://www.iso.org/iso-3166-country-codes.html \" title=\"https://www.iso.org \" target=\"_blank\">ISO 3166</a> country code. For example, <code>US</code> represents the United States and <code>DE</code> represents Germany. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/logistics/types/bas:CountryCodeEnum'>eBay API documentation</a>"
+    },
+    "county": {
+      "type": "string",
+      "description": "The county (not country) in which the address is located. Counties typically contain multiple cities or towns."
+    },
+    "postalCode": {
+      "type": "string",
+      "description": "The postal code of the address."
+    },
+    "stateOrProvince": {
+      "type": "string",
+      "description": "The state or province in which the address is located. States and provinces often contain multiple counties."
+    }
+  },
+  "description": "This complex type specifies the details of a geographical address."
+}

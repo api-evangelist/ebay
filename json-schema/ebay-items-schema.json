@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Items",
+  "title": "Items",
+  "type": "object",
+  "properties": {
+    "items": {
+      "type": "array",
+      "description": "An arraylist of all the items.",
+      "items": {
+        "$ref": "#/components/schemas/CoreItem"
+      }
+    },
+    "total": {
+      "type": "integer",
+      "description": "The total number of items retrieved.",
+      "format": "int32"
+    },
+    "warnings": {
+      "type": "array",
+      "description": "An array of warning messages. These types of errors do not prevent the method from executing but should be checked.",
+      "items": {
+        "$ref": "#/components/schemas/Error"
+      }
+    }
+  },
+  "description": "Container for a list of items."
+}

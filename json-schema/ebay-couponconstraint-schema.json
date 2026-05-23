@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CouponConstraint",
+  "title": "CouponConstraint",
+  "type": "object",
+  "properties": {
+    "expirationDate": {
+      "type": "string",
+      "description": "This timestamp provides the expiration date of the coded coupon."
+    }
+  },
+  "description": "This type is used to provide the expiration date of a coded coupon."
+}

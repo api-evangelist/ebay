@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Metadata",
+  "title": "Metadata",
+  "type": "object",
+  "properties": {
+    "metadataHeader": {
+      "description": "The container that returns the <b>dimensionKeys</b> and <b>metrics</b> headers for the report.",
+      "$ref": "#/components/schemas/MetadataHeader"
+    },
+    "metadataRecords": {
+      "type": "array",
+      "description": "A list of the individual report records.",
+      "items": {
+        "$ref": "#/components/schemas/MetadataRecord"
+      }
+    }
+  },
+  "description": "Type the defines the metadata information of the report. This includes the headers and the individual metadata records."
+}

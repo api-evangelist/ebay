@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TaxDetail",
+  "title": "TaxDetail",
+  "type": "object",
+  "properties": {
+    "includedInPrice": {
+      "type": "boolean",
+      "description": "A field that indicates whether tax was applied for the cost of the item and its shipping."
+    },
+    "taxJurisdiction": {
+      "description": "A container that returns the tax jurisdiction information.",
+      "$ref": "#/components/schemas/TaxJurisdiction"
+    },
+    "taxType": {
+      "type": "string",
+      "description": "A field that indicates the type of tax that may be collected for the item. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/order/types/gct:TaxType'>eBay API documentation</a>"
+    }
+  },
+  "description": "A type that defines the tax fields."
+}

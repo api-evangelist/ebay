@@ -1,0 +1,873 @@
+{
+  "provider": "eBay",
+  "providerId": "ebay",
+  "kind": "json-structure",
+  "description": "Structural overview of the eBay API surface; extracted from openapi/.",
+  "schemaCount": 94,
+  "operationCount": 33,
+  "schemas": [
+    {
+      "name": "Address",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "Amount",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Availability",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "AvailabilityDistribution",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "AvailabilityWithAll",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "BaseResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "BestOffer",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "BulkEbayOfferDetailsWithKeys",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "BulkGetInventoryItem",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "BulkGetInventoryItemResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "BulkInventoryItem",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "BulkInventoryItemResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "BulkMigrateListing",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "BulkMigrateListingResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "BulkOffer",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "BulkOfferResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "BulkPriceQuantity",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "BulkPriceQuantityResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "BulkPublishResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "Charity",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Compatibility",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "CompatibleProduct",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "ConditionDescriptor",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "CountryPolicy",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Dimension",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "EbayOfferDetailsWithAll",
+      "type": "object",
+      "propertyCount": 24,
+      "required": []
+    },
+    {
+      "name": "EbayOfferDetailsWithId",
+      "type": "object",
+      "propertyCount": 18,
+      "required": []
+    },
+    {
+      "name": "EbayOfferDetailsWithKeys",
+      "type": "object",
+      "propertyCount": 21,
+      "required": []
+    },
+    {
+      "name": "EconomicOperator",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "EnergyEfficiencyLabel",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "Error",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "ErrorParameter",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ExtendedProducerResponsibility",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Fee",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "FeeSummary",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "FeesSummaryResponse",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "FormatAllocation",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "GeoCoordinates",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "GetInventoryItem",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "GetInventoryItemResponse",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "Hazmat",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "Interval",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "InventoryItem",
+      "type": "object",
+      "propertyCount": 6,
+      "required": []
+    },
+    {
+      "name": "InventoryItemGroup",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "InventoryItemListing",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "InventoryItemResponse",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "InventoryItemWithSkuLocale",
+      "type": "object",
+      "propertyCount": 8,
+      "required": []
+    },
+    {
+      "name": "InventoryItemWithSkuLocaleGroupKeys",
+      "type": "object",
+      "propertyCount": 9,
+      "required": []
+    },
+    {
+      "name": "InventoryItemWithSkuLocaleGroupid",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "InventoryItems",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "InventoryLocation",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "InventoryLocationFull",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "InventoryLocationResponse",
+      "type": "object",
+      "propertyCount": 11,
+      "required": []
+    },
+    {
+      "name": "ListingDetails",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "ListingPolicies",
+      "type": "object",
+      "propertyCount": 10,
+      "required": []
+    },
+    {
+      "name": "Location",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "LocationDetails",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "LocationResponse",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "MigrateListing",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "MigrateListingResponse",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "NameValueList",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "OfferKeyWithId",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "OfferKeysWithId",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "OfferPriceQuantity",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "OfferResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "OfferResponseWithListingId",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "OfferSkuResponse",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "Offers",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "OperatingHours",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "PackageWeightAndSize",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "PickupAtLocationAvailability",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "PriceQuantity",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "PriceQuantityResponse",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "PricingSummary",
+      "type": "object",
+      "propertyCount": 7,
+      "required": []
+    },
+    {
+      "name": "Product",
+      "type": "object",
+      "propertyCount": 12,
+      "required": []
+    },
+    {
+      "name": "ProductFamilyProperties",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "ProductIdentifier",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "PublishByInventoryItemGroupRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "PublishResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "RegionalProductCompliancePolicies",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "RegionalTakeBackPolicies",
+      "type": "object",
+      "propertyCount": 1,
+      "required": []
+    },
+    {
+      "name": "Regulatory",
+      "type": "object",
+      "propertyCount": 4,
+      "required": []
+    },
+    {
+      "name": "ShipToLocationAvailability",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "ShipToLocationAvailabilityWithAll",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "ShippingCostOverride",
+      "type": "object",
+      "propertyCount": 5,
+      "required": []
+    },
+    {
+      "name": "SpecialHours",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Specification",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Tax",
+      "type": "object",
+      "propertyCount": 3,
+      "required": []
+    },
+    {
+      "name": "TimeDuration",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "VariesBy",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Version",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "Weight",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "WithdrawByInventoryItemGroupRequest",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    },
+    {
+      "name": "WithdrawResponse",
+      "type": "object",
+      "propertyCount": 2,
+      "required": []
+    }
+  ],
+  "operations": [
+    {
+      "method": "POST",
+      "path": "/bulk_create_or_replace_inventory_item",
+      "operationId": "bulkCreateOrReplaceInventoryItem",
+      "summary": null,
+      "tags": [
+        "Inventory_item"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/bulk_get_inventory_item",
+      "operationId": "bulkGetInventoryItem",
+      "summary": null,
+      "tags": [
+        "Inventory_item"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/bulk_update_price_quantity",
+      "operationId": "bulkUpdatePriceQuantity",
+      "summary": null,
+      "tags": [
+        "Inventory_item"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/inventory_item/{sku}",
+      "operationId": "getInventoryItem",
+      "summary": null,
+      "tags": [
+        "Inventory_item"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/inventory_item/{sku}",
+      "operationId": "createOrReplaceInventoryItem",
+      "summary": null,
+      "tags": [
+        "Inventory_item"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/inventory_item/{sku}",
+      "operationId": "deleteInventoryItem",
+      "summary": null,
+      "tags": [
+        "Inventory_item"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/inventory_item",
+      "operationId": "getInventoryItems",
+      "summary": null,
+      "tags": [
+        "Inventory_item"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/inventory_item/{sku}/product_compatibility",
+      "operationId": "getProductCompatibility",
+      "summary": null,
+      "tags": [
+        "Product_compatibility"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/inventory_item/{sku}/product_compatibility",
+      "operationId": "createOrReplaceProductCompatibility",
+      "summary": null,
+      "tags": [
+        "Product_compatibility"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/inventory_item/{sku}/product_compatibility",
+      "operationId": "deleteProductCompatibility",
+      "summary": null,
+      "tags": [
+        "Product_compatibility"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/inventory_item_group/{inventoryItemGroupKey}",
+      "operationId": "getInventoryItemGroup",
+      "summary": null,
+      "tags": [
+        "Inventory_item_group"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/inventory_item_group/{inventoryItemGroupKey}",
+      "operationId": "createOrReplaceInventoryItemGroup",
+      "summary": null,
+      "tags": [
+        "Inventory_item_group"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/inventory_item_group/{inventoryItemGroupKey}",
+      "operationId": "deleteInventoryItemGroup",
+      "summary": null,
+      "tags": [
+        "Inventory_item_group"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/bulk_migrate_listing",
+      "operationId": "bulkMigrateListing",
+      "summary": null,
+      "tags": [
+        "Listing"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/bulk_create_offer",
+      "operationId": "bulkCreateOffer",
+      "summary": null,
+      "tags": [
+        "Offer"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/bulk_publish_offer",
+      "operationId": "bulkPublishOffer",
+      "summary": null,
+      "tags": [
+        "Offer"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/offer",
+      "operationId": "getOffers",
+      "summary": null,
+      "tags": [
+        "Offer"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/offer",
+      "operationId": "createOffer",
+      "summary": null,
+      "tags": [
+        "Offer"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/offer/{offerId}",
+      "operationId": "getOffer",
+      "summary": null,
+      "tags": [
+        "Offer"
+      ]
+    },
+    {
+      "method": "PUT",
+      "path": "/offer/{offerId}",
+      "operationId": "updateOffer",
+      "summary": null,
+      "tags": [
+        "Offer"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/offer/{offerId}",
+      "operationId": "deleteOffer",
+      "summary": null,
+      "tags": [
+        "Offer"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/offer/get_listing_fees",
+      "operationId": "getListingFees",
+      "summary": null,
+      "tags": [
+        "Offer"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/offer/{offerId}/publish/",
+      "operationId": "publishOffer",
+      "summary": null,
+      "tags": [
+        "Offer"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/offer/publish_by_inventory_item_group/",
+      "operationId": "publishOfferByInventoryItemGroup",
+      "summary": null,
+      "tags": [
+        "Offer"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/offer/{offerId}/withdraw",
+      "operationId": "withdrawOffer",
+      "summary": null,
+      "tags": [
+        "Offer"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/offer/withdraw_by_inventory_item_group",
+      "operationId": "withdrawOfferByInventoryItemGroup",
+      "summary": null,
+      "tags": [
+        "Offer"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/location/{merchantLocationKey}",
+      "operationId": "getInventoryLocation",
+      "summary": null,
+      "tags": [
+        "Location"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/location/{merchantLocationKey}",
+      "operationId": "createInventoryLocation",
+      "summary": null,
+      "tags": [
+        "Location"
+      ]
+    },
+    {
+      "method": "DELETE",
+      "path": "/location/{merchantLocationKey}",
+      "operationId": "deleteInventoryLocation",
+      "summary": null,
+      "tags": [
+        "Location"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/location/{merchantLocationKey}/disable",
+      "operationId": "disableInventoryLocation",
+      "summary": null,
+      "tags": [
+        "Location"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/location/{merchantLocationKey}/enable",
+      "operationId": "enableInventoryLocation",
+      "summary": null,
+      "tags": [
+        "Location"
+      ]
+    },
+    {
+      "method": "GET",
+      "path": "/location",
+      "operationId": "getInventoryLocations",
+      "summary": null,
+      "tags": [
+        "Location"
+      ]
+    },
+    {
+      "method": "POST",
+      "path": "/location/{merchantLocationKey}/update_location_details",
+      "operationId": "updateInventoryLocation",
+      "summary": null,
+      "tags": [
+        "Location"
+      ]
+    }
+  ]
+}

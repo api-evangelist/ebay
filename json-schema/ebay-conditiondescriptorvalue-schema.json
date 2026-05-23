@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ConditionDescriptorValue",
+  "title": "ConditionDescriptorValue",
+  "type": "object",
+  "properties": {
+    "additionalInfo": {
+      "type": "array",
+      "description": "Additional information about the condition of an item as it relates to a condition descriptor. This array elaborates on the value specified in the <b>content</b> field and provides additional details about the condition of an item.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "content": {
+      "type": "string",
+      "description": "The value for the condition descriptor indicated in the associated <b>name</b> field."
+    }
+  },
+  "description": "This type displays the value(s) associated with the specified condition descriptor name, as well as any additional information about a condition descriptor. "
+}

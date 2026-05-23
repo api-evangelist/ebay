@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SubscriptionFilter",
+  "title": "SubscriptionFilter",
+  "type": "object",
+  "properties": {
+    "creationDate": {
+      "type": "string",
+      "description": "The creation date for this subscription filter."
+    },
+    "filterId": {
+      "type": "string",
+      "description": "The unique identifier for this subscription filter."
+    },
+    "filterSchema": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object"
+      },
+      "description": "The content of this subscription filter as a valid <a href=\"https://json-schema.org \" target=\"_blank\">JSON Schema Core document</a> (version 2020-12 or later). The <strong>filterSchema</strong> provided must describe the subscription's notification payload such that it supplies valid criteria to filter the subscription's notifications."
+    },
+    "filterStatus": {
+      "type": "string",
+      "description": "The status of this subscription filter. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:SubscriptionFilterStatus'>eBay API documentation</a>"
+    },
+    "subscriptionId": {
+      "type": "string",
+      "description": "The unique identifier for the subscription."
+    }
+  }
+}

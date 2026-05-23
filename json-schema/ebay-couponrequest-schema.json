@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CouponRequest",
+  "title": "CouponRequest",
+  "type": "object",
+  "properties": {
+    "redemptionCode": {
+      "type": "string",
+      "description": "The redemption code of the coupon.<br><br><b>Maximum:</b> One redemption code per order"
+    }
+  },
+  "description": "A type that defines the fields for the coupon information used in the request."
+}

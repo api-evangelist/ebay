@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ShippingQuoteRequest",
+  "title": "ShippingQuoteRequest",
+  "type": "object",
+  "properties": {
+    "orders": {
+      "type": "array",
+      "description": "In this array, the seller specifies one or more orders that will be shipped in the shipping package. <br><br>A shipping package can contain any number of line items from one or more orders, providing they all ship in the same package.  <br><br><b>Maximum list size:</b> 10",
+      "items": {
+        "$ref": "#/components/schemas/Order"
+      }
+    },
+    "packageSpecification": {
+      "description": "Declares the weight and dimensions of the package.",
+      "$ref": "#/components/schemas/PackageSpecification"
+    },
+    "shipFrom": {
+      "description": "The address and contact details pertaining to the origin of the shipment.",
+      "$ref": "#/components/schemas/Contact"
+    },
+    "shipTo": {
+      "description": "The address and contact details pertaining to the shipment's destination.",
+      "$ref": "#/components/schemas/Contact"
+    }
+  },
+  "description": "This complex type defines the request body for <b>createShippingQuote</b>. Sellers <i>request a quote</i> for a shipment by defining the \"To\" and \"From\" addresses for the package, plus the package's size.  <br><br>Carriers respond by offering up a \"rate\" for the service of theirs that best fits seller's needs."
+}

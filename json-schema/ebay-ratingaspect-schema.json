@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RatingAspect",
+  "title": "RatingAspect",
+  "type": "object",
+  "properties": {
+    "count": {
+      "type": "integer",
+      "description": "The number of eBay users that rated the product on this aspect.",
+      "format": "int32"
+    },
+    "description": {
+      "type": "string",
+      "description": "The name of the rating aspect. Camping tent examples: Is it lightweight? or Is it easy to set up?"
+    },
+    "name": {
+      "type": "string",
+      "description": "The answer or value of the rating aspect. Camping tent examples: Lightweight or Easy to set up"
+    },
+    "ratingAspectDistributions": {
+      "type": "array",
+      "description": "The container for the details of the aspect rating. The details show the aspect rating value, usually TRUE or FALSE and the user count and percentage.",
+      "items": {
+        "$ref": "#/components/schemas/RatingAspectDistribution"
+      }
+    }
+  },
+  "description": "The type that defines the fields for the product aspect ratings."
+}

@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BulkInventoryItem",
+  "title": "BulkInventoryItem",
+  "type": "object",
+  "properties": {
+    "requests": {
+      "type": "array",
+      "description": "The details of each inventory item that is being created or updated is passed in under this container. Up to 25 inventory item records can be created and/or updated with one <strong>bulkCreateOrReplaceInventoryItem</strong> call.",
+      "items": {
+        "$ref": "#/components/schemas/InventoryItemWithSkuLocale"
+      }
+    }
+  },
+  "description": "The base request of the <strong>bulkCreateOrReplaceInventoryItem</strong> method."
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ServiceMetricsTask",
+  "title": "ServiceMetricsTask",
+  "type": "object",
+  "properties": {
+    "completionDate": {
+      "type": "string",
+      "description": "The timestamp when the customer service metrics task went into the <code>COMPLETED</code> or <code>COMPLETED_WITH_ERROR</code> state. This field is only returned if the status is one of the two completed values. This state means that eBay has compiled the report for the seller based on the seller\u2019s filter criteria, and the seller can run a <strong>getResultFile</strong> call to download the report."
+    },
+    "creationDate": {
+      "type": "string",
+      "description": "The date the customer service metrics task was created."
+    },
+    "detailHref": {
+      "type": "string",
+      "description": "The relative <strong>getCustomerServiceMetricTask</strong> call URI path to retrieve the corresponding task."
+    },
+    "feedType": {
+      "type": "string",
+      "description": "The feed type associated with the task."
+    },
+    "filterCriteria": {
+      "description": "This container shows the criteria set for the report.",
+      "$ref": "#/components/schemas/CustomerServiceMetricsFilterCriteria"
+    },
+    "schemaVersion": {
+      "type": "string",
+      "description": "The schema version number of the file format. If omitted, the default value is used. <p><b>Default value: </b><code>1.0</code><p>"
+    },
+    "status": {
+      "type": "string",
+      "description": "An enumeration value that indicates the state of the task. See <strong>FeedStatusEnum</strong> for values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:FeedStatusEnum'>eBay API documentation</a>"
+    },
+    "taskId": {
+      "type": "string",
+      "description": "The unique eBay-assigned ID of the task."
+    }
+  }
+}

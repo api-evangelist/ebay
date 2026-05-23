@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AddonService",
+  "title": "AddonService",
+  "type": "object",
+  "properties": {
+    "selection": {
+      "type": "string",
+      "description": "This field indicates whether the add-on service must be selected for the item. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:AddonServiceSelectionEnum'>eBay API documentation</a>"
+    },
+    "serviceFee": {
+      "description": "The amount charged for the add-on service.",
+      "$ref": "#/components/schemas/ConvertedAmount"
+    },
+    "serviceId": {
+      "type": "string",
+      "description": "The ID number of the add-on service."
+    },
+    "serviceType": {
+      "type": "string",
+      "description": "The type of add-on service, such as <code>AUTHENTICITY_GUARANTEE</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:AddonServiceTypeEnum'>eBay API documentation</a>"
+    }
+  },
+  "description": "This container describes an add-on service that may be selected for an item or that may apply automatically. A charge may be associated with the add-on service."
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Destination",
+  "title": "Destination",
+  "type": "object",
+  "properties": {
+    "deliveryConfig": {
+      "description": "The configuration associated with this destination.",
+      "$ref": "#/components/schemas/DeliveryConfig"
+    },
+    "destinationId": {
+      "type": "string",
+      "description": "The unique identifier for the destination."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name associated with this destination."
+    },
+    "status": {
+      "type": "string",
+      "description": "The status for this destination.<br><br><span class=\"tablenote\"><b>Note:</b> The <b>MARKED_DOWN</b> value is set by eBay systems and cannot be used in a create or update call by applications.</span><br><br><b>Valid values:</b><ul><li><code>ENABLED</code></li><li><code>DISABLED</code></li><li><code>MARKED_DOWN</code></li></ul> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:DestinationStatusEnum'>eBay API documentation</a>"
+    }
+  },
+  "description": "A type that contains information about the destination."
+}

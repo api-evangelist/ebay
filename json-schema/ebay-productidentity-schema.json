@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ProductIdentity",
+  "title": "ProductIdentity",
+  "type": "object",
+  "properties": {
+    "identifierType": {
+      "type": "string",
+      "description": "The type of product identifier, such as UPC and EAN."
+    },
+    "identifierValue": {
+      "type": "string",
+      "description": "The product identifier value."
+    }
+  },
+  "description": "The type that defines the fields for the product identifier type/value pairs of product associated with an item."
+}

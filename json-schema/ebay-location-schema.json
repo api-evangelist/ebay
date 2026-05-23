@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Location",
+  "title": "Location",
+  "type": "object",
+  "properties": {
+    "address": {
+      "description": "The address of the charitable organization.",
+      "$ref": "#/components/schemas/Address"
+    },
+    "geoCoordinates": {
+      "description": "The geo-coordinates of the charitable organization.",
+      "$ref": "#/components/schemas/GeoCoordinates"
+    }
+  }
+}

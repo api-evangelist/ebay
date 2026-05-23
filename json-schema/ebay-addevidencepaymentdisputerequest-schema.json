@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AddEvidencePaymentDisputeRequest",
+  "title": "AddEvidencePaymentDisputeRequest",
+  "type": "object",
+  "properties": {
+    "evidenceType": {
+      "type": "string",
+      "description": "This field is used to indicate the type of evidence being provided through one or more evidence files. All evidence files (if more than one) should be associated with the evidence type passed in this field.<br><br>See the <a href=\"/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum\" target=\"_blank \">EvidenceTypeEnum</a> type for the supported evidence types. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum'>eBay API documentation</a>"
+    },
+    "files": {
+      "type": "array",
+      "description": "This array is used to specify one or more evidence files that will become part of a new evidence set associated with a payment dispute. At least one evidence file must be specified in the <strong>files</strong> array.",
+      "items": {
+        "$ref": "#/components/schemas/FileEvidence"
+      }
+    },
+    "lineItems": {
+      "type": "array",
+      "description": "This array identifies the order line item(s) for which the evidence file(s) will be applicable.<br><Br>These values are returned under the <strong>evidenceRequests.lineItems</strong> array in the <a href=\"/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDispute\" target=\"_blank \">getPaymentDispute</a> response.",
+      "items": {
+        "$ref": "#/components/schemas/OrderLineItems"
+      }
+    }
+  },
+  "description": "This type is used by the request payload of the <strong>addEvidence</strong> method. The <strong>addEvidence</strong> method is used to create a new evidence set against a payment dispute with one or more evidence files."
+}

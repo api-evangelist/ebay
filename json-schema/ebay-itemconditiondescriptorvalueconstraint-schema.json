@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ItemConditionDescriptorValueConstraint",
+  "title": "ItemConditionDescriptorValueConstraint",
+  "type": "object",
+  "properties": {
+    "applicableToConditionDescriptorId": {
+      "type": "string",
+      "description": "This string is returned if the corresponding condition descriptor value requires an associated condition descriptor that must also be specified in a listing. The condition descriptor ID for the associated condition descriptors is returned here."
+    },
+    "applicableToConditionDescriptorValueIds": {
+      "type": "array",
+      "description": "This array is returned if the corresponding condition descriptor value is required for one or more associated condition descriptor values that must also be specified in a listing. The condition descriptor values IDs for the associated condition descriptor values are returned here.",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "description": "This type shows the constraints on a condition descriptor value, such as any associated condition descriptor ID and condition descriptor value IDs required for a listing."
+}

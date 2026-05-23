@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CustomPolicyResponse",
+  "title": "CustomPolicyResponse",
+  "type": "object",
+  "properties": {
+    "customPolicies": {
+      "type": "array",
+      "description": "This array contains the custom policies that match the input criteria.",
+      "items": {
+        "$ref": "#/components/schemas/CompactCustomPolicyResponse"
+      }
+    },
+    "href": {
+      "type": "string",
+      "description": "<i>This field is for future use.</i>"
+    },
+    "limit": {
+      "type": "integer",
+      "description": "<i>This field is for future use.</i>",
+      "format": "int32"
+    },
+    "next": {
+      "type": "string",
+      "description": "<i>This field is for future use.</i>"
+    },
+    "offset": {
+      "type": "integer",
+      "description": "<i>This field is for future use.</i>",
+      "format": "int32"
+    },
+    "prev": {
+      "type": "string",
+      "description": "<i>This field is for future use.</i>"
+    },
+    "total": {
+      "type": "integer",
+      "description": "<i>This field is for future use.</i>",
+      "format": "int32"
+    }
+  }
+}

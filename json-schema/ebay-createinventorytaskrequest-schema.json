@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateInventoryTaskRequest",
+  "title": "CreateInventoryTaskRequest",
+  "type": "object",
+  "properties": {
+    "feedType": {
+      "type": "string",
+      "description": "The feed type associated with the inventory task you are about to create. Presently, only one feed type is available:<br><ul><li><code>LMS_ACTIVE_INVENTORY_REPORT</code></li></ul>See <a href=\"/api-docs/sell/static/feed/lms-feeds-quick-reference.html#merchant-data-reports-download-feed-types\" target=\"_blank\">Report download feed types</a> for more information."
+    },
+    "filterCriteria": {
+      "description": "This container allows a seller to create an ActiveInventoryReport for a single listing format.",
+      "$ref": "#/components/schemas/InventoryFilterCriteria"
+    },
+    "schemaVersion": {
+      "type": "string",
+      "description": "The version number of the inventory task to use for the <b>feedType</b>.<br><br><span class=\"tablenote\"><b>Note:</b> This field <b>must</b> have a value of <code>1.0</code>.</span>"
+    }
+  }
+}

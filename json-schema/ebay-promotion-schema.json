@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Promotion",
+  "title": "Promotion",
+  "type": "object",
+  "properties": {
+    "discount": {
+      "description": "The details regarding the monetary value of the promotional discount.<br><br><span class=\"tablenote\"><b>Note:</b> eBay Bucks are not supported.</span>",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "message": {
+      "type": "string",
+      "description": "The text for the promotion title, which describes the promotion."
+    },
+    "promotionType": {
+      "type": "string",
+      "description": "The kind of promotion. Some examples are: <code>SellerDiscountedPromotionalOffer</code> and <code>COUPON</code>."
+    }
+  },
+  "description": "A container that returns the details of an item promotion."
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Config",
+  "title": "Config",
+  "type": "object",
+  "properties": {
+    "alertEmail": {
+      "type": "string",
+      "description": "This field is used to add or modify an email address that will be used for Notification API alerts associated with the application. <b>getConfig</b> can be used to get the email address currently being used for alerts."
+    }
+  },
+  "description": "The type that defines the fields for the <b>alertEmail</b> field."
+}

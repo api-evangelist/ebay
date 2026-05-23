@@ -1,0 +1,46 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Report",
+  "title": "Report",
+  "type": "object",
+  "properties": {
+    "dimensionMetadata": {
+      "type": "array",
+      "description": "A complex type containing the header of the report and the type of data containted in the rows of the report.",
+      "items": {
+        "$ref": "#/components/schemas/Metadata"
+      }
+    },
+    "endDate": {
+      "type": "string",
+      "description": "  <br><br>The time stamp is formatted as an <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html\" target=\"_blank\">ISO 8601</a> string, which is based on the 24-hour Universal Coordinated Time (UTC) clock.  <br><br>If you specify an end date that is beyond the <a href=\"#response.lastUpdatedDate\">lastUpdatedDate</a> value, eBay returns a report that contains data only up to the lastUpdateDate date. <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2018-08-20T07:09:00.000Z</code>"
+    },
+    "header": {
+      "description": "A complex type containing the header for the report.",
+      "$ref": "#/components/schemas/Header"
+    },
+    "lastUpdatedDate": {
+      "type": "string",
+      "description": "The date and time, in ISO 8601 format, that indicates the last time the data returned in the report was updated."
+    },
+    "records": {
+      "type": "array",
+      "description": "A complex type containing the individual data records for the traffic report.",
+      "items": {
+        "$ref": "#/components/schemas/Record"
+      }
+    },
+    "startDate": {
+      "type": "string",
+      "description": "The start date of the date range used to calculate the report, in ISO 8601 format."
+    },
+    "warnings": {
+      "type": "array",
+      "description": "An array of any process errors or warnings that were generated during the processing of the call processing.",
+      "items": {
+        "$ref": "#/components/schemas/Error"
+      }
+    }
+  },
+  "description": "The complex type that defines that defines the report."
+}

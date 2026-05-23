@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PhoneNumber",
+  "title": "PhoneNumber",
+  "type": "object",
+  "properties": {
+    "phoneNumber": {
+      "type": "string",
+      "description": "The primary telephone number for the shipping recipient."
+    }
+  },
+  "description": "This type contains a string field representing a telephone number."
+}

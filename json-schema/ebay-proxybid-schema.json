@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ProxyBid",
+  "title": "ProxyBid",
+  "type": "object",
+  "properties": {
+    "maxAmount": {
+      "description": "The maximum amount the buyer is willing to pay for the item.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "proxyBidId": {
+      "type": "string",
+      "description": "Identifier of a specific proxy bid."
+    }
+  },
+  "description": "The type the defines the fields for the proxy bid information."
+}

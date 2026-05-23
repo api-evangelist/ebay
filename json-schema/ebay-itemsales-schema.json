@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ItemSales",
+  "title": "ItemSales",
+  "type": "object",
+  "properties": {
+    "additionalImages": {
+      "type": "array",
+      "description": "An array of containers with the URLs for the images that are in addition to the primary image.  The primary image is returned in the <b> image.imageUrl</b> field.",
+      "items": {
+        "$ref": "#/components/schemas/Image"
+      }
+    },
+    "adultOnly": {
+      "type": "boolean",
+      "description": "This indicates if the item is for  adults only. For more information about adult-only items on eBay, see <a href=\"https://pages.ebay.com/help/policies/adult-only.html \" target=\"_blank\">Adult items policy</a> for sellers and <a href=\"https://www.ebay.com/help/terms-conditions/default/searching-adult-items?id=4661 \" target=\"_blank\">Adult-Only items on eBay</a> for buyers."
+    },
+    "bidCount": {
+      "type": "integer",
+      "description": "This integer value indicates the total number of bids that have been placed for an auction item. This field is only returned for auction items.",
+      "format": "int32"
+    },
+    "buyingOptions": {
+      "type": "array",
+      "description": "A comma separated list of the purchase options available for the item, such as FIXED_PRICE, AUCTION.  <ul> <li><code>FIXED_PRICE</code> - Returned for fixed-price items (non-auction)</li>  <li><code>AUCTION</code> - Returned for auction items without Buy It Now feature</li>  <li><code>FIXED_PRICE</code> and <code>AUCTION</code> - Returned for auction items enabled with the Buy It Now feature</li> </ul> Code so that your app gracefully handles any future changes to this list.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "categories": {
+      "type": "array",
+      "description": "This container returns the primary category ID of the item, as well as the secondary category if the item was listed in two categories. ",
+      "items": {
+        "$ref": "#/components/schemas/Category"
+      }
+    },
+    "condition": {
+      "type": "string",
+      "description": "The text describing the condition of the item, such as New or Used. For a list of condition names, see <a href=\"/devzone/finding/callref/enums/conditionIdList.html \" target=\"_blank\">Item Condition IDs and Names</a>.  <br><br>Code so that your app gracefully handles any future changes to this list."
+    },
+    "conditionId": {
+      "type": "string",
+      "description": "The identifier of the condition of the item. For example, 1000 is the identifier for NEW. For a list of condition names and IDs, see <a href=\"/devzone/finding/callref/enums/conditionIdList.html \" target=\"_blank\">Item Condition IDs and Names</a>. <br><br>Code so that your app gracefully handles any future changes to this list."
+    },
+    "epid": {
+      "type": "string",
+      "description": "An ePID is the eBay product identifier of a product from the eBay product catalog.  This indicates the product in which the item belongs."
+    },
+    "image": {
+      "description": "The URL to the primary image of the item.",
+      "$ref": "#/components/schemas/Image"
+    },
+    "itemAffiliateWebUrl": {
+      "type": "string",
+      "description": "The URL to the View Item page of the item, which includes the affiliate tracking ID. This field is only returned if the eBay partner  enables affiliate tracking for the item by including the <code><a href=\"/api-docs/buy/static/api-browse.html#Headers\">X-EBAY-C-ENDUSERCTX</a></code> request header in the method."
+    },
+    "itemGroupHref": {
+      "type": "string",
+      "description": "The HATEOAS reference of the parent page of the item group. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. <br> <br><span class=\"tablenote\"> <b>  Note: </b>This field is returned only for item groups.</span>"
+    },
+    "itemGroupType": {
+      "type": "string",
+      "description": "Indicates the item group type. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. <br><br>Currently, only the <code>SELLER_DEFINED_VARIATIONS</code> group type is supported and indicates that this is an item group created by the seller.<br> <br><span class=\"tablenote\"> <b> Note: </b>This field is returned only for item groups.</span><br><br>Code so that your app gracefully handles any future changes to this list."
+    },
+    "itemHref": {
+      "type": "string",
+      "description": "The URI of the item."
+    },
+    "itemId": {
+      "type": "string",
+      "description": "The unique RESTful identifier of the item."
+    },
+    "itemLocation": {
+      "description": "This container returns the postal code and country of the location of the item.",
+      "$ref": "#/components/schemas/ItemLocation"
+    },
+    "itemWebUrl": {
+      "type": "string",
+      "description": "The URL to the View Item page of the item."
+    },
+    "lastSoldDate": {
+      "type": "string",
+      "description": "The date the last item was purchased within the last 90 days. The <b>totalSoldQuantity</b> returns the total number of items that were sold. This field returns the date the last item in that group was sold. "
+    },
+    "lastSoldPrice": {
+      "description": "The sold price of the last item purchased within the last 90 days.<br><br>The <b>totalSoldQuantity</b> returns the total number of items that were sold. This field returns the date the last item in that group was sold.<br><br><span class=\"tablenote\"><b> Note: </b>The price includes the value-added tax (VAT) for applicable jurisdictions when requested from supported marketplaces. In this case, users must pass the <a href=\"/api-docs/static/rest-request-components.html#HTTP\"><code>X-EBAY-C-MARKETPLACE-ID</code></a> request header specifying the supported marketplace (such as <code>EBAY_GB</code>) to see VAT-inclusive pricing. For more information on VAT, refer to <a href=\"https://www.ebay.co.uk/help/listings/default/vat-obligations-eu?id=4650&st=12&pos=1&query=Your%20VAT%20obligations%20in%20the%20EU&intent=VAT\">VAT Obligations in the EU</a>.</span>",
+      "$ref": "#/components/schemas/ConvertedAmount"
+    },
+    "seller": {
+      "description": "This container returns basic information about the seller of the item, such as name, feedback score, etc.",
+      "$ref": "#/components/schemas/Seller"
+    },
+    "thumbnailImages": {
+      "type": "array",
+      "description": "An array of thumbnail images for the item. ",
+      "items": {
+        "$ref": "#/components/schemas/Image"
+      }
+    },
+    "title": {
+      "type": "string",
+      "description": "The seller-created title of the item.  <br><br><b>Maximum Length: </b> 80 characters"
+    },
+    "totalSoldQuantity": {
+      "type": "integer",
+      "description": "The total number of this item that have been sold.",
+      "format": "int32"
+    }
+  },
+  "description": "This type defines the fields for the sold items sales history information."
+}

@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CategoryAspect",
+  "title": "CategoryAspect",
+  "type": "object",
+  "properties": {
+    "category": {
+      "description": "The details that are appropriate or necessary to accurately define the category.",
+      "$ref": "#/components/schemas/Category"
+    },
+    "aspects": {
+      "type": "array",
+      "description": "A list of aspect metadata that is used to describe the items in a particular leaf category.",
+      "items": {
+        "$ref": "#/components/schemas/Aspect"
+      }
+    }
+  }
+}

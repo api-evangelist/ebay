@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateSubscriptionRequest",
+  "title": "CreateSubscriptionRequest",
+  "type": "object",
+  "properties": {
+    "destinationId": {
+      "type": "string",
+      "description": "The unique identifier of the destination endpoint that will receive notifications associated with this subscription. Use the <b>getDestinations</b> method to retrieve destination IDs."
+    },
+    "payload": {
+      "description": "The payload associated with the notification topic. Use <b>getTopics</b> or <b>getTopic</b> to get the supported payload for the topic.",
+      "$ref": "#/components/schemas/SubscriptionPayloadDetail"
+    },
+    "status": {
+      "type": "string",
+      "description": "Set the status of the subscription to <code>ENABLED</code> or <code>DISABLED</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:SubscriptionStatusEnum'>eBay API documentation</a>"
+    },
+    "topicId": {
+      "type": "string",
+      "description": "The unique identifier of the notification topic to subscribe to. Use <b>getTopics</b> to get topic IDs."
+    }
+  },
+  "description": "This type contains information about a subscription request."
+}

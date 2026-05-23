@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GetCompatibilityMetadataResponse",
+  "title": "GetCompatibilityMetadataResponse",
+  "type": "object",
+  "properties": {
+    "compatibilityProperties": {
+      "type": "array",
+      "description": "This container consists of an array of all compatible vehicle properties applicable to the specified eBay marketplace and eBay category ID.",
+      "items": {
+        "$ref": "#/components/schemas/CompatibilityProperty"
+      }
+    }
+  },
+  "description": "This type is used by the base response of the <strong>getCompatibilityProperties</strong> method."
+}

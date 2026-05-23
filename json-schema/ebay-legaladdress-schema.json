@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LegalAddress",
+  "title": "LegalAddress",
+  "type": "object",
+  "properties": {
+    "addressLine1": {
+      "type": "string",
+      "description": "The first line of the street address."
+    },
+    "addressLine2": {
+      "type": "string",
+      "description": "The second line of the street address. This field is not always used, but can be used for 'Suite Number' or 'Apt Number'."
+    },
+    "city": {
+      "type": "string",
+      "description": "The city of the address."
+    },
+    "country": {
+      "type": "string",
+      "description": "The two-letter <a href=\"https://www.iso.org/iso-3166-country-codes.html \" target=\"_blank\">ISO 3166</a> standard of the country of the address. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/ba:CountryCodeEnum'>eBay API documentation</a>"
+    },
+    "countryName": {
+      "type": "string",
+      "description": "The name of the country of the address."
+    },
+    "county": {
+      "type": "string",
+      "description": "The name of the county of the address."
+    },
+    "postalCode": {
+      "type": "string",
+      "description": "The postal code of the address."
+    },
+    "stateOrProvince": {
+      "type": "string",
+      "description": "The state or province of the address."
+    }
+  },
+  "description": "Type that defines the fields for the seller's address."
+}

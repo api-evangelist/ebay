@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SubscriptionPayloadDetail",
+  "title": "SubscriptionPayloadDetail",
+  "type": "object",
+  "properties": {
+    "deliveryProtocol": {
+      "type": "string",
+      "description": "The supported delivery protocol of the notification topic.<br><br><span class=\"tablenote\"><b>Note:</b> <code>HTTPS</code> is currently the only supported delivery protocol of all notification topics. </span> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:ProtocolEnum'>eBay API documentation</a>"
+    },
+    "format": {
+      "type": "string",
+      "description": "The supported data format of the payload.<br><br><span class=\"tablenote\"><b>Note:</b> JSON is currently the only supported format for all notification topics.</span> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:FormatTypeEnum'>eBay API documentation</a>"
+    },
+    "schemaVersion": {
+      "type": "string",
+      "description": "The supported schema version for the notification topic. See the <b>supportedPayloads.schemaVersion</b> field for the topic in <b>getTopics</b> or <b>getTopic</b> response."
+    }
+  },
+  "description": "A type that describes the details of the subscription payload."
+}

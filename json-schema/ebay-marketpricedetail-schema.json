@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MarketPriceDetail",
+  "title": "MarketPriceDetail",
+  "type": "object",
+  "properties": {
+    "conditionGroup": {
+      "type": "string",
+      "description": "The name for the condition of the product. For example: NEW"
+    },
+    "conditionIds": {
+      "type": "array",
+      "description": "An array of condition identifiers for the product.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "estimatedStartPrice": {
+      "description": "The lowest priced active item for this product on eBay.",
+      "$ref": "#/components/schemas/Amount"
+    }
+  },
+  "description": "The type that defines the fields for details about the product, such as condition and estimated start price."
+}

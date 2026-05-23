@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SignalWord",
+  "title": "SignalWord",
+  "type": "object",
+  "properties": {
+    "signalWordId": {
+      "type": "string",
+      "description": "The identifier of the signal word. For more information, see <a href='/api-docs/sell/static/metadata/feature-regulatorhazmatcontainer.html#Signal'>Signal word information</a>."
+    },
+    "signalWordDescription": {
+      "type": "string",
+      "description": "The description of the signal word localized to the default language of the marketplace. For more information, see <a href='/api-docs/sell/static/metadata/feature-regulatorhazmatcontainer.html#Signal'>Signal word information</a>."
+    }
+  },
+  "description": "A type that describes signal words for hazardous materials labels."
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AvailabilityDistribution",
+  "title": "AvailabilityDistribution",
+  "type": "object",
+  "properties": {
+    "fulfillmentTime": {
+      "description": "This container is used to indicate the expected fulfillment time if the inventory item is shipped from the warehouse location identified in the corresponding <strong>merchantLocationKey</strong> field. The fulfillment time is the estimated number of business days after purchase that the buyer can expect the item to be delivered.<br><br> This field is optional, and is used by eBay to provide the estimated delivery date to buyers. This field is returned by <a href=\"/api-docs/sell/inventory/resources/inventory_item/methods/getInventoryItem\">getInventoryItem</a> and <a href=\"/api-docs/sell/inventory/resources/inventory_item/methods/getInventoryItems\">getInventoryItems</a> if set for the inventory item.",
+      "$ref": "#/components/schemas/TimeDuration"
+    },
+    "merchantLocationKey": {
+      "type": "string",
+      "description": "The unique identifier of an inventory location where quantity is available for the inventory item. This field is conditionally required to identify the inventory location that has quantity of the inventory item.<br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\" target=\"_blank\">getInventoryLocations</a> method to retrieve merchant location keys."
+    },
+    "quantity": {
+      "type": "integer",
+      "description": "The integer value passed into this field indicates the quantity of the inventory item that is available at this inventory location. This field is conditionally required.",
+      "format": "int32"
+    }
+  },
+  "description": "This type is used to set the available quantity of the inventory item at one or more warehouse locations."
+}

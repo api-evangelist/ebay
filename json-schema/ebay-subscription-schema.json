@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Subscription",
+  "title": "Subscription",
+  "type": "object",
+  "properties": {
+    "marketplaceId": {
+      "type": "string",
+      "description": "The marketplace with which the subscription is associated. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum'>eBay API documentation</a>"
+    },
+    "subscriptionId": {
+      "type": "string",
+      "description": "The subscription ID."
+    },
+    "subscriptionLevel": {
+      "type": "string",
+      "description": "The subscription level. For example, subscription levels for an eBay store include Starter, Basic, Featured, Anchor, and Enterprise levels."
+    },
+    "subscriptionType": {
+      "type": "string",
+      "description": "The kind of entity with which the subscription is associated, such as an eBay store. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:SubscriptionTypeEnum'>eBay API documentation</a>"
+    },
+    "term": {
+      "description": "The term of the subscription plan (typically in months).",
+      "$ref": "#/components/schemas/TimeDuration"
+    }
+  },
+  "description": "This type is used by the <strong>getSubscription</strong> response container, which defines the subscription types and levels for the seller account."
+}

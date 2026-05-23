@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MerchandisedProduct",
+  "title": "MerchandisedProduct",
+  "type": "object",
+  "properties": {
+    "averageRating": {
+      "type": "string",
+      "description": "The average rating for the product based on eBay user ratings."
+    },
+    "epid": {
+      "type": "string",
+      "description": "The eBay product identifier of a product from the eBay product catalog. You can use this value in the Browse API <b>search</b> method to retrieve items for this product."
+    },
+    "image": {
+      "description": "The container for the product image.",
+      "$ref": "#/components/schemas/Image"
+    },
+    "marketPriceDetails": {
+      "type": "array",
+      "description": "An array of containers for the product market price details, such as condition and market price.",
+      "items": {
+        "$ref": "#/components/schemas/MarketPriceDetail"
+      }
+    },
+    "ratingAspects": {
+      "type": "array",
+      "description": "An array of containers for ratings of the product aspects, such as \"Is it a good value\".",
+      "items": {
+        "$ref": "#/components/schemas/RatingAspect"
+      }
+    },
+    "ratingCount": {
+      "type": "integer",
+      "description": "The total number of eBay users that rated the product.",
+      "format": "int32"
+    },
+    "reviewCount": {
+      "type": "integer",
+      "description": "The total number of eBay users that wrote a review for the product. ",
+      "format": "int32"
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the product."
+    }
+  },
+  "description": "The type that defines the fields for product information, including price, condition, ratings, etc."
+}

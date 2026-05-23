@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PagedListingRecommendationCollection",
+  "title": "PagedListingRecommendationCollection",
+  "type": "object",
+  "properties": {
+    "href": {
+      "type": "string",
+      "description": "The URI of the current page of results from the result set."
+    },
+    "limit": {
+      "type": "integer",
+      "description": "The number of items returned on a single page from the result set. This value can be set in the request with the <b>limit</b> query parameter.",
+      "format": "int32"
+    },
+    "listingRecommendations": {
+      "type": "array",
+      "description": "Returns a list of <b>listingRecommendations</b>, where each element in the list offers recommendations for the associated <b>listingId</b>.  <br><br>Which elements are returned depend on how you structure the request. For example, if you request recommendations for all of a sellers listings (by leaving the request payload empty), <b>ad</b> recommendations are returned only for those listings where <b>promoteWithAd</b> is set to <code>RECOMMENDED</code>.",
+      "items": {
+        "$ref": "#/components/schemas/ListingRecommendation"
+      }
+    },
+    "next": {
+      "type": "string",
+      "description": "The URI for the following page of results. This value is returned only if there is an additional page of results to display from the result set. <br><br><b>Max length</b>: 2048"
+    },
+    "offset": {
+      "type": "integer",
+      "description": "The number of results skipped in the result set before listing the first returned result. This value can be set in the request with the <b>offset</b> query parameter. <p class=\"tablenote\"><strong>Note: </strong>The items in a paginated result set use a zero-based list where the first item in the list has an offset of <code>0</code>.</p>",
+      "format": "int32"
+    },
+    "prev": {
+      "type": "string",
+      "description": "The URI for the preceding page of results. This value is returned only if there is a previous page of results to display from the result set. <br><br><b>Max length</b>: 2048"
+    },
+    "total": {
+      "type": "integer",
+      "description": "The total number of items retrieved in the result set.  <br><br>If no items are found, this field is returned with a value of <code>0</code>.",
+      "format": "int32"
+    }
+  },
+  "description": "The high-level object used to return a set of Promoted Listings ad recommendations."
+}

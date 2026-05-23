@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateGuestCheckoutSessionRequestV2",
+  "title": "CreateGuestCheckoutSessionRequestV2",
+  "type": "object",
+  "properties": {
+    "contactEmail": {
+      "type": "string",
+      "description": "The buyer's email address."
+    },
+    "lineItemInputs": {
+      "type": "array",
+      "description": "An array used to define the line item(s) and desired quantity for an eBay guest checkout session.<br><br><b>Maximum:</b> 10 line items",
+      "items": {
+        "$ref": "#/components/schemas/LineItemInput"
+      }
+    },
+    "shippingAddress": {
+      "description": "A container that defines the shipping address for an eBay guest checkout session.<br><br>The Order API supports only domestic shipping. For example, an item purchased on the <code>EBAY_DE</code> marketplace can be shipped only to an address in Germany.<br><br><span class=\"tablenote\"><b>Note:</b> If the address cannot be validated, a warning message is  returned along with the response.</span>",
+      "$ref": "#/components/schemas/ShippingAddress"
+    }
+  },
+  "description": "A type that defines the fields used to create an eBay guest checkout session."
+}

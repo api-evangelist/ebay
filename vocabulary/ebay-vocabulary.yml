@@ -1,0 +1,11 @@
+name: eBay Domain Vocabulary
+provider: eBay
+providerId: ebay
+description: Tag-derived vocabulary for the eBay API surface; sourced from openapi/ tags.
+terms:
+- term: Inventory_item
+- term: Inventory_item_group
+- term: Listing
+- term: Location
+- term: Offer
+- term: Product_compatibility

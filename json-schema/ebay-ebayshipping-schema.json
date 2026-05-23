@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EbayShipping",
+  "title": "EbayShipping",
+  "type": "object",
+  "properties": {
+    "shippingLabelProvidedBy": {
+      "type": "string",
+      "description": "This field contains the shipping label provider. If <code>EBAY</code>, this order is managed by eBay shipping and a free shipping label by eBay is downloadable by the seller via the eBay website."
+    }
+  },
+  "description": "This type contains information about the management of the shipping for the order."
+}

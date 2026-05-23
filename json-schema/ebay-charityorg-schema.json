@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CharityOrg",
+  "title": "CharityOrg",
+  "type": "object",
+  "properties": {
+    "charityOrgId": {
+      "type": "string",
+      "description": "The ID of the charitable organization."
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the charitable organization."
+    },
+    "location": {
+      "description": "The location details of the charitable organization.",
+      "$ref": "#/components/schemas/Location"
+    },
+    "logoImage": {
+      "description": "The logo of the charitable organization.",
+      "$ref": "#/components/schemas/Image"
+    },
+    "missionStatement": {
+      "type": "string",
+      "description": "The mission statement of the charitable organization."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the charitable organization."
+    },
+    "registrationId": {
+      "type": "string",
+      "description": "The registration ID for the charitable organization.<br /><br /><span class=\"tablenote\"><span style=\"color:#004680\"><strong>Note:</strong></span> For the US marketplace, this is the EIN.</span>"
+    },
+    "website": {
+      "type": "string",
+      "description": "The link to the website for the charitable organization."
+    }
+  },
+  "description": "The full location, ID, logo and other details of the charity organization."
+}

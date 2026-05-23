@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AppointmentDetails",
+  "title": "AppointmentDetails",
+  "type": "object",
+  "properties": {
+    "appointmentEndTime": {
+      "type": "string",
+      "description": "The date and time the appointment ends, formatted as an <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html \" title=\"https://www.iso.org \" target=\"_blank\">ISO 8601</a> string, which is based on the 24-hour Coordinated Universal Time (UTC) clock. Required for tire installation. <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2022-10-28T00:00:00.000Z</code>"
+    },
+    "appointmentStartTime": {
+      "type": "string",
+      "description": "The date and time the appointment begins, formatted as an <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html \" title=\"https://www.iso.org \" target=\"_blank\">ISO 8601</a> string, which is based on the 24-hour Coordinated Universal Time (UTC) clock.  <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2022-10-28T00:10:00.000Z</code>"
+    },
+    "appointmentStatus": {
+      "type": "string",
+      "description": "The status of the appointment. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/sel:AppointmentStatusEnum'>eBay API documentation</a>"
+    },
+    "appointmentType": {
+      "type": "string",
+      "description": "The type of appointment. MACRO appointments only have a start time (not bounded with end time). TIME_SLOT appointments have a period (both start time and end time). Required for tire installation. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/sel:AppointmentTypeEnum'>eBay API documentation</a>"
+    },
+    "appointmentWindow": {
+      "type": "string",
+      "description": "Appointment window for MACRO appointments. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/sel:AppointmentWindowEnum'>eBay API documentation</a>"
+    },
+    "serviceProviderAppointmentDate": {
+      "type": "string",
+      "description": "Service provider date of the appointment (no time stamp). Returned only for MACRO appointment types."
+    }
+  },
+  "description": "This type contains information used by the installation provider concerning appointment details selected by the buyer"
+}

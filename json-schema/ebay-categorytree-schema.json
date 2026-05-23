@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CategoryTree",
+  "title": "CategoryTree",
+  "type": "object",
+  "properties": {
+    "applicableMarketplaceIds": {
+      "type": "array",
+      "description": "A list of one or more identifiers of the eBay marketplaces that use this category tree.",
+      "items": {
+        "type": "string",
+        "description": " For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/taxonomy/types/bas:MarketplaceIdEnum'>eBay API documentation</a>"
+      }
+    },
+    "categoryTreeId": {
+      "type": "string",
+      "description": "The unique identifier of this eBay category tree."
+    },
+    "categoryTreeVersion": {
+      "type": "string",
+      "description": "The version of this category tree. It's a good idea to cache this value for comparison so you can determine if this category tree has been modified in subsequent calls."
+    },
+    "rootCategoryNode": {
+      "description": "Contains details of all nodes of the category tree hierarchy, starting with the root node and down to the leaf nodes. This is a recursive structure.<br><br><span class=\"tablenote\"> <strong>Note:</strong> The root node of a full default category tree includes the <b>categoryId</b> field, but its value should not be relied upon. It provides no useful information for application development.</span>",
+      "$ref": "#/components/schemas/CategoryTreeNode"
+    }
+  },
+  "description": "This type contains information about all nodes of a specified eBay category tree."
+}

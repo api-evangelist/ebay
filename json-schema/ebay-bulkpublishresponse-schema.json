@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BulkPublishResponse",
+  "title": "BulkPublishResponse",
+  "type": "object",
+  "properties": {
+    "responses": {
+      "type": "array",
+      "description": "A node is returned under the <strong>responses</strong> container to indicate the success or failure of each offer that the seller was attempting to publish.",
+      "items": {
+        "$ref": "#/components/schemas/OfferResponseWithListingId"
+      }
+    }
+  },
+  "description": "This type is used by the base response of the <strong>bulkPublishOffer</strong> method."
+}

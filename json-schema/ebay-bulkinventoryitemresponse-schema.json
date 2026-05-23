@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BulkInventoryItemResponse",
+  "title": "BulkInventoryItemResponse",
+  "type": "object",
+  "properties": {
+    "responses": {
+      "type": "array",
+      "description": "This is the base container of the <strong>bulkCreateOrReplaceInventoryItem</strong> response. The results of each attempted inventory item creation/update is captured under this container.",
+      "items": {
+        "$ref": "#/components/schemas/InventoryItemResponse"
+      }
+    }
+  },
+  "description": "This type is used by the base response of the <strong>bulkCreateOrReplaceInventoryItem</strong> method."
+}

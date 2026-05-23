@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EnergyEfficiencyLabel",
+  "title": "EnergyEfficiencyLabel",
+  "type": "object",
+  "properties": {
+    "imageDescription": {
+      "type": "string",
+      "description": "A brief verbal summary of the information included on the Energy Efficiency Label for an item.<br><br>For example, <i>On a scale of A to G the rating is E.</i>"
+    },
+    "imageURL": {
+      "type": "string",
+      "description": "The URL to the Energy Efficiency Label image that is applicable to an item."
+    },
+    "productInformationSheet": {
+      "type": "string",
+      "description": "The URL to the Product Information Sheet that provides complete manufacturer-provided efficiency information about an item."
+    }
+  },
+  "description": "This container provides information about the energy efficiency for certain durable goods."
+}

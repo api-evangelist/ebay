@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Recipient",
+  "title": "Recipient",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "description": "The first name of the person receiving the purchase order."
+    },
+    "lastName": {
+      "type": "string",
+      "description": "The last name of the person receiving the purchase order."
+    }
+  },
+  "description": "A container that defines the full name of the person receiving the purchase order."
+}

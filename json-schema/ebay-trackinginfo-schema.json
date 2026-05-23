@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TrackingInfo",
+  "title": "TrackingInfo",
+  "type": "object",
+  "properties": {
+    "shipmentTrackingNumber": {
+      "type": "string",
+      "description": "This string value represents the shipment tracking number of the package."
+    },
+    "shippingCarrierCode": {
+      "type": "string",
+      "description": "This string value represents the shipping carrier used to ship the package."
+    }
+  },
+  "description": "This type is used for seller provided shipment tracking information."
+}

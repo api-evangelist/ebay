@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EventItem",
+  "title": "EventItem",
+  "type": "object",
+  "properties": {
+    "additionalImages": {
+      "type": "array",
+      "description": "The additional images for the event item.",
+      "items": {
+        "$ref": "#/components/schemas/Image"
+      }
+    },
+    "categoryAncestorIds": {
+      "type": "array",
+      "description": "The IDs of the ancestors for the primary category.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "categoryId": {
+      "type": "string",
+      "description": "The ID of the leaf category for the event item. A leaf category is the lowest level in a category and has no children."
+    },
+    "energyEfficiencyClass": {
+      "type": "string",
+      "description": "A string value specifying the Energy Efficiency class."
+    },
+    "eventId": {
+      "type": "string",
+      "description": "The unique event identifier associated with the item."
+    },
+    "image": {
+      "description": "The image for the event item.",
+      "$ref": "#/components/schemas/Image"
+    },
+    "itemAffiliateWebUrl": {
+      "type": "string",
+      "description": "The item web URL with affiliate attribution."
+    },
+    "itemGroupId": {
+      "type": "string",
+      "description": "The unique identifier for the event item group. This is the parent item ID for the seller-defined variations.<br /><br /><span class=\"tablenote\"><b>Note: </b>This field is returned for multiple-SKU items.</span>"
+    },
+    "itemGroupType": {
+      "type": "string",
+      "description": "An enumeration value that indicates the type of item group. An item group contains items that have various aspect differences, such as color, size, or storage capacity. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/deal/types/api:ItemGroupTypeEnum'>eBay API documentation</a>"
+    },
+    "itemId": {
+      "type": "string",
+      "description": "The unique identifier for the event item.<br /><br /><span class=\"tablenote\"><b>Note: </b>This field is only returned for single-SKU items.</span>"
+    },
+    "itemWebUrl": {
+      "type": "string",
+      "description": "The web URL for the event item."
+    },
+    "legacyItemId": {
+      "type": "string",
+      "description": "The legacy item ID associated with the event item."
+    },
+    "marketingPrice": {
+      "description": "The original price for the event item, and the discount amount and percentage.",
+      "$ref": "#/components/schemas/MarketingPrice"
+    },
+    "price": {
+      "description": "The applicable price for the event item.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "qualifiedPrograms": {
+      "type": "array",
+      "description": "A list of programs applicable to the event item.",
+      "items": {
+        "type": "string",
+        "description": " For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/deal/types/api:ProgramEnum'>eBay API documentation</a>"
+      }
+    },
+    "shippingOptions": {
+      "type": "array",
+      "description": "The cost required to ship the event item.",
+      "items": {
+        "$ref": "#/components/schemas/ShippingOption"
+      }
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the event item."
+    },
+    "unitPrice": {
+      "description": "The price per unit for the event item. Some European countries require listings for certain types of products to include the price per unit so that buyers can accurately compare prices. <br /><br />For example: <br /><br /><code>\"unitPricingMeasure\": \"100g\",<br /> \"unitPrice\": {<br />&nbsp;&nbsp;\"value\": \"7.99\",<br />&nbsp;&nbsp;\"currency\": \"GBP\"</code>",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "unitPricingMeasure": {
+      "type": "string",
+      "description": "The designation used to specify the quantity of the event item, such as size, weight, volume, and count. This helps buyers compare prices. <br /><br />For example, the following tells the buyer that the item is 7.99 per 100 grams. <br /><br /><code>\"unitPricingMeasure\": \"100g\",<br /> \"unitPrice\": {<br />&nbsp;&nbsp;\"value\": \"7.99\",<br />&nbsp;&nbsp;\"currency\": \"GBP\"</code>"
+    }
+  },
+  "description": "The detailed data returned for the event item."
+}

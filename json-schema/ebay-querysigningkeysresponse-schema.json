@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/QuerySigningKeysResponse",
+  "title": "QuerySigningKeysResponse",
+  "type": "object",
+  "properties": {
+    "signingKeys": {
+      "type": "array",
+      "description": "An array of metadata information for keypairs owned by a user.",
+      "items": {
+        "$ref": "#/components/schemas/SigningKey"
+      }
+    }
+  },
+  "description": "This container stores metadata information for all keypairs that are owned by a user."
+}

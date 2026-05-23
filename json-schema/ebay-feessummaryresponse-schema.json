@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/FeesSummaryResponse",
+  "title": "FeesSummaryResponse",
+  "type": "object",
+  "properties": {
+    "feeSummaries": {
+      "type": "array",
+      "description": "This container consists of an array of one or more listing fees that the seller can expect to pay for unpublished offers specified in the call request. Many fee types will get returned even when they are <code>0.0</code>.",
+      "items": {
+        "$ref": "#/components/schemas/FeeSummary"
+      }
+    }
+  },
+  "description": "This type is used by the base response payload for the <strong>getListingFees</strong> call. "
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/NameValuePair",
+  "title": "NameValuePair",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The text representing the name of the aspect for the name-value pair. For example, <code>color</code>, or <code>Tire Type</code>."
+    },
+    "value": {
+      "type": "string",
+      "description": "The value of the aspect for the name-value pair. For example, <code>red</code>, or <code>All Season</code>."
+    }
+  },
+  "description": "This type contains the name-value specifics of a multi-variation listing (<b>variationAspects</b>) or the name-value specifics for all item aspects of a linked line item (<b>linkedOrderLineItems</b>)."
+}

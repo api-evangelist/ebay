@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CategoryDistribution",
+  "title": "CategoryDistribution",
+  "type": "object",
+  "properties": {
+    "categoryId": {
+      "type": "string",
+      "description": "The unique identifier of the category."
+    },
+    "categoryName": {
+      "type": "string",
+      "description": "The name of the category, such as <b>Baby &amp; Toddler Clothing</b>."
+    },
+    "matchCount": {
+      "type": "integer",
+      "description": "The number of items in this category.",
+      "format": "int32"
+    },
+    "refinementHref": {
+      "type": "string",
+      "description": "The HATEOAS reference of this category."
+    }
+  },
+  "description": "The container that defines the fields for the category refinements. This container is returned when <code>fieldgroups</code> is set to <code>CATEGORY_REFINEMENTS</code> or <code>FULL</code> in the request."
+}

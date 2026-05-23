@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Compatibility",
+  "title": "Compatibility",
+  "type": "object",
+  "properties": {
+    "compatibleProducts": {
+      "type": "array",
+      "description": "This container consists of an array of motor vehicles (make, model, year, trim, engine) that are compatible with the motor vehicle part or accessory specified by the sku value.",
+      "items": {
+        "$ref": "#/components/schemas/CompatibleProduct"
+      }
+    },
+    "sku": {
+      "type": "string",
+      "description": "The seller-defined SKU value of the inventory item that will be associated with the compatible vehicles.<br><br><span class=\"tablenote\"><b>Note:</b> This field is not applicable to the <strong>createOrReplaceProductCompatibility</strong> method, as the SKU value for the inventory item is passed in as part of the call URI and not in the request payload. It is always returned with the <a href=\"/api-docs/sell/inventory/resources/inventory_item/product_compatibility/methods/getProductCompatibility\" target=\"_blank \">getProductCompatibility</a> method.</span>"
+    }
+  },
+  "description": "This type is used by the <strong>createOrReplaceProductCompatibility</strong> call to associate compatible vehicles to an inventory item. This type is also the base response of the <strong>getProductCompatibility</strong> call."
+}

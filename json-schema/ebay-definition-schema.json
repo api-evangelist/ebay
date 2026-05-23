@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Definition",
+  "title": "Definition",
+  "type": "object",
+  "properties": {
+    "dataType": {
+      "type": "string",
+      "description": "Indicates the data type of the returned dimension. For example, if the <b>dimension</b> is <code>day</code>, the data type is <code>DATE</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/ssp:DataTypeEnum'>eBay API documentation</a>"
+    },
+    "key": {
+      "type": "string",
+      "description": "The value the <b>dimension</b> or <b>metric</b> parameter as submitted in the request."
+    },
+    "localizedName": {
+      "type": "string",
+      "description": "The localized name of the metric or dimension (translated into the language specified in the <b>Accept-Language</b> HTTP request header). For example, if <b>Accept-Language</b> is set to <code>de-DE</code>, the value \"day\" in the <b>dimension</b> container is returned as \"tag\", and a metric of TRANSACTION is returned as \"Transaktionsanzahl\"."
+    }
+  },
+  "description": "A complex type that defines a dimension key and metrics in a traffic report."
+}

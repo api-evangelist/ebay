@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Version",
+  "title": "Version",
+  "type": "object",
+  "properties": {
+    "instance": {
+      "description": "The instance of the version.",
+      "$ref": "#/components/schemas/Version"
+    },
+    "version": {
+      "type": "string",
+      "description": "The version number of the service or API."
+    }
+  },
+  "description": "This type is used to show the version number and instance of the service or API."
+}

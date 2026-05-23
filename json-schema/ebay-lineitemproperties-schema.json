@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LineItemProperties",
+  "title": "LineItemProperties",
+  "type": "object",
+  "properties": {
+    "buyerProtection": {
+      "type": "boolean",
+      "description": "A value of <code>true</code> indicates that the line item is covered by eBay's Buyer Protection program."
+    },
+    "fromBestOffer": {
+      "type": "boolean",
+      "description": "This field is only returned if <code>true</code> and indicates that the purchase occurred by the buyer and seller mutually agreeing on a Best Offer amount. The Best Offer feature can be set up for any listing type, but if this feature is set up for an auction listing, it will no longer be available once a bid has been placed on the listing."
+    },
+    "soldViaAdCampaign": {
+      "type": "boolean",
+      "description": "This field is only returned if <code>true</code> and indicates that the line item was sold as a result of a seller's ad campaign."
+    }
+  },
+  "description": "This type contains information about the eBay programs under which a line item was listed and sold."
+}

@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TranslateResponse",
+  "title": "TranslateResponse",
+  "type": "object",
+  "properties": {
+    "from": {
+      "type": "string",
+      "description": "The enumeration value indicates the language of the input text. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/translation/types/api:LanguageEnum'>eBay API documentation</a>"
+    },
+    "to": {
+      "type": "string",
+      "description": "The enumeration value indicates the language of the translated text. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/translation/types/api:LanguageEnum'>eBay API documentation</a>"
+    },
+    "translations": {
+      "type": "array",
+      "description": "An array showing the input and translated text. Only one input string can be translated at this time. Support for multiple continuous text strings is expected in the future.",
+      "items": {
+        "$ref": "#/components/schemas/Translation"
+      }
+    }
+  },
+  "description": "This is the base type of the <b>translate</b> method response payload."
+}

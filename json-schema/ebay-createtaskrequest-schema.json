@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateTaskRequest",
+  "title": "CreateTaskRequest",
+  "type": "object",
+  "properties": {
+    "feedType": {
+      "type": "string",
+      "description": "The feed type associated with the task. Available feed types:<br><ul><li><a href=\"/api-docs/sell/static/feed/lms-feeds-quick-reference.html#trading-upload-feed-types\" target=\"_blank\">Inventory upload feed types</a></li><li><a href=\"/api-docs/sell/static/feed/lms-feeds-quick-reference.html#merchant-data-upload-feed-types\" target=\"_blank\">Fulfillment upload feed types</a></li><li><a href=\"/api-docs/sell/static/feed/fx-feeds-quick-reference.html#availabl\" target=\"_blank\">Seller Hub feed types</a></li></ul>"
+    },
+    "schemaVersion": {
+      "type": "string",
+      "description": "The schemaVersion/version number of the file format:<br><ul><li><a href=\"/api-docs/sell/static/feed/lms-feeds-quick-reference.html#Version\" target=\"_blank\">Version Details / Schema Version</a></li><li><a href=\"/api-docs/sell/static/feed/fx-feeds-quick-reference.html#schema\" target=\"_blank\">Seller Hub feed schema version</a></li></ul>"
+    }
+  },
+  "description": "The type that defines the fields for the <b> createTask</b> method."
+}

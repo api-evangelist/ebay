@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CorrectiveRecommendations",
+  "title": "CorrectiveRecommendations",
+  "type": "object",
+  "properties": {
+    "productRecommendation": {
+      "description": "This container is only applicable (and possibly returned) for the <code>PRODUCT_ADOPTION</code> and <code>PRODUCT_ADOPTION_CONFORMANCE</code> compliance types, and since eBay catalog product adoption is not enforced for any eBay category at this time, the <strong>productRecommendation</strong> container will not be returned at this time.",
+      "$ref": "#/components/schemas/ProductRecommendation"
+    },
+    "aspectRecommendations": {
+      "type": "array",
+      "description": "This container is returned for <code>ASPECTS_ADOPTION</code> violations if eBay has found one or more item aspect name-value pairs that may be appropriate for the seller's product. In many cases, the missing or invalid item aspect(s) shown under the corresponding <strong>violationData</strong> array, will also show up under this array with suggested value(s).",
+      "items": {
+        "$ref": "#/components/schemas/AspectRecommendations"
+      }
+    }
+  },
+  "description": "This type is used by the <strong>correctiveRecommendations</strong> container, which is returned if eBay has suggestions for how to correct the given violation."
+}

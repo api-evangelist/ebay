@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ShippingFulfillment",
+  "title": "ShippingFulfillment",
+  "type": "object",
+  "properties": {
+    "fulfillmentId": {
+      "type": "string",
+      "description": "The unique identifier of the fulfillment; for example, <code>9405509699937003457459</code>. This eBay-generated value is created with a successful <b>createShippingFulfillment</b> call."
+    },
+    "lineItems": {
+      "type": "array",
+      "description": "This array contains a list of one or more line items (and purchased quantity) to which the fulfillment applies.",
+      "items": {
+        "$ref": "#/components/schemas/LineItemReference"
+      }
+    },
+    "shipmentTrackingNumber": {
+      "type": "string",
+      "description": "The tracking number provided by the shipping carrier for the package shipped in this fulfillment. This field is returned if available."
+    },
+    "shippedDate": {
+      "type": "string",
+      "description": "The date and time that the fulfillment package was shipped. This timestamp is in ISO 8601 format, which uses the 24-hour Universal Coordinated Time (UTC) clock. This field should only be returned if the package has been shipped.<br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2015-08-04T19:09:02.768Z</code>"
+    },
+    "shippingCarrierCode": {
+      "type": "string",
+      "description": "The eBay code identifying the shipping carrier for this fulfillment. This field is returned if available. <br><br><span class=\"tablenote\"><strong>Note:</strong> The Trading API's <b>ShippingCarrierCodeType</b> enumeration type contains the most current list of eBay shipping carrier codes and the countries served by each carrier. See <a href=\"https://developer.ebay.com/Devzone/XML/docs/Reference/eBay/types/ShippingCarrierCodeType.html \" target=\"_blank\">ShippingCarrierCodeType</a>.</span>"
+    }
+  },
+  "description": "This type contains the complete details of an existing fulfillment for an order."
+}

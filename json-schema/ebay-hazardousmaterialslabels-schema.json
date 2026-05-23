@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HazardousMaterialsLabels",
+  "title": "HazardousMaterialsLabels",
+  "type": "object",
+  "properties": {
+    "additionalInformation": {
+      "type": "string",
+      "description": "Additional information about the hazardous materials labels."
+    },
+    "pictograms": {
+      "type": "array",
+      "description": "An array of hazard pictograms that apply to the item.",
+      "items": {
+        "$ref": "#/components/schemas/HazardPictogram"
+      }
+    },
+    "signalWord": {
+      "type": "string",
+      "description": "The signal word for the hazardous materials label (such as Danger or Warning)."
+    },
+    "signalWordId": {
+      "type": "string",
+      "description": "The ID of the signal word for the hazardous materials label."
+    },
+    "statements": {
+      "type": "array",
+      "description": "An array of hazard statements for the item.",
+      "items": {
+        "$ref": "#/components/schemas/HazardStatement"
+      }
+    }
+  },
+  "description": "A type that defines the hazardous materials labels for an item."
+}

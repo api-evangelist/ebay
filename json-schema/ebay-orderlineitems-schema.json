@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OrderLineItems",
+  "title": "OrderLineItems",
+  "type": "object",
+  "properties": {
+    "itemId": {
+      "type": "string",
+      "description": "The unique identifier of the eBay listing associated with the order."
+    },
+    "lineItemId": {
+      "type": "string",
+      "description": "The unique identifier of the line item within the order."
+    }
+  },
+  "description": "This type is used by the <strong>lineItems</strong> array that is used to identify one or more line items in the order with the payment dispute."
+}

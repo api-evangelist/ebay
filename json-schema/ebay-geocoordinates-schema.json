@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GeoCoordinates",
+  "title": "GeoCoordinates",
+  "type": "object",
+  "properties": {
+    "latitude": {
+      "type": "number",
+      "description": "The latitude component of the geographic coordinate."
+    },
+    "longitude": {
+      "type": "number",
+      "description": "The longitude component of the geographic coordinate."
+    }
+  },
+  "description": "Defines the format of a geographic coordinate."
+}

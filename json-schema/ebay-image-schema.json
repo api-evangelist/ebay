@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Image",
+  "title": "Image",
+  "type": "object",
+  "properties": {
+    "height": {
+      "type": "integer",
+      "description": "Reserved for future use.",
+      "format": "int32"
+    },
+    "imageUrl": {
+      "type": "string",
+      "description": "The URL of the image."
+    },
+    "width": {
+      "type": "integer",
+      "description": "Reserved for future use.",
+      "format": "int32"
+    }
+  },
+  "description": "Type that defines the details of an image, such as size and image URL. Currently, only <code>imageUrl</code> is populated. The <code>height</code> and <code>width</code> are reserved for future use."
+}

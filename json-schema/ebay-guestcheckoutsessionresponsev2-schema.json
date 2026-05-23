@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GuestCheckoutSessionResponseV2",
+  "title": "GuestCheckoutSessionResponseV2",
+  "type": "object",
+  "properties": {
+    "appliedCoupons": {
+      "type": "array",
+      "description": "A container that returns the information for the coupons that were applied in the guest checkout session.",
+      "items": {
+        "$ref": "#/components/schemas/Coupon"
+      }
+    },
+    "checkoutSessionId": {
+      "type": "string",
+      "description": "The eBay-assigned guest checkout session ID. This ID is created after a successful <b>initiateGuestCheckoutSession</b> call."
+    },
+    "lineItems": {
+      "type": "array",
+      "description": "An array of line items associated with the guest checkout session.",
+      "items": {
+        "$ref": "#/components/schemas/LineItem"
+      }
+    },
+    "pricingSummary": {
+      "description": "A container that breaks down the costs for the order, including total cost, shipping cost, tax, fees, and any discounts.",
+      "$ref": "#/components/schemas/PricingSummaryV2"
+    },
+    "shippingAddress": {
+      "description": "A container that returns the address to which the purchase order will be shipped.",
+      "$ref": "#/components/schemas/ShippingAddress"
+    },
+    "warnings": {
+      "type": "array",
+      "description": "An array of errors or warnings that were generated during the method processing.",
+      "items": {
+        "$ref": "#/components/schemas/Error"
+      }
+    }
+  },
+  "description": "Guest session response v2 "
+}

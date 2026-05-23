@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Adjustment",
+  "title": "Adjustment",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "description": "The container that returns the amount and currency of an adjustment.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "label": {
+      "type": "string",
+      "description": "The text indicating what the adjustment was for."
+    }
+  },
+  "description": "A type that defines the fields for seller adjustments. An adjustment can be a credit or debit."
+}

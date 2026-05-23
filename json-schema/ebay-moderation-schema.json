@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Moderation",
+  "title": "Moderation",
+  "type": "object",
+  "properties": {
+    "rejectReasons": {
+      "type": "array",
+      "description": "The reason(s) why the specified video was blocked by moderators.",
+      "items": {
+        "type": "string",
+        "description": " For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/media/types/api:RejectReasonEnum'>eBay API documentation</a>"
+      }
+    }
+  },
+  "description": "A container that provides video moderation information when calling the <strong>getVideo</strong> method.<br /><br />This container is returned if the specified video has been blocked by moderators.<br /><br /><span class=\"tablenote\"><span style=\"color:#478415\"><strong>Tip:</strong></span> See <a href=\"https://www.ebay.com/help/selling/listings/creating-managing-listings/add-video-to-listing?id=5272#section2\" target=\"_blank\">Video moderation and restrictions</a> in the eBay Seller Center for details about video moderation.</span>"
+}

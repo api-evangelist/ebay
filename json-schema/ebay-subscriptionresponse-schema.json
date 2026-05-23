@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SubscriptionResponse",
+  "title": "SubscriptionResponse",
+  "type": "object",
+  "properties": {
+    "href": {
+      "type": "string",
+      "description": "This field is for future use."
+    },
+    "limit": {
+      "type": "integer",
+      "description": "This field is for future use.",
+      "format": "int32"
+    },
+    "next": {
+      "type": "string",
+      "description": "This field is for future use."
+    },
+    "subscriptions": {
+      "type": "array",
+      "description": "An array of subscriptions associated with the seller account.",
+      "items": {
+        "$ref": "#/components/schemas/Subscription"
+      }
+    },
+    "total": {
+      "type": "integer",
+      "description": "The total number of subscriptions displayed on the current page of results.",
+      "format": "int32"
+    }
+  },
+  "description": "This type is used by the response payload for the <b>getSubscription</b> method.<br><br><span class=\"tablenote\"><b>Note</b>: Pagination has not yet been enabled for <b>getSubscription</b>, so all of the pagination-related fields are for future use.</span>"
+}

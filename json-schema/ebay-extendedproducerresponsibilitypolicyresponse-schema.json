@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ExtendedProducerResponsibilityPolicyResponse",
+  "title": "ExtendedProducerResponsibilityPolicyResponse",
+  "type": "object",
+  "properties": {
+    "extendedProducerResponsibilities": {
+      "type": "array",
+      "description": "An array of response fields detailing the Extended Producer Responsibility policies supported for the specified marketplace.",
+      "items": {
+        "$ref": "#/components/schemas/ExtendedProducerResponsibilityPolicy"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "description": "A collection of warnings generated for the request.",
+      "items": {
+        "$ref": "#/components/schemas/Error"
+      }
+    }
+  },
+  "description": "A type that defines the response fields for the <b>getExtendedProducerResponsibilityPolicies</b> method."
+}

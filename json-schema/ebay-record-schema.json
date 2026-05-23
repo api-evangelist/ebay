@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Record",
+  "title": "Record",
+  "type": "object",
+  "properties": {
+    "dimensionValues": {
+      "type": "array",
+      "description": "A list where each element contains either the string <code>DAY</code> (if the <b>dimension</b> is <code>DAY</code>), or the listing ID for which the record's metric data is computed. A second array member, <b>applicable</b>, is always <code>true</code> for dimension values.",
+      "items": {
+        "$ref": "#/components/schemas/Value"
+      }
+    },
+    "metricValues": {
+      "type": "array",
+      "description": "A list where each element contains a <b>value</b> field that indicates the record's value for the metric. Each element also contains an <b>applicable</b> field that indicates the veracity of the computed <b>value</b>.   <br><br>Note that there are no metric names or IDs associated with the values returned in this array. The metadata to which these values relate can be found in the key values in <b>metadataKeys</b>. The order of the metric values in this array equals the order of the key values in <b>metadataHeader</b>.",
+      "items": {
+        "$ref": "#/components/schemas/Value"
+      }
+    }
+  },
+  "description": "Type that defines the fields of the individual record of the report."
+}

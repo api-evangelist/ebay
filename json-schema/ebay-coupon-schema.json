@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Coupon",
+  "title": "Coupon",
+  "type": "object",
+  "properties": {
+    "redemptionCode": {
+      "type": "string",
+      "description": "The coupon code."
+    },
+    "terms": {
+      "description": "The terms of use associated with the coupon.",
+      "$ref": "#/components/schemas/Terms"
+    }
+  },
+  "description": "The details for the coupon available for the item."
+}

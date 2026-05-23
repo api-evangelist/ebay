@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PublishResponse",
+  "title": "PublishResponse",
+  "type": "object",
+  "properties": {
+    "listingId": {
+      "type": "string",
+      "description": "The unique identifier of the newly created eBay listing. This field is returned if the single offer (if <strong>publishOffer</strong> call was used) or group of offers in an inventory item group (if <strong>publishOfferByInventoryItemGroup</strong> call was used) was successfully converted into an eBay listing."
+    },
+    "warnings": {
+      "type": "array",
+      "description": "This container will contain an array of errors and/or warnings if any occur when a <strong>publishOffer</strong> or <strong>publishOfferByInventoryItemGroup</strong> call is made.",
+      "items": {
+        "$ref": "#/components/schemas/Error"
+      }
+    }
+  },
+  "description": "This type is used by the base response payload of the <strong>publishOffer</strong> and <strong>publishOfferByInventoryItemGroup</strong> calls."
+}

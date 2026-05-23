@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ItemConditionPolicy",
+  "title": "ItemConditionPolicy",
+  "type": "object",
+  "properties": {
+    "categoryId": {
+      "type": "string",
+      "description": "The category ID to which the item-condition policy applies."
+    },
+    "categoryTreeId": {
+      "type": "string",
+      "description": "A value that indicates the root node of the category tree used for the response set. Each marketplace is based on a category tree whose root node is indicated by this unique category ID value. All category policy information returned by this call pertains to the categories included below this root node of the tree.    <br><br>A <i>category tree</i> is a hierarchical framework of eBay categories that begins at the root node of the tree and extends to include all the child nodes in the tree. Each child node in the tree is an eBay category that is represented by a unique <b>categoryId</b> value. Within a category tree, the root node has no parent node and <i>leaf nodes</i> are nodes that have no child nodes."
+    },
+    "itemConditionRequired": {
+      "type": "boolean",
+      "description": "This flag denotes whether or not you must list the item condition in a listing for the specified category. If set to <code>true</code>, you must specify an item condition for the associated category."
+    },
+    "itemConditions": {
+      "type": "array",
+      "description": "The item-condition values allowed in the category.<br><br><span class=\"tablenote\"><b>Note:</b> The \u00e2\u20ac\u02dcSeller Refurbished\u00e2\u20ac\u2122 item condition (condition ID 2500) has been replaced by the 'Excellent - Refurbished', 'Very Good - Refurbished', and 'Good - Refurbished' item conditions in a select number of eBay marketplaces and categories. See the <a href=\"/api-docs/sell/static/metadata/condition-id-values.html#Category \" target=\"_blank \"> eBay Refurbished Program - Category and marketplace support</a> topic for more details.<br/><br/>Similar to the \u00e2\u20ac\u02dcCertified Refurbished\u00e2\u20ac\u2122 item condition (condition ID 2000), a seller\u00e2\u20ac\u2122s OAuth user token will have to be used instead of an OAuth application token, since each seller must  go through an application and qualification process before using any of these new refurbished item conditions in supported categories. If a seller is not qualified to use the new refurbished item conditions, these item condition values will not be returned by <b>getItemConditionPolicies</b>.</span>",
+      "items": {
+        "$ref": "#/components/schemas/ItemCondition"
+      }
+    }
+  }
+}

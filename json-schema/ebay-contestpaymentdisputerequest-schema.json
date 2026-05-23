@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ContestPaymentDisputeRequest",
+  "title": "ContestPaymentDisputeRequest",
+  "type": "object",
+  "properties": {
+    "note": {
+      "type": "string",
+      "description": "This field shows information that the seller provides about the dispute, such as the basis for the dispute, any relevant evidence, tracking numbers, and so forth.<br><br><b>Max Length:</b> 1000 characters."
+    },
+    "returnAddress": {
+      "description": "This container is needed if the seller is requesting that the buyer return the item. If this container is used, all relevant fields must be included, including <strong>fullName</strong> and <strong>primaryPhone</strong>.",
+      "$ref": "#/components/schemas/ReturnAddress"
+    },
+    "revision": {
+      "type": "integer",
+      "description": "This integer value indicates the revision number of the payment dispute. This field is required. The current <strong>revision</strong> number for a payment dispute can be retrieved with the <strong>getPaymentDispute</strong> method. Each time an action is taken against a payment dispute, this integer value increases by 1.",
+      "format": "int32"
+    }
+  },
+  "description": "This type is used by the request payload of the <strong>contestPaymentDispute</strong> method."
+}

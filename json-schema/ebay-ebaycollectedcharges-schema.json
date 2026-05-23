@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EbayCollectedCharges",
+  "title": "EbayCollectedCharges",
+  "type": "object",
+  "properties": {
+    "ebayShipping": {
+      "description": "This container consists of costs related to eBay Shipping collected by eBay from the buyer of this order.",
+      "$ref": "#/components/schemas/Amount"
+    }
+  },
+  "description": "This type contains the breakdown of costs that are collected by eBay from the buyer."
+}

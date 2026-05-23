@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SearchByImageRequest",
+  "title": "SearchByImageRequest",
+  "type": "object",
+  "properties": {
+    "image": {
+      "type": "string",
+      "description": "The Base64 string of the image.<br><br>To get the Base64 image string, you can use sites such as <a href=\"https://codebeautify.org/image-to-base64-converter \" target=\"_blank\">https://codebeautify.org/image-to-base64-converter</a>."
+    }
+  },
+  "description": "The type that defines the fields for the image information."
+}

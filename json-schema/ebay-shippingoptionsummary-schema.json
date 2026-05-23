@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ShippingOptionSummary",
+  "title": "ShippingOptionSummary",
+  "type": "object",
+  "properties": {
+    "guaranteedDelivery": {
+      "type": "boolean",
+      "description": "Although this field is still returned, it can be ignored since eBay Guaranteed Delivery is no longer a supported feature on any marketplace. This field may get removed from the schema in the future."
+    },
+    "maxEstimatedDeliveryDate": {
+      "type": "string",
+      "description": "The end date of the delivery window (latest projected delivery date). This value is returned in UTC format (yyyy-MM-ddThh:mm:ss.sssZ), which you can convert into the local time of the buyer.<br><br><span class=\"tablenote\"> <b>Note: </b> For the best accuracy, always include the <code>contextualLocation</code> values in the <a href=\"/api-docs/buy/static/api-browse.html#Headers\" target=\"_blank\"><code>X-EBAY-C-ENDUSERCTX</code></a> request header.</span>"
+    },
+    "minEstimatedDeliveryDate": {
+      "type": "string",
+      "description": "The start date of the delivery window (earliest projected delivery date). This value is returned in UTC format (yyyy-MM-ddThh:mm:ss.sssZ), which you can convert into the local time of the buyer.<br><br><span class=\"tablenote\"><b>Note:</b> For the best accuracy, always include the <code>contextualLocation</code> values in the <a href=\"/api-docs/buy/static/api-browse.html#Headers\" target=\"_blank\"><code>X-EBAY-C-ENDUSERCTX</code></a> request header.</span>"
+    },
+    "shippingCost": {
+      "description": "This is the estimated price to ship the item.<br><br>The price includes the value-added tax (VAT) for applicable jurisdictions when requested from supported marketplaces. In this case, users must do one or more of the following to see VAT-inclusive pricing:<ul><li>Pass the <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank\"><code>X-EBAY-C-MARKETPLACE-ID</code></a> request header specifying the supported marketplace (such as <code>EBAY_GB</code>)</li><li>Pass the <code>contextualLocation</code> values for the supported marketplace in the <a href=\"/api-docs/buy/static/api-browse.html#Headers\"><code>X-EBAY-C-ENDUSERCTX</code></a> request header</li><li>Specify the supported marketplace using the <a href=\"/api-docs/buy/static/ref-buy-browse-filters.html#deliveryCountry\" target=\"_blank\"><code>deliveryCountry</code></a> <b>filter</b> URI parameter (such as <code>filter=deliveryCountry:GB</code>)</li></ul><span class=\"tablenote\"><b>Note:</b>For more information on VAT, refer to <a href=\"https://www.ebay.co.uk/help/listings/default/vat-obligations-eu?id=4650 \" target=\"_blank\">Your VAT Obligations in the UK &amp; EU</a>.</span>",
+      "$ref": "#/components/schemas/ConvertedAmount"
+    },
+    "shippingCostType": {
+      "type": "string",
+      "description": "Indicates the type of shipping used to ship the item. Possible values are <code>FIXED</code> (flat-rate shipping) and <code>CALCULATED</code> (shipping cost calculated based on item and buyer location)."
+    }
+  },
+  "description": "The type that defines the fields for the shipping information."
+}

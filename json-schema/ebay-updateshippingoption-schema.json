@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateShippingOption",
+  "title": "UpdateShippingOption",
+  "type": "object",
+  "properties": {
+    "lineItemId": {
+      "type": "string",
+      "description": "A unique eBay-assigned ID value that identifies the line item in a checkout session.<br><br><b>For example:</b> <code>v1|2**********6|5**********4</code> or <code>v1|1**********9|0</code>.<br><br>For more information about item IDs for RESTful APIs, see <a href=\"/api-docs/buy/static/api-browse.html#Legacy\">Legacy API compatibility</a>"
+    },
+    "shippingOptionId": {
+      "type": "string",
+      "description": "A unique identifier of the selected shipping option/method."
+    }
+  },
+  "description": "A type that defines the fields used to update the shipping option of a line item."
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Terms",
+  "title": "Terms",
+  "type": "object",
+  "properties": {
+    "fullText": {
+      "type": "string",
+      "description": "A full-text description of the terms."
+    },
+    "summary": {
+      "type": "string",
+      "description": "A summarized description of the terms."
+    }
+  },
+  "description": "The terms for the event, provided in a full-text description and summary."
+}

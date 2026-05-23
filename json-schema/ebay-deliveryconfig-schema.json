@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DeliveryConfig",
+  "title": "DeliveryConfig",
+  "type": "object",
+  "properties": {
+    "endpoint": {
+      "type": "string",
+      "description": "The endpoint for this destination."
+    },
+    "verificationToken": {
+      "type": "string",
+      "description": "The verification token associated with this endpoint."
+    }
+  },
+  "description": "A type that contains information about the delivery configuration."
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ConditionDistribution",
+  "title": "ConditionDistribution",
+  "type": "object",
+  "properties": {
+    "condition": {
+      "type": "string",
+      "description": "The text describing the condition of the item, such as <i>New</i> or <i>Used</i>. For a list of condition names, refer to <a href=\"/devzone/finding/callref/enums/conditionIdList.html \" target=\"_blank\">Item Condition IDs and Names</a>."
+    },
+    "conditionId": {
+      "type": "string",
+      "description": "The identifier of the condition. For example, <code>1000</code> is the identifier for <code>NEW</code>."
+    },
+    "matchCount": {
+      "type": "integer",
+      "description": "The number of items having the condition.",
+      "format": "int32"
+    },
+    "refinementHref": {
+      "type": "string",
+      "description": "The HATEOAS reference of this condition."
+    }
+  },
+  "description": "The container that defines the fields for the conditions refinements. This container is returned when <code>fieldgroups</code> is set to <code>CONDITION_REFINEMENTS</code> or <code>FULL</code> in the request."
+}

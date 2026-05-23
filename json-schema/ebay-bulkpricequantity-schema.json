@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BulkPriceQuantity",
+  "title": "BulkPriceQuantity",
+  "type": "object",
+  "properties": {
+    "requests": {
+      "type": "array",
+      "description": "This container is used by the seller to update the total 'ship-to-home' quantity of one or more inventory items (up to 25) and/or to update the price and/or quantity of one or more specific published offers.",
+      "items": {
+        "$ref": "#/components/schemas/PriceQuantity"
+      }
+    }
+  },
+  "description": "This type is used by the base request payload of the <strong>bulkUpdatePriceQuantity</strong> call. The <strong>bulkUpdatePriceQuantity</strong> call allows the seller to update the total 'ship-to-home' quantity of one or more inventory items (up to 25) and/or to update the price and/or quantity of one or more specific published offers."
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MonetaryTransaction",
+  "title": "MonetaryTransaction",
+  "type": "object",
+  "properties": {
+    "date": {
+      "type": "string",
+      "description": "This timestamp indicates when the monetary transaction occurred. A date is returned for all monetary transactions.<br><br> The following format is used: <code>YYYY-MM-DDTHH:MM:SS.SSSZ</code>. For example, <code>2015-08-04T19:09:02.768Z</code>."
+    },
+    "type": {
+      "type": "string",
+      "description": "This enumeration value indicates whether the monetary transaction is a charge or a credit to the seller. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:MonetaryTransactionTypeEnum'>eBay API documentation</a>"
+    },
+    "reason": {
+      "type": "string",
+      "description": "This enumeration value indicates the reason for the monetary transaction. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:MonetaryTransactionReasonEnum'>eBay API documentation</a>"
+    },
+    "amount": {
+      "description": "The amount involved in the monetary transaction. For active cross-border trade orders, the currency conversion and <b>exchangeRate</b> fields will be displayed as well.",
+      "$ref": "#/components/schemas/DisputeAmount"
+    }
+  },
+  "description": "This type is used to provide details about one or more monetary transactions that occur as part of a payment dispute."
+}

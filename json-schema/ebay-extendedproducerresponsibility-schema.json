@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ExtendedProducerResponsibility",
+  "title": "ExtendedProducerResponsibility",
+  "type": "object",
+  "properties": {
+    "ecoParticipationFee": {
+      "description": "This is the fee paid for new items to the eco-organization (for example, \"eco-organisme\" in France). It is a contribution to the financing of the elimination of the item responsibly.<br><br><span class=\"tablenote\"><b>Note:</b> <code>0</code> should not be used as a default value.</span></br><b>Minimum:</b> 0.0",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "producerProductId": {
+      "type": "string",
+      "description": "<span class=\"tablenote\"><b>Note:</b> <b>THIS FIELD IS DEPRECATED AND NO LONGER SUPPORTED.</b> For sellers selling on the eBay France Marketplace, Extended Producer Responsibility ID fields are no longer set at the listing level. Instead, sellers must provide these IDs for each applicable category in their My eBay accounts. The URL will be based on the seller's home/registration site, and will use this pattern: https://accountsettings./epr-fr. Sellers based in the US will use <a href=\"https://accountsettings.ebay.com/epr-fr\" target=\"_blank\">https://accountsettings.ebay.com/epr-fr</a>, sellers based in France will use <a href=\"https://accountsettings.ebay.fr/epr-fr\" target=\"_blank\">https://accountsettings.ebay.fr/epr-fr</a>, and so on.</span>"
+    },
+    "productDocumentationId": {
+      "type": "string",
+      "description": "<span class=\"tablenote\"><b>Note:</b> <b>THIS FIELD IS DEPRECATED AND NO LONGER SUPPORTED.</b> For sellers selling on the eBay France Marketplace, Extended Producer Responsibility ID fields are no longer set at the listing level. Instead, sellers must provide these IDs for each applicable category in their My eBay accounts. The URL will be based on the seller's home/registration site, and will use this pattern: https://accountsettings./epr-fr. Sellers based in the US will use <a href=\"https://accountsettings.ebay.com/epr-fr\" target=\"_blank\">https://accountsettings.ebay.com/epr-fr</a>, sellers based in France will use <a href=\"https://accountsettings.ebay.fr/epr-fr\" target=\"_blank\">https://accountsettings.ebay.fr/epr-fr</a>, and so on.</span>"
+    },
+    "productPackageId": {
+      "type": "string",
+      "description": "<span class=\"tablenote\"><b>Note:</b> <b>THIS FIELD IS DEPRECATED AND NO LONGER SUPPORTED.</b> For sellers selling on the eBay France Marketplace, Extended Producer Responsibility ID fields are no longer set at the listing level. Instead, sellers must provide these IDs for each applicable category in their My eBay accounts. The URL will be based on the seller's home/registration site, and will use this pattern: https://accountsettings./epr-fr. Sellers based in the US will use <a href=\"https://accountsettings.ebay.com/epr-fr\" target=\"_blank\">https://accountsettings.ebay.com/epr-fr</a>, sellers based in France will use <a href=\"https://accountsettings.ebay.fr/epr-fr\" target=\"_blank\">https://accountsettings.ebay.fr/epr-fr</a>, and so on.</span>"
+    },
+    "shipmentPackageId": {
+      "type": "string",
+      "description": "<span class=\"tablenote\"><b>Note:</b> <b>THIS FIELD IS DEPRECATED AND NO LONGER SUPPORTED.</b> For sellers selling on the eBay France Marketplace, Extended Producer Responsibility ID fields are no longer set at the listing level. Instead, sellers must provide these IDs for each applicable category in their My eBay accounts. The URL will be based on the seller's home/registration site, and will use this pattern: https://accountsettings./epr-fr. Sellers based in the US will use <a href=\"https://accountsettings.ebay.com/epr-fr\" target=\"_blank\">https://accountsettings.ebay.com/epr-fr</a>, sellers based in France will use <a href=\"https://accountsettings.ebay.fr/epr-fr\" target=\"_blank\">https://accountsettings.ebay.fr/epr-fr</a>, and so on.</span>"
+    }
+  },
+  "description": "This type provides IDs for the producer or importer related to the new item, packaging, added documentation, or an eco-participation fee. In some markets, such as in France, this may be the importer of the item."
+}

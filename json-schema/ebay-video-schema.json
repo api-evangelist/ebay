@@ -1,0 +1,61 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Video",
+  "title": "Video",
+  "type": "object",
+  "properties": {
+    "classification": {
+      "type": "array",
+      "description": "The intended use for this video content. Currently, videos can only be added and associated with eBay listings, so the only supported value is <code>ITEM</code>.",
+      "items": {
+        "type": "string",
+        "description": " For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/media/types/api:Classification'>eBay API documentation</a>"
+      }
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the video. The video description is an optional field that can be set using the <a href=\" /api-docs/commerce/media/resources/video/methods/createVideo\" target=\"_blank\">createVideo</a> method."
+    },
+    "expirationDate": {
+      "type": "string",
+      "description": "The expiration date of the video in Coordinated Universal Time (UTC). The video\u2019s expiration date is automatically set to 30 days after the video\u2019s initial upload."
+    },
+    "moderation": {
+      "description": "The video moderation information that is returned if a video is blocked by moderators.<br /><br /><span class=\"tablenote\"><span style=\"color:#478415\"><strong>Tip:</strong></span> See <a href=\"https://www.ebay.com/help/selling/listings/creating-managing-listings/add-video-to-listing?id=5272#section2\" target=\"_blank\">Video moderation and restrictions</a> in the eBay Seller Center for details about video moderation.</span><br /><br />If the video status is <code>BLOCKED</code>, ensure that the video complies with eBay's video formatting and content guidelines. Afterwards, begin the video creation and upload procedure anew using the <strong>createVideo</strong> and <strong>uploadVideo</strong> methods.",
+      "$ref": "#/components/schemas/Moderation"
+    },
+    "playLists": {
+      "type": "array",
+      "description": "The playlist created for the uploaded video, which provides the streaming video URLs to play the video. The supported streaming video protocols are DASH (Dynamic Adaptive Streaming over HTTP) and HLS (HTTP\u00a0Live Streaming). The playlist will only be generated if a video is successfully uploaded with a status of <code>LIVE</code>.",
+      "items": {
+        "$ref": "#/components/schemas/Play"
+      }
+    },
+    "size": {
+      "type": "integer",
+      "description": "The size, in bytes, of the video content.",
+      "format": "int32"
+    },
+    "status": {
+      "type": "string",
+      "description": "The status of the current video resource. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/media/types/api:VideoStatusEnum'>eBay API documentation</a>"
+    },
+    "statusMessage": {
+      "type": "string",
+      "description": "The <b>statusMessage</b> field contains additional information on the status. For example, information on why processing might have failed or if the video was blocked."
+    },
+    "thumbnail": {
+      "description": "The URL of the thumbnail image of the video. The thumbnail image's URL must be an eBayPictureURL (EPS URL).",
+      "$ref": "#/components/schemas/Image"
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the video."
+    },
+    "videoId": {
+      "type": "string",
+      "description": "The unique ID of the video."
+    }
+  },
+  "description": "A response field that retrieves all the metadata for the video, including its <b>title</b>, <b>classification</b>, <b>size</b>, <b>description</b>, <b>status</b>, <b>status message</b> (if any), and <b>expiration date</b>."
+}

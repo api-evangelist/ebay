@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GuestPurchaseOrderV2",
+  "title": "GuestPurchaseOrderV2",
+  "type": "object",
+  "properties": {
+    "lineItems": {
+      "type": "array",
+      "description": "An array of line items in the order.",
+      "items": {
+        "$ref": "#/components/schemas/OrderLineItemV2"
+      }
+    },
+    "pricingSummary": {
+      "description": "A container that breaks down the costs for the order, including total cost, shipping cost, tax, fees, and any discounts.",
+      "$ref": "#/components/schemas/PricingSummary"
+    },
+    "purchaseOrderCreationDate": {
+      "type": "string",
+      "description": "The creation date of the purchase order."
+    },
+    "purchaseOrderId": {
+      "type": "string",
+      "description": "The unique identifier of the purchase order."
+    },
+    "purchaseOrderPaymentStatus": {
+      "type": "string",
+      "description": "A container that returns the payment status for the purchase order. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/order/types/gct:PurchaseOrderPaymentStatusEnum'>eBay API documentation</a>"
+    },
+    "purchaseOrderStatus": {
+      "type": "string",
+      "description": "An enumeration value that indicates the current status of the buyer's payment and any refund that applies to the purchase order. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/order/types/gct:PurchaseOrderStatusEnum'>eBay API documentation</a>"
+    },
+    "refundedAmount": {
+      "description": "The total amount of any refunds for the purchase order.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "warnings": {
+      "type": "array",
+      "description": "A container for any warning messages.",
+      "items": {
+        "$ref": "#/components/schemas/Error"
+      }
+    }
+  },
+  "description": "A type that defines the fields for a guest purchase order."
+}

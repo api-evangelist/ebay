@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PickupSlot",
+  "title": "PickupSlot",
+  "type": "object",
+  "properties": {
+    "pickupSlotEndTime": {
+      "type": "string",
+      "description": "The date and time the pickup slot ends, formatted as an <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html \" title=\"https://www.iso.org \" target=\"_blank\">ISO 8601</a> string, which is based on the 24-hour Coordinated Universal Time (UTC) clock.  <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2018-08-20T07:09:00.000Z</code>"
+    },
+    "pickupSlotId": {
+      "type": "string",
+      "description": "Seller-defined name for the pickup slot. <!-- Max characters? -->"
+    },
+    "pickupSlotStartTime": {
+      "type": "string",
+      "description": "The date and time the pickup slot begins, formatted as an <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html \" title=\"https://www.iso.org \" target=\"_blank\">ISO 8601</a> UTC string."
+    },
+    "pickupSlotTimeZone": {
+      "type": "string",
+      "description": "The time zone of the pickup location, returned as <a href=\"https://www.iana.org/time-zones \" target=\"_blank\">Time Zone Database</a> ID (also know as an Olson time zone ID)."
+    }
+  },
+  "description": "This complex type defines a time window for the pickup of a package."
+}

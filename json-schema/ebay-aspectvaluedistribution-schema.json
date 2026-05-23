@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AspectValueDistribution",
+  "title": "AspectValueDistribution",
+  "type": "object",
+  "properties": {
+    "localizedAspectValue": {
+      "type": "string",
+      "description": "The value of an aspect. For example, Red is a value for the aspect Color."
+    },
+    "matchCount": {
+      "type": "integer",
+      "description": "The number of items with this aspect.",
+      "format": "int32"
+    },
+    "refinementHref": {
+      "type": "string",
+      "description": "A HATEOAS reference for this aspect."
+    }
+  },
+  "description": "The container that defines the fields for the conditions refinements. This container is returned when <code>fieldgroups</code> is set to <code>ASPECT_REFINEMENTS</code> or <code>FULL</code> in the request."
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PackageSpecification",
+  "title": "PackageSpecification",
+  "type": "object",
+  "properties": {
+    "dimensions": {
+      "description": "Declares the height, length, width, and unit of measure for the package to be shipped.",
+      "$ref": "#/components/schemas/Dimensions"
+    },
+    "weight": {
+      "description": "Declares the weight of the package.",
+      "$ref": "#/components/schemas/Weight"
+    }
+  },
+  "description": "This complex type specifies the dimensions and weight of a package."
+}

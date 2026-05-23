@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PLACampaignBudgetStatusData",
+  "title": "PLACampaignBudgetStatusData",
+  "type": "object",
+  "description": "The payload for the PLA campaign budget status notification.",
+  "properties": {
+    "user": {
+      "$ref": "#/components/schemas/User"
+    },
+    "campaignId": {
+      "type": "string",
+      "description": "The unique identifier for the PLA campaign that has an exhausted daily budget."
+    },
+    "budgetStatus": {
+      "type": "string",
+      "enum": [
+        "OUT_OF_BUDGET"
+      ],
+      "description": "The current daily budget status for the specified PLA campaign."
+    }
+  }
+}

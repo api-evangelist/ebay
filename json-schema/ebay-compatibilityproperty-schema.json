@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CompatibilityProperty",
+  "title": "CompatibilityProperty",
+  "type": "object",
+  "properties": {
+    "localizedName": {
+      "type": "string",
+      "description": "The name of the product attribute that as been translated to the language of the site."
+    },
+    "name": {
+      "type": "string",
+      "description": "The name of the product attribute, such as Make, Model, Year, etc."
+    },
+    "value": {
+      "type": "string",
+      "description": "The value for the <code>name</code> attribute, such as <b>BMW</b>, <b>R1200GS</b>, <b>2011</b>, etc."
+    }
+  },
+  "description": "This container returns the product attribute name/value pairs that are compatible with the keyword. These attributes are submitted in the <code>compatibility_filter</code> request field."
+}

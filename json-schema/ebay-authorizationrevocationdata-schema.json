@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AuthorizationRevocationData",
+  "title": "AuthorizationRevocationData",
+  "type": "object",
+  "description": "The Authorization Revocation payload.",
+  "properties": {
+    "username": {
+      "type": "string",
+      "description": "The username for the user."
+    },
+    "userId": {
+      "type": "string",
+      "description": "The immutable public userId for the user"
+    },
+    "eiasToken": {
+      "type": "string",
+      "description": "The legacy eiasToken specific to the user"
+    },
+    "revokeReason": {
+      "type": "string",
+      "enum": [
+        "REVOKED_BY_APP",
+        "REVOKED_BY_USER",
+        "REVOKED_BY_EBAY",
+        "PASSWORD_CHANGE"
+      ],
+      "description": "The reason for authorization revocation"
+    },
+    "revocationDate": {
+      "type": "string",
+      "description": "Date and time when the autorization was revoked"
+    }
+  }
+}

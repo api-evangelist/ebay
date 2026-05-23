@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Programs",
+  "title": "Programs",
+  "type": "object",
+  "properties": {
+    "programs": {
+      "type": "array",
+      "description": "An array of seller programs that the seller's account is opted in to.",
+      "items": {
+        "$ref": "#/components/schemas/Program"
+      }
+    }
+  },
+  "description": "The base response type of the <b>getOptedInPrograms</b> method."
+}

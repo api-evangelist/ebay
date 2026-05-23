@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ItemConditionDescriptorValue",
+  "title": "ItemConditionDescriptorValue",
+  "type": "object",
+  "properties": {
+    "conditionDescriptorValueAdditionalHelpText": {
+      "type": "array",
+      "description": "Additional information about the the condition of the item that is not included in the <b>conditionDescriptorValueHelpText</b> field.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "conditionDescriptorValueConstraints": {
+      "type": "array",
+      "description": "The constraints on a condition descriptor value, such as which descriptor value IDs and Descriptor ID it is associated with.",
+      "items": {
+        "$ref": "#/components/schemas/ItemConditionDescriptorValueConstraint"
+      }
+    },
+    "conditionDescriptorValueHelpText": {
+      "type": "string",
+      "description": "A detailed description of the condition descriptor value. "
+    },
+    "conditionDescriptorValueId": {
+      "type": "string",
+      "description": "The unique identification number of a condition descriptor value associated with the <b>conditionDescriptorValueName</b>."
+    },
+    "conditionDescriptorValueName": {
+      "type": "string",
+      "description": "The human-readable label for the condition descriptor value associated with the <b>conditionDescriptorValueID</b>."
+    }
+  },
+  "description": "This type displays the possible values for the corresponding condition descriptor, along with help text and constraint information."
+}

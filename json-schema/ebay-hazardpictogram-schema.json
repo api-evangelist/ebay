@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HazardPictogram",
+  "title": "HazardPictogram",
+  "type": "object",
+  "properties": {
+    "pictogramDescription": {
+      "type": "string",
+      "description": "The description of the hazard pictogram, such as Flammable."
+    },
+    "pictogramId": {
+      "type": "string",
+      "description": "The ID of the hazard pictogram."
+    },
+    "pictogramUrl": {
+      "type": "string",
+      "description": "The URL of the hazard pictogram."
+    }
+  },
+  "description": "A type that defines the pictogram for the type of hazard that a hazardous material represents."
+}

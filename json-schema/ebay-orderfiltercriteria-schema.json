@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OrderFilterCriteria",
+  "title": "OrderFilterCriteria",
+  "type": "object",
+  "properties": {
+    "creationDateRange": {
+      "description": "The creation date range of the orders you want returned. Set the date range so it contains less than 10 days (maximum). If you do not specify a <strong>DateRange</strong>, results from the last 10 days will be returned by default.",
+      "$ref": "#/components/schemas/DateRange"
+    },
+    "modifiedDateRange": {
+      "description": "The modified date range of the orders you want returned. <p> <span class=\"tablenote\"><strong>Note:</strong> This container is for future use. At this time, the <strong>createOrderTask</strong> method only supports order creation date filters and not modified order date filters.</span></p>",
+      "$ref": "#/components/schemas/DateRange"
+    },
+    "orderStatus": {
+      "type": "string",
+      "description": "The order status of the orders returned. If the filter is omitted from createOrderTask call, orders that are in both <code>ACTIVE </code>and<code> COMPLETED</code> states are returned. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:OrderStatusEnum'>eBay API documentation</a>"
+    }
+  },
+  "description": "The type that defines the fields for the order filters."
+}

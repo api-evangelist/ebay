@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DestinationRequest",
+  "title": "DestinationRequest",
+  "type": "object",
+  "properties": {
+    "deliveryConfig": {
+      "description": "This container is used to specify the destination endpoint and verification token associated with this endpoint.",
+      "$ref": "#/components/schemas/DeliveryConfig"
+    },
+    "name": {
+      "type": "string",
+      "description": "The seller-specified name for the destination endpoint."
+    },
+    "status": {
+      "type": "string",
+      "description": "This field sets the status for the destination endpoint as <code>ENABLED</code> or <code>DISABLED</code>.<br><br><span class=\"tablenote\"><b>Note:</b> The <b>MARKED_DOWN</b> value is set by eBay systems and cannot be used in a create or update call by applications.</span> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:DestinationStatusEnum'>eBay API documentation</a>"
+    }
+  },
+  "description": "A type that contains information about the destination request."
+}

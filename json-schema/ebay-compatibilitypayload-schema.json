@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CompatibilityPayload",
+  "title": "CompatibilityPayload",
+  "type": "object",
+  "properties": {
+    "compatibilityProperties": {
+      "type": "array",
+      "description": "An array of attribute name/value pairs used to define a specific product. For example: If you wanted to specify a specific car, one of the name/value pairs would be<br><br><code>\"name\" : \"Year\", <br>\"value\" : \"2019\"</code><br><br>For a list of the attributes required for cars and trucks and motorcycles see <a href=\"/api-docs/buy/static/api-browse.html#Check\">Check compatibility</a> in the Buy Integration Guide.",
+      "items": {
+        "$ref": "#/components/schemas/AttributeNameValue"
+      }
+    }
+  },
+  "description": "An array of attribute name/value pairs used to define a specific product. For example: If you wanted to specify a specific car, one of the name/value pairs would be:<br><br><code>\"name\" : \"Year\",<br>\"value\" : \"2019\"</code><br><br>For a list of the attributes required for cars and trucks and motorcycles refer to <a href=\"/api-docs/buy/static/api-browse.html#Check\" target=\"_blank\">Check compatibility</a> in the <a href=\"/api-docs/buy/static/buying-ig-landing.html\" target=\"_blank\">Buying Integration Guide</a>."
+}

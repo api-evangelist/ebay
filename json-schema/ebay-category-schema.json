@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Category",
+  "title": "Category",
+  "type": "object",
+  "properties": {
+    "categoryId": {
+      "type": "string",
+      "description": "The unique identifier of the category."
+    },
+    "categoryName": {
+      "type": "string",
+      "description": "The name of the category."
+    }
+  },
+  "description": "This type is used by the <code>categories</code> container in the response of the <b>search</b>  method, and contains the name and ID of the item category."
+}

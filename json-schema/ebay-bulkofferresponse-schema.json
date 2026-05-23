@@ -1,0 +1,15 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BulkOfferResponse",
+  "title": "BulkOfferResponse",
+  "type": "object",
+  "properties": {
+    "responses": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/OfferSkuResponse"
+      }
+    }
+  },
+  "description": "This type is used by the base response of the <strong>bulkCreateOffer</strong> method."
+}

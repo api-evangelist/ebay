@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ErrorParameter",
+  "title": "ErrorParameter",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "Name of the parameter that caused the error."
+    },
+    "value": {
+      "type": "string",
+      "description": "The value of the parameter that caused the error."
+    }
+  },
+  "description": "A complex type that indicates a parameter that caused an error and the value of the parameter which caused the error."
+}

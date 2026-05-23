@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AttributeNameValue",
+  "title": "AttributeNameValue",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string",
+      "description": "The name of the product attribute, such as <i>Make</i>, <i>Model</i>, <i>Year</i>, etc."
+    },
+    "value": {
+      "type": "string",
+      "description": "The value for the <code>name</code> attribute, such as <i>BMW</i>, <i>R1200GS</i>, <i>2011</i>, etc."
+    }
+  },
+  "description": "The type the defines attribute name/value pair fields that specify a product. The type of data depends on the context. For example, if you were using this to specify a specific vehicle, the attribute names would be <i>Make</i>, <i>Model</i>, <i>Year</i>, etc."
+}

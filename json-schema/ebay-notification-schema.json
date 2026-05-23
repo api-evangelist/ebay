@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Notification",
+  "title": "Notification",
+  "type": "object",
+  "properties": {
+    "notificationId": {
+      "type": "string",
+      "description": "The notification Id."
+    },
+    "eventDate": {
+      "type": "string",
+      "description": "The event date associated with this notification in UTC."
+    },
+    "publishDate": {
+      "type": "string",
+      "description": "The message publish date in UTC."
+    },
+    "publishAttemptCount": {
+      "type": "integer",
+      "description": "The number of attempts made to publish this message."
+    },
+    "data": {
+      "$ref": "#/components/schemas/AuthorizationRevocationData"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Program",
+  "title": "Program",
+  "type": "object",
+  "properties": {
+    "programType": {
+      "type": "string",
+      "description": "A seller program in to which a seller can opt-in. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:ProgramTypeEnum'>eBay API documentation</a>"
+    }
+  },
+  "description": "A seller program in to which a seller can opt-in."
+}

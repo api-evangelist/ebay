@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateVideoRequest",
+  "title": "CreateVideoRequest",
+  "type": "object",
+  "properties": {
+    "classification": {
+      "type": "array",
+      "description": "The intended use for this video content. Currently, videos can only be added and associated with eBay listings, so the only supported value is <code>ITEM</code>.",
+      "items": {
+        "type": "string",
+        "description": " For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/media/types/api:Classification'>eBay API documentation</a>"
+      }
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the video."
+    },
+    "size": {
+      "type": "integer",
+      "description": "The size, in bytes, of the video content. <br><br><b>Max:</b> 157,286,400 bytes",
+      "format": "int32"
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the video."
+    }
+  },
+  "description": "The request to create a video, which must contain the video's <b>title</b>, <b>size</b>, and <b>classification</b>. <b>Description</b> is an optional field when creating videos."
+}

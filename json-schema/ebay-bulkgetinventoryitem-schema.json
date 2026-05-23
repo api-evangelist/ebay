@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BulkGetInventoryItem",
+  "title": "BulkGetInventoryItem",
+  "type": "object",
+  "properties": {
+    "requests": {
+      "type": "array",
+      "description": "The seller passes in multiple SKU values under this container to retrieve multiple inventory item records. Up to 25 inventory item records can be retrieved at one time.",
+      "items": {
+        "$ref": "#/components/schemas/GetInventoryItem"
+      }
+    }
+  },
+  "description": "This type is used by the base request of the <strong>bulkGetInventoryItem</strong> method."
+}

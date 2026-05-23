@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BusinessAccount",
+  "title": "BusinessAccount",
+  "type": "object",
+  "properties": {
+    "address": {
+      "description": "The container that returns the address of the business account. ",
+      "$ref": "#/components/schemas/Address"
+    },
+    "doingBusinessAs": {
+      "type": "string",
+      "description": "An additional name that is used for their business on eBay. The business name is returned in the <b> name</b> field."
+    },
+    "email": {
+      "type": "string",
+      "description": "The email address of the business account."
+    },
+    "name": {
+      "type": "string",
+      "description": "The business name associated with the user's eBay account."
+    },
+    "primaryContact": {
+      "description": "The container that returns the contact details of the person who is the primary contact for this account.",
+      "$ref": "#/components/schemas/Contact"
+    },
+    "primaryPhone": {
+      "description": "The container that returns the primary phone number for the business account.",
+      "$ref": "#/components/schemas/Phone"
+    },
+    "secondaryPhone": {
+      "description": "The container that returns the secondary phone number for the business account.",
+      "$ref": "#/components/schemas/Phone"
+    },
+    "website": {
+      "type": "string",
+      "description": "The business website address associated with the eBay account."
+    }
+  },
+  "description": "The type that defines the fields for the business account information."
+}

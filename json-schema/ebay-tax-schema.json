@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Tax",
+  "title": "Tax",
+  "type": "object",
+  "properties": {
+    "taxType": {
+      "type": "string",
+      "description": "The enumeration value returned here indicates the type of tax. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:TaxTypeEnum'>eBay API documentation</a>"
+    },
+    "amount": {
+      "description": "Amount of tax.",
+      "$ref": "#/components/schemas/Amount"
+    }
+  },
+  "description": "This type is used to return the tax details of a transaction."
+}

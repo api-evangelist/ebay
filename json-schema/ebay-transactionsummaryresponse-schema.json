@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/TransactionSummaryResponse",
+  "title": "TransactionSummaryResponse",
+  "type": "object",
+  "properties": {
+    "adjustmentAmount": {
+      "description": "Total adjustment amount for given payee within a specified period.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "adjustmentBookingEntry": {
+      "type": "string",
+      "description": "The credit debit sign indicator for adjustment. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:BookingEntryEnum'>eBay API documentation</a>"
+    },
+    "adjustmentCount": {
+      "type": "integer",
+      "description": "Total adjustment count for given payee within a specified period.",
+      "format": "int32"
+    },
+    "balanceTransferAmount": {
+      "description": "The total balance transfer amount for given payee within the specified period.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "balanceTransferBookingEntry": {
+      "type": "string",
+      "description": "The credit debit sign indicator for the balance transfer. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:BookingEntryEnum'>eBay API documentation</a>"
+    },
+    "balanceTransferCount": {
+      "type": "integer",
+      "description": "The total balance transfer count for given payee within the specified period.",
+      "format": "int32"
+    },
+    "creditAmount": {
+      "description": "This amount is the total dollar value of all the seller's sales and/or credits that match the input criteria. <br><br><span class=\"tablenote\"><strong>Note:</strong> Unless the <b>transactionType</b> filter is used in the request to retrieve a specific type of monetary transaction, the <b>creditCount</b> and <b>creditAmount</b> fields account for both order sales and seller credits (the count and value is not distinguished between the two monetary transaction types).</span><br><br>If there are no sales/credits (<strong>creditCount</strong>=<code>0</code>), this container is not returned.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "creditBookingEntry": {
+      "type": "string",
+      "description": "The enumeration value indicates whether the dollar amount in the <strong>creditAmount</strong> field is a charge (debit) to the seller or a credit. Typically, the enumeration value returned here will be <code>CREDIT</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:BookingEntryEnum'>eBay API documentation</a>"
+    },
+    "creditCount": {
+      "type": "integer",
+      "description": "This integer value indicates the total number of the seller's sales and/or credits that match the input criteria. <br><br><span class=\"tablenote\"><strong>Note:</strong> Unless the <b>transactionType</b> filter is used in the request to retrieve a specific type of monetary transaction (sale, buyer refund, or seller credit), the <b>creditCount</b> and <b>creditAmount</b> fields account for both order sales and seller credits (the count and value is not distinguished between the two monetary transaction types).</span><br><br>This field is generally returned, even if <code>0</code>, but it will not be returned if a <strong>transactionType</strong> filter is used, and its value is set to either <code>REFUND</code>, <code>DISPUTE</code>, or <code>SHIPPING_LABEL</code>.",
+      "format": "int32"
+    },
+    "disputeAmount": {
+      "description": "This amount is the total dollar value associated with any existing payment disputes that have been initiated by one or more buyers. Only the orders that match the input criteria are considered. The Payment Disputes methods in the Fulfillment API can be used by the seller to retrieve more information about any payment disputes.<br><br>If there are no payment disputes (<strong>disputeCount</strong>=<code>0</code>), this container is not returned.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "disputeBookingEntry": {
+      "type": "string",
+      "description": "The enumeration value indicates whether the dollar amount in the <strong>disputeAmount</strong> field is a charge (debit) to the seller or a credit. Typically, the enumeration value returned here will be <code>DEBIT</code>, but its possible that <code>CREDIT</code> could be returned if the seller contested one or more payment disputes and won the dispute. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:BookingEntryEnum'>eBay API documentation</a>"
+    },
+    "disputeCount": {
+      "type": "integer",
+      "description": "This integer value indicates the total number of payment disputes that have been initiated by one or more buyers. Only the orders that match the input criteria are considered. The Payment Disputes methods in the Fulfillment API can be used by the seller to retrieve more information about any payment disputes. <br><br>This field is generally returned, even if <code>0</code>, but it will not be returned if a <strong>transactionType</strong> filter is used, and its value is set to any value other than <code>DISPUTE</code>.",
+      "format": "int32"
+    },
+    "loanRepaymentAmount": {
+      "description": "The sum of all <code>LOAN_REPAYMENT</code> transactions (i.e., debit and credit,) that match the input criteria.<br><br>For example, within a specified <code>transactionDate</code> range, three <code>LOAN_REPAYMENT</code> transactions are identified:<ul><li>DEBIT of 15.00 USD</li><li>DEBIT of 10.00 USD</li><li>CREDIT of 5.00 USD</li></ul><br>The net amount of these three transactions is a <i>DEBIT of 20.00 USD</i> to the seller's account. Therefore, the value returned for <code>loanRepaymentAmount</code> will be <b>20.00 USD</b>.<br><br><span class=\"tablenote\"><b>Note:</b> For this example:<ul><li>The value returned for <code>loanRepaymentCount</code> will be <b>3</b></li><li>The <code>loanRepaymentBookingEntry</code> will be <b>DEBIT</b></li></ul></span><br>If there are no transactions that match the input criteria (i.e., <code>loanRepaymentCount</code>=<b>0</b>,) this container is not returned.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "loanRepaymentBookingEntry": {
+      "type": "string",
+      "description": "The enumeration value indicates whether the <code>loanRepaymentAmount</code> is a <code>DEBIT</code> against, or a <code>CREDIT</code> to, the sellers's account.<br><br>For most <code>loanRepaymentAmount</code> transactions, <code>loanRepaymentBookingEntry</code> will be <b>DEBIT</b>. However, if a loan repayment transaction is reversed, that transaction will be shown as a <b>CREDIT</b>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:BookingEntryEnum'>eBay API documentation</a>"
+    },
+    "loanRepaymentCount": {
+      "type": "integer",
+      "description": "This integer value indicates the total number of <code>LOAN_REPAYMENT</code> transactions (i.e., <code>DEBIT</code> and <code>CREDIT</code>,) that match the input criteria.<br><br>This field is generally returned even if it equals <b>0</b>. However it will not be returned if a <code>transactionType</code> filter is used and its value has been set to any enumeration value other than <code>LOAN_REPAYMENT</code>.",
+      "format": "int32"
+    },
+    "nonSaleChargeAmount": {
+      "description": "The total non-sale charge amount for given payee within a specified period.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "nonSaleChargeBookingEntry": {
+      "type": "string",
+      "description": "The credit/debit sign indicator for the non-sale charge. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:BookingEntryEnum'>eBay API documentation</a>"
+    },
+    "nonSaleChargeCount": {
+      "type": "integer",
+      "description": "The total non-sale charge count for given payee within a specified period.",
+      "format": "int32"
+    },
+    "onHoldAmount": {
+      "description": "This amount is the total dollar value of order sales where the associated funds are on hold. Only the orders that match the input criteria are considered.<br><br>If there are no seller payment holds (<strong>onHoldCount</strong>=<code>0</code>), this container is not returned.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "onHoldBookingEntry": {
+      "type": "string",
+      "description": "The enumeration value indicates whether the dollar amount in the <strong>onHoldAmount</strong> field is a charge (debit) to the seller or a credit. Typically, the enumeration value returned here will be <code>CREDIT</code>, since on-hold funds should eventually be released as part of a payout to the seller once the hold is cleared. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:BookingEntryEnum'>eBay API documentation</a>"
+    },
+    "onHoldCount": {
+      "type": "integer",
+      "description": "This integer value indicates the total number of order sales where the associated funds are on hold. Only the orders that match the input criteria are considered.<br><br>This field is generally returned, even if <code>0</code>, but it will not be returned if a <strong>transactionStatus</strong> filter is used, and its value is set to any value other than <code>FUNDS_ON_HOLD</code>.",
+      "format": "int32"
+    },
+    "purchaseAmount": {
+      "description": "<span class=\"tablenote\"><b>Note:</b> The <code>PURCHASE</code> transaction type is currently only applicable in the US marketplace.</span><br>This amount is the total dollar value of all the purchases that have been initiated by a seller using spendable funds that match the input criteria.<br><br>If there are no transactions that match the input criteria (i.e., <code><b>purchaseCount</b>=0</code>), this container will not be returned.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "purchaseBookingEntry": {
+      "type": "string",
+      "description": "<span class=\"tablenote\"><b>Note:</b> The <code>PURCHASE</code> transaction type is currently only applicable in the US marketplace.</span><br>This enumeration value indicates whether the dollar amount in the <b>purchase</b> field is a charge (debit) to the seller or a credit. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:BookingEntryEnum'>eBay API documentation</a>"
+    },
+    "purchaseCount": {
+      "type": "integer",
+      "description": "<span class=\"tablenote\"><b>Note:</b> The <code>PURCHASE</code> transaction type is currently only applicable in the US marketplace.</span><br>This integer value indicates the total number of purchases that have been initiated by a seller using spendable funds that match the input criteria.<br><br>This field is generally returned, even if it equals <code>0</code>. However, it will not be returned if a <code>transactionType</code> filter is used and its value has been set to any enumeration value other than <code>PURCHASE</code>.",
+      "format": "int32"
+    },
+    "refundAmount": {
+      "description": "This amount is the total dollar value of buyer refunds that match the input criteria.<br><br>If there are no refunds (<strong>refundCount</strong>=<code>0</code>), this container is not returned.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "refundBookingEntry": {
+      "type": "string",
+      "description": "The enumeration value indicates whether the dollar amount in the <strong>refundAmount</strong> field is a charge (debit) to the seller or a credit. Typically, the enumeration value returned here will be <code>DEBIT</code> since this a refund from the seller to the buyer. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:BookingEntryEnum'>eBay API documentation</a>"
+    },
+    "refundCount": {
+      "type": "integer",
+      "description": "This integer value indicates the total number of buyer refunds that match the input criteria. <br><br>This field is generally returned, even if <code>0</code>, but it will not be returned if a <strong>transactionType</strong> filter is used, and its value is set to any value other than <code>REFUND</code>.",
+      "format": "int32"
+    },
+    "shippingLabelAmount": {
+      "description": "This is the total dollar value of the eBay shipping labels purchased by the seller.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "shippingLabelBookingEntry": {
+      "type": "string",
+      "description": "The enumeration value indicates whether the dollar amount in the <strong>shippingLabelAmount</strong> field is a charge (debit) to the seller or a credit. Typically, the enumeration value returned here will be <code>DEBIT</code>, as eBay will charge the seller when eBay shipping labels are purchased, but it can be <code>CREDIT</code> if the seller was refunded for a shipping label or was possibly overcharged for a shipping label. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:BookingEntryEnum'>eBay API documentation</a>"
+    },
+    "shippingLabelCount": {
+      "type": "integer",
+      "description": "This is the total number of eBay shipping labels purchased by the seller. The count returned here may depend on the specified input criteria.",
+      "format": "int32"
+    },
+    "transferAmount": {
+      "description": "This amount is the total dollar value of buyer refund transfers that match the input criteria.<br><br>If there are no transfers (<strong>refundCount</strong>=<code>0</code>), this container is not returned.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "transferBookingEntry": {
+      "type": "string",
+      "description": "The enumeration value indicates whether the dollar amount in the <strong>transferAmount</strong> field is a charge (debit) to the seller or a credit. Typically, the enumeration value returned here will be <code>DEBIT</code> since this a seller reimbursement to eBay for buyer refunds. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:BookingEntryEnum'>eBay API documentation</a>"
+    },
+    "transferCount": {
+      "type": "integer",
+      "description": "This integer value indicates the total number of buyer refund transfers that match the input criteria. <br><br>This field is generally returned, even if <code>0</code>, but it will not be returned if a <strong>transactionType</strong> filter is used, and its value is set to any value other than <code>TRANSFER</code>.",
+      "format": "int32"
+    },
+    "withdrawalAmount": {
+      "description": "This amount is the total dollar value of on-demand payouts (withdrawals) that match the input criteria.<br><br>If there are no withdrawals (<strong>withdrawalCount</strong>=<code>0</code>), this container is not returned.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "withdrawalBookingEntry": {
+      "type": "string",
+      "description": "The enumeration value indicates whether the dollar amount in the <strong>withdrawalAmount</strong> field is a charge (debit) to the seller or a credit. Typically, the enumeration value returned here will be <code>DEBIT</code> since this transaction involves a debit to the seller's available payout funds. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:BookingEntryEnum'>eBay API documentation</a>"
+    },
+    "withdrawalCount": {
+      "type": "integer",
+      "description": "This integer value indicates the total number of on-demand payouts (withdrawals) that match the input criteria. <br><br>This field is generally returned, even if <code>0</code>, but it will not be returned if a <strong>transactionType</strong> filter is used, and its value is set to any value other than <code>WITHDRAWAL</code>.",
+      "format": "int32"
+    }
+  },
+  "description": "This type is the base response type of the <strong>getTransactionSummary</strong> method, and based on the filters that are used in the <strong>getTransactionSummary</strong> call URI, the response may include  total count and amount of the seller's sales and credits, total count and amount of buyer refunds, and total count and amount of seller payment holds."
+}

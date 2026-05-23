@@ -1,0 +1,45 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ReturnAddress",
+  "title": "ReturnAddress",
+  "type": "object",
+  "properties": {
+    "addressLine1": {
+      "type": "string",
+      "description": "The first line of the street address."
+    },
+    "addressLine2": {
+      "type": "string",
+      "description": "The second line of the street address. This line is not always necessarily, but is often used for apartment number or suite number, or other relevant information that can not fit on the first line."
+    },
+    "city": {
+      "type": "string",
+      "description": "The city of the return address."
+    },
+    "country": {
+      "type": "string",
+      "description": "The country's two-digit, ISO 3166-1 country code. See the enumeration type for a country's value. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/ba:CountryCodeEnum'>eBay API documentation</a>"
+    },
+    "county": {
+      "type": "string",
+      "description": "The county of the return address. Counties are not applicable to all countries."
+    },
+    "fullName": {
+      "type": "string",
+      "description": "The full name of return address owner."
+    },
+    "postalCode": {
+      "type": "string",
+      "description": "The postal code of the return address."
+    },
+    "primaryPhone": {
+      "description": "This container shows the seller's primary phone number associated with the return address.",
+      "$ref": "#/components/schemas/Phone"
+    },
+    "stateOrProvince": {
+      "type": "string",
+      "description": "The state or province of the return address."
+    }
+  },
+  "description": "This type is used by the payment dispute methods, and is relevant if the buyer will be returning the item to the seller."
+}

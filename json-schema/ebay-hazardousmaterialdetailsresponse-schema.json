@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/HazardousMaterialDetailsResponse",
+  "title": "HazardousMaterialDetailsResponse",
+  "type": "object",
+  "properties": {
+    "signalWords": {
+      "type": "array",
+      "description": "This array contains available hazardous materials signal words for the specified marketplace.",
+      "items": {
+        "$ref": "#/components/schemas/SignalWord"
+      }
+    },
+    "statements": {
+      "type": "array",
+      "description": "This array contains available hazardous materials hazard statements for the specified marketplace.",
+      "items": {
+        "$ref": "#/components/schemas/HazardStatement"
+      }
+    },
+    "pictograms": {
+      "type": "array",
+      "description": "This array contains of available hazardous materials hazard pictograms for the specified marketplace.",
+      "items": {
+        "$ref": "#/components/schemas/Pictogram"
+      }
+    }
+  },
+  "description": "A type that defines the response fields for the <b>getHazardousMaterialsLabels</b> method."
+}

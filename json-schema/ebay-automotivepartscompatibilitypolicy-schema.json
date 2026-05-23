@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AutomotivePartsCompatibilityPolicy",
+  "title": "AutomotivePartsCompatibilityPolicy",
+  "type": "object",
+  "properties": {
+    "categoryId": {
+      "type": "string",
+      "description": "The category ID to which the automotive-parts-compatibility policies apply."
+    },
+    "categoryTreeId": {
+      "type": "string",
+      "description": "A value that indicates the root node of the category tree used for the response set. Each marketplace is based on a category tree whose root node is indicated by this unique category ID value. All category policy information returned by this call pertains to the categories included below this root node of the tree.    <br><br>A <i>category tree</i> is a hierarchical framework of eBay categories that begins at the root node of the tree and extends to include all the child nodes in the tree. Each child node in the tree is an eBay category that is represented by a unique <b>categoryId</b> value. Within a category tree, the root node has no parent node and <i>leaf nodes</i> are nodes that have no child nodes."
+    },
+    "compatibilityBasedOn": {
+      "type": "string",
+      "description": "Indicates whether the category supports parts compatibility by either <code>ASSEMBLY</code> or by <code>SPECIFICATION</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/metadata/types/sel:CompatibilityTypeEnum'>eBay API documentation</a>"
+    },
+    "compatibleVehicleTypes": {
+      "type": "array",
+      "description": "Indicates the compatibility classification of the part based on high-level vehicle types.",
+      "items": {
+        "type": "string",
+        "description": " For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/metadata/types/sel:CompatibleVehicleTypeEnum'>eBay API documentation</a>"
+      }
+    },
+    "maxNumberOfCompatibleVehicles": {
+      "type": "integer",
+      "description": "Specifies the maximum number of compatible vehicle-applications allowed per item.",
+      "format": "int32"
+    }
+  }
+}

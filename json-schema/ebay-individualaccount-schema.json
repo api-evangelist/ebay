@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/IndividualAccount",
+  "title": "IndividualAccount",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "description": "The eBay user's registration email address."
+    },
+    "firstName": {
+      "type": "string",
+      "description": "The eBay user's first name."
+    },
+    "lastName": {
+      "type": "string",
+      "description": "The eBay user's last name."
+    },
+    "primaryPhone": {
+      "description": "The container that returns the eBay user's primary phone number information.",
+      "$ref": "#/components/schemas/Phone"
+    },
+    "registrationAddress": {
+      "description": "The container that returns the eBay user's address information.",
+      "$ref": "#/components/schemas/Address"
+    },
+    "secondaryPhone": {
+      "description": "The container that returns the eBay user's secondary phone number information.",
+      "$ref": "#/components/schemas/Phone"
+    }
+  },
+  "description": "The type that defines the fields for the information of an individual account."
+}

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ImportChargesV2",
+  "title": "ImportChargesV2",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "description": "The amount of the import charge.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "applicableChargeType": {
+      "type": "string",
+      "description": "The type of charge to apply to the order, such as import duties. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/order/types/chk:ApplicableChargeTypeEnum'>eBay API documentation</a>"
+    }
+  },
+  "description": "A type that defines the import charges that apply to an order."
+}

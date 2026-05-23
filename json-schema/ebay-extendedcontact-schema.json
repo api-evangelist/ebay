@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ExtendedContact",
+  "title": "ExtendedContact",
+  "type": "object",
+  "properties": {
+    "companyName": {
+      "type": "string",
+      "description": "The company name associated with the buyer or eBay shipping partner. This field is only returned if defined/applicable to the buyer or eBay shipping partner."
+    },
+    "contactAddress": {
+      "description": "This container shows the shipping address of the buyer or eBay shipping partner.",
+      "$ref": "#/components/schemas/Address"
+    },
+    "email": {
+      "type": "string",
+      "description": "This field contains the email address of the buyer. This address will be returned for up to 14 days from order creation. If an order is more than 14 days old, no address is returned.<br><br><span class=\"tablenote\"> <strong>Note:</strong> If returned, this field contains the email address of the buyer, even for Global Shipping Program shipments.<br><br>The <b>email</b> will not be returned for any order that is more than 90 days old.</span>"
+    },
+    "fullName": {
+      "type": "string",
+      "description": "The full name of the buyer or eBay shipping partner.<br><br><span class=\"tablenote\"><strong>Note:</strong> The <b>fullName</b> will not be returned for any order that is more than 90 days old.</span>"
+    },
+    "primaryPhone": {
+      "description": "The primary telephone number of the buyer or eBay shipping partner.<br><br><span class=\"tablenote\"><strong>Note:</strong> The <b>primaryPhone</b> will not be returned for any order that is more than 90 days old.</span>",
+      "$ref": "#/components/schemas/PhoneNumber"
+    }
+  },
+  "description": "This type contains shipping and contact information for a buyer or an eBay shipping partner."
+}

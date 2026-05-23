@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Bidding",
+  "title": "Bidding",
+  "type": "object",
+  "properties": {
+    "auctionEndDate": {
+      "type": "string",
+      "description": "The date the auction will end."
+    },
+    "auctionStatus": {
+      "type": "string",
+      "description": "An enumeration value that represents the current state of the auction, such as <code>ACTIVE</code> or <code>ENDED</code>. <br><br>If this value is <code>ENDED</code> and the value of <b>highBidder</b> is <code>true</code>, this indicates the buyer has won the auction. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/offer/types/api:AuctionStatusEnum'>eBay API documentation</a>"
+    },
+    "bidCount": {
+      "type": "integer",
+      "description": "The number of proxy bids that have been placed for the auction.",
+      "format": "int32"
+    },
+    "currentPrice": {
+      "description": "The amount of the highest bid, which is the current price of the item.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "currentProxyBid": {
+      "description": "The buyer's proxy bid, which is the <b>maxAmount</b> specified in the request. ",
+      "$ref": "#/components/schemas/ProxyBid"
+    },
+    "highBidder": {
+      "type": "boolean",
+      "description": "Indicates if the buyer is the highest bidder. <ul> <li>If the value is <code>false</code>, this indicates that either the buyer has not bid on this item or has been out-bid. </li> <li>If this value is <code>true</code>, this indicates the buyer is winning the auction and if the value of <b>auctionStatus</b> is <code>ENDED</code>, this indicates the buyer has won the auction.</ul>"
+    },
+    "itemId": {
+      "type": "string",
+      "description": "The eBay RESTful identifier of an item being bid on, which was submitted in the request."
+    },
+    "reservePriceMet": {
+      "type": "boolean",
+      "description": "This indicates if the reserve price of the item has been met. A reserve price is set by the seller and is the minimum amount the seller is willing to sell the item for. <p>If the highest bid is not equal to or higher than the reserve price when the auction ends, the listing ends and the item is not sold.</p> <p><b>Note: </b>This is returned only for auctions that have a reserve price.</p>"
+    },
+    "suggestedBidAmounts": {
+      "type": "array",
+      "description": "The suggested bid amount for the next bid. <b>Note: </b>These are generated suggestions and do not guarantee the buyer will win the bid. This means these suggestions do not take into account the max bid amount of other bidders. The buyer can be outbid even if they submit the highest suggested bid.",
+      "items": {
+        "$ref": "#/components/schemas/Amount"
+      }
+    }
+  },
+  "description": "The type the defines the field for the auction details."
+}

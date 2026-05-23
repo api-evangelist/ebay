@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/InfoFromBuyer",
+  "title": "InfoFromBuyer",
+  "type": "object",
+  "properties": {
+    "contentOnHold": {
+      "type": "boolean",
+      "description": "When the value of this field is <code>true</code> it indicates that the buyer's note regarding the payment dispute (i.e., the <b>buyerProvided.note</b> field,) is on hold. When this is the case, the <b>buyerProvided.note</b> field will not be returned.<br><br>When the value of this field is <code>false</code>, it is not returned."
+    },
+    "note": {
+      "type": "string",
+      "description": "This field shows any note that was left by the buyer in regard to the dispute."
+    },
+    "returnShipmentTracking": {
+      "type": "array",
+      "description": "This array shows shipment tracking information for one or more shipping packages being returned to the buyer after a payment dispute.",
+      "items": {
+        "$ref": "#/components/schemas/TrackingInfo"
+      }
+    }
+  },
+  "description": "This container is returned if the buyer is returning one or more line items in an order that is associated with the payment dispute, and that buyer has provided return shipping tracking information and/or a note about the return."
+}

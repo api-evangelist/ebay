@@ -1,0 +1,41 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Refinement",
+  "title": "Refinement",
+  "type": "object",
+  "properties": {
+    "aspectDistributions": {
+      "type": "array",
+      "description": "An array of containers for the all the aspect refinements.",
+      "items": {
+        "$ref": "#/components/schemas/AspectDistribution"
+      }
+    },
+    "buyingOptionDistributions": {
+      "type": "array",
+      "description": "An array of containers for the all the buying option refinements.",
+      "items": {
+        "$ref": "#/components/schemas/BuyingOptionDistribution"
+      }
+    },
+    "categoryDistributions": {
+      "type": "array",
+      "description": "An array of containers for the all the category refinements.",
+      "items": {
+        "$ref": "#/components/schemas/CategoryDistribution"
+      }
+    },
+    "conditionDistributions": {
+      "type": "array",
+      "description": "An array of containers for the all the condition refinements.",
+      "items": {
+        "$ref": "#/components/schemas/ConditionDistribution"
+      }
+    },
+    "dominantCategoryId": {
+      "type": "string",
+      "description": "The identifier of the category that most of the items are part of. "
+    }
+  },
+  "description": "This type defines the fields for the various refinements of an item. You can use the information in this container to create histograms, which help shoppers choose exactly what they want."
+}

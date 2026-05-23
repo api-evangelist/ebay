@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AspectRecommendations",
+  "title": "AspectRecommendations",
+  "type": "object",
+  "properties": {
+    "localizedAspectName": {
+      "type": "string",
+      "description": "The name of the item aspect for which eBay has a recommendation. In many cases, the same item aspect(s) that are returned under the <strong>violationData</strong> array for <code>ASPECTS_ADOPTION</code> listing violations are also returned here <br /><br /><span class=\"tablenote\"> <strong>Note:</strong> This name is always localized for the specified marketplace. </span>"
+    },
+    "suggestedValues": {
+      "type": "array",
+      "description": "One or more valid values for the corresponding item aspect (in <strong>localizedAspectName</strong>) are returned here. These suggested values for the item aspect depend on the listing category and on   the information specified in the listing. Sellers should confirm accuracy of the values before applying them to the listing. <p>Please use <strong><a href=\"../../../../../commerce/taxonomy/resources/category_tree/methods/getItemAspectsForCategory\" target=\"_blank\">getItemAspectsForCategory</a></strong> in the Taxonomy API or <strong><a href=\"../../../../../../devzone/xml/docs/Reference/eBay/GetCategorySpecifics.html\" target=\"_blank\">GetCategorySpecifics</a></strong> in the Trading API to get a comprehensive list of required and recommended aspects for a given category and a list of supported aspect values for each.</p> ",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "description": "This type is used by the <strong>aspectsRecommendation</strong> container, which is returned if eBay has found a listing with missing or invalid item aspects (<code>ASPECTS_ADOPTION</code> compliance type)."
+}

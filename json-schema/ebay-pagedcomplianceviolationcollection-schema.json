@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PagedComplianceViolationCollection",
+  "title": "PagedComplianceViolationCollection",
+  "type": "object",
+  "properties": {
+    "offset": {
+      "type": "integer",
+      "description": "This integer value shows the offset of the current page of results. The <strong>offset</strong> value controls the first listing violation in the result set that will be displayed at the top of the response. The <strong>offset</strong> and <strong>limit</strong> query parameters are used to control the pagination of the output. For example, if <strong>offset</strong> is set to <code>10</code> and <strong>limit</strong> is set to <code>10</code>, the call retrieves listing violations 11 thru 20 from the resulting collection of violations. <br /><br /> <span class=\"tablenote\"><strong>Note:</strong> This feature employs a zero-based index, where the first item in the list has an offset of <code>0</code>.</span><br/><br/><strong>Default:</strong> <code>0</code> {zero)",
+      "format": "int32"
+    },
+    "href": {
+      "type": "string",
+      "description": "The URI of the <strong>getListingViolations</strong> call request that produced the current page of the result set."
+    },
+    "total": {
+      "type": "integer",
+      "description": "The total number of listing violations in the result set. If this value is higher than the <strong>limit</strong> value, there are multiple pages in the result set to view.",
+      "format": "int32"
+    },
+    "next": {
+      "type": "string",
+      "description": "The <strong>getListingViolations</strong> call URI to use to view the next page of the result set. For example, the following URI returns listing violations 21 thru 30 from the collection of policy violations: <br /><br /><code><i>path</i>/listing_violation?limit=10&offset=20 </code><br /><br/>This field is only returned if an additional page of listing violations exists.<br/>"
+    },
+    "prev": {
+      "type": "string",
+      "description": "The <strong>getListingViolations</strong> call URI to use to view the previous page of the result set. For example, the following URI returns listing violations 1 thru 10 from the collection of policy violations: <br /><br /><code><i>path</i>/listing_violation?limit=10&offset=0 </code><br /><br/>This field is only returned if an previous page of listing violations exists.<br/>"
+    },
+    "limit": {
+      "type": "integer",
+      "description": "The maximum number of listing violations returned per page of the result set. The <strong>limit</strong> and <strong>offset</strong> query parameters are used to control the pagination of the output.<br /><br /><span class=\"tablenote\"><strong>Note:</strong> If this is the last or only page in the result set, it may contain fewer listing violations than the <strong>limit</strong> value. To determine the number of pages in the result set, divide this value into the value of <strong>total</strong> and round up to the next integer.</span><br/><br/><strong>Default:</strong> <code>50</code><br/><strong>Max:</strong> <code>200</code>",
+      "format": "int32"
+    },
+    "listingViolations": {
+      "type": "array",
+      "description": "An array of listing violations that match the criteria in the call request, including pagination control {if set). As long as there is at least one listing violation that matches the input criteria, this container will be returned. If no listing violations are found for the seller, an HTTP status code of <code>204 No Content</code> is returned, and there is no response body.",
+      "items": {
+        "$ref": "#/components/schemas/ComplianceViolation"
+      }
+    }
+  },
+  "description": "This type is the base response type of the <strong>getListingViolations</strong> method."
+}

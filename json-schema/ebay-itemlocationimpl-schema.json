@@ -1,0 +1,37 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ItemLocationImpl",
+  "title": "ItemLocationImpl",
+  "type": "object",
+  "properties": {
+    "addressLine1": {
+      "type": "string",
+      "description": "The first line of the street address."
+    },
+    "addressLine2": {
+      "type": "string",
+      "description": "The second line of the street address. This field may contain such values as an apartment or suite number."
+    },
+    "city": {
+      "type": "string",
+      "description": "The city in which the item is located.<br><br><b>Restriction:</b> This field is populated in the <code>search</code> method response <i>only</i> when <code>fieldgroups</code> = <code>EXTENDED</code>."
+    },
+    "country": {
+      "type": "string",
+      "description": "The two-letter <a href=\"https://www.iso.org/iso-3166-country-codes.html \" target=\"_blank\">ISO 3166</a> standard code that indicates the country in which the item is located. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/ba:CountryCodeEnum'>eBay API documentation</a>"
+    },
+    "county": {
+      "type": "string",
+      "description": "The county in which the item is located."
+    },
+    "postalCode": {
+      "type": "string",
+      "description": "The postal code (or zip code in US) where the item is located. Sellers set a postal code for items when they are listed. The postal code is used for calculating proximity searches. It is anonymized when returned in <code>itemLocation.postalCode</code> via the API."
+    },
+    "stateOrProvince": {
+      "type": "string",
+      "description": "The state or province in which the item is located."
+    }
+  },
+  "description": "The type that defines the fields for the location of an item, such as information typically used for an address, including postal code, county, state/province, street address, city, and country (2-digit ISO code)."
+}

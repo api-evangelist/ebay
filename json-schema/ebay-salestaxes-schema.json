@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SalesTaxes",
+  "title": "SalesTaxes",
+  "type": "object",
+  "properties": {
+    "salesTaxes": {
+      "type": "array",
+      "description": "An array of one or more sales-tax rate entries for a specific marketplace (or all applicable marketplaces if the <b>country_code</b> query parameter is not used.<br><br>If no sales-tax rate entries are set up, no response payload is returned, but an HTTP status code of <code>204 No Content</code> is returned.",
+      "items": {
+        "$ref": "#/components/schemas/SalesTax"
+      }
+    }
+  },
+  "description": "This type is used by the root response of the <b>getSalesTaxes</b> method."
+}

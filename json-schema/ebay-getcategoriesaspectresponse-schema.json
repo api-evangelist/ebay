@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/GetCategoriesAspectResponse",
+  "title": "GetCategoriesAspectResponse",
+  "type": "object",
+  "properties": {
+    "categoryTreeId": {
+      "type": "string",
+      "description": "The unique identifier of the eBay category tree being requested."
+    },
+    "categoryTreeVersion": {
+      "type": "string",
+      "description": "The version of the category tree that is returned in the <b>categoryTreeId</b> field."
+    },
+    "categoryAspects": {
+      "type": "array",
+      "description": "An array of aspects that are appropriate or necessary for accurately describing items in a particular leaf category.",
+      "items": {
+        "$ref": "#/components/schemas/CategoryAspect"
+      }
+    }
+  }
+}

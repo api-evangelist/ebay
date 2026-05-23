@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ShippingDetail",
+  "title": "ShippingDetail",
+  "type": "object",
+  "properties": {
+    "maxEstimatedDeliveryDate": {
+      "type": "string",
+      "description": "The end of the date range in which the purchase order is expected to be delivered to the shipping address (final destination)."
+    },
+    "minEstimatedDeliveryDate": {
+      "type": "string",
+      "description": "The beginning of the date range in which the purchase order is expected to be delivered to the shipping address (final destination)."
+    },
+    "shippingCarrierCode": {
+      "type": "string",
+      "description": "The shipping provider for the line item, such as FedEx or USPS."
+    },
+    "shippingServiceCode": {
+      "type": "string",
+      "description": "The name of the shipping service option. For example, Priority Mail Express (provided by USPS) or FedEx International Priority (Provided by FedEx)."
+    }
+  },
+  "description": "A type that defines the fields for the shipping information, such as delivery date estimates and shipping provider."
+}

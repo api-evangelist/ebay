@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ImportTax",
+  "title": "ImportTax",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "description": "The total amount of import tax for all line items of an order.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "importTaxType": {
+      "type": "string",
+      "description": "An enumeration value that indicates the type of import tax applicable to the order. Currently, the only applicable import tax is the <i>Goods and Services</i> tax (indicated with <code>GST</code>). The Goods and Services tax is only applicable to orders for the eBay Australia marketplace. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/order/types/gct:ImportTaxTypeEnum'>eBay API documentation</a>"
+    }
+  },
+  "description": "This container defines the type of import tax applicable to the order, and the total amount of tax for all line items in the order."
+}

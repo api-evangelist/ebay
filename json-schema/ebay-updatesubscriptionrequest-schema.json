@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateSubscriptionRequest",
+  "title": "UpdateSubscriptionRequest",
+  "type": "object",
+  "properties": {
+    "destinationId": {
+      "type": "string",
+      "description": "The unique identifier of the destination endpoint that will receive notifications associated with this subscription. Use <b>getDestinations</b> to retrieve destination IDs."
+    },
+    "payload": {
+      "description": "The payload associated with this subscription.",
+      "$ref": "#/components/schemas/SubscriptionPayloadDetail"
+    },
+    "status": {
+      "type": "string",
+      "description": "Set the status of the subscription being updated to ENABLED or DISABLED. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:SubscriptionStatusEnum'>eBay API documentation</a>"
+    }
+  },
+  "description": "A type that describes the details of the update subscription request."
+}

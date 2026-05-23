@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PriorityListingRevisionData",
+  "title": "PriorityListingRevisionData",
+  "type": "object",
+  "description": "The Priority Listing Revision payload.",
+  "properties": {
+    "itemId": {
+      "type": "string",
+      "enum": "The id for the item."
+    },
+    "primaryItemGroupId": {
+      "type": "string",
+      "enum": "The unique identifier for the item group that contains this item."
+    },
+    "listingMarketplaceId": {
+      "type": "string",
+      "enum": [
+        "EBAY_US",
+        "EBAY_GB",
+        "EBAY_AU",
+        "EBAY_AT",
+        "EBAY_FR",
+        "EBAY_DE",
+        "EBAY_IT",
+        "EBAY_BE",
+        "EBAY_NL",
+        "EBAY_ES",
+        "EBAY_CH",
+        "EBAY_HK",
+        "EBAY_IE",
+        "EBAY_MY",
+        "EBAY_CA",
+        "EBAY_PH",
+        "EBAY_PL",
+        "EBAY_SG"
+      ]
+    },
+    "seller": {
+      "type": "object",
+      "description": "The information of the seller",
+      "properties": {
+        "userName": {
+          "type": "string",
+          "description": "The userName of the seller"
+        },
+        "userId": {
+          "type": "string",
+          "description": "The userId of the seller"
+        }
+      }
+    },
+    "categoryId": {
+      "type": "string",
+      "description": "The id for the category"
+    },
+    "metaCategoryId": {
+      "type": "string",
+      "description": "The id for the metaCategory"
+    },
+    "priorityListing": {
+      "type": "boolean",
+      "description": "Indicates if the item is priority listing or not"
+    }
+  }
+}

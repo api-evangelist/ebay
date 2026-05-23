@@ -1,0 +1,54 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ShippingQuote",
+  "title": "ShippingQuote",
+  "type": "object",
+  "properties": {
+    "creationDate": {
+      "type": "string",
+      "description": "The date and time this quote was created, expressed as an ISO 8601 UTC string."
+    },
+    "expirationDate": {
+      "type": "string",
+      "description": "The last date and time that this quote will be honored, expressed as an ISO 8601 UTC string. After this time the quote expires and the expressed rates can no longer be purchased."
+    },
+    "orders": {
+      "type": "array",
+      "description": "A list of one or more orders that will be shipped in the shipping package.",
+      "items": {
+        "$ref": "#/components/schemas/Order"
+      }
+    },
+    "packageSpecification": {
+      "description": "The weight and dimensions of the package covered by this shipping quote.",
+      "$ref": "#/components/schemas/PackageSpecification"
+    },
+    "rates": {
+      "type": "array",
+      "description": "A list of <i>rates</i> where each rate, as identified by a <b>rateId</b>, contains information about a specific shipping service offered by a carrier.  Rates include shipping carrier and service, the to and from locations, the pickup and delivery windows, the seller's shipping parameters, the service constraints, and the cost for the base service and a list of additional shipping options.<br><br><span class=\"tablenote\"><b>Note:</b> The Logistics API only supports USPS shipping rates and labels.</span><br>Each rate offered is supported by a label service where you can purchase the rate, and associated shipping label, via a call to <b>createFromShippingQuote</b>.",
+      "items": {
+        "$ref": "#/components/schemas/Rate"
+      }
+    },
+    "shipFrom": {
+      "description": "The address and contact details for the origin of the shipment.",
+      "$ref": "#/components/schemas/Contact"
+    },
+    "shippingQuoteId": {
+      "type": "string",
+      "description": "The unique eBay-assigned ID for this shipping quote. The value of this field is associated with a specific package, based on its origin, destination, and size."
+    },
+    "shipTo": {
+      "description": "The address and contact details for the origin of the shipment.  <!-- which address should this be for a GSP shipment?-->",
+      "$ref": "#/components/schemas/Contact"
+    },
+    "warnings": {
+      "type": "array",
+      "description": "A list of any warnings triggered by the request.",
+      "items": {
+        "$ref": "#/components/schemas/Error"
+      }
+    }
+  },
+  "description": "This complex type describes a \"shipping quote,\" which contains the parameters for a package shipment. The shipping quote contains a list of \"live quotes\" or <i>rates</i> for the shipment. Rates are offerd by a carrier for a particular service, of set of services, for shipping the package. Included in the shipping quote are the package specifications, the shipment's origin and destination addresses, and the shipping parameters specified by the seller.  <br><br>Use the <b>rateId</b> value to select the specific service you want when you create a shipment by calling <b>createFromShippingQuote</b>."
+}

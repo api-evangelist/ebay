@@ -1,0 +1,114 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DealItem",
+  "title": "DealItem",
+  "type": "object",
+  "properties": {
+    "additionalImages": {
+      "type": "array",
+      "description": "The additional images for the deal item.",
+      "items": {
+        "$ref": "#/components/schemas/Image"
+      }
+    },
+    "categoryAncestorIds": {
+      "type": "array",
+      "description": "The IDs of the ancestors for the primary category.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "categoryId": {
+      "type": "string",
+      "description": "The ID of the leaf category for the deal item. A leaf category is the lowest level in a category and has no children."
+    },
+    "commissionable": {
+      "type": "boolean",
+      "description": "A boolean value specifying whether the listing has commission."
+    },
+    "dealAffiliateWebUrl": {
+      "type": "string",
+      "description": "The deal associated with the item with affiliate attribution."
+    },
+    "dealEndDate": {
+      "type": "string",
+      "description": "The date after which the deal ends."
+    },
+    "dealStartDate": {
+      "type": "string",
+      "description": "The date on which the deal starts."
+    },
+    "dealWebUrl": {
+      "type": "string",
+      "description": "The web URL for the deal associated with the item."
+    },
+    "energyEfficiencyClass": {
+      "type": "string",
+      "description": "A string value specifying the Energy Efficiency class."
+    },
+    "image": {
+      "description": "The primary image for the deal item.",
+      "$ref": "#/components/schemas/Image"
+    },
+    "itemAffiliateWebUrl": {
+      "type": "string",
+      "description": "The item web URL with affiliate attribution."
+    },
+    "itemGroupId": {
+      "type": "string",
+      "description": "The unique identifier for the deal item group. This is the parent item ID for the seller-defined variations.<br /><br /><span class=\"tablenote\"><b>Note: </b>This field is returned for multiple-SKU items.</span>"
+    },
+    "itemGroupType": {
+      "type": "string",
+      "description": "An enumeration value that indicates the type of item group. An item group contains items that have various aspect differences, such as color, size, or storage capacity. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/deal/types/api:ItemGroupTypeEnum'>eBay API documentation</a>"
+    },
+    "itemId": {
+      "type": "string",
+      "description": "The unique identifier for the deal item.<br /><br /><span class=\"tablenote\"><b>Note: </b>This field is only returned for single-SKU items.</span>"
+    },
+    "itemWebUrl": {
+      "type": "string",
+      "description": "The web URL for the deal item."
+    },
+    "legacyItemId": {
+      "type": "string",
+      "description": "The legacy item ID associated with the deal item."
+    },
+    "marketingPrice": {
+      "description": "The original price for the deal item, and the discount amount and percentage.",
+      "$ref": "#/components/schemas/MarketingPrice"
+    },
+    "price": {
+      "description": "The price for the deal item. <br /><br /><span class=\"tablenote\"><b> Note: </b>The price does include the value-added tax (VAT) for applicable jurisdictions when requested from supported marketplaces. In this case, users must pass the <a href=\"/api-docs/static/rest-request-components.html#HTTP\"><code>X-EBAY-C-MARKETPLACE-ID</code></a> request header specifying the supported marketplace (such as <code>EBAY_GB</code>) to see the VAT-inclusive pricing. For more information on VAT, refer to <a href=\"https://www.ebay.co.uk/help/listings/default/vat-obligations-eu?id=4650&st=12&pos=1&query=Your%20VAT%20obligations%20in%20the%20EU&intent=VAT\">VAT Obligations in the EU</a>.</span>",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "qualifiedPrograms": {
+      "type": "array",
+      "description": "A list of programs applicable to the item.",
+      "items": {
+        "type": "string",
+        "description": " For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/deal/types/api:ProgramEnum'>eBay API documentation</a>"
+      }
+    },
+    "shippingOptions": {
+      "type": "array",
+      "description": "The cost required to ship the deal item.",
+      "items": {
+        "$ref": "#/components/schemas/ShippingOption"
+      }
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the deal item."
+    },
+    "unitPrice": {
+      "description": "The price per unit for the deal item. Some European countries require listings for certain types of products to include the price per unit so that buyers can accurately compare prices. <br /><br />For example: <br /><br /><code>\"unitPricingMeasure\": \"100g\",<br /> \"unitPrice\": {<br />&nbsp;&nbsp;\"value\": \"7.99\",<br />&nbsp;&nbsp;\"currency\": \"GBP\"</code>",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "unitPricingMeasure": {
+      "type": "string",
+      "description": "The designation used to specify the quantity of the deal item, such as size, weight, volume, and count. This helps buyers compare prices. <br /><br />For example, the following tells the buyer that the item is 7.99 per 100 grams. <br /><br /><code>\"unitPricingMeasure\": \"100g\",<br /> \"unitPrice\": {<br />&nbsp;&nbsp;\"value\": \"7.99\",<br />&nbsp;&nbsp;\"currency\": \"GBP\"</code>"
+    }
+  },
+  "description": "The detailed data returned for the deal item."
+}

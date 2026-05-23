@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Topic",
+  "title": "Topic",
+  "type": "object",
+  "properties": {
+    "authorizationScopes": {
+      "type": "array",
+      "description": "The authorization scopes required to subscribe to this topic.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "context": {
+      "type": "string",
+      "description": "The business context associated with this topic. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:ContextEnum'>eBay API documentation</a>"
+    },
+    "description": {
+      "type": "string",
+      "description": "The description of the topic."
+    },
+    "filterable": {
+      "type": "boolean",
+      "description": "The indicator of whether this topic is filterable or not."
+    },
+    "scope": {
+      "type": "string",
+      "description": "The scope of this topic. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:ScopeEnum'>eBay API documentation</a>"
+    },
+    "status": {
+      "type": "string",
+      "description": "The status of this topic. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:StatusEnum'>eBay API documentation</a>"
+    },
+    "supportedPayloads": {
+      "type": "array",
+      "description": "The supported payloads for this topic.",
+      "items": {
+        "$ref": "#/components/schemas/PayloadDetail"
+      }
+    },
+    "topicId": {
+      "type": "string",
+      "description": "The unique identifier for the topic."
+    }
+  },
+  "description": "A type that describes the details of the topic."
+}

@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/EbayCollectAndRemitTax",
+  "title": "EbayCollectAndRemitTax",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "description": "The monetary amount of the 'Collect and Remit' tax. This currently includes:<br><ul><li>US state-mandated sales tax</li><li>Federal and Provincial Sales Tax in Canada</li><li>'Goods and Services' tax in Canada, Australia, New Zealand, and Jersey</li><li>VAT collected for the UK, EU countries, Kazakhstan, and Belarus</li><li>Sales & Service Tax (SST) in Malaysia</li></ul><br><br><span class=\"tablenote\"><strong>Note:</strong> If the corresponding <strong>taxType</strong> is <code>STATE_SALES_TAX</code>, <code>PROVINCE_SALES_TAX</code>, <code>GST</code>, <code>VAT</code>, or <code>SST</code> and the <strong>lineItems.taxes</strong> container also appears for this line item with the same tax amount, the order is subject to 'eBay Collect and Remit' tax. For orders that are subject to 'eBay Collect and Remit' tax, the tax amount in this field will be included in the <strong>lineItems.total</strong>, <strong>paymentSummary.payments.amount</strong>, <strong>paymentSummary.totalDueSeller</strong>, and <strong>pricingSummary.total</strong> fields.</span>",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "ebayReference": {
+      "description": "This container field describes the line-item level VAT tax details.<br><br><span class=\"tablenote\"><b>Note:</b> As of January 31, 2022, <b>addressLine2</b> no longer returns EU VAT tax information.</span>",
+      "$ref": "#/components/schemas/EbayTaxReference"
+    },
+    "taxType": {
+      "type": "string",
+      "description": "The type of tax and fees that eBay will collect and remit to the taxing or fee authority. See the <strong>TaxTypeEnum</strong> type definition for more information about each tax or fee type. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/sel:TaxTypeEnum'>eBay API documentation</a>"
+    },
+    "collectionMethod": {
+      "type": "string",
+      "description": "This field indicates the collection method used to collect the 'Collect and Remit' tax for the order. This field is always returned for orders subject to 'Collect and Remit' tax, and its value is always <code>NET</code>.<br><br><span class=\"tablenote\"><strong>Note:</strong> Although the <strong>collectionMethod</strong> field is returned for all orders subject to 'Collect and Remit' tax, the <strong>collectionMethod</strong> field and the <strong>CollectionMethodEnum</strong> type are not currently of any practical use, although this field may have use in the future. If and when the logic of this field is changed, this note will be updated and a note will also be added to the Release Notes.</span> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/sel:CollectionMethodEnum'>eBay API documentation</a>"
+    }
+  },
+  "description": "This type contains information about the type and amount of tax that eBay will collect and remit to the state, province, country, or other taxing authority in the buyer's location, as required by that taxing authority.<br><br>'Collect and Remit' tax includes:<ul><li>US state-mandated sales tax</li><li>Federal and Provincial Sales Tax in Canada</li><li>'Goods and Services' tax in Canada, Australia, and New Zealand</li><li>VAT collected for the UK and EU countries</li></ul>"
+}

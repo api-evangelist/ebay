@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/UpdateQuantity",
+  "title": "UpdateQuantity",
+  "type": "object",
+  "properties": {
+    "lineItemId": {
+      "type": "string",
+      "description": "A unique eBay-assigned ID value that identifies a line item in a purchase order.<br><br><b>For example:</b> <code>v1|2**********6|5**********4</code> or <code>v1|1**********9|0</code>.<br><br>For more information about item IDs for RESTful APIs, see <a href=\"/api-docs/buy/static/api-browse.html#Legacy\">Legacy API compatibility</a>."
+    },
+    "quantity": {
+      "type": "integer",
+      "description": "The quantity of the line item that you wish to update.",
+      "format": "int32"
+    }
+  },
+  "description": "A type that defines the fields used to update the quantity of a line item."
+}

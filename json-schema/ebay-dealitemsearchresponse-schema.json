@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/DealItemSearchResponse",
+  "title": "DealItemSearchResponse",
+  "type": "object",
+  "properties": {
+    "dealItems": {
+      "type": "array",
+      "description": "A list of deal items that match the search criteria.",
+      "items": {
+        "$ref": "#/components/schemas/DealItem"
+      }
+    },
+    "href": {
+      "type": "string",
+      "description": "The relative path to the current set of results."
+    },
+    "limit": {
+      "type": "integer",
+      "description": "The maximum number of items, from the current result set, returned on a single page.<br /><br /><b>Default:</b> <code>20</code>",
+      "format": "int32"
+    },
+    "next": {
+      "type": "string",
+      "description": "The relative path to the next set of results."
+    },
+    "offset": {
+      "type": "integer",
+      "description": "The number of items that will be skipped in the result set. This is used with the <b>limit</b> field to control the pagination of the output.<br /><br />For example, if the <b>offset</b> is set to <code>0</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 1 through 10 from the list of items returned. If the <b>offset</b> is set to <code>10</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 11 through 20 from the list of items returned.<br /><br /><b>Default:</b> <code>0</code>",
+      "format": "int32"
+    },
+    "prev": {
+      "type": "string",
+      "description": "The relative path to the previous set of results."
+    },
+    "total": {
+      "type": "integer",
+      "description": "The total number of matches for the search criteria.",
+      "format": "int32"
+    }
+  },
+  "description": "The result set for the deal item search."
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Seller",
+  "title": "Seller",
+  "type": "object",
+  "properties": {
+    "feedbackPercentage": {
+      "type": "string",
+      "description": "The percentage of the total positive feedback."
+    },
+    "feedbackScore": {
+      "type": "integer",
+      "description": "The feedback score of the seller. This value is based on the ratings from eBay members that bought items from this seller.",
+      "format": "int32"
+    },
+    "sellerAccountType": {
+      "type": "string",
+      "description": "Indicates if the seller is a business or an individual. This is determined when the seller registers with eBay:<ul><li>If they register for a business account, this value will be <code>BUSINESS<code>.</li><li>If they register for a private account, this value will be <code>INDIVIDUAL</code>.</li></ul>This designation is required by the tax laws in some countries.<br><br>This field is returned only on the following sites:<br><br>EBAY_AT, EBAY_BE, EBAY_CH, EBAY_DE, EBAY_ES, EBAY_FR, EBAY_GB, EBAY_IE, EBAY_IT, EBAY_PL<br><br><b>Valid Values:</b> <code>BUSINESS</code> or <code>INDIVIDUAL</code>"
+    },
+    "username": {
+      "type": "string",
+      "description": "The user name created by the seller for use on eBay."
+    }
+  },
+  "description": "The type that defines the fields for basic information about the seller of the item returned by the <code>item_summary</code> resource."
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Pictogram",
+  "title": "Pictogram",
+  "type": "object",
+  "properties": {
+    "pictogramId": {
+      "type": "string",
+      "description": "The identifier of the pictogram. For sample values, see <a href='/api-docs/sell/static/metadata/feature-regulatorhazmatcontainer.html#Pictogra'>Pictogram sample values</a>."
+    },
+    "pictogramDescription": {
+      "type": "string",
+      "description": "The description of the pictogram localized to the default language of the marketplace. For sample values, see <a href='/api-docs/sell/static/metadata/feature-regulatorhazmatcontainer.html#Pictogra'>Pictogram sample values</a>."
+    },
+    "pictogramUrl": {
+      "type": "string",
+      "description": "The URL of the pictogram."
+    }
+  },
+  "description": "A type that describes pictograms for hazardous materials labels."
+}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/MarketplaceAccountDeletionData",
+  "title": "MarketplaceAccountDeletionData",
+  "type": "object",
+  "description": "The Account Deletion payload.",
+  "properties": {
+    "username": {
+      "type": "string",
+      "description": "The username for the user."
+    },
+    "userId": {
+      "type": "string",
+      "description": "The immutable public userId for the user"
+    },
+    "eiasToken": {
+      "type": "string",
+      "description": "The legacy eiasToken specific to the user"
+    }
+  }
+}

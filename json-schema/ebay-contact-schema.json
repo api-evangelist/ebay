@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Contact",
+  "title": "Contact",
+  "type": "object",
+  "properties": {
+    "firstName": {
+      "type": "string",
+      "description": "The first name of the contact person."
+    },
+    "lastName": {
+      "type": "string",
+      "description": "The last name of the contact person."
+    }
+  },
+  "description": "The type that defines the fields for the information of the contact person for the account."
+}

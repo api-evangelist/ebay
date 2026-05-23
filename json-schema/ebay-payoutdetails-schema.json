@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PayoutDetails",
+  "title": "PayoutDetails",
+  "type": "object",
+  "properties": {
+    "payoutIds": {
+      "type": "array",
+      "description": "This array indicates the list of true(actual) payout ids associated with a split payout. These values can be used as a path parameter for the <b>getPayout</b> method to retrieve details on the associated payouts.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "payoutReference": {
+      "type": "string",
+      "description": "This field contains the unique identifier for the Payout Reference. In split-payout cases, this is the unique identifier reference (not true payout). This field is only returned and will show the associated true(actual) payout id(s) when sellers in Mainland China enable split payouts between a Payoneer account and/or a bank account.  This value can be used by the <b>filter</b> query parameter of the <b>getPayouts</b> method to get the monetary details of each true(actual) payout associated with the payoutReference. <br><br><span class=\"tablenote\"><b>Note:</b>Split-payout functionality will <b>only</b> be available to mainland China sellers.</span>"
+    }
+  },
+  "description": "This type provide payout details for a split-payout case. This type is only applicable for split payouts."
+}

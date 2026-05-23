@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/CreateSigningKeyRequest",
+  "title": "CreateSigningKeyRequest",
+  "type": "object",
+  "properties": {
+    "signingKeyCipher": {
+      "type": "string",
+      "description": "The enumerated value for the cipher to be used to create the signing key. Refer to <a href= \"/api-docs/developer/key-management/types/api:SigningKeyCipher\" target= \"_blank\">SigningKeyCiper</a> for the list of supported enum values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/developer/key_management/types/api:SigningKeyCipher'>eBay API documentation</a>"
+    }
+  },
+  "description": "This request creates a new signing key."
+}

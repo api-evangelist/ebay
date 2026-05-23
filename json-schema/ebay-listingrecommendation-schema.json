@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/ListingRecommendation",
+  "title": "ListingRecommendation",
+  "type": "object",
+  "properties": {
+    "listingId": {
+      "type": "string",
+      "description": "An ID that identifies the active listing associated with the eBay recommendations."
+    },
+    "marketing": {
+      "description": "This return object provides the eBay recommendations and information related to the associated listing ID.  <br><br>The container currently returns the <code>AD</code> recommendation type, which contains information that sellers can use to configure Promoted Listings ad campaigns.  <br><br>This container is returned with each <b>ListingRecommendation</b> object, <i>except</i> when: <ul><li>The listing ID is not eligible for Promoted Listings</li> <li>The listing ID is currently in a Promoted Listings campaign</li> <li>The listing ID is invalid</li></ul>",
+      "$ref": "#/components/schemas/MarketingRecommendation"
+    }
+  },
+  "description": "A complex type that contains the ID of an actively listed item and a set of related listing recommendations. The recommendations contain information the seller can use to optimize their listing configurations."
+}

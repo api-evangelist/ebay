@@ -1,0 +1,75 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PurchasedRate",
+  "title": "PurchasedRate",
+  "type": "object",
+  "properties": {
+    "additionalOptions": {
+      "type": "array",
+      "description": "An list of additional, optional features that have been purchased for the shipment.",
+      "items": {
+        "$ref": "#/components/schemas/AdditionalOption"
+      }
+    },
+    "baseShippingCost": {
+      "description": "The amount of the \"base cost\" for the shipment as set by the given carrier for the specified service. This cost excludes any addition costs accrued from the addition of any optional shipping options.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "destinationTimeZone": {
+      "type": "string",
+      "description": "The time zone of the destination according to <a href=\"https://www.iana.org/time-zones \" target=\"_blank\">Time Zone Database</a>. For example, \"America/Los_Angeles\"."
+    },
+    "maxEstimatedDeliveryDate": {
+      "type": "string",
+      "description": "A string value representing maximum (latest) estimated delivery time, formatted as an <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html \" title=\"https://www.iso.org \" target=\"_blank\">ISO 8601</a> string, which is based on the 24-hour Coordinated Universal Time (UTC) clock.  <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2018-08-20T07:09:00.000Z</code>"
+    },
+    "minEstimatedDeliveryDate": {
+      "type": "string",
+      "description": "A string value representing minimum (earliest) estimated delivery time, formatted as an <a href=\"https://www.iso.org/iso-8601-date-and-time-format.html \" title=\"https://www.iso.org \" target=\"_blank\">ISO 8601</a>ISO 8601</a> UTC string."
+    },
+    "pickupNetworks": {
+      "type": "array",
+      "description": "A list of pickup networks compatible with the shipping service.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "pickupSlotId": {
+      "type": "string",
+      "description": "This unique eBay-assigned ID value is returned only if the shipment has been configured for a scheduled pickup."
+    },
+    "pickupType": {
+      "type": "string",
+      "description": "The type of pickup or drop off configured for the shipment. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/logistics/types/api:PickupTypeEnum'>eBay API documentation</a>"
+    },
+    "rateId": {
+      "type": "string",
+      "description": "The eBay-generated ID of the shipping rate that the seller has chosen to purchase for the shipment."
+    },
+    "shippingCarrierCode": {
+      "type": "string",
+      "description": "The ID code for the carrier that was selected for the package shipment."
+    },
+    "shippingCarrierName": {
+      "type": "string",
+      "description": "The name of the shipping carrier."
+    },
+    "shippingQuoteId": {
+      "type": "string",
+      "description": "The unique eBay-generated ID of the <i>shipping quote</i> from which the seller selected a shipping rate (<b>rateId</b>)."
+    },
+    "shippingServiceCode": {
+      "type": "string",
+      "description": "String ID code for the shipping service selected for the package shipment. This is a service that the shipping carrier supplies."
+    },
+    "shippingServiceName": {
+      "type": "string",
+      "description": "The name of the shipping service."
+    },
+    "totalShippingCost": {
+      "description": "The total shipping cost, which is the sum cost of the base shipping cost and the cost of all the selected shipping options.",
+      "$ref": "#/components/schemas/Amount"
+    }
+  },
+  "description": "The \"rate\" that has been selected and purchased for the shipment, as referenced by the <b>rateId</b> value."
+}

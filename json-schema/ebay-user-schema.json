@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/User",
+  "title": "User",
+  "type": "object",
+  "description": "The user details for the notification subscriber.",
+  "properties": {
+    "userId": {
+      "type": "string",
+      "description": "The unique identifier for the user."
+    },
+    "username": {
+      "type": "string",
+      "description": "The username associated with the user."
+    }
+  }
+}

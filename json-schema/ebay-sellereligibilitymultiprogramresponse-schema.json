@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/SellerEligibilityMultiProgramResponse",
+  "title": "SellerEligibilityMultiProgramResponse",
+  "type": "object",
+  "properties": {
+    "advertisingEligibility": {
+      "type": "array",
+      "description": "An array of response fields that define the seller eligibility for eBay advertising programs.",
+      "items": {
+        "$ref": "#/components/schemas/SellerEligibilityResponse"
+      }
+    }
+  },
+  "description": "The base response of the <b>getAdvertisingEligibility</b> method that contains the seller eligibility information for one or more advertising programs."
+}

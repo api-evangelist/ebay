@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/PaymentPolicyResponse",
+  "title": "PaymentPolicyResponse",
+  "type": "object",
+  "properties": {
+    "href": {
+      "type": "string",
+      "description": "This field is for future use."
+    },
+    "limit": {
+      "type": "integer",
+      "description": "This field is for future use.",
+      "format": "int32"
+    },
+    "next": {
+      "type": "string",
+      "description": "This field is for future use."
+    },
+    "offset": {
+      "type": "integer",
+      "description": "This field is for future use.",
+      "format": "int32"
+    },
+    "paymentPolicies": {
+      "type": "array",
+      "description": "A list of all of the seller's payment business policies defined for the specified marketplace. This array will be returned as empty if no payment business policies are defined for the specified marketplace.",
+      "items": {
+        "$ref": "#/components/schemas/PaymentPolicy"
+      }
+    },
+    "prev": {
+      "type": "string",
+      "description": "This field is for future use."
+    },
+    "total": {
+      "type": "integer",
+      "description": "The total number of payment business policies retrieved in the result set.  <br><br>If no payment business policies are defined for the specified marketplace, this field is returned with a value of <code>0</code>.",
+      "format": "int32"
+    }
+  },
+  "description": "The response payload for the <b>getPaymentPolicies</b> method. <br><br><span class=\"tablenote\"><b>Note</b>: Pagination has not yet been enabled for <b>getPaymentPolicies</b>, so all of the pagination-related fields are for future use.</span>"
+}

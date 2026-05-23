@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BidPercentages",
+  "title": "BidPercentages",
+  "type": "object",
+  "properties": {
+    "basis": {
+      "type": "string",
+      "description": "The basis by which the ad rate is calculated.<br /><br /><b>Valid Values:</b> <code>ITEM</code> and <code>TRENDING</code> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/recommendation/types/api:Basis'>eBay API documentation</a>"
+    },
+    "value": {
+      "type": "string",
+      "description": "The bid percentage data is a single precision value, as calculated by the associated basis. <p>In Promoted listings ad campaigns, the <b>bid percentage</b> (also known as the <i>ad rate</i>) is a user-defined value that sets the level that eBay raises the visibility of the listing in the marketplace. It is also the rate that is used to calculate the Promoted Listings fee.</p> <p><b>Minimum value:</b> 1.0 &nbsp; <b>Maximum value:</b> 100.0</p>"
+    }
+  },
+  "description": "A complex type that returns data related to Promoted Listings bid percentages."
+}

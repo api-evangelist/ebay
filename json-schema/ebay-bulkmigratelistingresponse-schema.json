@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/BulkMigrateListingResponse",
+  "title": "BulkMigrateListingResponse",
+  "type": "object",
+  "properties": {
+    "responses": {
+      "type": "array",
+      "description": "This is the base container of the response payload of the <strong>bulkMigrateListings</strong> call. The results of each attempted listing migration is captured under this container.",
+      "items": {
+        "$ref": "#/components/schemas/MigrateListingResponse"
+      }
+    }
+  },
+  "description": "This type is used by the response payload of the <strong>bulkMigrateListings</strong> call."
+}

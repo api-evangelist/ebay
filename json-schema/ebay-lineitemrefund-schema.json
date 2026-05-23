@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/LineItemRefund",
+  "title": "LineItemRefund",
+  "type": "object",
+  "properties": {
+    "amount": {
+      "description": "This field shows the refund amount for a line item. This field is only returned if the buyer is due a refund for the line item.<br><br><span class=\"tablenote\"><b>Note:</b> The refund amount shown is the seller's <i><b>net amount</b></i> received from the sale/transaction. eBay-collected tax will not be included in this amount, so the actual amount of the buyer's refund may be higher than this value.</span>",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "refundDate": {
+      "type": "string",
+      "description": "The date and time that the refund was issued for the line item. This timestamp is in ISO 8601 format, which uses the 24-hour Universal Coordinated Time (UTC) clock. This field is not returned until the refund has been issued. <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2015-08-04T19:09:02.768Z</code>"
+    },
+    "refundId": {
+      "type": "string",
+      "description": "Unique identifier of a refund that was initiated for an order's line item through the <b>issueRefund</b> method. If the <b>issueRefund</b> method was used to issue a refund at the order level, this identifier is returned at the order level instead (<b>paymentSummary.refunds.refundId</b> field).<br><br> A <b>refundId</b> value is returned in the response of the <b>issueRefund</b> method, and this same value will be returned in the <b>getOrder</b> and <b>getOrders</b> responses for pending and completed refunds."
+    },
+    "refundReferenceId": {
+      "type": "string",
+      "description": "This field is reserved for internal or future use."
+    }
+  },
+  "description": "This type contains refund information for a line item."
+}

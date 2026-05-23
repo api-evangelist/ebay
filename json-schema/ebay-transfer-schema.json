@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Transfer",
+  "title": "Transfer",
+  "type": "object",
+  "properties": {
+    "fundingSource": {
+      "description": "This container provides details about the seller's funding source to reimburse eBay for the transfer, such as a bank account, a credit card, or available seller payout funds.",
+      "$ref": "#/components/schemas/FundingSource"
+    },
+    "transactionDate": {
+      "type": "string",
+      "description": "This timestamp indicates the date/time of the transfer. The following (UTC) format is used: <code>YYYY-MM-DDTHH:MM:SS.SSSZ</code>. For example, <code>2020-08-04T19:09:02.768Z</code>"
+    },
+    "transferAmount": {
+      "description": "The amount of the transfer being deducted from the funding source.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "transferDetail": {
+      "description": "This container provides more details about the transfer, including details on the charge(s) associated with the transfer. Multiple charges can be addressed with one transfer.",
+      "$ref": "#/components/schemas/TransferDetail"
+    },
+    "transferId": {
+      "type": "string",
+      "description": "The unique identifier of the <code>TRANSFER</code> transaction type. This is the same value that was passed into the end of the call URI."
+    }
+  },
+  "description": "This type is the base response type used by <code>TRANSFER</code> transaction type that is returned in the response."
+}

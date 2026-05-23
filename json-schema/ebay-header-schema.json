@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Header",
+  "title": "Header",
+  "type": "object",
+  "properties": {
+    "dimensionKeys": {
+      "type": "array",
+      "description": "A list of the dimension or metric keys returned in the report. The values for each are is returned in the associated <b>key</b> fields.",
+      "items": {
+        "$ref": "#/components/schemas/Definition"
+      }
+    },
+    "metrics": {
+      "type": "array",
+      "description": "The list of metrics returned in the report. The values for each are is returned in the associated <b>key</b> fields.",
+      "items": {
+        "$ref": "#/components/schemas/Definition"
+      }
+    }
+  },
+  "description": "Type that defines the headers for the dimension keys and metrics returned in the report."
+}

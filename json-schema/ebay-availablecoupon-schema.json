@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/AvailableCoupon",
+  "title": "AvailableCoupon",
+  "type": "object",
+  "properties": {
+    "constraint": {
+      "description": "The limitations or restrictions of the coupon.",
+      "$ref": "#/components/schemas/CouponConstraint"
+    },
+    "discountAmount": {
+      "description": "The discount amount after the coupon is applied.",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "discountType": {
+      "type": "string",
+      "description": "The type of discount that the coupon applies. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:CouponDiscountType'>eBay API documentation</a>"
+    },
+    "message": {
+      "type": "string",
+      "description": "A description of the coupon.<br><br><span class=\"tablenote\"><b>Note:</b> The value returned in the <code>termsWebUrl</code> field should appear for all experiences when displaying coupons. The value in the <code>availableCoupons.message</code> field must also be included if returned in the API response.</span>"
+    },
+    "redemptionCode": {
+      "type": "string",
+      "description": "The coupon code."
+    },
+    "termsWebUrl": {
+      "type": "string",
+      "description": "The URL to the coupon terms of use.<br><br><span class=\"tablenote\"><b>Note:</b> The value returned in the <code>termsWebUrl</code> field should appear for all experiences when displaying coupons. The value in the <code>availableCoupons.message</code> field must also be included if returned in the API response.</span>"
+    }
+  }
+}

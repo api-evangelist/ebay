@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RegionalProductCompliancePolicies",
+  "title": "RegionalProductCompliancePolicies",
+  "type": "object",
+  "properties": {
+    "countryPolicies": {
+      "type": "array",
+      "description": "The array of country-specific product compliance policies to be used by an offer when it is published and converted to a listing.",
+      "items": {
+        "$ref": "#/components/schemas/CountryPolicy"
+      }
+    }
+  },
+  "description": "This type lists regional product compliance policies to be used by an offer when it is published and converted to a listing."
+}

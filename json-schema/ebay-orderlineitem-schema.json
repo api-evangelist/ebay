@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/OrderLineItem",
+  "title": "OrderLineItem",
+  "type": "object",
+  "properties": {
+    "donations": {
+      "type": "array",
+      "description": "The list of donations applied to the line item.<br><br><span class=\"tablenote\"><b>Note: </b>Currently, this array is only returned if the seller chooses to donate a percentage of the sales proceeds to a charitable organization registered with the eBay for Charity program.</span>",
+      "items": {
+        "$ref": "#/components/schemas/Fee"
+      }
+    },
+    "feeBasisAmount": {
+      "description": "This amount is the order's total amount and equals what the buyer has paid. This value includes <b>transactions.amount</b>, <b>totalFeeAmount</b>, <b>eBayCollectedTaxAmount</b>, and shipping charges (if any).",
+      "$ref": "#/components/schemas/Amount"
+    },
+    "lineItemId": {
+      "type": "string",
+      "description": "The unique identifier of an order line item."
+    },
+    "marketplaceFees": {
+      "type": "array",
+      "description": "An array of all fees accrued for the order line item and deducted from a seller payout.",
+      "items": {
+        "$ref": "#/components/schemas/Fee"
+      }
+    }
+  },
+  "description": "This type is used to show the fees and donations that are deducted from a seller payout for each line item in an order."
+}

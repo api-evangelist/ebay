@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RateTableResponse",
+  "title": "RateTableResponse",
+  "type": "object",
+  "properties": {
+    "rateTables": {
+      "type": "array",
+      "description": "An array of all shipping rate tables defined for a marketplace (or all marketplaces if no <b>country_code</b> query parameter is used). This array will be returned as empty if the seller has no defined shipping rate tables for the specified marketplace.",
+      "items": {
+        "$ref": "#/components/schemas/RateTable"
+      }
+    }
+  },
+  "description": "This type is the base response of the <b>getRateTables</b> method."
+}

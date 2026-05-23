@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/Event",
+  "title": "Event",
+  "type": "object",
+  "properties": {
+    "applicableCoupons": {
+      "type": "array",
+      "description": "A list of coupons associated with the event.",
+      "items": {
+        "$ref": "#/components/schemas/Coupon"
+      }
+    },
+    "description": {
+      "type": "string",
+      "description": "The event description."
+    },
+    "endDate": {
+      "type": "string",
+      "description": "The end date for the event."
+    },
+    "eventAffiliateWebUrl": {
+      "type": "string",
+      "description": "The URL of the View Event page for the event, which includes the affiliate tracking ID."
+    },
+    "eventId": {
+      "type": "string",
+      "description": "The unique identifier for the event."
+    },
+    "eventWebUrl": {
+      "type": "string",
+      "description": "The web URL for the event."
+    },
+    "images": {
+      "type": "array",
+      "description": "The images for the event.",
+      "items": {
+        "$ref": "#/components/schemas/Image"
+      }
+    },
+    "startDate": {
+      "type": "string",
+      "description": "The start date for the event."
+    },
+    "terms": {
+      "description": "The terms associated with the event.",
+      "$ref": "#/components/schemas/Terms"
+    },
+    "title": {
+      "type": "string",
+      "description": "The title of the event."
+    }
+  },
+  "description": "The result set for the event search."
+}

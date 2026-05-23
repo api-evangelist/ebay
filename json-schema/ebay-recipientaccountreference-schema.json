@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "#/components/schemas/RecipientAccountReference",
+  "title": "RecipientAccountReference",
+  "type": "object",
+  "properties": {
+    "referenceId": {
+      "type": "string",
+      "description": "<span class=\"tablenote\"><b>Note</b>: DO NOT USE THIS FIELD. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span>"
+    },
+    "referenceType": {
+      "type": "string",
+      "description": "<span class=\"tablenote\"><b>Note</b>: DO NOT USE THIS FIELD. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:RecipientAccountReferenceTypeEnum'>eBay API documentation</a>"
+    }
+  },
+  "description": "<span class=\"tablenote\"><b>Note</b>: This type is no longer applicable. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span>"
+}
