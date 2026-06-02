@@ -15,7 +15,7 @@ tags:
   - Products
   - Marketplace
 created: '2023-11-09'
-modified: '2026-05-19'
+modified: '2026-05-30'
 specificationVersion: '0.20'
 apis:
   - aid: ebay:account-api
@@ -497,6 +497,8 @@ apis:
       url: https://developer.ebay.com/api-docs/commerce/notification/overview.html
     - type: OpenAPI
       url: openapi/ebay-notification-openapi-original.yml
+    - type: AsyncAPI
+      url: openapi/ebay-notification-asyncapi-original.yml
     - type: AsyncAPI
       url: openapi/ebay-priority-listing-revisions-asyncapi-original.yml
     - type: AsyncAPI

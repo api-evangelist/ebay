@@ -1,0 +1,700 @@
+asyncapi: 2.6.0
+info:
+  title: eBay Notification API
+  version: 1.0.0
+  description: |
+    Consolidated AsyncAPI 2.6 contract for eBay's Notification API. This document
+    models the event-driven notification topics that eBay publishes to subscriber
+    destinations registered via the Notification API
+    (https://developer.ebay.com/api-docs/commerce/notification/overview.html).
+
+    Each topic is delivered as an HTTPS POST of an application/json payload to a
+    destination endpoint that the integrator registers and verifies through the
+    Notification API. The structure of every payload follows the common envelope
+    of `metadata` plus `notification` defined in the existing per-topic AsyncAPI
+    contracts in this repository.
+
+    Message integrity is conveyed via the `X-EBAY-SIGNATURE` header. Per the task
+    requirement, this contract models signature verification as HMAC-SHA1. The
+    signature value carried by `X-EBAY-SIGNATURE` should be validated by the
+    receiver before the notification is processed; messages that fail signature
+    validation must be rejected.
+  contact:
+    name: eBay Developer Program
+    url: https://developer.ebay.com/api-docs/commerce/notification/overview.html
+  license:
+    name: eBay API License Agreement
+    url: https://developer.ebay.com/api-license-agreement
+
+defaultContentType: application/json
+
+servers:
+  production:
+    url: https://api.ebay.com
+    protocol: https
+    description: |
+      eBay production environment. The Notification API itself is hosted at
+      api.ebay.com; notification messages are delivered by eBay to the
+      HTTPS destination endpoint configured by the integrator.
+
+channels:
+  MARKETPLACE_ACCOUNT_DELETION:
+    description: |
+      Delivered when an eBay user requests deletion of their marketplace account
+      data. Subscribers are required to process this event to comply with
+      eBay's marketplace account deletion / closure notification workflow.
+    subscribe:
+      operationId: onMarketplaceAccountDeletion
+      summary: Marketplace account deletion event
+      message:
+        $ref: '#/components/messages/MarketplaceAccountDeletionMessage'
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+
+  AUTHORIZATION_REVOCATION:
+    description: |
+      Delivered when a user's authorization for an application is revoked, by
+      the user, by the application, by eBay, or due to a password change.
+    subscribe:
+      operationId: onAuthorizationRevocation
+      summary: Authorization revocation event
+      message:
+        $ref: '#/components/messages/AuthorizationRevocationMessage'
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+
+  ITEM_AVAILABILITY:
+    description: |
+      Delivered when the availability of an item changes (for example,
+      transitioning between AVAILABLE, UNAVAILABLE, and TEMPORARILY_UNAVAILABLE).
+    subscribe:
+      operationId: onItemAvailability
+      summary: Item availability change event
+      message:
+        $ref: '#/components/messages/ItemAvailabilityMessage'
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+
+  ITEM_PRICE_REVISION:
+    description: |
+      Delivered when the price (or minimum bid price) of an item is revised.
+    subscribe:
+      operationId: onItemPriceRevision
+      summary: Item price revision event
+      message:
+        $ref: '#/components/messages/ItemPriceRevisionMessage'
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+
+  PRIORITY_LISTING_REVISION:
+    description: |
+      Delivered when a priority listing is revised (for example, when a listing
+      enters or leaves a seller's priority listing set).
+    subscribe:
+      operationId: onPriorityListingRevision
+      summary: Priority listing revision event
+      message:
+        $ref: '#/components/messages/PriorityListingRevisionMessage'
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+
+  PLA_CAMPAIGN_BUDGET_STATUS:
+    description: |
+      Delivered when the daily budget for a Promoted Listings Advanced (PLA)
+      campaign has been completely exhausted.
+    subscribe:
+      operationId: onPlaCampaignBudgetStatus
+      summary: PLA campaign budget status event
+      message:
+        $ref: '#/components/messages/PlaCampaignBudgetStatusMessage'
+      bindings:
+        http:
+          type: request
+          method: POST
+          bindingVersion: '0.3.0'
+
+components:
+  messageTraits:
+    EbaySignedNotification:
+      headers:
+        type: object
+        required:
+          - Content-Type
+          - X-EBAY-SIGNATURE
+        properties:
+          Content-Type:
+            type: string
+            enum:
+              - application/json
+            description: Content type of the notification payload.
+          X-EBAY-SIGNATURE:
+            type: string
+            description: |
+              Signature for the notification payload. For the purposes of this
+              contract, the signature is computed as HMAC-SHA1 over the raw
+              request body using a shared secret known to both eBay and the
+              subscriber. Receivers must recompute the HMAC-SHA1 digest and
+              compare it (in constant time) to the value presented in this
+              header before processing the payload.
+      bindings:
+        http:
+          headers:
+            type: object
+            properties:
+              Content-Type:
+                type: string
+                enum:
+                  - application/json
+              X-EBAY-SIGNATURE:
+                type: string
+          bindingVersion: '0.3.0'
+
+  messages:
+    MarketplaceAccountDeletionMessage:
+      name: MarketplaceAccountDeletionMessage
+      title: Marketplace Account Deletion Notification
+      summary: eBay user has requested deletion of their marketplace account.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/EbaySignedNotification'
+      payload:
+        type: object
+        required:
+          - metadata
+          - notification
+        properties:
+          metadata:
+            $ref: '#/components/schemas/Metadata'
+          notification:
+            type: object
+            required:
+              - notificationId
+              - eventDate
+              - publishDate
+              - publishAttemptCount
+              - data
+            properties:
+              notificationId:
+                $ref: '#/components/schemas/NotificationId'
+              eventDate:
+                $ref: '#/components/schemas/EventDate'
+              publishDate:
+                $ref: '#/components/schemas/PublishDate'
+              publishAttemptCount:
+                $ref: '#/components/schemas/PublishAttemptCount'
+              data:
+                $ref: '#/components/schemas/MarketplaceAccountDeletionData'
+
+    AuthorizationRevocationMessage:
+      name: AuthorizationRevocationMessage
+      title: Authorization Revocation Notification
+      summary: An application's authorization for a user has been revoked.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/EbaySignedNotification'
+      payload:
+        type: object
+        required:
+          - metadata
+          - notification
+        properties:
+          metadata:
+            $ref: '#/components/schemas/Metadata'
+          notification:
+            type: object
+            required:
+              - notificationId
+              - eventDate
+              - publishDate
+              - publishAttemptCount
+              - data
+            properties:
+              notificationId:
+                $ref: '#/components/schemas/NotificationId'
+              eventDate:
+                $ref: '#/components/schemas/EventDate'
+              publishDate:
+                $ref: '#/components/schemas/PublishDate'
+              publishAttemptCount:
+                $ref: '#/components/schemas/PublishAttemptCount'
+              data:
+                $ref: '#/components/schemas/AuthorizationRevocationData'
+
+    ItemAvailabilityMessage:
+      name: ItemAvailabilityMessage
+      title: Item Availability Notification
+      summary: The availability status of an item has changed.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/EbaySignedNotification'
+      payload:
+        type: object
+        required:
+          - metadata
+          - notification
+        properties:
+          metadata:
+            $ref: '#/components/schemas/Metadata'
+          notification:
+            type: object
+            required:
+              - notificationId
+              - eventDate
+              - publishDate
+              - publishAttemptCount
+              - data
+            properties:
+              notificationId:
+                $ref: '#/components/schemas/NotificationId'
+              eventDate:
+                $ref: '#/components/schemas/EventDate'
+              publishDate:
+                $ref: '#/components/schemas/PublishDate'
+              publishAttemptCount:
+                $ref: '#/components/schemas/PublishAttemptCount'
+              data:
+                $ref: '#/components/schemas/ItemAvailabilityData'
+
+    ItemPriceRevisionMessage:
+      name: ItemPriceRevisionMessage
+      title: Item Price Revision Notification
+      summary: The price for an item has been revised.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/EbaySignedNotification'
+      payload:
+        type: object
+        required:
+          - metadata
+          - notification
+        properties:
+          metadata:
+            $ref: '#/components/schemas/Metadata'
+          notification:
+            type: object
+            required:
+              - notificationId
+              - eventDate
+              - publishDate
+              - publishAttemptCount
+              - data
+            properties:
+              notificationId:
+                $ref: '#/components/schemas/NotificationId'
+              eventDate:
+                $ref: '#/components/schemas/EventDate'
+              publishDate:
+                $ref: '#/components/schemas/PublishDate'
+              publishAttemptCount:
+                $ref: '#/components/schemas/PublishAttemptCount'
+              data:
+                $ref: '#/components/schemas/ItemPriceRevisionData'
+
+    PriorityListingRevisionMessage:
+      name: PriorityListingRevisionMessage
+      title: Priority Listing Revision Notification
+      summary: A priority listing has been revised.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/EbaySignedNotification'
+      payload:
+        type: object
+        required:
+          - metadata
+          - notification
+        properties:
+          metadata:
+            $ref: '#/components/schemas/Metadata'
+          notification:
+            type: object
+            required:
+              - notificationId
+              - eventDate
+              - publishDate
+              - publishAttemptCount
+              - data
+            properties:
+              notificationId:
+                $ref: '#/components/schemas/NotificationId'
+              eventDate:
+                $ref: '#/components/schemas/EventDate'
+              publishDate:
+                $ref: '#/components/schemas/PublishDate'
+              publishAttemptCount:
+                $ref: '#/components/schemas/PublishAttemptCount'
+              data:
+                $ref: '#/components/schemas/PriorityListingRevisionData'
+
+    PlaCampaignBudgetStatusMessage:
+      name: PlaCampaignBudgetStatusMessage
+      title: PLA Campaign Budget Status Notification
+      summary: The daily budget for a Promoted Listings Advanced campaign has been exhausted.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/EbaySignedNotification'
+      payload:
+        type: object
+        required:
+          - metadata
+          - notification
+        properties:
+          metadata:
+            $ref: '#/components/schemas/Metadata'
+          notification:
+            type: object
+            required:
+              - notificationId
+              - eventDate
+              - publishDate
+              - publishAttemptCount
+              - data
+            properties:
+              notificationId:
+                $ref: '#/components/schemas/NotificationId'
+              eventDate:
+                $ref: '#/components/schemas/EventDate'
+              publishDate:
+                $ref: '#/components/schemas/PublishDate'
+              publishAttemptCount:
+                $ref: '#/components/schemas/PublishAttemptCount'
+              data:
+                $ref: '#/components/schemas/PlaCampaignBudgetStatusData'
+
+  schemas:
+    Metadata:
+      type: object
+      description: Envelope metadata describing the notification topic and schema version.
+      properties:
+        topic:
+          type: string
+          description: The notification topic to which the user or application is subscribed.
+        schemaVersion:
+          type: string
+          description: The schema version for the notification topic.
+        deprecated:
+          type: boolean
+          description: Indicates whether the schema version or topic is deprecated.
+          default: false
+
+    NotificationId:
+      type: string
+      description: The unique identifier for the notification message.
+
+    EventDate:
+      type: string
+      description: The event date associated with the notification, returned as a UTC-formatted timestamp.
+
+    PublishDate:
+      type: string
+      description: The publish date for the notification message, returned as a UTC-formatted timestamp.
+
+    PublishAttemptCount:
+      type: integer
+      description: The number of attempts that have been made to publish this notification message.
+
+    MarketplaceId:
+      type: string
+      description: The eBay marketplace on which the listing is published.
+      enum:
+        - EBAY_US
+        - EBAY_GB
+        - EBAY_AU
+        - EBAY_AT
+        - EBAY_FR
+        - EBAY_DE
+        - EBAY_IT
+        - EBAY_BE
+        - EBAY_NL
+        - EBAY_ES
+        - EBAY_CH
+        - EBAY_HK
+        - EBAY_IE
+        - EBAY_MY
+        - EBAY_CA
+        - EBAY_PH
+        - EBAY_PL
+        - EBAY_SG
+
+    BuyingOption:
+      type: string
+      description: A purchase option available for the item.
+      enum:
+        - FIXED_PRICE
+        - AUCTION
+        - BEST_OFFER
+
+    Amount:
+      type: object
+      description: A monetary amount in a specified ISO 4217 currency.
+      properties:
+        currency:
+          type: string
+          description: ISO 4217 currency code.
+          enum:
+            - CHF
+            - FIM
+            - GRD
+            - VND
+            - BMD
+            - BBD
+            - XPF
+            - DZD
+            - MXN
+            - CZK
+            - IDR
+            - ANG
+            - COP
+            - KYD
+            - MVR
+            - JMD
+            - USD
+            - ATS
+            - HKD
+            - PTE
+            - ZAR
+            - UAH
+            - FJD
+            - JOD
+            - ESP
+            - HUF
+            - IEP
+            - NZD
+            - PHP
+            - KRW
+            - RON
+            - GTQ
+            - CAD
+            - DEM
+            - AUD
+            - FRF
+            - ILS
+            - DOP
+            - AZN
+            - OMR
+            - DKK
+            - ITL
+            - INR
+            - VEF
+            - BGN
+            - BRL
+            - RUB
+            - BOB
+            - GBP
+            - EUR
+            - AWG
+            - BND
+            - XCD
+            - MUR
+            - CLP
+            - CNY
+            - PLN
+            - SEK
+            - MYR
+            - NAD
+            - HNL
+            - JPY
+            - BEF
+            - RUR
+            - UYU
+            - NGN
+            - PYG
+            - NOK
+            - TRY
+            - BSD
+            - QAR
+            - SAR
+            - SGD
+            - TWD
+            - PEN
+            - CRC
+            - KWD
+            - NLG
+            - TTD
+            - NIO
+        value:
+          type: string
+          description: The amount value as a string.
+
+    Seller:
+      type: object
+      description: Information about the seller.
+      properties:
+        username:
+          type: string
+          description: The username of the seller.
+        userId:
+          type: string
+          description: The userId of the seller.
+
+    User:
+      type: object
+      description: The user details for the notification subscriber.
+      properties:
+        userId:
+          type: string
+          description: The unique identifier for the user.
+        username:
+          type: string
+          description: The username associated with the user.
+
+    MarketplaceAccountDeletionData:
+      type: object
+      description: The Marketplace Account Deletion payload.
+      properties:
+        username:
+          type: string
+          description: The username for the user.
+        userId:
+          type: string
+          description: The immutable public userId for the user.
+        eiasToken:
+          type: string
+          description: The legacy eiasToken specific to the user.
+
+    AuthorizationRevocationData:
+      type: object
+      description: The Authorization Revocation payload.
+      properties:
+        username:
+          type: string
+          description: The username for the user.
+        userId:
+          type: string
+          description: The immutable public userId for the user.
+        eiasToken:
+          type: string
+          description: The legacy eiasToken specific to the user.
+        revokeReason:
+          type: string
+          enum:
+            - REVOKED_BY_APP
+            - REVOKED_BY_USER
+            - REVOKED_BY_EBAY
+            - PASSWORD_CHANGE
+          description: The reason for authorization revocation.
+        revocationDate:
+          type: string
+          description: Date and time when the authorization was revoked.
+
+    ItemAvailabilityData:
+      type: object
+      description: The Item Availability payload.
+      properties:
+        itemId:
+          type: string
+          description: The id for the item.
+        listingMarketplaceId:
+          $ref: '#/components/schemas/MarketplaceId'
+        buyingOptions:
+          type: array
+          description: A list of the purchase options available for the item.
+          items:
+            $ref: '#/components/schemas/BuyingOption'
+        seller:
+          $ref: '#/components/schemas/Seller'
+        categoryId:
+          type: string
+          description: The id for the category.
+        metaCategoryId:
+          type: string
+          description: The id for the metaCategory.
+        categoryName:
+          type: string
+          description: The name for the category.
+        categoryPath:
+          type: string
+          description: The path of the category.
+        availability:
+          type: string
+          enum:
+            - TEMPORARILY_UNAVAILABLE
+            - AVAILABLE
+            - UNAVAILABLE
+          description: The current availability state of the item.
+
+    ItemPriceRevisionData:
+      type: object
+      description: The Item Price Revision payload.
+      properties:
+        itemId:
+          type: string
+          description: The id for the item.
+        listingMarketplaceId:
+          $ref: '#/components/schemas/MarketplaceId'
+        seller:
+          $ref: '#/components/schemas/Seller'
+        price:
+          $ref: '#/components/schemas/Amount'
+        minimumBidPrice:
+          $ref: '#/components/schemas/Amount'
+        buyingOptions:
+          type: array
+          description: A list of the purchase options available for the item.
+          items:
+            $ref: '#/components/schemas/BuyingOption'
+        categoryId:
+          type: string
+          description: The id for the category.
+        metaCategoryId:
+          type: string
+          description: The id for the metaCategory.
+        categoryName:
+          type: string
+          description: The name for the category.
+        categoryPath:
+          type: string
+          description: The path of the category.
+
+    PriorityListingRevisionData:
+      type: object
+      description: The Priority Listing Revision payload.
+      properties:
+        itemId:
+          type: string
+          description: The id for the item.
+        primaryItemGroupId:
+          type: string
+          description: The unique identifier for the item group that contains this item.
+        listingMarketplaceId:
+          $ref: '#/components/schemas/MarketplaceId'
+        seller:
+          $ref: '#/components/schemas/Seller'
+        categoryId:
+          type: string
+          description: The id for the category.
+        metaCategoryId:
+          type: string
+          description: The id for the metaCategory.
+        priorityListing:
+          type: boolean
+          description: Indicates if the item is a priority listing or not.
+
+    PlaCampaignBudgetStatusData:
+      type: object
+      description: The payload for the PLA campaign budget status notification.
+      properties:
+        user:
+          $ref: '#/components/schemas/User'
+        campaignId:
+          type: string
+          description: The unique identifier for the PLA campaign that has an exhausted daily budget.
+        budgetStatus:
+          type: string
+          enum:
+            - OUT_OF_BUDGET
+          description: The current daily budget status for the specified PLA campaign.
