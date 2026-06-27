@@ -33,31 +33,31 @@ apis:
       url: https://developer.ebay.com/api-docs/sell/account/static/overview.html
     - type: OpenAPI
       url: openapi/ebay-account-openapi-original.yml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/account-advertising-eligibility.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/account-custom-policy.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/account-fulfillment-policy.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/account-kyc.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/account-onboarding.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/account-payment-policy.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/account-payments-program.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/account-privilege.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/account-program.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/account-rate-table.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/account-return-policy.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/account-sales-tax.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/account-subscription.yaml
   - aid: ebay:analytics-api
     name: eBay Analytics API
@@ -73,11 +73,11 @@ apis:
       url: https://developer.ebay.com/api-docs/sell/analytics/static/overview.html
     - type: OpenAPI
       url: openapi/ebay-analytics-openapi-original.yml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/analytics-customer-service-metric.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/analytics-seller-standards-profile.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/analytics-traffic-report.yaml
   - aid: ebay:compliance-api
     name: eBay Compliance API
@@ -93,9 +93,9 @@ apis:
       url: https://developer.ebay.com/api-docs/sell/compliance/resources/methods
     - type: OpenAPI
       url: openapi/ebay-compliance-openapi-original.yml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/compliance-listing-violation.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/compliance-listing-violation-summary.yaml
   - aid: ebay:feed-api
     name: eBay Feed API
@@ -111,15 +111,15 @@ apis:
       url: https://developer.ebay.com/api-docs/sell/feed/resources/methods
     - type: OpenAPI
       url: openapi/ebay-feed-openapi-original.yml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/feed-customer-service-metric-task.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/feed-inventory-task.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/feed-order-task.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/feed-schedule.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/feed-task.yaml
   - aid: ebay:browse-api
     name: eBay Browse API
@@ -138,9 +138,9 @@ apis:
       url: openapi/ebay-browse-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/buy/browse/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/browse-item.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/browse-item-summary.yaml
   - aid: ebay:deal-api
     name: eBay Deal API
@@ -158,11 +158,11 @@ apis:
       url: openapi/ebay-deal-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/buy/deal/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/deal-deal-item.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/deal-event.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/deal-event-item.yaml
   - aid: ebay:marketing-api
     name: eBay Marketing API
@@ -180,7 +180,7 @@ apis:
       url: openapi/ebay-market-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/buy/marketing/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/market-merchandised-product.yaml
   - aid: ebay:marketplace-insights-api
     name: eBay Marketplace Insights API
@@ -199,7 +199,7 @@ apis:
       url: openapi/ebay-marketplace-insights-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/buy/marketplace-insights/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/marketplace-insights-item-sales.yaml
   - aid: ebay:offer-api
     name: eBay Offer API
@@ -217,7 +217,7 @@ apis:
       url: openapi/ebay-offer-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/buy/offer/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/offer-bidding.yaml
   - aid: ebay:order-api
     name: eBay Order API
@@ -236,9 +236,9 @@ apis:
       url: openapi/ebay-order-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/buy/order/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/order-guest-checkout-session.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/order-guest-purchase-order.yaml
   - aid: ebay:finances-api
     name: eBay Finances API
@@ -257,13 +257,13 @@ apis:
       url: openapi/ebay-finances-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/sell/finances/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/finances-payout.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/finances-seller-funds-summary.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/finances-transaction.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/finances-transfer.yaml
   - aid: ebay:fulfillment-api
     name: eBay Fulfillment API
@@ -281,11 +281,11 @@ apis:
       url: openapi/ebay-fulfillment-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/sell/fulfillment/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/fulfillment-order.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/fulfillment-payment-dispute.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/fulfillment-shipping-fulfillment.yaml
   - aid: ebay:inventory-api
     name: eBay Inventory API
@@ -304,17 +304,17 @@ apis:
       url: openapi/ebay-inventory-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/sell/inventory/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/inventory-inventory-item.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/inventory-inventory-item-group.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/inventory-listing.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/inventory-location.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/inventory-offer.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/inventory-product-compatibility.yaml
   - aid: ebay:logistics-api
     name: eBay Logistics API
@@ -333,9 +333,9 @@ apis:
       url: openapi/ebay-logistics-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/sell/logistics/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/logistics-shipment.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/logistics-shipping-quote.yaml
   - aid: ebay:metadata-api
     name: eBay Metadata API
@@ -353,9 +353,9 @@ apis:
       url: openapi/ebay-metadata-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/sell/metadata/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/metadata-country.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/metadata-marketplace.yaml
   - aid: ebay:negotiation-api
     name: eBay Negotiation API
@@ -390,7 +390,7 @@ apis:
       url: openapi/ebay-recommendation-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/sell/recommendation/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/recommendation-listing-recommendation.yaml
   - aid: ebay:stores-api
     name: eBay Stores API
@@ -424,9 +424,9 @@ apis:
       url: openapi/ebay-catalog-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/commerce/catalog/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/catalog-product.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/catalog-product-summary.yaml
   - aid: ebay:charity-api
     name: eBay Charity API
@@ -444,7 +444,7 @@ apis:
       url: openapi/ebay-charity-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/commerce/charity/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/charity-charity-org.yaml
   - aid: ebay:identity-api
     name: eBay Identity API
@@ -462,7 +462,7 @@ apis:
       url: openapi/ebay-identity-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/commerce/identity/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/identity-user.yaml
   - aid: ebay:media-api
     name: eBay Media API
@@ -480,7 +480,7 @@ apis:
       url: openapi/ebay-media-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/commerce/media/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/media-video.yaml
   - aid: ebay:notification-api
     name: eBay Notification API
@@ -514,15 +514,15 @@ apis:
       url: openapi/ebay-authorization-revocation-asyncapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/commerce/notification/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/notification-config.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/notification-destination.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/notification-public-key.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/notification-subscription.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/notification-topic.yaml
   - aid: ebay:taxonomy-api
     name: eBay Taxonomy API
@@ -541,7 +541,7 @@ apis:
       url: openapi/ebay-taxonomy-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/commerce/taxonomy/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/taxonomy-category-tree.yaml
   - aid: ebay:translation-api
     name: eBay Translation API
@@ -560,7 +560,7 @@ apis:
       url: openapi/ebay-translation-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/commerce/translation/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/translation-language.yaml
   - aid: ebay:client-registration-api
     name: eBay Client Registration API
@@ -579,7 +579,7 @@ apis:
       url: openapi/ebay-client-registration-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/developer/client-registration/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/client-registration-register.yaml
   - aid: ebay:key-management-api
     name: eBay Key Management API
@@ -598,14 +598,14 @@ apis:
       url: openapi/ebay-key-management-openapi-original.yml
     - type: ReleaseNotes
       url: https://developer.ebay.com/api-docs/developer/key-management/release-notes.html
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/key-management-signing-key.yaml
 common:
   - type: GitHubOrganization
     url: https://github.com/ebay
   - type: LinkedIn
     url: https://www.linkedin.com/company/ebay
-  - type: Developer Portal
+  - type: DeveloperPortal
     url: https://developer.ebay.com/
   - type: GettingStarted
     url: https://developer.ebay.com/develop/get-started
@@ -623,7 +623,7 @@ common:
     url: https://developer.ebay.com/develop/apis/api-call-limits
   - type: StatusPage
     url: https://developer.ebay.com/support/api-status
-  - type: Forum
+  - type: Forums
     url: https://community.ebay.com/t5/Developer-Groups/ct-p/developergroup
   - type: License
     url: https://developer.ebay.com/join/api-license-agreement
