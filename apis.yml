@@ -601,6 +601,8 @@ apis:
     - type: X-NaftikoCapability
       url: capabilities/key-management-signing-key.yaml
 common:
+  - type: OAuthScopes
+    url: scopes/ebay-scopes.yml
   - type: GitHubOrganization
     url: https://github.com/ebay
   - type: LinkedIn

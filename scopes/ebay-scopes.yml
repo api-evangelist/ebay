@@ -1,0 +1,390 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/ebay-account-openapi-original.yml, openapi/ebay-analytics-openapi-original.yml,
+  openapi/ebay-browse-openapi-original.yml, openapi/ebay-catalog-openapi-original.yml, openapi/ebay-charity-openapi-original.yml,
+  openapi/ebay-client-registration-openapi-original.yml, openapi/ebay-compliance-openapi-original.yml,
+  openapi/ebay-deal-openapi-original.yml, openapi/ebay-feed-openapi-original.yml, openapi/ebay-finances-openapi-original.yml,
+  openapi/ebay-fulfillment-openapi-original.yml, openapi/ebay-identity-openapi-original.yml,
+  openapi/ebay-inventory-openapi-original.yml, openapi/ebay-key-management-openapi-original.yml,
+  openapi/ebay-logistics-openapi-original.yml, openapi/ebay-market-openapi-original.yml, openapi/ebay-marketplace-insights-openapi-original.yml,
+  openapi/ebay-media-openapi-original.yml, openapi/ebay-metadata-openapi-original.yml, openapi/ebay-notification-openapi-original.yml,
+  openapi/ebay-offer-openapi-original.yml, openapi/ebay-order-openapi-original.yml, openapi/ebay-recommendation-openapi-original.yml,
+  openapi/ebay-taxonomy-openapi-original.yml, openapi/ebay-translation-openapi-original.yml
+schemes:
+- name: api_auth
+  source: openapi/ebay-account-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-analytics-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-browse-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-catalog-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-charity-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-client-registration-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-compliance-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-deal-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-feed-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-finances-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-fulfillment-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-identity-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-inventory-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-key-management-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-logistics-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-market-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-marketplace-insights-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-media-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-metadata-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-notification-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-offer-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-order-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-recommendation-openapi-original.yml
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-taxonomy-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+- name: api_auth
+  source: openapi/ebay-translation-openapi-original.yml
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+scopes:
+- scope: https://api.ebay.com/oauth/api_scope
+  description: View public data from eBay
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/ebay-browse-openapi-original.yml
+  - openapi/ebay-charity-openapi-original.yml
+  - openapi/ebay-client-registration-openapi-original.yml
+  - openapi/ebay-key-management-openapi-original.yml
+  - openapi/ebay-metadata-openapi-original.yml
+  - openapi/ebay-notification-openapi-original.yml
+  - openapi/ebay-taxonomy-openapi-original.yml
+  - openapi/ebay-translation-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/buy.deal
+  description: View eBay sale events and deals.
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/ebay-deal-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/buy.guest.order
+  description: Purchase eBay items off eBay
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/ebay-order-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/buy.item.bulk
+  description: Retrieve eBay items in bulk.
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/ebay-browse-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/buy.marketing
+  description: Retrieve eBay product and listing data for use in marketing merchandise to buyers
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/ebay-market-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/buy.marketplace.insights
+  description: View historical sales data to help buyers make informed purchasing decisions
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/ebay-marketplace-insights-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/buy.offer.auction
+  description: View and manage bidding activities for auctions
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-offer-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
+  description: This scope would allow signed in user to read catalog data.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-catalog-openapi-original.yml
+  - openapi/ebay-feed-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/commerce.identity.address.readonly
+  description: View a user's personal address information from their eBay member account
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-identity-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/commerce.identity.email.readonly
+  description: View a user's personal email information from their eBay member account
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-identity-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/commerce.identity.name.readonly
+  description: View a user's first and last name from their eBay member account
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-identity-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/commerce.identity.phone.readonly
+  description: View a user's personal telephone information from their eBay member account
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-identity-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/commerce.identity.readonly
+  description: View a user's basic information, such as username or business account details,
+    from their eBay member account
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-identity-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/commerce.notification.subscription
+  description: View and manage your event notification subscriptions
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-notification-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/commerce.notification.subscription.readonly
+  description: View your event notification subscriptions
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-notification-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/metadata.insights
+  description: View metadata insights such as aspect relevance.
+  flows:
+  - clientCredentials
+  sources:
+  - openapi/ebay-taxonomy-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/sell.account
+  description: View and manage your account settings
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-account-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/sell.account.readonly
+  description: View your account settings
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-account-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+  description: View your selling analytics data, such as performance reports
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-analytics-openapi-original.yml
+  - openapi/ebay-feed-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/sell.finances
+  description: View and manage your payment and order information to display this information
+    to you and allow you to initiate refunds using the third party application
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-finances-openapi-original.yml
+  - openapi/ebay-fulfillment-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/sell.fulfillment
+  description: View and manage your order fulfillments
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-feed-openapi-original.yml
+  - openapi/ebay-fulfillment-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly
+  description: View your order fulfillments
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-fulfillment-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/sell.inventory
+  description: View and manage your inventory and offers
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-catalog-openapi-original.yml
+  - openapi/ebay-compliance-openapi-original.yml
+  - openapi/ebay-feed-openapi-original.yml
+  - openapi/ebay-inventory-openapi-original.yml
+  - openapi/ebay-media-openapi-original.yml
+  - openapi/ebay-metadata-openapi-original.yml
+  - openapi/ebay-recommendation-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/sell.inventory.readonly
+  description: View your inventory and offers
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-inventory-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/sell.logistics
+  description: This scope would allow signed in user to access Logistics information.
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-logistics-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/sell.marketing
+  description: View and manage your eBay marketing activities, such as ad campaigns and listing
+    promotions
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-feed-openapi-original.yml
+- scope: https://api.ebay.com/oauth/api_scope/sell.payment.dispute
+  description: View and manage disputes and related details (including payment and order information).
+  flows:
+  - authorizationCode
+  sources:
+  - openapi/ebay-fulfillment-openapi-original.yml
