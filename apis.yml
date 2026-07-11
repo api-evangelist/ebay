@@ -601,6 +601,10 @@ apis:
     - type: X-NaftikoCapability
       url: capabilities/key-management-signing-key.yaml
 common:
+  - type: DomainSecurity
+    url: security/ebay-domain-security.yml
+  - type: Authentication
+    url: authentication/ebay-authentication.yml
   - type: OAuthScopes
     url: scopes/ebay-scopes.yml
   - type: GitHubOrganization

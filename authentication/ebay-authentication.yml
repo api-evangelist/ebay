@@ -1,0 +1,72 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/ebay-account-openapi-original.yml, openapi/ebay-analytics-openapi-original.yml,
+  openapi/ebay-browse-openapi-original.yml, openapi/ebay-catalog-openapi-original.yml, openapi/ebay-charity-openapi-original.yml,
+  openapi/ebay-client-registration-openapi-original.yml, openapi/ebay-compliance-openapi-original.yml,
+  openapi/ebay-deal-openapi-original.yml, openapi/ebay-feed-openapi-original.yml, openapi/ebay-finances-openapi-original.yml,
+  openapi/ebay-fulfillment-openapi-original.yml, openapi/ebay-identity-openapi-original.yml
+  ...
+summary:
+  types:
+  - oauth2
+  oauth2_flows:
+  - authorizationCode
+  - clientCredentials
+schemes:
+- name: api_auth
+  type: oauth2
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+    scopes: 2
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+  sources:
+  - openapi/ebay-account-openapi-original.yml
+  - openapi/ebay-analytics-openapi-original.yml
+  - openapi/ebay-catalog-openapi-original.yml
+  - openapi/ebay-compliance-openapi-original.yml
+  - openapi/ebay-feed-openapi-original.yml
+  - openapi/ebay-finances-openapi-original.yml
+  - openapi/ebay-fulfillment-openapi-original.yml
+  - openapi/ebay-identity-openapi-original.yml
+  - openapi/ebay-inventory-openapi-original.yml
+  - openapi/ebay-logistics-openapi-original.yml
+  - openapi/ebay-media-openapi-original.yml
+  - openapi/ebay-offer-openapi-original.yml
+  - openapi/ebay-recommendation-openapi-original.yml
+- name: api_auth
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+    scopes: 2
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+  sources:
+  - openapi/ebay-browse-openapi-original.yml
+  - openapi/ebay-charity-openapi-original.yml
+  - openapi/ebay-client-registration-openapi-original.yml
+  - openapi/ebay-deal-openapi-original.yml
+  - openapi/ebay-key-management-openapi-original.yml
+  - openapi/ebay-market-openapi-original.yml
+  - openapi/ebay-marketplace-insights-openapi-original.yml
+  - openapi/ebay-order-openapi-original.yml
+  - openapi/ebay-taxonomy-openapi-original.yml
+  - openapi/ebay-translation-openapi-original.yml
+- name: api_auth
+  type: oauth2
+  flows:
+  - flow: clientCredentials
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+    scopes: 1
+  - flow: authorizationCode
+    authorizationUrl: https://auth.ebay.com/oauth2/authorize
+    tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+    scopes: 1
+  description: The security definitions for this API. Please check individual operations for
+    applicable scopes.
+  sources:
+  - openapi/ebay-metadata-openapi-original.yml
+  - openapi/ebay-notification-openapi-original.yml
