@@ -2,11 +2,10 @@
   "repo": "ebay",
   "feeds": [
     {
-      "source": "https://developer.ebay.com/updates/blog",
-      "saved": 0,
-      "error": "timeout on all fetch attempts"
+      "source": "https://developer.ebay.com/support/faq",
+      "error": "HTTPError"
     }
   ],
   "post_count": 5,
-  "fetched": "2026-06-27T12:38:07Z"
+  "fetched": "2026-07-11T11:50:51Z"
 }
