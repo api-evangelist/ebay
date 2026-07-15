@@ -601,6 +601,8 @@ apis:
     - type: X-NaftikoCapability
       url: capabilities/key-management-signing-key.yaml
 common:
+  - type: AgenticAccess
+    url: agentic-access/ebay-agentic-access.yml
   - type: DomainSecurity
     url: security/ebay-domain-security.yml
   - type: Authentication
