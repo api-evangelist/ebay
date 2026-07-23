@@ -1,0 +1,270 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Event API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Event
+paths:
+  /event/{event_id}:
+    get:
+      tags:
+      - Event
+      description: 'This method retrieves the details for an eBay event. The result set contains detailed information associated with the specified event ID, such as applicable coupons, start and end dates, and event terms.<h3><b>Restrictions </b></h3>This method can return a maximum of 10,000 items. For a list of supported sites and other restrictions, see <a href="/api-docs/buy/browse/overview.html#API" target="_blank">API Restrictions</a>.<br><br><span class="tablenote"><b>eBay Partner Network: </b> In order to receive a commission for your sales, you must use the URL returned in the <code>itemAffiliateWebUrl</code> field to forward your buyer to the ebay.com site. </span>'
+      operationId: getEvent
+      parameters:
+      - name: X-EBAY-C-MARKETPLACE-ID
+        in: header
+        description: This header identifies the eBay marketplace.<br><br>See <a href="/api-docs/static/rest-request-components.html#marketpl " target="_blank ">HTTP request headers</a> for supported marketplace ID values.
+        required: true
+        schema:
+          type: string
+      - name: X-EBAY-C-ENDUSERCTX
+        in: header
+        description: This header is required to support revenue sharing for eBay Partner Network and to improve the accuracy of shipping and delivery time estimations.<br><br>For additional information, refer to <a href="/api-docs/buy/static/api-browse.html#Headers" target="_blank ">Use request headers</a> section of the Buying Integration Guide.
+        required: false
+        schema:
+          type: string
+      - name: event_id
+        in: path
+        description: This path parameters specifies the unique identifier for the eBay event being retrieved.<br><br>Use the <a href="/api-docs/buy/deal/resources/event/methods/getEvents" target="_blank">getEvents</a> method to retrieve event IDs.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+          x-response-codes:
+            errors:
+              '180009':
+                domain: API_DEAL
+                category: REQUEST
+                description: Not authorized. Please contact developer support for assistance.
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '180004':
+                domain: API_DEAL
+                category: REQUEST
+                description: The event Id is invalid for the requested marketplace.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '180000':
+                domain: API_DEAL
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/buy.deal
+  /event:
+    get:
+      tags:
+      - Event
+      description: 'This method returns paginated results containing all eBay events for the specified marketplace.<h3><b>Restrictions </b></h3>This method can return a maximum of 10,000 items. For a list of supported sites and other restrictions, see <a href="/api-docs/buy/browse/overview.html#API" target="_blank ">API Restrictions</a>.<br><br><span class="tablenote"><b>eBay Partner Network: </b> In order to receive a commission for your sales, you must use the URL returned in the <code>itemAffiliateWebUrl</code> field to forward your buyer to the ebay.com site. </span>'
+      operationId: getEvents
+      parameters:
+      - name: limit
+        in: query
+        description: The maximum number of items, from the current result set, returned on a single page.<br /><br /><b>Default:</b> <code>20</code><br /><br /><b>Maximum Value:</b> <code>100</code>
+        required: false
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: The number of items that will be skipped in the result set. This is used with the <b>limit</b> field to control the pagination of the output.<br /><br />For example, if the <b>offset</b> is set to <code>0</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 1 through 10 from the list of items returned. If the <b>offset</b> is set to <code>10</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 11 through 20 from the list of items returned.<br /><br /><b>Default:</b> <code>0</code>
+        required: false
+        schema:
+          type: string
+      - name: X-EBAY-C-MARKETPLACE-ID
+        in: header
+        description: This header identifies the eBay marketplace.<br><br>See <a href="/api-docs/static/rest-request-components.html#marketpl " target="_blank ">HTTP request headers</a> for supported marketplace ID values.
+        required: true
+        schema:
+          type: string
+      - name: X-EBAY-C-ENDUSERCTX
+        in: header
+        description: This header is required to support revenue sharing for eBay Partner Network and to improve the accuracy of shipping and delivery time estimations.<br><br>For additional information, refer to <a href="/api-docs/buy/static/api-browse.html#Headers" target="_blank ">Use request headers</a> section of the Buying Integration Guide.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventSearchResponse'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '180001':
+                domain: API_DEAL
+                category: REQUEST
+                description: Invalid, missing or unsupported marketplace. Please refer to documentation.
+              '180002':
+                domain: API_DEAL
+                category: REQUEST
+                description: The specified limit is invalid. Maximum value supported is 100.
+              '180003':
+                domain: API_DEAL
+                category: REQUEST
+                description: The specified offset is invalid.
+        '403':
+          description: Forbidden
+          x-response-codes:
+            errors:
+              '180009':
+                domain: API_DEAL
+                category: REQUEST
+                description: Not authorized. Please contact developer support for assistance.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '180000':
+                domain: API_DEAL
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/buy.deal
+components:
+  schemas:
+    Coupon:
+      type: object
+      properties:
+        redemptionCode:
+          type: string
+          description: The coupon code.
+        terms:
+          description: The terms of use associated with the coupon.
+          $ref: '#/components/schemas/Terms'
+      description: The details for the coupon available for the item.
+    Image:
+      type: object
+      properties:
+        height:
+          type: string
+          description: The height of the image.
+        imageUrl:
+          type: string
+          description: The relative path to the image location.
+        text:
+          type: string
+          description: The text associated with the image.
+        width:
+          type: string
+          description: The width of the image.
+      description: The type that defines the details of an image, such as size and URL.
+    EventSearchResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          description: A list of results that match the search criteria.
+          items:
+            $ref: '#/components/schemas/Event'
+        href:
+          type: string
+          description: The relative path to the current set of results.
+        limit:
+          type: integer
+          description: The maximum number of items, from the current result set, returned on a single page.<br /><br /><b>Default:</b> <code>20</code>
+          format: int32
+        next:
+          type: string
+          description: The relative path to the next set of results.
+        offset:
+          type: integer
+          description: The number of items that will be skipped in the result set. This is used with the <b>limit</b> field to control the pagination of the output.<br /><br />For example, if the <b>offset</b> is set to <code>0</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 1 through 10 from the list of items returned. If the <b>offset</b> is set to <code>10</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 11 through 20 from the list of items returned.<br /><br /><b>Default:</b> <code>0</code>
+          format: int32
+        prev:
+          type: string
+          description: The relative path to the previous set of results.
+        total:
+          type: integer
+          description: The total number of matches for the specified search criteria.
+          format: int32
+      description: The result set for the specified event search criteria.
+    Terms:
+      type: object
+      properties:
+        fullText:
+          type: string
+          description: A full-text description of the terms.
+        summary:
+          type: string
+          description: A summarized description of the terms.
+      description: The terms for the event, provided in a full-text description and summary.
+    Event:
+      type: object
+      properties:
+        applicableCoupons:
+          type: array
+          description: A list of coupons associated with the event.
+          items:
+            $ref: '#/components/schemas/Coupon'
+        description:
+          type: string
+          description: The event description.
+        endDate:
+          type: string
+          description: The end date for the event.
+        eventAffiliateWebUrl:
+          type: string
+          description: The URL of the View Event page for the event, which includes the affiliate tracking ID.
+        eventId:
+          type: string
+          description: The unique identifier for the event.
+        eventWebUrl:
+          type: string
+          description: The web URL for the event.
+        images:
+          type: array
+          description: The images for the event.
+          items:
+            $ref: '#/components/schemas/Image'
+        startDate:
+          type: string
+          description: The start date for the event.
+        terms:
+          description: The terms associated with the event.
+          $ref: '#/components/schemas/Terms'
+        title:
+          type: string
+          description: The title of the event.
+      description: The result set for the event search.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

@@ -1,0 +1,86 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Public_key API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Public_key
+paths:
+  /public_key/{public_key_id}:
+    get:
+      tags:
+      - Public_key
+      description: 'This method allows users to retrieve a public key using a specified key ID. The public key that is returned in the response payload is used to process and validate eBay notifications.<br><br>The public key ID, which is a required request parameter for this method, is retrieved from the Base64-encoded <b>X-EBAY-SIGNATURE</b> header that is included in the eBay notification.<br><br><div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> The retrieved public key value should be cached for a temporary — but reasonable — amount of time (e.g., one-hour is recommended.) This key should not be requested for every notification since doing so can result in exceeding <a href="/develop/apis/api-call-limits" target="_blank">API call limits</a> if a large number of notification requests is received.</p></div><br><span class="tablenote"><b>Note:</b> For more details about how to process eBay push notifications and validate notification message payloads, see the <a href="/api-docs/commerce/notification/overview.html">Notification API overview</a>.</span>'
+      operationId: getPublicKey
+      parameters:
+      - name: public_key_id
+        in: path
+        description: 'The unique key ID that is used to retrieve the public key.<br><br><span class="tablenote"><b>Note: </b>This is retrieved from the <b>X-EBAY-SIGNATURE</b> header that is included with the push notification.</span>'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PublicKey'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '195001':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The specified key id is invalid.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '195000':
+                domain: API_NOTIFICATION
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope
+components:
+  schemas:
+    PublicKey:
+      type: object
+      properties:
+        algorithm:
+          type: string
+          description: The algorithm associated with the public key that is returned, such as Elliptic Curve Digital Signature Algorithm (ECDSA).
+        digest:
+          type: string
+          description: The digest associated with the public key that is returned, such as Secure Hash Algorithm 1 (SHA1).
+        key:
+          type: string
+          description: The public key that is returned for the specified key ID.<br><br>This value is used to validate the eBay push notification message payload.
+      description: A type that defines the public key for a unique key ID.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

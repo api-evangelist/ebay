@@ -1,0 +1,97 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Country API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Country
+paths:
+  /country/{countryCode}/sales_tax_jurisdiction:
+    get:
+      tags:
+      - Country
+      description: 'This method retrieves all sales-tax jurisdictions for the country specified in the <b>countryCode</b> path parameter. Countries with valid sales-tax jurisdictions are Canada and the US.<br><br>The response from this call tells you the jurisdictions for which a seller can configure tax tables. Although setting up tax tables is optional, you can use the <b>createOrReplaceSalesTax</b> method in the <b>Account API</b> call to configure the tax tables for the jurisdictions into which you sell.<br><br><span class="tablenote"><b>Note:</b> Sales-tax tables are only available for the US (EBAY_US) and Canada (EBAY_CA) marketplaces.</span><br><br><div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> In the US, eBay now calculates, collects, and remits sales tax to the proper taxing authorities in all 50 states and Washington, DC. Sellers can no longer specify sales-tax rates for these jurisdictions using a tax table.<br><br>However, sellers may continue to use a sales-tax table to set rates for the following US territories:<ul><li>American Samoa (AS)</li><li>Guam (GU)</li><li>Northern Mariana Islands (MP)</li><li>Palau (PW)</li><li>US Virgin Islands (VI)</li></ul>For additional information, refer to <a href="https://www.ebay.com/help/selling/fees-credits-invoices/taxes-import-charges?id=4121 " target="_blank">Taxes and import charges</a>.</p></div>'
+      operationId: getSalesTaxJurisdictions
+      parameters:
+      - name: countryCode
+        in: path
+        description: This path parameter specifies the two-letter <a href="https://www.iso.org/iso-3166-country-codes.html " title="https://www.iso.org " target="_blank">ISO 3166</a> country code for the country whose jurisdictions you want to retrieve.<br><br><span class="tablenote"><b>Note:</b> Sales-tax tables are available only for the US and Canada marketplaces. Therefore, the only supported values are:<ul><li><code>US</code></li><li><code>CA</code></li></ul></span>
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SalesTaxJurisdictions'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '45400':
+                domain: API_METADATA
+                category: REQUEST
+                description: Invalid input. {additionalInfo}
+              '45401':
+                domain: API_METADATA
+                category: REQUEST
+                description: Invalid {fieldName}.
+              '45402':
+                domain: API_METADATA
+                category: REQUEST
+                description: Tax table not supported for {fieldName}.
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '45500':
+                domain: API_METADATA
+                category: APPLICATION
+                description: System error.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope
+components:
+  schemas:
+    SalesTaxJurisdictions:
+      type: object
+      properties:
+        salesTaxJurisdictions:
+          type: array
+          description: A list of sales-tax jurisdictions.
+          items:
+            $ref: '#/components/schemas/SalesTaxJurisdiction'
+      description: This complex type contains a list of sales-tax jurisdictions.
+    SalesTaxJurisdiction:
+      type: object
+      properties:
+        salesTaxJurisdictionId:
+          type: string
+          description: 'The unique ID for a sales-tax jurisdiction.<br><br><div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> When <code>countryCode</code> is set to <code>US</code>, IDs for all 50 states, Washington, DC, and all US territories will be returned. However, the only <code>salesTaxJurisdictionId</code> values currently supported are:<ul><li><code>AS</code> (American Samoa)</li><li><code>GU</code> (Guam</li><li><code>MP</code> Northern Mariana Islands</li><li><code>PW (Palau)</li><li><code>VI</code> (US Virgin Islands)</li></ul></p></div>'
+      description: A unique ID for a sales tax jurisdiction.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

@@ -1,0 +1,666 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Return_policy API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Return_policy
+paths:
+  /return_policy:
+    get:
+      tags:
+      - Return_policy
+      description: 'This method retrieves all the return policies configured for the marketplace you specify using the <code>marketplace_id</code> query parameter.  <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policies for a marketplace that supports multiple locales using the <code>Content-Language</code> request header. For example, get the policies for the French locale of the Canadian marketplace by specifying <code>fr-CA</code> for the <code>Content-Language</code> header. Likewise, target the Dutch locale of the Belgium marketplace by setting <code>Content-Language: nl-BE</code>. For details on header values, see <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank">HTTP request headers</a>.'
+      operationId: getReturnPolicies
+      parameters:
+      - name: marketplace_id
+        in: query
+        description: This query parameter specifies the ID of the eBay marketplace of the policy you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReturnPolicyResponse'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20401':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Missing field {fieldName}. {additionalInfo}
+              '20403':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid {fieldName}. {additionalInfo}
+              '20404':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: '{fieldName} not found.'
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+              '20501':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: Service unavailable. Please try again in next 24 hours.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+        - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+    post:
+      tags:
+      - Return_policy
+      description: This method creates a new return policy where the policy encapsulates seller's terms for returning items.  <br><br>Each policy targets a specific marketplace, and you can create multiple policies for each marketplace. Return policies are not applicable to motor-vehicle listings.<br><br>A successful request returns the <b>getReturnPolicy</b> URI to the new policy in the <b>Location</b> response header and the ID for the new policy is returned in the response payload.  <p class="tablenote"><b>Tip:</b> For details on creating and using the business policies supported by the Account API, see <a href="/api-docs/sell/static/seller-accounts/business-policies.html">eBay business policies</a>.</p>
+      operationId: createReturnPolicy
+      parameters:
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Return policy request
+        content:
+          application/json:
+            schema:
+              description: Return policy request
+              $ref: '#/components/schemas/ReturnPolicyRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+                description: The <b>location</b> response header contains the URL to the newly created return policy. The URL includes the eBay-assigned <code>returnPolicyId</code>, which you can use to reference the policy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetReturnPolicyResponse'
+          x-response-codes:
+            errors:
+              '20200':
+                domain: API_ACCOUNT
+                category: BUSINESS
+                description: Warning. {additionalInfo}
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20400':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid request. {additionalInfo}
+              '20401':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Missing field .
+              '20406':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid return option
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+              '20501':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: Service unavailable. Please try again in next 24 hours.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+  /return_policy/{return_policy_id}:
+    get:
+      tags:
+      - Return_policy
+      description: This method retrieves the complete details of the return policy specified by the <b>returnPolicyId</b> path parameter.
+      operationId: getReturnPolicy
+      parameters:
+      - name: return_policy_id
+        in: path
+        description: This path parameter specifies the unique identifier of the return policy you want to retrieve. <br><br> This ID can be retrieved for a return policy by using the <a href="/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies" target="_blank ">getReturnPolicies</a> method.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReturnPolicy'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20403':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid {fieldName}. {additionalInfo}
+              '20404':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: '{fieldName} not found.'
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+              '20501':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: Service unavailable. Please try again in next 24 hours.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+        - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+    put:
+      tags:
+      - Return_policy
+      description: This method updates an existing return policy. Specify the policy you want to update using the <b>return_policy_id</b> path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing policy with the new details specified in the payload.
+      operationId: updateReturnPolicy
+      parameters:
+      - name: return_policy_id
+        in: path
+        description: This path parameter specifies the ID of the return policy you want to update. <br><br> This ID can be retrieved for a return policy by using the <a href="/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies" target="_blank ">getReturnPolicies</a> method.
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Container for a return policy request.
+        content:
+          application/json:
+            schema:
+              description: Container for a return policy request.
+              $ref: '#/components/schemas/ReturnPolicyRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetReturnPolicyResponse'
+          x-response-codes:
+            errors:
+              '20200':
+                domain: API_ACCOUNT
+                category: BUSINESS
+                description: Warning. {additionalInfo}
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20400':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid request. {additionalInfo}
+              '20401':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Missing field {fieldName}.
+              '20402':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid input. {additionalInfo}
+              '20404':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: '{fieldName} not found.'
+              '20406':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid return option. {fieldName}
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+              '20501':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: Service unavailable. Please try again in next 24 hours.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+    delete:
+      tags:
+      - Return_policy
+      description: This method deletes a return policy. Supply the ID of the policy you want to delete in the <b>returnPolicyId</b> path parameter.
+      operationId: deleteReturnPolicy
+      parameters:
+      - name: return_policy_id
+        in: path
+        description: This path parameter specifies the unique identifier of the return policy you want to delete.<br><br> This ID can be retrieved for a return policy by using the <a href="/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies" target="_blank ">getReturnPolicies</a> method.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20401':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Missing field {fieldName}. {additionalInfo}
+              '20402':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid input. {additionalInfo}
+              '20404':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: '{fieldName} not found.'
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+          x-response-codes:
+            errors:
+              '20409':
+                domain: API_ACCOUNT
+                category: BUSINESS
+                description: Invalid default policy type. {additionalInfo}
+              '21409':
+                domain: API_ACCOUNT
+                category: BUSINESS
+                description: Invalid default for category type. {additionalInfo}
+              '22409':
+                domain: API_ACCOUNT
+                category: BUSINESS
+                description: Invalid target default policy. {additionalInfo}
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+              '20501':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: Service unavailable. Please try again in next 24 hours.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+  /return_policy/get_by_policy_name:
+    get:
+      tags:
+      - Return_policy
+      description: 'This method retrieves the details of a specific return policy. Supply both the policy <code>name</code> and its associated <code>marketplace_id</code> in the request query parameters.   <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policy for a marketplace that supports multiple locales using the <code>Content-Language</code> request header. For example, get a policy for the French locale of the Canadian marketplace by specifying <code>fr-CA</code> for the <code>Content-Language</code> header. Likewise, target the Dutch locale of the Belgium marketplace by setting <code>Content-Language: nl-BE</code>. For details on header values, see <a href="/api-docs/static/rest-request-components.html#HTTP">HTTP request headers</a>.'
+      operationId: getReturnPolicyByName
+      parameters:
+      - name: marketplace_id
+        in: query
+        description: This query parameter specifies the ID of the eBay marketplace of the policy you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: query
+        description: This query parameter specifies the seller-defined name of the return policy you want to retrieve.<br><br> This value can be retrieved for a return policy by using the <a href="/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies" target="_blank ">getReturnPolicies</a> method.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReturnPolicy'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20401':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Missing field {fieldName}. {additionalInfo}
+              '20403':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid {fieldName}. {additionalInfo}
+              '20404':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: '{fieldName} not found.'
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+              '20501':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: Service unavailable. Please try again in next 24 hours.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+        - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+components:
+  schemas:
+    ReturnPolicyResponse:
+      type: object
+      properties:
+        href:
+          type: string
+          description: This field is for future use.
+        limit:
+          type: integer
+          description: This field is for future use.
+          format: int32
+        next:
+          type: string
+          description: This field is for future use.
+        offset:
+          type: integer
+          description: This field is for future use.
+          format: int32
+        prev:
+          type: string
+          description: This field is for future use.
+        returnPolicies:
+          type: array
+          description: A list of all of the seller's return business policies defined for the specified marketplace. This array will be returned as empty if no return business policies are defined for the specified marketplace.
+          items:
+            $ref: '#/components/schemas/ReturnPolicy'
+        total:
+          type: integer
+          description: The total number of return business policies retrieved in the result set.  <br><br>If no return business policies are defined for the specified marketplace, this field is returned with a value of <code>0</code>.
+          format: int32
+      description: 'The response payload for the <b>getReturnPolicies</b> method. <br><br><span class="tablenote"><b>Note</b>: Pagination has not yet been enabled for <b>getReturnPolicies</b>, so all of the pagination-related fields are for future use.</span>'
+    ReturnPolicy:
+      type: object
+      properties:
+        categoryTypes:
+          type: array
+          description: 'This container indicates which category group that the return policy applies to.<br><br><span class="tablenote"><b>Note</b>: Return business policies are not applicable to motor vehicle listings, so the <b>categoryTypes.name</b> value will always be <code>ALL_EXCLUDING_MOTORS_VEHICLES</code> for return business policies.</span>'
+          items:
+            $ref: '#/components/schemas/CategoryType'
+        description:
+          type: string
+          description: 'A seller-defined description of the return business policy. This description is only for the seller''s use, and is not exposed on any eBay pages.  <br><br><b>Max length</b>: 250'
+        extendedHolidayReturnsOffered:
+          type: boolean
+          description: '<p class="tablenote"><span  style="color: #dd1e31;"><b>Important!</b></span> This field is deprecated, since eBay no longer supports extended holiday returns. Any value supplied in this field is neither read nor returned.</p> '
+        internationalOverride:
+          description: This container shows the seller's international return policy settings. This container is only returned if the seller has set a separate international return policy for the business policies. International return policies are optional, even if the seller ships to international locations. If a separate international return policy is not set, all of the domestic return policy settings also apply to international orders.
+          $ref: '#/components/schemas/InternationalReturnOverrideType'
+        marketplaceId:
+          type: string
+          description: The ID of the eBay marketplace to which this return business policy applies. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum'>eBay API documentation</a>
+        name:
+          type: string
+          description: A seller-defined name for this payment business policy. Names must be unique for policies assigned to the same marketplace.<br><br><b>Max length:</b> 64
+        refundMethod:
+          type: string
+          description: If a seller indicates that they will accept buyer returns, this value will be set to <code>MONEY_BACK</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:RefundMethodEnum'>eBay API documentation</a>
+        restockingFeePercentage:
+          type: string
+          description: '<p class="tablenote"><span  style="color: #dd1e31;"><b>Important!</b></span> This field is deprecated, since eBay no longer allows sellers to charge a restocking fee for buyer remorse returns. If this field is included, it is ignored and it is no longer returned.</p>'
+        returnInstructions:
+          type: string
+          description: 'This text-based field provides more details on seller-specified return instructions. This field is only returned if set for the return business policy.<br><p class="tablenote"><span  style="color: #dd1e31;"><b>Important!</b></span> This field is no longer supported on many eBay marketplaces. To see if a marketplace and eBay category does support this field, call <a href="/api-docs/sell/metadata/resources/marketplace/methods/getReturnPolicies">getReturnPolicies</a> method of the <b>Metadata API</b>. Then you will look for the <b>policyDescriptionEnabled</b> field with a value of <code>true</code> for the eBay category.</span></p><br><b>Max length</b>: 5000 (8000 for DE)'
+        returnMethod:
+          type: string
+          description: This field is only returned if the seller is willing to offer a replacement item as an alternative to 'Money Back'. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:ReturnMethodEnum'>eBay API documentation</a>
+        returnPeriod:
+          description: 'This container indicates the number of calendar days that the buyer has to return an item. The return period begins when the item is marked "delivered" at the buyer''s specified ship-to location.  <br><br>Most categories support 30-day and 60-day return periods.<br><br><span class="tablenote"><b>Note</b>: Unless the seller has set a separate international return policy through the <b>internationalOverride</b> container, this return period will be valid for domestic and international returns (if the seller ships internationally).</span>'
+          $ref: '#/components/schemas/TimeDuration'
+        returnPolicyId:
+          type: string
+          description: A unique eBay-assigned ID for a return business policy. This ID is generated when the policy is created.
+        returnsAccepted:
+          type: boolean
+          description: If this field is returned as <code>true</code>, the seller accepts returns. <br><br><span class="tablenote"><strong>Note:</strong>Top-Rated sellers must accept item returns and the <b>handlingTime</b> should be set to zero days or one day for a listing to receive a Top-Rated Plus badge on the View Item or search result pages. For more information on eBay's Top-Rated seller program, see <a href="https://pages.ebay.com/help/sell/top-rated.html ">Becoming a Top Rated Seller and qualifying for Top Rated Plus benefits</a>.</span>
+        returnShippingCostPayer:
+          type: string
+          description: This field indicates who is responsible for paying for the shipping charges for returned items. The field can be set to either <code>BUYER</code> or <code>SELLER</code>.  <br><br>Depending on the return policy and specifics of the return, either the buyer or the seller can be responsible for the return shipping costs. Note that the seller is always responsible for return shipping costs for SNAD-related issues. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:ReturnShippingCostPayerEnum'>eBay API documentation</a>
+      description: This type is used by the <b>returnPolicy</b> response container, a container which defines a seller's return business policy for a specific marketplace.
+    ErrorParameter:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the parameter that caused the error.
+        value:
+          type: string
+          description: The value of the parameter that caused the error.
+      description: A complex type that indicates a parameter that caused an error and the value of the parameter which caused the error.
+    SetReturnPolicyResponse:
+      type: object
+      properties:
+        categoryTypes:
+          type: array
+          description: This field always returns <code>ALL_EXCLUDING_MOTORS_VEHICLES</code> for return business policies, since return business policies are not applicable to motor vehicle listings.
+          items:
+            $ref: '#/components/schemas/CategoryType'
+        description:
+          type: string
+          description: 'A seller-defined description of the return business policy. This description is only for the seller''s use, and is not exposed on any eBay pages. This field is returned if set for the policy. <br><br><b>Max length</b>: 250'
+        extendedHolidayReturnsOffered:
+          type: boolean
+          description: '<p class="tablenote"><span  style="color: #dd1e31;"><b>Important!</b></span> This field is deprecated, since eBay no longer supports extended holiday returns. This field should no longer be returned.</p> '
+        internationalOverride:
+          description: This container is used by the seller to specify a separate  international return policy, and will only be returned if the seller has set a separate return policy for international orders. If a separate international return policy is not defined by a seller, all of the domestic return policy settings will also apply to international orders.
+          $ref: '#/components/schemas/InternationalReturnOverrideType'
+        marketplaceId:
+          type: string
+          description: The ID of the eBay marketplace to which this return business policy applies. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum'>eBay API documentation</a>
+        name:
+          type: string
+          description: A seller-defined name for this return business policy. Names must be unique for policies assigned to the same marketplace.<br><br><b>Max length:</b> 64
+        refundMethod:
+          type: string
+          description: If a seller indicates that they will accept buyer returns, this value will be <code>MONEY_BACK</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:RefundMethodEnum'>eBay API documentation</a>
+        restockingFeePercentage:
+          type: string
+          description: '<p class="tablenote"><span  style="color: #dd1e31;"><b>Important!</b></span> This field is deprecated, since eBay no longer allows sellers to charge a restocking fee for buyer remorse returns.</p>'
+        returnInstructions:
+          type: string
+          description: 'This text-based field provides more details on seller-specified return instructions. <p class="tablenote"><span  style="color: #dd1e31;"><b>Important!</b></span> This field is no longer supported on many eBay marketplaces. To see if a marketplace and eBay category does support this field, call <a href="/api-docs/sell/metadata/resources/marketplace/methods/getReturnPolicies">getReturnPolicies</a> method of the <b>Metadata API</b>. Then you will look for the <b>policyDescriptionEnabled</b> field with a value of <code>true</code> for the eBay category.</span></p><br><b>Max length</b>: 5000 (8000 for DE)'
+        returnMethod:
+          type: string
+          description: This field will be returned if the seller is willing and able to offer a replacement item as an alternative to 'Money Back'. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:ReturnMethodEnum'>eBay API documentation</a>
+        returnPeriod:
+          description: This container specifies the amount of days that the buyer has to return the item after receiving it. The return period begins when the item is marked "delivered" at the buyer's specified ship-to location. This container will be returned unless the business policy states that the seller does not accept returns.
+          $ref: '#/components/schemas/TimeDuration'
+        returnPolicyId:
+          type: string
+          description: A unique eBay-assigned ID for a return business policy. This ID is generated when the policy is created.
+        returnsAccepted:
+          type: boolean
+          description: If set to <code>true</code>, the seller accepts returns. If set to <code>false</code>, this field indicates that the seller does not accept returns.
+        returnShippingCostPayer:
+          type: string
+          description: This field indicates who is responsible for paying for the shipping charges for returned items. The field can be set to either <code>BUYER</code> or <code>SELLER</code>.  <br><br>Note that the seller is always responsible for return shipping costs for SNAD-related issues.  <br><br>This container will be returned unless the business policy states that the seller does not accept returns. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:ReturnShippingCostPayerEnum'>eBay API documentation</a>
+        warnings:
+          type: array
+          description: An array of one or more errors or warnings that were generated during the processing of the request. If there were no issues with the request, this array will return empty.
+          items:
+            $ref: '#/components/schemas/Error'
+      description: A complex type that is populated with a response containing a return policies.
+    ReturnPolicyRequest:
+      type: object
+      properties:
+        categoryTypes:
+          type: array
+          description: 'This container indicates which category group that the return policy applies to.<br><br><span class="tablenote"><b>Note</b>: Return business policies are not applicable to motor vehicle listings, so the <b>categoryTypes.name</b> value must be set to <code>ALL_EXCLUDING_MOTORS_VEHICLES</code> for return business policies.</span>'
+          items:
+            $ref: '#/components/schemas/CategoryType'
+        description:
+          type: string
+          description: 'A seller-defined description of the return business policy. This description is only for the seller''s use, and is not exposed on any eBay pages.  <br><br><b>Max length</b>: 250'
+        extendedHolidayReturnsOffered:
+          type: boolean
+          description: '<p class="tablenote"><span  style="color: #dd1e31;"><b>Important!</b></span> This field is deprecated, since eBay no longer supports extended holiday returns. Any value supplied in this field is neither read nor returned.</p> '
+        internationalOverride:
+          description: This container is used by the seller to specify a separate  international return policy. If a separate international return policy is not defined by a seller, all of the domestic return policy settings will also apply to international orders.
+          $ref: '#/components/schemas/InternationalReturnOverrideType'
+        marketplaceId:
+          type: string
+          description: The ID of the eBay marketplace to which this return business policy applies.  For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum'>eBay API documentation</a>
+        name:
+          type: string
+          description: 'A seller-defined name for this return business policy. Names must be unique for policies assigned to the same marketplace. <br><br><b>Max length</b>: 64'
+        refundMethod:
+          type: string
+          description: 'This value indicates the refund method that will be used by the seller for buyer returns.<p class="tablenote"><span  style="color: #dd1e31;"><b>Important!</b></span> If this field is not included in a return business policy, it will default to MONEY_BACK.</p> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/account/types/api:RefundMethodEnum''>eBay API documentation</a>'
+        restockingFeePercentage:
+          type: string
+          description: '<p class="tablenote"><span  style="color: #dd1e31;"><b>Important!</b></span> This field is deprecated, since eBay no longer allows sellers to charge a restocking fee for buyer remorse returns. If this field is included, it is ignored.</p>'
+        returnInstructions:
+          type: string
+          description: 'This text-based field provides more details on seller-specified return instructions. <p class="tablenote"><span  style="color: #dd1e31;"><b>Important!</b></span> This field is no longer supported on many eBay marketplaces. To see if a marketplace and eBay category does support this field, call <a href="/api-docs/sell/metadata/resources/marketplace/methods/getReturnPolicies">getReturnPolicies</a> method of the <b>Metadata API</b>. Then you will look for the <b>policyDescriptionEnabled</b> field with a value of <code>true</code> for the eBay category.</span></p><br><b>Max length</b>: 5000 (8000 for DE)'
+        returnMethod:
+          type: string
+          description: This field can be used if the seller is willing and able to offer a replacement item as an alternative to 'Money Back'. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:ReturnMethodEnum'>eBay API documentation</a>
+        returnPeriod:
+          description: This container is used to specify the number of days that the buyer has to return an item. The return period begins when the item is marked "delivered" at the buyer's specified ship-to location.  <br><br>You must set the value to one that's accepted by the marketplace and category where the item is listed. Most categories support 30-day and 60-day return periods.  <br><br>For a definitive list of return periods for one or more categories, call <a href="/api-docs/sell/metadata/resources/marketplace/methods/getReturnPolicies">getReturnPolicies</a> method of the <b>Metadata API</b>.<br><br>The return period is set using the <b>TimeDuration</b> type, where you set <b>unit</b> to <code>DAY</code> and <b>value</b> to either <code>30</code> or <code>60</code> (or other value, as appropriate).  <br><br>Note that this value cannot be modified if the listing has bids or sales, or if the listing ends within 12 hours.  <br><br><i>Required if </i> <b>returnsAccepted</b> is set to <code>true</code>.
+          $ref: '#/components/schemas/TimeDuration'
+        returnsAccepted:
+          type: boolean
+          description: If set to <code>true</code>, the seller accepts returns. <p><span class="tablenote"><strong>Note:</strong>Top-Rated sellers must accept item returns and the <b>handlingTime</b> should be set to zero days or one day for a listing to receive a Top-Rated Plus badge on the View Item or search result pages. For more information on eBay's Top-Rated seller program, see <a href="http://pages.ebay.com/help/sell/top-rated.html ">Becoming a Top Rated Seller and qualifying for Top Rated Plus benefits</a>.</span></p>
+        returnShippingCostPayer:
+          type: string
+          description: This field indicates who is responsible for paying for the shipping charges for returned items. The field can be set to either <code>BUYER</code> or <code>SELLER</code>.  <br><br>Depending on the return policy and specifics of the return, either the buyer or the seller can be responsible for the return shipping costs. Note that the seller is always responsible for return shipping costs for SNAD-related issues.  <br><br>This field is conditionally required if <b>returnsAccepted</b> is set to <code>true</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:ReturnShippingCostPayerEnum'>eBay API documentation</a>
+      description: This root container defines a seller's return business policy for a specific marketplace and category group. This type is used when creating or updating a return business policy.
+    Error:
+      type: object
+      properties:
+        category:
+          type: string
+          description: 'The category type for this error or warning. It is a string that can have one of three values:<ul><li><code>Application</code>: Indicates an exception or error occurred in the application code or at runtime. Examples include catching an exception in a service''s business logic, system failures, or request errors from a dependency.</li><li><code>Business</code>: Used when your service or a dependent service refused to continue processing on the resource because of a business rule violation such as "Seller does not ship item to Antarctica" or "Buyer ineligible to purchase an alcoholic item". Business errors are not syntactical input errors.</li><li><code>Request</code>: Used when there is anything wrong with the request, such as authentication, syntactical errors, rate limiting or missing headers, bad HTTP header values, and so on.</li></ul>'
+        domain:
+          type: string
+          description: Name of the domain ,or primary system, of the service or application where the error occurred.
+        errorId:
+          type: integer
+          description: A positive integer that uniquely identifies the specific error condition that occurred. Your application can use error codes as identifiers in your customized error-handling algorithms.
+          format: int32
+        inputRefIds:
+          type: array
+          description: Identifies specific request elements associated with the error, if any. inputRefId's response is format specific. For JSON, use <i>JSONPath</i> notation.
+          items:
+            type: string
+        longMessage:
+          type: string
+          description: A more detailed explanation of the error than given in the <code>message</code> error field.
+        message:
+          type: string
+          description: Information on how to correct the problem, in the end user's terms and language where applicable. Its value is at most 50 characters long. If applicable, the value is localized in the end user's requested locale.
+        outputRefIds:
+          type: array
+          description: Identifies specific response elements associated with the error, if any. Path format is the same as <code>inputRefId</code>.
+          items:
+            type: string
+        parameters:
+          type: array
+          description: This optional list of name/value pairs that contain context-specific <code>ErrorParameter</code> objects, with each item in the list being a parameter (or input field name) that caused an error condition. Each <code>ErrorParameter</code> object consists of two fields, a <code>name</code> and a <code>value</code>.
+          items:
+            $ref: '#/components/schemas/ErrorParameter'
+        subdomain:
+          type: string
+          description: If present, indicates the subsystem in which the error occurred.
+      description: A container that defines the elements of error and warning messages.
+    TimeDuration:
+      type: object
+      properties:
+        unit:
+          type: string
+          description: These enum values represent the time measurement unit, such as <code>DAY</code>. A span of time is defined when you apply the value specified in the <b>value</b> field to the value specified for <b>unit</b>. <br><br>See <b>TimeDurationUnitEnum</b> for a complete list of possible time-measurement units. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:TimeDurationUnitEnum'>eBay API documentation</a>
+        value:
+          type: integer
+          description: An integer that represents an amount of time, as measured by the time-measurement unit specified in the <b>unit</b> field.
+          format: int32
+      description: A type used to specify a period of time using a specified time-measurement unit. Payment, return, and fulfillment business policies all use this type to specify time windows.<br><br>Whenever a container that uses this type is used in a request, both of these fields are required. Similarly, whenever a container that uses this type is returned in a response, both of these fields are always returned.
+    CategoryType:
+      type: object
+      properties:
+        default:
+          type: boolean
+          description: <span class="tablenote"><strong>Note:</strong> This field has been deprecated and is no longer used.<ul><li>Do not include this field in any <b>create</b> or <b>update</b> method.</li><li>This field may be returned within the payload of a <b>get</b> method, but it can be ignored.</li></ul></span>
+        name:
+          type: string
+          description: The category type to which the policy applies (motor vehicles or non-motor vehicles). <br><br>The <code>MOTORS_VEHICLES</code> category type is not valid for return policies. eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:CategoryTypeEnum'>eBay API documentation</a>
+      description: The category type discerns whether the policy applies to motor vehicle listings, or to any other items except motor vehicle listings. <br><br>Each business policy can be associated with either or both categories ('MOTORS_VEHICLES' and 'ALL_EXCLUDING_MOTORS_VEHICLES'); however, return business policies are not applicable for motor vehicle listings.
+    InternationalReturnOverrideType:
+      type: object
+      properties:
+        returnMethod:
+          type: string
+          description: This field sets/indicates if the seller offers replacement items to the buyer in the case of an international return. The buyer must be willing to accept a replacement item; otherwise, the seller will need to issue a refund for a return. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:ReturnMethodEnum'>eBay API documentation</a>
+        returnPeriod:
+          description: This container indicates the number of calendar days that the buyer has to return an item. The return period begins when the item is marked "delivered" at the buyer's specified ship-to location.  <br><br>You must set the value to one that's accepted by the marketplace and category where the item is listed. Most categories support 30-day and 60-day return periods. For a definitive list of return periods for one or more categories, call <a href="/api-docs/sell/metadata/resources/marketplace/methods/getReturnPolicies">getReturnPolicies</a> method of the <b>Metadata API</b>. <br><br>The <b>TimeDuration</b> type is used to set/indicate the return period, and you set the <b>unit</b> value to <code>DAY</code> and the <b>value</b> field to either <code>30</code> or <code>60</code> (or other value, as appropriate).  <br><br>Note that this value cannot be modified if the listing has bids or sales, or if the listing ends within 12 hours.  <br><br>This field is conditionally required if the <b>internationalOverride.returnsAccepted</b> field is set to <code>true</code>.
+          $ref: '#/components/schemas/TimeDuration'
+        returnsAccepted:
+          type: boolean
+          description: If set to <code>true</code>, the seller accepts international returns. If set to <code>false</code>, the seller does not accept international returns.  <br><br>This field is conditionally required if the seller chooses to have a separate international return policy.
+        returnShippingCostPayer:
+          type: string
+          description: This field indicates who is responsible for paying for the shipping charges for returned items. The field can be set to either <code>BUYER</code> or <code>SELLER</code>.  <br><br>Depending on the return policy and specifics of the return, either the buyer or the seller can be responsible for the return shipping costs. Note that the seller is always responsible for return shipping costs for 'significantly not as described' (SNAD) issues.  <br><br>This field is conditionally required if the <b>internationalOverride.returnsAccepted</b> field is set to <code>true</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:ReturnShippingCostPayerEnum'>eBay API documentation</a>
+      description: 'This type defines the fields for a seller''s international return policy. Sellers have the ability to set separate domestic and international return policies, but if an international return policy is not set, the same return policy settings specified for the domestic return policy are also used for returns for international buyers. '
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

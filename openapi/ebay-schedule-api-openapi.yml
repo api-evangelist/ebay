@@ -1,0 +1,766 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Schedule API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Schedule
+paths:
+  /schedule:
+    get:
+      tags:
+      - Schedule
+      description: This method retrieves an array containing the details and status of all schedules based on the specified <strong>feed_type</strong>. Use this method to find a schedule if you do not know the <strong>schedule_id</strong>.
+      operationId: getSchedules
+      parameters:
+      - name: feed_type
+        in: query
+        description: The feed type associated with the schedules being retrieved.<br><br><span class="tablenote"><b>Note:</b> Schedules are currently only available for <code>LMS_ORDER_REPORT</code>.</span>
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: 'The maximum number of schedules that can be returned on each page of the paginated response. Use this parameter in conjunction with the <strong>offset</strong> parameter to control the pagination of the output. <p> <span class="tablenote"><strong>Note:</strong> This feature employs a zero-based list, where the first item in the list has an offset of <code>0</code>.</span></p><p>For example, if <strong>offset</strong> is set to 10 and <strong>limit</strong> is set to 10, the call retrieves schedules 11 thru 20 from the result set.</p><p>If this parameter is omitted, the default value is used. <br /><br /><b>Default: </b> 10 <br /><br /><b>Maximum: </b>500'
+        required: false
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: 'The number of schedules to skip in the result set before returning the first schedule in the paginated response. <p>Combine <strong>offset</strong> with the <strong>limit</strong> query parameter to control the items returned in the response. For example, if you supply an <strong>offset</strong> of <code>0</code> and a <strong>limit</strong> of <code>10</code>, the first page of the response contains the first 10 items from the complete list of items retrieved by the call. If <strong>offset</strong> is <code>10</code> and <strong>limit</strong> is <code>20</code>, the first page of the response contains items 11-30 from the complete result set. If this query parameter is not set, the default value is used and the first page of records is returned.<br /><br /><b>Default: </b>0'
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserScheduleCollection'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '160012':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'limit' value must be greater than zero and less than or equal to 500.
+              '160013':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'offset' value cannot be less than zero.
+              '160017':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'feedType' is missing or invalid.
+              '160029':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'offset' value must be a multiple of the 'limit' value.
+        '403':
+          description: Forbidden
+          x-response-codes:
+            errors:
+              '160002':
+                domain: API_FEED
+                category: REQUEST
+                description: The authentication scope {scope} is incorrect for 'feed_type' {feedType}. Refer to documentation for details about the scopes.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '160001':
+                domain: API_FEED
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay Developer Technical Support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+        - https://api.ebay.com/oauth/api_scope/sell.fulfillment
+        - https://api.ebay.com/oauth/api_scope/sell.marketing
+        - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
+        - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+    post:
+      tags:
+      - Schedule
+      description: This method creates a schedule, which is a subscription to the specified schedule template. A schedule periodically generates a report for the <strong>feedType</strong> specified by the template. Specify the same <strong>feedType</strong> as the <strong>feedType</strong> of the associated schedule template. When creating the schedule, if available from the template, you can specify a preferred trigger hour, day of the week, or day of the month. These and other fields are conditionally available as specified by the template.<p> <span class="tablenote"><strong>Note:</strong> Make sure to include all fields required by the schedule template (<strong>scheduleTemplateId</strong>). Call the <strong>getScheduleTemplate</strong> method (or the <strong>getScheduleTemplates</strong> method), to find out which fields are required or optional. If a field is optional and a default value is provided by the template, the default value will be used if omitted from the payload.</span></p>A successful call returns the location response header containing the <strong>getSchedule</strong> call URI to retrieve the schedule you just created. The URL includes the eBay-assigned schedule ID, which you can use to reference the schedule task. <br /><br />To retrieve the details of the create schedule task, use the <strong>getSchedule</strong> method for a single schedule ID or the <strong>getSchedules</strong> method to retrieve all schedule details for the specified <strong>feed_type</strong>. The number of schedules for each feedType is limited. Error code 160031 is returned when you have reached this maximum.<p> <span class="tablenote"><strong>Note:</strong> Except for schedules with a HALF-HOUR frequency, all schedules will ideally run at the start of each hour ('00' minutes). Actual start time may vary time may vary due to load and other factors.</span></p>
+      operationId: createSchedule
+      parameters:
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: 'In the request payload: <strong>feedType</strong> and <strong>scheduleTemplateId</strong> are required; <strong>scheduleName</strong> is optional; <strong>preferredTriggerHour</strong>, <strong>preferredTriggerDayOfWeek</strong>, <strong>preferredTriggerDayOfMonth</strong>, <strong>scheduleStartDate</strong>, <strong>scheduleEndDate</strong>, and <strong>schemaVersion</strong> are conditional.'
+        content:
+          application/json:
+            schema:
+              description: 'In the request payload: <strong>feedType</strong> and <strong>scheduleTemplateId</strong> are required; <strong>scheduleName</strong> is optional; <strong>preferredTriggerHour</strong>, <strong>preferredTriggerDayOfWeek</strong>, <strong>preferredTriggerDayOfMonth</strong>, <strong>scheduleStartDate</strong>, <strong>scheduleEndDate</strong>, and <strong>schemaVersion</strong> are conditional.'
+              $ref: '#/components/schemas/CreateUserScheduleRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+                description: The URL of the schedule, which includes the id.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '160017':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'feedType' is missing or invalid.
+              '160032':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'scheduleTemplateId' is invalid. Call the getScheduleTemplates method to get the available schedule templates.
+              '160033':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'feedType' is not associated with the 'scheduleTemplateId'. Please provide a 'feedType' that matches the 'scheduleTemplateId'. Call the getScheduleTemplates method to get the available schedule templates.
+              '160034':
+                domain: API_FEED
+                category: REQUEST
+                description: The '{fieldName}' is invalid, missing, or not allowed.
+              '160036':
+                domain: API_FEED
+                category: REQUEST
+                description: The '{fieldName}' is in the past.
+              '160037':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'scheduleEndDate' is before 'scheduleStartDate'.
+        '403':
+          description: Forbidden
+          x-response-codes:
+            errors:
+              '160002':
+                domain: API_FEED
+                category: REQUEST
+                description: The authentication scope {scope} is incorrect for 'feed_type' {feedType}. Refer to documentation for details about the scopes.
+              '160022':
+                domain: API_FEED
+                category: REQUEST
+                description: You are not allowed to access this resource. Contact eBay Developer Technical Support for assistance.
+        '409':
+          description: Conflict
+          x-response-codes:
+            errors:
+              '160031':
+                domain: API_FEED
+                category: BUSINESS
+                description: You have reached the maximum number of subscribed schedules for the 'feedType' {feedType}. To subscribe to another schedule, you must delete one.
+              '160035':
+                domain: API_FEED
+                category: BUSINESS
+                description: Duplicate schedule (a matching schedule already exists). Use the getSchedules method to see the existing schedules.
+              '160040':
+                domain: API_FEED
+                category: BUSINESS
+                description: The 'scheduleTemplateId' is inactive. You cannot create or modify a schedule with an inactive 'scheduleTemplateId'.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '160001':
+                domain: API_FEED
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay Developer Technical Support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+        - https://api.ebay.com/oauth/api_scope/sell.fulfillment
+        - https://api.ebay.com/oauth/api_scope/sell.marketing
+        - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
+        - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+  /schedule/{schedule_id}:
+    get:
+      tags:
+      - Schedule
+      description: This method retrieves schedule details and status of the specified schedule. Specify the schedule to retrieve using the <strong>schedule_id</strong>. Use the <strong>getSchedules</strong> method to find a schedule if you do not know the <strong>schedule_id</strong>.
+      operationId: getSchedule
+      parameters:
+      - name: schedule_id
+        in: path
+        description: This path parameter is the unique identifier of the schedule for which to retrieve details.<br><br> Use the <a href="/api-docs/sell/feed/resources/schedule/methods/getSchedules" target="_blank ">getSchedules</a> method to retrieve schedule IDs.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserScheduleResponse'
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+          x-response-codes:
+            errors:
+              '160002':
+                domain: API_FEED
+                category: REQUEST
+                description: The authentication scope {scope} is incorrect for 'feed_type' {feedType}. Refer to documentation for details about the scopes.
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '160038':
+                domain: API_FEED
+                category: REQUEST
+                description: The schedule id {schedule_id} does not exist.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '160001':
+                domain: API_FEED
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay Developer Technical Support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+        - https://api.ebay.com/oauth/api_scope/sell.fulfillment
+        - https://api.ebay.com/oauth/api_scope/sell.marketing
+        - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
+        - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+    put:
+      tags:
+      - Schedule
+      description: This method updates an existing schedule. Specify the schedule to update using the <strong>schedule_id</strong> path parameter. If the schedule template has changed after the schedule was created or updated, the input will be validated using the changed template.<p> <span class="tablenote"><strong>Note:</strong> Make sure to include all fields required by the schedule template (<strong>scheduleTemplateId</strong>). Call the <strong>getScheduleTemplate</strong> method (or the <strong>getScheduleTemplates</strong> method), to find out which fields are required or optional. If you do not know the <strong>scheduleTemplateId</strong>, call the <strong>getSchedule</strong> method to find out.</span></p>
+      operationId: updateSchedule
+      parameters:
+      - name: schedule_id
+        in: path
+        description: This path parameter is the unique identifier of the schedule being updated. <br><br> Use the <a href="/api-docs/sell/feed/resources/schedule/methods/getSchedules" target="_blank ">getSchedules</a> method to retrieve schedule IDs.
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: 'In the request payload: <strong>scheduleName</strong> is optional; <strong>preferredTriggerHour</strong>, <strong>preferredTriggerDayOfWeek</strong>, <strong>preferredTriggerDayOfMonth</strong>, <strong>scheduleStartDate</strong>, <strong>scheduleEndDate</strong>, and <strong>schemaVersion</strong> are conditional.'
+        content:
+          application/json:
+            schema:
+              description: 'In the request payload: <strong>scheduleName</strong> is optional; <strong>preferredTriggerHour</strong>, <strong>preferredTriggerDayOfWeek</strong>, <strong>preferredTriggerDayOfMonth</strong>, <strong>scheduleStartDate</strong>, <strong>scheduleEndDate</strong>, and <strong>schemaVersion</strong> are conditional.'
+              $ref: '#/components/schemas/UpdateUserScheduleRequest'
+        required: true
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '160034':
+                domain: API_FEED
+                category: REQUEST
+                description: The '{fieldName}' is invalid, missing, or not allowed.
+              '160036':
+                domain: API_FEED
+                category: REQUEST
+                description: The '{fieldName}' is in past.
+              '160037':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'scheduleEndDate' is before 'scheduleStartDate'.
+        '403':
+          description: Forbidden
+          x-response-codes:
+            errors:
+              '160002':
+                domain: API_FEED
+                category: REQUEST
+                description: The authentication scope {scope} is incorrect for 'feed_type' {feedType}. Refer to documentation for details about the scopes.
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '160038':
+                domain: API_FEED
+                category: REQUEST
+                description: The schedule id {schedule_id} does not exist.
+        '409':
+          description: Conflict
+          x-response-codes:
+            errors:
+              '160040':
+                domain: API_FEED
+                category: BUSINESS
+                description: The 'scheduleTemplateId' is inactive. You cannot create or modify a schedule with an inactive 'scheduleTemplateId'.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '160001':
+                domain: API_FEED
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay Developer Technical Support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+        - https://api.ebay.com/oauth/api_scope/sell.fulfillment
+        - https://api.ebay.com/oauth/api_scope/sell.marketing
+        - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
+        - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+    delete:
+      tags:
+      - Schedule
+      description: This method deletes an existing schedule. Specify the schedule to delete using the <strong>schedule_id</strong> path parameter.
+      operationId: deleteSchedule
+      parameters:
+      - name: schedule_id
+        in: path
+        description: This path parameter is the unique identifier of the schedule being deleted.<br><br>Use the <a href="/api-docs/sell/feed/resources/schedule/methods/getSchedules" target="_blank ">getSchedules</a> method to retrieve schedule IDs.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '160038':
+                domain: API_FEED
+                category: REQUEST
+                description: The schedule id {schedule_id} does not exist.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '160001':
+                domain: API_FEED
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay Developer Technical Support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+        - https://api.ebay.com/oauth/api_scope/sell.fulfillment
+        - https://api.ebay.com/oauth/api_scope/sell.marketing
+        - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
+        - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+  /schedule/{schedule_id}/download_result_file:
+    get:
+      tags:
+      - Schedule
+      description: 'This method downloads the latest Order Report generated by the schedule. The response of this call is a compressed or uncompressed CSV, XML, or JSON file, with the applicable file extension (for example: csv.gz). Specify the <strong>schedule_id</strong> path parameter to download its last generated file.'
+      operationId: getLatestResultFile
+      parameters:
+      - name: schedule_id
+        in: path
+        description: This path parameter is the unique identifier of the schedule for which to retrieve the latest Order Report. <br><br> Use the <a href="/api-docs/sell/feed/resources/schedule/methods/getSchedules" target="_blank ">getSchedules</a> method to retrieve schedule IDs.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          headers:
+            content-disposition:
+              schema:
+                type: string
+                description: It contains the file metadata like file name.
+          content:
+            application/octet-stream:
+              schema:
+                $ref: '#/components/schemas/StreamingOutput'
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+          x-response-codes:
+            errors:
+              '160002':
+                domain: API_FEED
+                category: REQUEST
+                description: The authentication scope {scope} is incorrect for 'feed_type' {feedType}. Refer to documentation for details about the scopes.
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '160021':
+                domain: API_FEED
+                category: REQUEST
+                description: No file found for 'schedule_id' {scheduleID}.
+              '160038':
+                domain: API_FEED
+                category: REQUEST
+                description: The schedule id {schedule_id} does not exist.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '160001':
+                domain: API_FEED
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay Developer Technical Support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+        - https://api.ebay.com/oauth/api_scope/sell.fulfillment
+        - https://api.ebay.com/oauth/api_scope/sell.marketing
+        - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
+        - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+  /schedule_template/{schedule_template_id}:
+    get:
+      tags:
+      - Schedule
+      description: This method retrieves the details of the specified template. Specify the template to retrieve using the <strong>schedule_template_id</strong> path parameter. Use the <strong>getScheduleTemplates</strong> method to find a schedule template if you do not know the <strong>schedule_template_id</strong>.
+      operationId: getScheduleTemplate
+      parameters:
+      - name: schedule_template_id
+        in: path
+        description: This path parameter is the unique identifier of the schedule template being retrieved.<br><br>Use the <a href="/api-docs/sell/feed/resources/schedule/methods/getScheduleTemplates" target="_blank ">getScheduleTemplates</a> method to retrieve schedule template IDs.<br><br><span class="tablenote"><b>Note:</b> Template schedules are currently only available for <code>LMS_ORDER_REPORT</code>.</span>
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleTemplateResponse'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '160039':
+                domain: API_FEED
+                category: REQUEST
+                description: The schedule template id {schedule_template_id} does not exist. Please provide a valid schedule template id as contained in the documentation or by calling the getScheduleTemplates method.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '160001':
+                domain: API_FEED
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay Developer Technical Support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+        - https://api.ebay.com/oauth/api_scope/sell.fulfillment
+        - https://api.ebay.com/oauth/api_scope/sell.marketing
+        - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
+        - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+  /schedule_template:
+    get:
+      tags:
+      - Schedule
+      description: This method retrieves an array containing the details and status of all schedule templates based on the specified <strong>feed_type</strong>. Use this method to find a schedule template if you do not know the <strong>schedule_template_id</strong>.
+      operationId: getScheduleTemplates
+      parameters:
+      - name: feed_type
+        in: query
+        description: The feed type of the schedule templates to retrieve. <br><br><span class="tablenote"><b>Note:</b> Schedules are currently only available for <code>LMS_ORDER_REPORT</code>.</span>
+        required: true
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: 'The maximum number of schedule templates that can be returned on each page of the paginated response. Use this parameter in conjunction with the <strong>offset</strong> parameter to control the pagination of the output. <p> <span class="tablenote"><strong>Note:</strong> This feature employs a zero-based list, where the first item in the list has an offset of <code>0</code>.</span></p><p>For example, if <strong>offset</strong> is set to 10 and <strong>limit</strong> is set to 10, the call retrieves schedule templates 11 thru 20 from the result set.</p><p>If this parameter is omitted, the default value is used. <br /><br /><b>Default: </b> 10 <br /><br /><b>Maximum: </b>500'
+        required: false
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: 'The number of schedule templates to skip in the result set before returning the first template in the paginated response. <p>Combine <strong>offset</strong> with the <strong>limit</strong> query parameter to control the items returned in the response. For example, if you supply an <strong>offset</strong> of <code>0</code> and a <strong>limit</strong> of <code>10</code>, the first page of the response contains the first 10 items from the complete list of items retrieved by the call. If <strong>offset</strong> is <code>10</code> and <strong>limit</strong> is <code>20</code>, the first page of the response contains items 11-30 from the complete result set. If this query parameter is not set, the default value is used and the first page of records is returned.<br /><br /><b>Default: </b>0'
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ScheduleTemplateCollection'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '160012':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'limit' value must be greater than zero and less than or equal to 500.
+              '160013':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'offset' value cannot be less than zero.
+              '160017':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'feedType' is missing or invalid.
+              '160029':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'offset' value must be a multiple of the 'limit' value.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '160001':
+                domain: API_FEED
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay Developer Technical Support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+        - https://api.ebay.com/oauth/api_scope/sell.fulfillment
+        - https://api.ebay.com/oauth/api_scope/sell.marketing
+        - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
+        - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+components:
+  schemas:
+    StreamingOutput:
+      type: object
+      description: File stream
+    UserScheduleResponse:
+      type: object
+      properties:
+        scheduleId:
+          type: string
+          description: The ID of the schedule. This ID is generated when the schedule was created by the <strong>createSchedule</strong> method.
+        creationDate:
+          type: string
+          description: The creation date of the schedule in hours based on the 24-hour Coordinated Universal Time (UTC) clock.
+        feedType:
+          type: string
+          description: The <strong>feedType</strong> associated with the schedule.
+        lastModifiedDate:
+          type: string
+          description: The date the schedule was last modified.
+        preferredTriggerDayOfMonth:
+          type: integer
+          description: The preferred day of the month to trigger the schedule. This field can be used with <strong>preferredTriggerHour</strong> for monthly schedules. The last day of the month is used for numbers larger than the number of days in the month.
+          format: int32
+        preferredTriggerDayOfWeek:
+          type: string
+          description: The preferred day of the week to trigger the schedule. This field can be used with <strong>preferredTriggerHour</strong> for weekly schedules. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:DayOfWeekEnum'>eBay API documentation</a>
+        preferredTriggerHour:
+          type: string
+          description: The preferred two-digit hour of the day to trigger the schedule. <br /><br /><b>Format:</b> UTC <code>hhZ</code><br /><br />For example, the following represents 11:00 am UTC:<br /><br /><code>11Z</code><br /><br />
+        scheduleEndDate:
+          type: string
+          description: The timestamp on which the report generation (subscription) ends. After this date, the schedule status becomes <code>INACTIVE</code>.
+        scheduleName:
+          type: string
+          description: The schedule name assigned by the user for the created schedule. Users assign this name for their reference.
+        scheduleStartDate:
+          type: string
+          description: The timestamp that indicates the start of the report generation.
+        scheduleTemplateId:
+          type: string
+          description: The ID of the template used to create this schedule.
+        schemaVersion:
+          type: string
+          description: The schema version of the feedType for the schedule.
+        status:
+          type: string
+          description: The enumeration value that indicates the state of the schedule. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:StatusEnum'>eBay API documentation</a>
+        statusReason:
+          type: string
+          description: The reason the schedule is inactive. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:StatusReasonEnum'>eBay API documentation</a>
+      description: The type that defines the fields for a paginated result set of available schedules. The response consists of 0 or more sequenced <em> pages</em> where each page has 0 or more items.
+    SupportedConfiguration:
+      type: object
+      properties:
+        defaultValue:
+          type: string
+          description: The default value for the property. If a value is omitted from the schedule and a default value is supplied, the default value is used.
+        property:
+          type: string
+          description: 'Properties supported by the template. Properties can include the following: <ul><li><b>scheduleStartDate:</b> The timestamp that the report generation (subscription) begins. After this timestamp, the schedule status becomes active until either the scheduleEndDate occurs or the scheduleTemplate becomes inactive. Format: UTC <code>yyyy-MM-dd<strong>T</strong>HH<strong>Z</strong></code></li><li><b>scheduleEndDate:</b> The timestamp that the report generation (subscription) ends. After this date, the schedule status becomes INACTIVE. Format: UTC <code>yyyy-MM-dd<strong>T</strong>HH<strong>Z</strong></code></li><li><b>schemaVersion:</b> The schema version of the schedule templates feedType. This field is required if the feedType has a schema version.</li><li><b>preferredTriggerDayOfMonth:</b> The preferred day of the month to trigger the schedule. </li><li><b>preferredTriggerDayOfWeek:</b> The preferred day of the week to trigger the schedule. </li><li><b>preferredTriggerHour:</b> The preferred two-digit hour of the day to trigger the schedule. Format: UTC <code>hhZ</code></li><ul>'
+        usage:
+          type: string
+          description: Whether the specified property is REQUIRED or OPTIONAL. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:ConfigurationsUsageEnum'>eBay API documentation</a>
+      description: An array that defines the configuration supported by this template. This includes specified properties and usage (whether the property is REQUIRED or OPTIONAL), and an optional default value.
+    UserScheduleCollection:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The path to the call URI that produced the current page of results.
+        limit:
+          type: integer
+          description: The value of the <strong>limit</strong> parameter submitted in the request, which is the maximum number of schedules to return per page, from the result set. A result set is the complete set of schedules returned by the method. <p> <span class="tablenote"><strong>Note:</strong> Though this parameter is not required to be submitted in the request, the parameter defaults to 10 if omitted.<p> <span class="tablenote"><strong>Note:</strong> If this is the last or only page of the result set, the page may contain fewer tasks than the <strong>limit</strong> value. To determine the number of pages in a result set, divide the total value (total number of tasks matching input criteria) by this limit value, and then round up to the next integer. For example, if the <strong>total</strong> value was <code>120</code> (120 total tasks) and the <strong>limit</strong> value was <code>50</code> (show 50 tasks per page), the total number of pages in the result set is three, so the seller would have to make three separate <strong>getSchedules</strong> calls to view all tasks matching the input criteria.</span></p></span></p>
+          format: int32
+        next:
+          type: string
+          description: The path to the call URI for the next page of results. This value is returned if there is an additional page of results to return from the result set.
+        offset:
+          type: integer
+          description: 'The number of results skipped in the result set before listing the first returned result. This value can be set in the request with the <b>offset</b> query parameter. <p class="tablenote"><strong>Note: </strong>The items in a paginated result set use a zero-based list where the first item in the list has an offset of <code>0</code>.</p>'
+          format: int32
+        prev:
+          type: string
+          description: The path to the call URI for the previous page of results. This is returned if there is a previous page of results from the result set.
+        schedules:
+          type: array
+          description: An array of the schedules on this page. An empty array is returned if the filter criteria excludes all tasks.
+          items:
+            $ref: '#/components/schemas/UserScheduleResponse'
+        total:
+          type: integer
+          description: The total number of schedules that match the input criteria.
+          format: int32
+      description: The type that defines the fields for a paginated result set of user schedules. The response consists of 0 or more sequenced <em> pages</em> where each page has 0 or more items.
+    UpdateUserScheduleRequest:
+      type: object
+      properties:
+        preferredTriggerDayOfMonth:
+          type: integer
+          description: 'The preferred day of the month to trigger the schedule. This field can be used with <strong>preferredTriggerHour</strong> for monthly schedules. The last day of the month is used for numbers larger than the actual number of days in the month. <br /><br />This field is available as specified by the template (<strong>scheduleTemplateId</strong>). The template can specify this field as optional or required, and optionally provides a default value. <br /><br /><b>Minimum: </b>1<b><br /><br /><b>Maximum: </b>31'
+          format: int32
+        preferredTriggerDayOfWeek:
+          type: string
+          description: The preferred day of the week to trigger the schedule. This field can be used with <strong>preferredTriggerHour</strong> for weekly schedules. <br /><br />This field is available as specified by the template (<strong>scheduleTemplateId</strong>). The template can specify this field as optional or required, and optionally provides a default value. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:DayOfWeekEnum'>eBay API documentation</a>
+        preferredTriggerHour:
+          type: string
+          description: 'The preferred two-digit hour of the day to trigger the schedule. <br /><br />This field is available as specified by the template (<strong>scheduleTemplateId</strong>). The template can specify this field as optional or required, and optionally provides a default value. <br /><br /><b>Format:</b> UTC <code>hhZ</code><br /><br />For example, the following represents 11:00 am UTC:<code> 11Z</code><br /><br /><b>Minimum: </b><code>00Z</code><br /><br /><b>Maximum:</b> <code>23Z</code>'
+        scheduleEndDate:
+          type: string
+          description: The timestamp on which the schedule (report generation) ends. After this date, the schedule status becomes <code>INACTIVE</code>. <br /><br />Use this field, if available, to end the schedule in the future. This value must be later than <strong>scheduleStartDate</strong> (if supplied). This field is available as specified by the template (<strong>scheduleTemplateId</strong>). The template can specify this field as optional or required, and optionally provides a default value.<br /><br /><b>Format:</b> UTC <code>yyyy-MM-dd<strong>T</strong>HH<strong>Z</strong></code><br /><br />For example, the following represents UTC October 10, 2021 at 10:00 AM:<br /><code> 2021-10-10T10Z</code>
+        scheduleName:
+          type: string
+          description: The schedule name assigned by the user for the created schedule.
+        scheduleStartDate:
+          type: string
+          description: The timestamp to start generating the report. After this timestamp, the schedule status becomes active until either the <strong>scheduleEndDate</strong> occurs or the <strong>scheduleTemplateId</strong> becomes inactive. <br /><br />Use this field, if available, to start the schedule in the future but before the <strong>scheduleEndDate</strong> (if supplied). This field is available as specified by the template <strong>(scheduleTemplateId)</strong>.  The template can specify this field as optional or required, and optionally provides a default value.<br /><br /><b>Format:</b> UTC <code>yyyy-MM-dd<strong>T</strong>HH<strong>Z</strong></code><br /><br />For example, the following represents a schedule start date of UTC October 01, 2020 at 12:00 PM:<br /><code> 2020-01-01T12Z</code>
+        schemaVersion:
+          type: string
+          description: The schema version of a schedule.
+      description: The type that defines the fields for a schedule update to a schedule generated with the Feed API.
+    ScheduleTemplateResponse:
+      type: object
+      properties:
+        feedType:
+          type: string
+          description: The feed type of the schedule template. <p> <span class="tablenote"><strong>Note:</strong> When calling <strong>createSchedule</strong> and <strong>updateSchedule</strong> methods you must match the feed type specified by the schedule template (this feedType).</span></p>
+        frequency:
+          type: string
+          description: This field specifies how often the schedule is generated. If set to <code>HALF_HOUR</code> or <code>ONE_HOUR</code>, you cannot set a <strong>preferredTriggerHour</strong> using <strong>createSchedule</strong> or <strong>updateSchedule</strong>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:FrequencyEnum'>eBay API documentation</a>
+        name:
+          type: string
+          description: The template name provided by the template.
+        scheduleTemplateId:
+          type: string
+          description: The ID of the template. Use this ID to create a schedule based on the properties of this schedule template.
+        status:
+          type: string
+          description: The present status of the template. You cannot create or modify a schedule using a template with an <code>INACTIVE</code> status.  For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:StatusEnum'>eBay API documentation</a>
+        supportedConfigurations:
+          type: array
+          description: An array of the configuration supported by this template.
+          items:
+            $ref: '#/components/schemas/SupportedConfiguration'
+      description: The type that defines the fields for a paginated result set of available schedule templates. The response consists of 0 or more sequenced <em> pages</em> where each page has 0 or more items.
+    ScheduleTemplateCollection:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The path to the call URI that produced the current page of results.
+        limit:
+          type: integer
+          description: The value of the <strong>limit</strong> parameter submitted in the request, which is the maximum number of schedule templates to return per page, from the result set. A result set is the complete set of schedule templates returned by the method. <p> <span class="tablenote"><strong>Note:</strong> Though this parameter is not required to be submitted in the request, the parameter defaults to 10 if omitted.</span></p><p> <span class="tablenote"><strong>Note:</strong> If this is the last or only page of the result set, the page may contain fewer tasks than the <strong>limit</strong> value. To determine the number of pages in a result set, divide the total value (total number of tasks matching input criteria) by this limit value, and then round up to the next integer. For example, if the <strong>total</strong> value was <code>120</code> (120 total tasks) and the <strong>limit</strong> value was <code>50</code> (show 50 tasks per page), the total number of pages in the result set is three, so the seller would have to make three separate <strong>getScheduleTemplates</strong> calls to view all tasks matching the input criteria.</span></p>
+          format: int32
+        next:
+          type: string
+          description: The path to the call URI for the next page of results. This value is returned if there is an additional page of results to return from the result set.
+        offset:
+          type: integer
+          description: 'The number of results skipped in the result set before listing the first returned result. This value can be set in the request with the <b>offset</b> query parameter. <p class="tablenote"><strong>Note: </strong>The items in a paginated result set use a zero-based list where the first item in the list has an offset of <code>0</code>.</p>'
+          format: int32
+        prev:
+          type: string
+          description: The path to the call URI for the previous page of results. This is returned if there is a previous page of results from the result set.
+        scheduleTemplates:
+          type: array
+          description: An array of the schedule templates on this page. An empty array is returned if the filter criteria excludes all tasks.
+          items:
+            $ref: '#/components/schemas/ScheduleTemplateResponse'
+        total:
+          type: integer
+          description: The total number of schedule templates that match the input criteria.
+          format: int32
+      description: The type that defines the fields for a paginated result set of schedule templates. The response consists of 0 or more sequenced <em> pages</em> where each page has 0 or more items.
+    CreateUserScheduleRequest:
+      type: object
+      properties:
+        feedType:
+          type: string
+          description: The name of the feed type for the created schedule.<br><br> Use the <a href="/api-docs/sell/feed/resources/schedule/methods/getScheduleTemplates">getScheduleTemplates</a> method to retrieve the feed type of a schedule template.<br><br><span class="tablenote"><b>Note:</b> Schedules are currently only available for <code>LMS_ORDER_REPORT</code>.</span>
+        preferredTriggerDayOfMonth:
+          type: integer
+          description: 'The preferred day of the month to trigger the schedule. This field can be used with <strong>preferredTriggerHour</strong> for monthly schedules. The last day of the month is used for numbers larger than the actual number of days in the month. <br /><br />This field is available as specified by the template (<strong>scheduleTemplateId</strong>). The template can specify this field as optional or required, and optionally provides a default value.<br /><br /><b>Minimum: </b>1<br /><br /><b>Maximum: </b>31'
+          format: int32
+        preferredTriggerDayOfWeek:
+          type: string
+          description: The preferred day of the week to trigger the schedule. This field can be used with <strong>preferredTriggerHour</strong> for weekly schedules. <br /><br />This field is available as specified by the template (<strong>scheduleTemplateId</strong>). The template can specify this field as optional or required, and optionally provides a default value. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:DayOfWeekEnum'>eBay API documentation</a>
+        preferredTriggerHour:
+          type: string
+          description: The preferred two-digit hour of the day to trigger the schedule. <br /><br />This field is available as specified by the template (<strong>scheduleTemplateId</strong>). The template can specify this field as optional or required, and optionally provides a default value.<br /><br /><b>Format:</b> UTC <code>hhZ</code><br /><br />For example, the following represents 11:00 am UTC:<code> 11Z</code>
+        scheduleEndDate:
+          type: string
+          description: The timestamp on which the report generation (subscription) ends. After this date, the schedule status becomes <code>INACTIVE</code>. <br /><br />Use this field, if available, to end the schedule in the future. This value must be later than <strong>scheduleStartDate</strong> (if supplied). This field is available as specified by the template (<strong>scheduleTemplateId</strong>). The template can specify this field as optional or required, and optionally provides a default value.<br /><br /><b>Format:</b> UTC <code>yyyy-MM-dd<strong>T</strong>HH<strong>Z</strong></code><br /><br />For example, the following represents UTC October 10, 2021 at 10:00 AM:<br /><code>2021-10-10T10Z</code>
+        scheduleName:
+          type: string
+          description: The schedule name assigned by the user for the created schedule.
+        scheduleStartDate:
+          type: string
+          description: The timestamp to start generating the report. After this timestamp, the schedule status becomes active until either the <strong>scheduleEndDate</strong> occurs or the <strong>scheduleTemplateId</strong> becomes inactive. <br /><br />Use this field, if available, to start the schedule in the future but before the <strong>scheduleEndDate</strong> (if supplied). This field is available as specified by the template <strong>(scheduleTemplateId)</strong>. The template can specify this field as optional or required, and optionally provides a default value.<br /><br /><b>Format:</b> UTC <code>yyyy-MM-dd<strong>T</strong>HH<strong>Z</strong></code><br /><br />For example, the following represents a schedule start date of UTC October 01, 2020 at 12:00 PM:<br /><code> 2020-01-01T12Z</code>
+        scheduleTemplateId:
+          type: string
+          description: The unique identifier of the template to be used for this schedule. <br><br>Use the <a href="/api-docs/sell/feed/resources/schedule/methods/getScheduleTemplates">getScheduleTemplates</a> method to retrieve the schedule template ID. This method requires a schedule template ID that is <code>ACTIVE</code>.<br><br><span class="tablenote"><b>Note:</b> Schedules are currently only available for <code>LMS_ORDER_REPORT</code>.</span>
+        schemaVersion:
+          type: string
+          description: The schema version of a schedule.
+      description: The type that defines the fields for the <strong>createSchedule</strong> method.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

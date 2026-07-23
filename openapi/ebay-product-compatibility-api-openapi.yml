@@ -1,0 +1,459 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Product_compatibility API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Product_compatibility
+paths:
+  /inventory_item/{sku}/product_compatibility:
+    get:
+      tags:
+      - Product_compatibility
+      description: This call is used by the seller to retrieve the list of products that are compatible with the inventory item. The SKU value for the inventory item is passed into the call URI, and a successful call with return the compatible vehicle list associated with this inventory item. Product compatibility is currently only applicable to motor vehicle parts and accessory categories, but more categories may be supported in the future.
+      operationId: getProductCompatibility
+      parameters:
+      - name: sku
+        in: path
+        description: This path parameter specifies the SKU (stock keeping unit) of the inventory item associated with the product compatibility list being retrieved.<br><br>Use the <a href="/api-docs/sell/inventory/resources/inventory_item/methods/getInventoryItems" target="_blank ">getInventoryItems</a> method to retrieve SKU values.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Compatibility'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '25702':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: '{skuValue} could not be found or is not available in the system.'
+              '25709':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Invalid value for {fieldName}. {additionalInfo}
+              '25710':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: We didn't find the resource/entity you are requesting. Please verify the request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '25001':
+                domain: API_INVENTORY
+                category: APPLICATION
+                description: A system error has occurred. {additionalInfo}
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory.readonly
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+    put:
+      tags:
+      - Product_compatibility
+      description: This call is used by the seller to create or replace a list of products that are compatible with the inventory item. The inventory item is identified with a SKU value in the URI. Product compatibility is currently only applicable to motor vehicle parts and accessory categories, but more categories may be supported in the future.<br><br><span class="tablenote"><b>Note:</b> In addition to the <code>authorization</code> header, which is required for all Inventory API calls, this call also requires the <code>Content-Type</code> and <code>Content-Language</code> headers. See the <a href="/api-docs/sell/inventory/resources/inventory_item/product_compatibility/methods/createOrReplaceProductCompatibility#h3-request-headers">HTTP request headers</a> for more information.</span>
+      operationId: createOrReplaceProductCompatibility
+      parameters:
+      - name: Content-Language
+        in: header
+        description: This header sets the natural language that will be used in the field values of the request payload. For example, the value passed in this header should be <code>en-US</code> for English or <code>de-DE</code> for German.<br><br>For more information on the Content-Language header, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      - name: sku
+        in: path
+        description: This path parameter specifies the SKU (stock keeping unit) of the inventory item associated with the compatibility list being created.<br><br>Use the <a href="/api-docs/sell/inventory/resources/inventory_item/methods/getInventoryItems" target="_blank ">getInventoryItems</a> method to retrieve SKU values.
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Details of the compatibility
+        content:
+          application/json:
+            schema:
+              description: Details of the compatibility
+              $ref: '#/components/schemas/Compatibility'
+        required: true
+      responses:
+        '200':
+          description: Success
+          headers:
+            Content-Language:
+              schema:
+                type: string
+                description: This response header sets the natural language that will be provided in the field values of the response payload.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+          x-response-codes:
+            errors:
+              '25401':
+                domain: API_INVENTORY
+                category: APPLICATION
+                description: Invalid listing format removed. {additionalInfo}
+              '25402':
+                domain: API_INVENTORY
+                category: APPLICATION
+                description: System warning. {additionalInfo}
+        '201':
+          description: Created
+          headers:
+            Content-Language:
+              schema:
+                type: string
+                description: This response header sets the natural language that will be provided in the field values of the response payload.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BaseResponse'
+          x-response-codes:
+            errors:
+              '25401':
+                domain: API_INVENTORY
+                category: APPLICATION
+                description: Invalid listing format removed. {additionalInfo}
+              '25402':
+                domain: API_INVENTORY
+                category: APPLICATION
+                description: System warning. {additionalInfo}
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '25002':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: A user error has occurred. {additionalInfo}
+              '25003':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: The eBay listing associated with the inventory item, or the unpublished offer has an invalid price. {additionalInfo}
+              '25004':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: The eBay listing associated with the inventory item, or the unpublished offer has an invalid quantity. {additionalInfo}
+              '25005':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: The eBay listing associated with the inventory item, or the unpublished offer has an invalid category ID. {additionalInfo}
+              '25006':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: The eBay listing associated with the inventory item, or the unpublished offer has an invalid listing option. {additionalInfo}
+              '25007':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: The eBay listing associated with the inventory item, or the unpublished offer has invalid data in the associated Fulfillment policy. {additionalInfo}
+              '25008':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: The eBay listing associated with the inventory item, or the unpublished offer has invalid data in the associated Payment policy. {additionalInfo}
+              '25009':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: The eBay listing associated with the inventory item, or the unpublished offer has invalid data in the associated Return policy. {additionalInfo}
+              '25011':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: The eBay listing associated with the inventory item, or the unpublished offer has invalid tax information. {additionalInfo}
+              '25012':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Invalid inventory location. {additionalInfo}
+              '25013':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Invalid data in the Inventory Item Group. {additionalInfo}
+              '25014':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: The eBay listing associated with the inventory item, or the unpublished offer has invalid pictures. {additionalInfo}
+              '25015':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: The eBay listing associated with the inventory item, or the unpublished offer has an invalid picture URL. {additionalInfo}
+              '25016':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: The {fieldName} value is invalid. {additionalInfo}
+              '25017':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: '{fieldName} is missing. {additionalInfo}'
+              '25018':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Incomplete account information. {additionalInfo}
+              '25019':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Cannot revise listing. {additionalInfo}
+              '25020':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: The eBay listing associated with the inventory item, or the unpublished offer has invalid shipping package details. {additionalInfo}
+              '25021':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: The eBay listing associated with the inventory item, or the unpublished offer has invalid item condition information. {additionalInfo}
+              '25022':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Invalid attribute. {fieldName}
+              '25023':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Invalid compatibility information. {additionalInfo}
+              '25026':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Selling limit exceeded. {additionalInfo}
+              '25702':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: '{skuValue} could not be found or is not available in the system.'
+              '25739':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: User input error. The number of compatibilityProperties in the request cannot exceed {additionalInfo}.
+              '25740':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: User input error. Invalid name for compatibilityProperties. The length should be between 1 and {additionalInfo} characters.
+              '25741':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: User input error. Invalid value for compatibilityProperties. The length should be between 1 and {additionalInfo} characters.
+              '25742':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: User input error. productFamilyProperties and compatibilityProperties cannot be used together. Please use compatibilityProperties.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '25001':
+                domain: API_INVENTORY
+                category: APPLICATION
+                description: A system error has occurred. {additionalInfo}
+              '25025':
+                domain: API_INVENTORY
+                category: APPLICATION
+                description: Concurrent access of the same Inventory or Inventory Item Group object is not allowed. Please try again later.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+    delete:
+      tags:
+      - Product_compatibility
+      description: This call is used by the seller to delete the list of products that are compatible with the inventory item that is associated with the compatible product list. The inventory item is identified with a SKU value in the URI. Product compatibility is currently only applicable to motor vehicle parts and accessory categories, but more categories may be supported in the future.
+      operationId: deleteProductCompatibility
+      parameters:
+      - name: sku
+        in: path
+        description: This path parameter specifies the SKU (stock keeping unit) of the inventory item that is associated with the product compatibility list that is being deleted.<br><br>Use the <a href="/api-docs/sell/inventory/resources/inventory_item/methods/getInventoryItems" target="_blank ">getInventoryItems</a> method to retrieve SKU values.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '25702':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: '{skuValue} could not be found or is not available in the system.'
+              '25709':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Invalid value for {fieldName}. {additionalInfo}
+              '25710':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: We didn't find the resource/entity you are requesting. Please verify the request
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '25001':
+                domain: API_INVENTORY
+                category: APPLICATION
+                description: A system error has occurred. <em>&lt;additional_information&gt;</em>
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+components:
+  schemas:
+    Compatibility:
+      type: object
+      properties:
+        compatibleProducts:
+          type: array
+          description: This container consists of an array of motor vehicles (make, model, year, trim, engine) that are compatible with the motor vehicle part or accessory specified by the sku value.
+          items:
+            $ref: '#/components/schemas/CompatibleProduct'
+        sku:
+          type: string
+          description: The seller-defined SKU value of the inventory item that will be associated with the compatible vehicles.<br><br><span class="tablenote"><b>Note:</b> This field is not applicable to the <strong>createOrReplaceProductCompatibility</strong> method, as the SKU value for the inventory item is passed in as part of the call URI and not in the request payload. It is always returned with the <a href="/api-docs/sell/inventory/resources/inventory_item/product_compatibility/methods/getProductCompatibility" target="_blank ">getProductCompatibility</a> method.</span>
+      description: This type is used by the <strong>createOrReplaceProductCompatibility</strong> call to associate compatible vehicles to an inventory item. This type is also the base response of the <strong>getProductCompatibility</strong> call.
+    ErrorParameter:
+      type: object
+      properties:
+        name:
+          type: string
+          description: This type contains the name and value of an input parameter that contributed to a specific error or warning condition.
+        value:
+          type: string
+          description: This is the actual value that was passed in for the element specified in the <strong>name</strong> field.
+      description: This type is used to indicate the parameter field/value that caused an issue with the call request.
+    NameValueList:
+      type: object
+      properties:
+        name:
+          type: string
+          description: This string value identifies the motor vehicle aspect, such as 'make', 'model', 'year', 'trim', and 'engine'. Typically, the make, model, and year of the motor vehicle are always required, with the trim and engine being necessary sometimes, but it will be dependent on the part or accessory, and on the vehicle class.<br><br>The <a href="/api-docs/commerce/taxonomy/resources/category_tree/methods/getCompatibilityProperties" target="_blank">getCompatibilityProperties</a> method of the Taxonomy API can be used to retrieve applicable vehicle aspect names for a specified category.
+        value:
+          type: string
+          description: This string value identifies the motor vehicle aspect specified in the corresponding <strong>name</strong> field. For example, if the <strong>name</strong> field is 'make', this field may be 'Toyota', or if the <strong>name</strong> field is 'model', this field may be 'Camry'.<br><br>The <a href="/api-docs/commerce/taxonomy/resources/category_tree/methods/getCompatibilityPropertyValues" target="_blank">getCompatibilityPropertyValues</a> method of the Taxonomy API can be used to retrieve possible values for vehicle aspect names.
+      description: This type is used by the <strong>compatibilityProperties</strong> container to identify a motor vehicle using name/value pairs.
+    CompatibleProduct:
+      type: object
+      properties:
+        compatibilityProperties:
+          type: array
+          description: 'This container consists of an array of motor vehicles that are compatible with the motor vehicle part or accessory specified by the SKU value in the call URI. Each motor vehicle is defined through a separate set of name/value pairs. In the <strong>name</strong> field, the vehicle aspect (such as ''make'', ''model'', ''year'', ''trim'', or ''engine'') will be identified, and the <strong>value</strong> field will be used to identify the value of each aspect.<br><br>The <a href="/api-docs/commerce/taxonomy/resources/category_tree/methods/getCompatibilityProperties" target="_blank">getCompatibilityProperties</a> method of the Taxonomy API can be used to retrieve applicable vehicle aspect names for a specified category, and the <a href="/api-docs/commerce/taxonomy/resources/category_tree/methods/getCompatibilityPropertyValues" target="_blank">getCompatibilityPropertyValues</a> method of the Taxonomy API can be used to retrieve possible values for these same vehicle aspect names.<br><br>Below is an example of identifying one motor vehicle using the <strong>compatibilityProperties</strong> container:<br><br><code>&quot;compatibilityProperties&quot; : &#91;<br>&nbsp;&nbsp;&#123;<br>&nbsp;&nbsp;&nbsp;&quot;name&quot; : &quot;make&quot;,<br>&nbsp;&nbsp;&nbsp;&quot;value&quot; : &quot;Subaru&quot;<br>&nbsp;&nbsp;&#125;,<br>&nbsp;&nbsp;&#123;<br>&nbsp;&nbsp;&nbsp;&quot;name&quot; : &quot;model&quot;,<br>&nbsp;&nbsp;&nbsp;&quot;value&quot; : &quot;GL&quot;<br>&nbsp;&nbsp;&#125;,<br>&nbsp;&nbsp;&#123;<br>&nbsp;&nbsp;&nbsp;&quot;name&quot; : &quot;year&quot;,<br>&nbsp;&nbsp;&nbsp;&quot;value&quot; : &quot;1983&quot;<br>&nbsp;&nbsp;&#125;,<br>&nbsp;&nbsp;&#123;<br>&nbsp;&nbsp;&nbsp;&quot;name&quot; : &quot;trim&quot;,<br>&nbsp;&nbsp;&nbsp;&quot;value&quot; : &quot;Base Wagon 4-Door&quot;<br>&nbsp;&nbsp;&#125;,<br>&nbsp;&nbsp;&#123;<br>&nbsp;&nbsp;&nbsp;&quot;name&quot; : &quot;engine&quot;,<br>&nbsp;&nbsp;&nbsp;&quot;value&quot; : &quot;1.8L Turbocharged&quot;<br>&nbsp;&nbsp;&#125;<br>&#93;</code><br><br>Typically, the make, model, and year of the motor vehicle are always required, with the trim and engine being necessary sometimes, but it will be dependent on the part or accessory, and on the vehicle class.<br><br><span class="tablenote"> <strong>Note:</strong> The <strong>productFamilyProperties</strong> container is deprecated and should no longer be used. The <strong>compatibilityProperties</strong> container should be used instead.</span>'
+          items:
+            $ref: '#/components/schemas/NameValueList'
+        notes:
+          type: string
+          description: 'This field is used by the seller to input any notes pertaining to the compatible vehicle list being defined. The seller might use this field to specify the placement of the part on a vehicle or other applicable information.<br><br>This field will only be returned if specified by the seller.<br><br><strong>Max Length</strong>: 500<br>'
+        productFamilyProperties:
+          description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> The <strong>productFamilyProperties</strong> container is deprecated and should no longer be used. The <strong>compatibilityProperties</strong> container should be used instead.</p></div>'
+          $ref: '#/components/schemas/ProductFamilyProperties'
+        productIdentifier:
+          description: This container is used in a <strong>createOrReplaceProductCompatibility</strong> call to identify a motor vehicle that is compatible with the inventory item. The user specifies either an eBay Product ID (ePID) or K-Type value to identify a vehicle, and if the motor vehicle is found in the eBay product catalog, the motor vehicle properties (make, model, year, trim, engine) will automatically be populated for the vehicle. If the vehicle cannot be found using these identifiers, the vehicle will not be added to the compatible vehicle list. <br><br>Note that this container will not be returned in the <strong>getProductCompatibility</strong> call.
+          $ref: '#/components/schemas/ProductIdentifier'
+      description: 'This type is used to specify/indicate the motor vehicles that are compatible with the corresponding inventory item. '
+    ProductIdentifier:
+      type: object
+      properties:
+        epid:
+          type: string
+          description: This field can be used if the seller already knows the eBay catalog product ID (ePID) associated with the motor vehicle that is to be added to the compatible product list. If this eBay catalog product ID is found in the eBay product catalog, the motor vehicle properties (e.g. make, model, year, engine, and trim) will automatically get picked up for that motor vehicle.
+        gtin:
+          type: string
+          description: This field can be used if the seller knows the Global Trade Item Number for the motor vehicle that is to be added to the compatible product list. If this GTIN value is found in the eBay product catalog, the motor vehicle properties (e.g. make, model, year, engine, and trim will automatically get picked up for that motor vehicle.<br><br><span class="tablenote"> <strong>Note:</strong> This field is for future use.</span>
+        ktype:
+          type: string
+          description: This field can be used if the seller knows the K Type Number for the motor vehicle that is to be added to the compatible product list. If this K Type value is found in the eBay product catalog, the motor vehicle properties (e.g. make, model, year, engine, and trim) will automatically get picked up for that motor vehicle. <br><br>Only the AU, DE, ES, FR, IT, and UK marketplaces support the use of K Type Numbers.
+      description: This type is used to identify a motor vehicle that is compatible with the corresponding inventory item (the SKU that is passed in as part of the call URI). The motor vehicle can be identified through an eBay Product ID or a K-Type value. The <strong>gtin</strong> field (for inputting Global Trade Item Numbers) is for future use only. If a motor vehicle is found in the eBay product catalog, the motor vehicle properties (engine, make, model, trim, and year) will automatically get picked up for that motor vehicle.<br><br><span class="tablenote"> <strong>Note:</strong> Currently, parts compatibility is only applicable for motor vehicles, but it is possible that the Product Compatibility feature is expanded to other (non-vehicle) products in the future.</span>
+    ProductFamilyProperties:
+      type: object
+      properties:
+        engine:
+          type: string
+          description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> The <strong>productFamilyProperties</strong> container is no longer supported.</p></div>'
+        make:
+          type: string
+          description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> The <strong>productFamilyProperties</strong> container is no longer supported.</p></div>'
+        model:
+          type: string
+          description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> The <strong>productFamilyProperties</strong> container is no longer supported.</p></div>'
+        trim:
+          type: string
+          description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> The <strong>productFamilyProperties</strong> container is no longer supported.</p></div>'
+        year:
+          type: string
+          description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> The <strong>productFamilyProperties</strong> container is no longer supported.</p></div>'
+      description: This type is used to specify the details of a motor vehicle that is compatible with the inventory item specified through the SKU value in the call URI.
+    Error:
+      type: object
+      properties:
+        category:
+          type: string
+          description: 'This string value indicates the error category. There are three categories of errors: request errors, application errors, and system errors. '
+        domain:
+          type: string
+          description: The name of the domain in which the error or warning occurred.
+        errorId:
+          type: integer
+          description: A unique code that identifies the particular error or warning that occurred. Your application can use error codes as identifiers in your customized error-handling algorithms.
+          format: int32
+        inputRefIds:
+          type: array
+          description: An array of one or more reference IDs which identify the specific request element(s) most closely associated to the error or warning, if any.
+          items:
+            type: string
+        longMessage:
+          type: string
+          description: A detailed description of the condition that caused the error or warning, and information on what to do to correct the problem.
+        message:
+          type: string
+          description: A description of the condition that caused the error or warning.
+        outputRefIds:
+          type: array
+          description: An array of one or more reference IDs which identify the specific response element(s) most closely associated to the error or warning, if any.
+          items:
+            type: string
+        parameters:
+          type: array
+          description: Various warning and error messages return one or more variables that contain contextual information about the error or waring. This is often the field or value that triggered the error or warning.
+          items:
+            $ref: '#/components/schemas/ErrorParameter'
+        subdomain:
+          type: string
+          description: The name of the subdomain in which the error or warning occurred.
+      description: This type is used to express detailed information on errors and warnings that may occur with a call request.
+    BaseResponse:
+      type: object
+      properties:
+        warnings:
+          type: array
+          description: This container will be returned in a call response payload if one or more warnings or errors are triggered when an Inventory API call is made. This container will contain detailed information about the error or warning.
+          items:
+            $ref: '#/components/schemas/Error'
+      description: This is the base response of the <strong>createOrReplaceInventoryItem</strong>, <strong>createOrReplaceInventoryItemGroup</strong>, and <strong>createOrReplaceProductCompatibility</strong> calls. A response payload will only be returned for these three calls if one or more errors or warnings occur with the call.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

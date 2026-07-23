@@ -1,0 +1,193 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Product API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Product
+paths:
+  /product/{epid}:
+    get:
+      tags:
+      - Product
+      description: This method retrieves details of the catalog product identified by the eBay product identifier (ePID) specified in the request. These details include the product's title and description, aspects and their values, associated images, applicable category IDs, and any recognized identifiers that apply to the product. <br /><br /> For a new listing, you can use the <b>search</b> method to identify candidate products on which to base the listing, then use the <b>getProduct</b> method to present the full details of those candidate products to the seller to make a a final selection.
+      operationId: getProduct
+      parameters:
+      - name: X-EBAY-C-MARKETPLACE-ID
+        in: header
+        description: This method also uses the <code>X-EBAY-C-MARKETPLACE-ID</code> header to identify the seller's eBay marketplace. It is required for all <a href="/api-docs/commerce/catalog/overview.html#supported-marketplaces" target="_blank">supported marketplaces</a>, except EBAY_US, which is the default.
+        required: false
+        schema:
+          type: string
+      - name: epid
+        in: path
+        description: The eBay product identifier (ePID) of the product being requested. This value can be discovered by issuing the <b>search</b> method and examining the value of the <b>productSummaries.epid</b> field for the desired returned product summary.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Product'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '75007':
+                domain: API_CATALOG
+                category: REQUEST
+                description: 'Currently, the {marketplaceId} marketplace is not supported. The supported Marketplaces are: {allowedMarketplaces}.'
+              '75010':
+                domain: API_CATALOG
+                category: REQUEST
+                description: The specified EPID value {epid} was not found.
+              '75011':
+                domain: API_CATALOG
+                category: REQUEST
+                description: The specified EPID value {epid} no longer exists. Its new value is {newepid}.
+              '75015':
+                domain: API_CATALOG
+                category: REQUEST
+                description: Insufficient permissions to fulfill the request.
+              '75016':
+                domain: API_CATALOG
+                category: REQUEST
+                description: The specified EPID value {epid} is no longer available.
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '75000':
+                domain: API_CATALOG
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+        - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
+components:
+  schemas:
+    Aspect:
+      type: object
+      properties:
+        localizedName:
+          type: string
+          description: The localized name of this category aspect.
+        localizedValues:
+          type: array
+          description: A list of the localized values of this category aspect.
+          items:
+            type: string
+      description: This type contains the name and values of a category aspect.
+    Image:
+      type: object
+      properties:
+        height:
+          type: integer
+          description: The height of the image in pixels.
+          format: int32
+        imageUrl:
+          type: string
+          description: The eBay Picture Services (EPS) URL of the image.
+        width:
+          type: integer
+          description: The width of the image in pixels.
+          format: int32
+      description: This type contains information about a product image stored in eBay Picture Services (EPS).
+    Product:
+      type: object
+      properties:
+        additionalImages:
+          type: array
+          description: Contains information about  additional images associated with this product. For the primary image, see the <b>image</b> container.
+          items:
+            $ref: '#/components/schemas/Image'
+        aspects:
+          type: array
+          description: Contains an array of the category aspects and their values that are associated with this product.
+          items:
+            $ref: '#/components/schemas/Aspect'
+        brand:
+          type: string
+          description: The manufacturer's brand name for this product.
+        description:
+          type: string
+          description: The rich description of this product, which might contain HTML.
+        ean:
+          type: array
+          description: A list of all European Article Numbers (EANs) that identify this product.
+          items:
+            type: string
+        epid:
+          type: string
+          description: The eBay product ID of this product.
+        gtin:
+          type: array
+          description: A list of all GTINs that identify this product. Currently this can include EAN, ISBN, and UPC identifier types.
+          items:
+            type: string
+        image:
+          description: Contains information about the primary image of this product. For more images of this product, see the <b>additionalImages</b> container.
+          $ref: '#/components/schemas/Image'
+        isbn:
+          type: array
+          description: 'A list of all International Standard Book Numbers (ISBNs) that identify this product. '
+          items:
+            type: string
+        mpn:
+          type: array
+          description: A list of all MPN values that the manufacturer uses to identify this product.
+          items:
+            type: string
+        otherApplicableCategoryIds:
+          type: array
+          description: A list of category IDs (other than the value of <b>primaryCategoryId</b>) for all the leaf categories to which this product might belong.
+          items:
+            type: string
+        primaryCategoryId:
+          type: string
+          description: The identifier of the leaf category that eBay recommends using to list this product, based on previous listings of similar products. Products in the eBay catalog are not automatically associated with any particular category, but using an inappropriate category can make it difficult for prospective buyers to find the product. For other possible categories that might be used, see <b>otherApplicableCategoryIds</b>.
+        productWebUrl:
+          type: string
+          description: The URL for this product's eBay product page.
+        title:
+          type: string
+          description: The title of this product on eBay.
+        upc:
+          type: array
+          description: A list of Universal Product Codes (UPCs) that identify this product.
+          items:
+            type: string
+        version:
+          type: string
+          description: The current version number of this product record in the catalog.
+      description: This type contains the full details of a specified product, including information about the product's identifiers, product images, aspects, and categories.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

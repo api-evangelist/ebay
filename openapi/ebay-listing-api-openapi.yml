@@ -1,0 +1,196 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Listing API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Listing
+paths:
+  /bulk_migrate_listing:
+    post:
+      tags:
+      - Listing
+      description: This call is used to convert existing eBay Listings to the corresponding Inventory API objects. If an eBay listing is successfully migrated to the Inventory API model, new Inventory Location, Inventory Item, and Offer objects are created. For a multiple-variation listing that is successfully migrated, in addition to the three new Inventory API objects just mentioned, an Inventory Item Group object will also be created. If the eBay listing is a motor vehicle part or accessory listing with a compatible vehicle list (<strong>ItemCompatibilityList</strong> container in Trading API's Add/Revise/Relist/Verify calls), a Product Compatibility object will be created.<br><br><h3>Migration Requirements</h3><br>To be eligible for migration, the active eBay listings must meet the following requirements:<ul><li>Listing type is Fixed-Price<p><span class="tablenote"><strong>Note:</strong> Auction listings are supported by the Inventory API, but the <b>bulkMigrateListing</b> method cannot be used to migrate auction listings.</span></p></li><li>The item(s) in the listings must have seller-defined SKU values associated with them, and in the case of a multiple-variation listing, each product variation must also have its own SKU value</li><li>Business Polices (Payment, Return Policy, and Shipping) must be used on the listing, as legacy payment, return policy, and shipping fields will not be accepted. With the Payment Policy associated with a listing, the immediate payment requirement must be enabled.</li><li>The postal/zip code (<strong>PostalCode</strong> field in Trading's <strong>ItemType</strong>) or city (<strong>Location</strong> field in Trading's <strong>ItemType</strong>) must be set in the listing; the country is also needed, but this value is required in Trading API, so it will always be set for every listing</li></ul><br><h3>Unsupported Listing Features</h3><br>The following features are not yet available to be set or modified through the Inventory API, but they will remain on the active eBay listing, even after a successful migration to the Inventory model. The downside to this is that the seller will be completely blocked (in APIs or My eBay) from revising these features/settings once the migration takes place:<ul><li>Any listing-level Buyer Requirements</li><li>Listing enhancements like a bold listing title or Gallery Plus</li></ul><br><h3>Making the Call</h3><br>In the request payload of the <strong>bulkMigrateListings</strong> call, the seller will pass in an array of one to five eBay listing IDs (aka Item IDs). To save time and hassle, that seller should do a pre-check on each listing to make sure those listings meet the requirements to be migrated to the new Inventory model. This method also requires the <code>Content-Type</code> request header. See the <a href="/api-docs/sell/inventory/resources/listing/methods/bulkMigrateListing#h3-request-headers">HTTP request headers</a> for more information. There are no path or query parameters for this call.<br><br><h3>Call Response</h3><br>If an eBay listing is migrated successfully to the new Inventory model, the following will occur:<ul><li>An Inventory Item object will be created for the item(s) in the listing, and this object will be accessible through the Inventory API</li><li>An Offer object will be created for the listing, and this object will be accessible through the Inventory API</li><li>An Inventory Location object will be created and associated with the Offer object, as an Inventory Location must be associated with a published Offer</li></ul>The response payload of the Bulk Migrate Listings call will show the results of each listing migration. These results include an HTTP status code to indicate the success or failure of each listing migration, the SKU value associated with each item, and if the migration is successful, an Offer ID value. The SKU value will be used in the Inventory API to manage the Inventory Item object, and the Offer ID value will be used in the Inventory API to manage the Offer object. Errors and/or warnings containers will be returned for each listing where an error and/or warning occurred with the attempted migration.<br><br>If a multiple-variation listing is successfully migrated, along with the Offer and Inventory Location objects, an Inventory Item object will be created for each product variation within the listing, and an Inventory Item Group object will also be created, grouping those variations together in the Inventory API platform. For a motor vehicle part or accessory listing that has a specified list of compatible vehicles, in addition to the Inventory Item, Inventory Location, and Offer objects that are created, a Product Compatibility object will also be created in the Inventory API platform.
+      operationId: bulkMigrateListing
+      parameters:
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Details of the listings that needs to be migrated into Inventory
+        content:
+          application/json:
+            schema:
+              description: Details of the listings that needs to be migrated into Inventory
+              $ref: '#/components/schemas/BulkMigrateListing'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BulkMigrateListingResponse'
+        '207':
+          description: Multi-Status
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '25718':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Cannot migrate listing. {additionalInfo}
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '25001':
+                domain: API_INVENTORY
+                category: APPLICATION
+                description: Any System error. {additionalInfo}
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+components:
+  schemas:
+    BulkMigrateListing:
+      type: object
+      properties:
+        requests:
+          type: array
+          description: This is the base container of the <strong>bulkMigrateListings</strong> request payload. One to five eBay listings will be included under this container.
+          items:
+            $ref: '#/components/schemas/MigrateListing'
+      description: This type is used by the base container of the <strong>bulkMigrateListings</strong> request payload.
+    ErrorParameter:
+      type: object
+      properties:
+        name:
+          type: string
+          description: This type contains the name and value of an input parameter that contributed to a specific error or warning condition.
+        value:
+          type: string
+          description: This is the actual value that was passed in for the element specified in the <strong>name</strong> field.
+      description: This type is used to indicate the parameter field/value that caused an issue with the call request.
+    BulkMigrateListingResponse:
+      type: object
+      properties:
+        responses:
+          type: array
+          description: This is the base container of the response payload of the <strong>bulkMigrateListings</strong> call. The results of each attempted listing migration is captured under this container.
+          items:
+            $ref: '#/components/schemas/MigrateListingResponse'
+      description: This type is used by the response payload of the <strong>bulkMigrateListings</strong> call.
+    MigrateListingResponse:
+      type: object
+      properties:
+        errors:
+          type: array
+          description: If one or more errors occur with the attempt to migrate the listing, this container will be returned with detailed information on each error.
+          items:
+            $ref: '#/components/schemas/Error'
+        inventoryItemGroupKey:
+          type: string
+          description: This field will only be returned for a multiple-variation listing that the seller attempted to migrate. Its value is auto-generated by eBay. For a multiple-variation listing that is successfully migrated to the new Inventory model, eBay automatically creates an inventory item group object for the listing, and the seller will be able to retrieve and manage that new inventory item group object by using the value in this field.
+        inventoryItems:
+          type: array
+          description: This container exists of an array of SKU values and offer IDs. For single-variation listings, this will only be one SKU value and one offer ID (if listing was successfully migrated), but multiple SKU values and offer IDs will be returned for multiple-variation listings.
+          items:
+            $ref: '#/components/schemas/InventoryItemListing'
+        listingId:
+          type: string
+          description: The unique identifier of the eBay listing that the seller attempted to migrate.
+        marketplaceId:
+          type: string
+          description: This is the unique identifier of the eBay Marketplace where the listing resides. The value fo the eBay US site will be <code>EBAY_US</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/inventory/types/slr:MarketplaceEnum'>eBay API documentation</a>
+        statusCode:
+          type: integer
+          description: This field is returned for each listing that the seller attempted to migrate. See the <strong>HTTP status codes</strong> table to see which each status code indicates.
+          format: int32
+        warnings:
+          type: array
+          description: If one or more warnings occur with the attempt to migrate the listing, this container will be returned with detailed information on each warning. It is possible that a listing can be successfully migrated even if a warning occurs.
+          items:
+            $ref: '#/components/schemas/Error'
+      description: This type is used to display the results of each listing that the seller attempted to migrate.
+    MigrateListing:
+      type: object
+      properties:
+        listingId:
+          type: string
+          description: The unique identifier of the eBay listing to migrate to the new Inventory model. In the Trading API, this field is known as the <strong>ItemID</strong>.<br><br>Up to five unique eBay listings may be specified here in separate <strong>listingId</strong> fields. The seller should make sure that each of these listings meet the requirements that are stated at the top of this Call Reference page.
+      description: This type is used to specify one to five eBay listings that will be migrated to the new Inventory model.
+    InventoryItemListing:
+      type: object
+      properties:
+        offerId:
+          type: string
+          description: Upon a successful migration of a listing, eBay auto-generates this unique identifier, and this offer ID value will be used to retrieve and manage the newly-created offer object. This value will only be generated and returned if the eBay listing is migrated successfully.
+        sku:
+          type: string
+          description: This is the seller-defined SKU value associated with the item(s) in a listing. This same SKU value will be used to retrieve and manage the newly-created inventory item object if the listing migration is successful. This SKU value will get returned even if the migration is not successful.
+      description: This type is used by the <strong>inventoryItems</strong> container that is returned in the response of the <strong>bulkMigrateListing</strong> call. Up to five <strong>sku</strong>/<strong>offerId</strong> pairs may be returned under the <strong>inventoryItems</strong> container, dependent on how many eBay listings the seller is attempting to migrate to the inventory model.
+    Error:
+      type: object
+      properties:
+        category:
+          type: string
+          description: 'This string value indicates the error category. There are three categories of errors: request errors, application errors, and system errors. '
+        domain:
+          type: string
+          description: The name of the domain in which the error or warning occurred.
+        errorId:
+          type: integer
+          description: A unique code that identifies the particular error or warning that occurred. Your application can use error codes as identifiers in your customized error-handling algorithms.
+          format: int32
+        inputRefIds:
+          type: array
+          description: An array of one or more reference IDs which identify the specific request element(s) most closely associated to the error or warning, if any.
+          items:
+            type: string
+        longMessage:
+          type: string
+          description: A detailed description of the condition that caused the error or warning, and information on what to do to correct the problem.
+        message:
+          type: string
+          description: A description of the condition that caused the error or warning.
+        outputRefIds:
+          type: array
+          description: An array of one or more reference IDs which identify the specific response element(s) most closely associated to the error or warning, if any.
+          items:
+            type: string
+        parameters:
+          type: array
+          description: Various warning and error messages return one or more variables that contain contextual information about the error or waring. This is often the field or value that triggered the error or warning.
+          items:
+            $ref: '#/components/schemas/ErrorParameter'
+        subdomain:
+          type: string
+          description: The name of the subdomain in which the error or warning occurred.
+      description: This type is used to express detailed information on errors and warnings that may occur with a call request.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

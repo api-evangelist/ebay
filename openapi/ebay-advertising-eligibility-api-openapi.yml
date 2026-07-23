@@ -1,0 +1,112 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Advertising_eligibility
+paths:
+  /advertising_eligibility:
+    get:
+      tags:
+      - Advertising_eligibility
+      description: This method allows developers to check the seller eligibility status for eBay advertising programs.
+      operationId: getAdvertisingEligibility
+      parameters:
+      - name: program_types
+        in: query
+        description: A comma-separated list of eBay advertising programs for which eligibility status will be returned.<br><br> See the <a href="/api-docs/sell/account/types/plser:AdvertisingProgramEnum" target="_blank"> AdvertisingProgramEnum</a> type for a list of supported values.<br><br>If no programs are specified, the results will be returned for all programs.
+        required: false
+        schema:
+          type: string
+      - name: X-EBAY-C-MARKETPLACE-ID
+        in: header
+        description: The unique identifier of the eBay marketplace for which the seller eligibility status shall be checked. This header is required or the call will fail.<br><br>See the <a href="/api-docs/sell/account/types/ba:MarketplaceIdEnum " target="_blank ">MarketplaceIdEnum</a> type for the supported marketplace ID values.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SellerEligibilityMultiProgramResponse'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '50114':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: The HTTP request header 'X-EBAY-C-MARKETPLACE-ID' is required.
+              '50116':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid program_type(s) {programTypes}.
+              '50117':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid marketplaceId in HTTP request header 'X-EBAY-C-MARKETPLACE-ID' {marketplaceId}.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '35001':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+              '35002':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: Internal error. Please wait a few minutes and try the call again.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+        - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+components:
+  schemas:
+    SellerEligibilityMultiProgramResponse:
+      type: object
+      properties:
+        advertisingEligibility:
+          type: array
+          description: An array of response fields that define the seller eligibility for eBay advertising programs.
+          items:
+            $ref: '#/components/schemas/SellerEligibilityResponse'
+      description: The base response of the <b>getAdvertisingEligibility</b> method that contains the seller eligibility information for one or more advertising programs.
+    SellerEligibilityResponse:
+      type: object
+      properties:
+        programType:
+          type: string
+          description: The eBay advertising program for which a seller may be eligible. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/plser:AdvertisingProgramEnum'>eBay API documentation</a>
+        reason:
+          type: string
+          description: The reason why a seller is ineligible for the specified eBay advertising program.<br /><br />This field is only returned if the seller is ineligible for the eBay advertising program. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/plser:SellerIneligibleReasonEnum'>eBay API documentation</a>
+        status:
+          type: string
+          description: The seller elibibilty status for the specified eBay advertising program. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/cmlib:SellerEligibilityEnum'>eBay API documentation</a>
+      description: A type that is used to provide the seller's eligibility status for an eBay advertising program.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

@@ -1,0 +1,370 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Inventory_task API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Inventory_task
+paths:
+  /inventory_task:
+    get:
+      tags:
+      - Inventory_task
+      description: This method searches for multiple tasks of a specific feed type, and includes date filters and pagination.
+      operationId: getInventoryTasks
+      parameters:
+      - name: feed_type
+        in: query
+        description: The feed type associated with the inventory tasks being retrieved. Presently, only one feed type is available:<br><ul><li><code>LMS_ACTIVE_INVENTORY_REPORT</code></li></ul>See <a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#merchant-data-reports-download-feed-types" target="_blank">Report value feed types</a> for more information.
+        required: false
+        schema:
+          type: string
+      - name: schedule_id
+        in: query
+        description: <span class="tablenote"><b>Note:</b> Schedule functionality for ActiveInventoryReport is currently unavailable, so this field is not usable.</span>
+        required: false
+        schema:
+          type: string
+      - name: look_back_days
+        in: query
+        description: 'The number of previous days in which to search for tasks. Do not use with the <code>date_range</code> parameter. If both <code>date_range</code> and <code>look_back_days</code> are omitted, this parameter''s default value is used.  <br /><br /><b>Default: </b> 7 <br /><br /><b>Range: </b> 1-90 (inclusive)'
+        required: false
+        schema:
+          type: string
+      - name: date_range
+        in: query
+        description: 'Specifies the range of task creation dates used to filter the results. The results are filtered to include only tasks with a creation date that is equal to this date or is within specified range. <p> <span class="tablenote"><strong>Note:</strong> Maximum date range window size is 90 days.</span></p><br /><b>Valid Format (UTC): </b><code>yyyy-MM-ddThh:mm:ss.SSSZ..yyyy-MM-ddThh:mm:ss.SSSZ</code><br /><br />For example: Tasks created on March 31, 2021<br /> <code>2021-03-31T00:00:00.000Z..2021-03-31T00:00:00.000Z</code><br /><br />'
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: 'The maximum number of tasks that can be returned on each page of the paginated response. Use this parameter in conjunction with the <strong>offset</strong> parameter to control the pagination of the output. <p> <span class="tablenote"><strong>Note:</strong> This feature employs a zero-based list, where the first item in the list has an offset of <code>0</code>.</span></p><p>For example, if <strong>offset</strong> is set to 10 and <strong>limit</strong> is set to 10, the call retrieves tasks 11 thru 20 from the result set.</p><p>If this parameter is omitted, the default value is used. <br /><br /><b>Default: </b> 10 <br /><br /><b>Maximum: </b>500'
+        required: false
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: 'The number of tasks to skip in the result set before returning the first task in the paginated response. <p>Combine <strong>offset</strong> with the <strong>limit</strong> query parameter to control the items returned in the response. For example, if you supply an <strong>offset</strong> of <code>0</code> and a <strong>limit</strong> of <code>10</code>, the first page of the response contains the first 10 items from the complete list of items retrieved by the call. If <strong>offset</strong> is <code>10</code> and <strong>limit</strong> is <code>20</code>, the first page of the response contains items 11-30 from the complete result set. If this query parameter is not set, the default value is used and the first page of records is returned. <br /><br /><b>Default: </b>0'
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryTaskCollection'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '160004':
+                domain: API_FEED
+                category: REQUEST
+                description: You must submit either a 'feed_type' or 'schedule_id'.
+              '160005':
+                domain: API_FEED
+                category: REQUEST
+                description: Both 'feed_type' and 'schedule_id' were provided. Please remove one of them.
+              '160006':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'feed_type' {feedTypeValue} is invalid.
+              '160007':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'schedule_id' {scheduleID} is invalid.
+              '160008':
+                domain: API_FEED
+                category: REQUEST
+                description: Both 'look_back_days' and 'date_range' were provided. Please remove one of them.
+              '160009':
+                domain: API_FEED
+                category: REQUEST
+                description: The format of the 'date_range' is invalid. The format for a date range is yyyy-MM-ddThh:mm:ss.sssZ..yyyy-MM-ddThh:mm:ss.sssZ.
+              '160010':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'date_range' must be less than or equal to 90 days.
+              '160011':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'look_back_days' value must be greater than zero and less than or equal to 90.
+              '160012':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'limit' value must be greater than zero and less than or equal to 500.
+              '160013':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'offset' value cannot be less than zero.
+              '160029':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'offset' value must be a multiple of the 'limit' value.
+        '403':
+          description: Forbidden
+          x-response-codes:
+            errors:
+              '160002':
+                domain: API_FEED
+                category: REQUEST
+                description: The authentication scope {scope} is incorrect for 'feed_type' {feedType}. Refer to documentation for details about the scopes.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '160001':
+                domain: API_FEED
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay Developer Technical Support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+    post:
+      tags:
+      - Inventory_task
+      description: This method creates an inventory-related download task for a specified feed type with optional filter criteria. When using this method, specify the <strong>feedType</strong>. <br/><br/>This method returns the location response header containing the <strong>getInventoryTask</strong> call URI to retrieve the inventory task you just created. The URL includes the eBay-assigned task ID, which you can use to reference the inventory task.<br/><br/>To retrieve the status of the task, use the <strong>getInventoryTask</strong> method to retrieve a single task ID or the <strong>getInventoryTasks</strong> method to retrieve multiple task IDs.<p> <span class="tablenote"><strong>Note:</strong> The scope depends on the feed type. An error message results when an unsupported scope or feed type is specified.</span></p>Presently, this method supports Active Inventory Report. The <strong>ActiveInventoryReport</strong> returns a report that contains price and quantity information for all of the active listings for a specific seller. A seller can use this information to maintain their inventory on eBay.
+      operationId: createInventoryTask
+      parameters:
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The request payload containing the version, feedType, and optional filterCriteria.
+        content:
+          application/json:
+            schema:
+              description: The request payload containing the version, feedType, and optional filterCriteria.
+              $ref: '#/components/schemas/CreateInventoryTaskRequest'
+        required: true
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '160017':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'feedType' is missing or invalid.
+              '160018':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'schemaVersion' is invalid.
+              '160019':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'filterCriteria' is invalid. {additionalInfo}
+              '160027':
+                domain: API_FEED
+                category: REQUEST
+                description: The X-EBAY-C-MARKETPLACE-ID header is missing or invalid.
+              '160030':
+                domain: API_FEED
+                category: REQUEST
+                description: This resource is not applicable for the feed type {feedTypeValue}. For more information, see the documentation for this API.
+        '403':
+          description: Forbidden
+          x-response-codes:
+            errors:
+              '160002':
+                domain: API_FEED
+                category: REQUEST
+                description: The authentication scope {scope} is incorrect for 'feed_type' {feedType}. Refer to documentation for details about the scopes.
+              '160022':
+                domain: API_FEED
+                category: REQUEST
+                description: You are not allowed to access this resource. Contact eBay Developer Technical Support for assistance.
+        '409':
+          description: Conflict
+          x-response-codes:
+            errors:
+              '160024':
+                domain: API_FEED
+                category: BUSINESS
+                description: You have reached the maximum number of feed tasks that can be queued or processed concurrently. Wait for current tasks to complete before adding tasks. For more information, see the documentation for this API.
+              '160025':
+                domain: API_FEED
+                category: BUSINESS
+                description: You have exceeded the maximum number of records or tasks that can be created or processed in the period (hourly or daily). Wait until the present period ends before trying again. Please reference the API documentation for more information.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '160001':
+                domain: API_FEED
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay Developer Technical Support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+  /inventory_task/{task_id}:
+    get:
+      tags:
+      - Inventory_task
+      description: This method retrieves the task details and status of the specified inventory-related task. The input is <strong>task_id</strong>.
+      operationId: getInventoryTask
+      parameters:
+      - name: task_id
+        in: path
+        description: This path parameter is the unique identifier of the inventory task being retrieved.<br><br> Use the <a href="/api-docs/sell/feed/resources/inventory_task/methods/getInventoryTasks">getInventoryTasks</a> method to retrieve inventory task IDs.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryTask'
+        '400':
+          description: Bad Request
+        '403':
+          description: Forbidden
+          x-response-codes:
+            errors:
+              '160002':
+                domain: API_FEED
+                category: REQUEST
+                description: The authentication scope {scope} is incorrect for 'feed_type' {feedType}. Refer to documentation for details about the scopes.
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '160003':
+                domain: API_FEED
+                category: REQUEST
+                description: Task {taskID} does not exist.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '160001':
+                domain: API_FEED
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay Developer Technical Support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+components:
+  schemas:
+    UploadSummary:
+      type: object
+      properties:
+        failureCount:
+          type: integer
+          description: The number of records, such as the number of listings created or the number of pictures uploaded to a listing, that failed to process during the upload feed. Check the response file and correct any issues mentioned. If the feed fails before processing, no response file is provided. In this case check the REST output response.
+          format: int32
+        successCount:
+          type: integer
+          description: The number of records that were successfully processed during the upload feed.
+          format: int32
+      description: This container provides summary information on an upload feed (not applicable for download feed types).
+    InventoryTaskCollection:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The path to the call URI that produced the current page of results.
+        limit:
+          type: integer
+          description: The value of the <strong>limit</strong> parameter submitted in the request, which is the maximum number of inventory tasks to return per page, from the result set. A result set is the complete set of tasks returned by the method.<br /><br /><span class="tablenote"><strong>Note:</strong> Though this parameter is not required to be submitted in the request, the parameter defaults to <code>10</code> if omitted. Additionally, if this is the last or only page of the result set, the page may contain fewer tasks than the <strong>limit</strong> value submitted in the request.</span><br /><br />To determine the number of pages in a result set, divide the total value (total number of tasks matching the input criteria) by this limit value, and then round up to the next integer. For example, if the <strong>total</strong> value was <code>120</code> (120 total tasks) and the <strong>limit</strong> value was <code>50</code> (show 50 tasks per page), the total number of pages in the result set is three, so the seller would have to make three separate <strong>getInventoryTasks</strong> calls to view all tasks matching the input criteria.
+          format: int32
+        next:
+          type: string
+          description: The path to the call URI for the next page of results. This value is returned if there is an additional page of results to return from the result set.
+        offset:
+          type: integer
+          description: The number of results skipped in the result set before listing the first returned result. This value can be specified in the request with the <strong>offset</strong> query parameter.<br /><br /><span class="tablenote"><strong>Note:</strong> The items in a paginated result set use a zero-based list, where the first item in the list has an offset of <code>0</code>.</span>
+          format: int32
+        prev:
+          type: string
+          description: The path to the call URI for the previous page of results. This is returned if there is a previous page of results from the result set.
+        tasks:
+          type: array
+          description: An array of the inventory tasks on this page. The tasks are sorted by creation date.<br /><br /><span class="tablenote"><strong>Note:</strong> An empty array is returned if the filter criteria excludes all tasks.</span>
+          items:
+            $ref: '#/components/schemas/InventoryTask'
+        total:
+          type: integer
+          description: The total number of inventory tasks that match the input criteria.
+          format: int32
+    InventoryTask:
+      type: object
+      properties:
+        taskId:
+          type: string
+          description: The ID of the task. This ID is generated when the task was created by the <strong>createInventoryTask</strong> method.
+        status:
+          type: string
+          description: The status of the task. Users must wait until status is complete before moving on to the next step (such as uploading/downloading a file). For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:FeedStatusEnum'>eBay API documentation</a>
+        feedType:
+          type: string
+          description: The feed type associated with the inventory task.
+        creationDate:
+          type: string
+          description: The date the task was created.
+        completionDate:
+          type: string
+          description: The timestamp when the task <strong>status</strong> went into the <code>COMPLETED</code>, <code>COMPLETED_WITH_ERROR</code>, or <code>PARTIALLY_PROCESSED</code> state. This field is only returned if the status is one of the three completed values.
+        schemaVersion:
+          type: string
+          description: The schema version number associated with the task.
+        detailHref:
+          type: string
+          description: The path to the call URI used to retrieve the task. This field points to the <strong>getInventoryTask</strong> URI.
+        uploadSummary:
+          description: This container provides summary information on an upload feed (not applicable for download feed types).
+          $ref: '#/components/schemas/UploadSummary'
+        filterCriteria:
+          description: This container is used to set the filter criteria for the ActiveInventoryReport. A seller can retrieve listings for a specified format.
+          $ref: '#/components/schemas/InventoryFilterCriteria'
+    InventoryFilterCriteria:
+      type: object
+      properties:
+        listingFormat:
+          type: string
+          description: The listing format for the ActiveInventoryReport being created. Supported types are:<br><ul><li><code>AUCTION</code></li><li><code>FIXED_PRICE</code></li></ul> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:ListingFormatEnum'>eBay API documentation</a>
+      description: This container is used to set the filter criteria for the ActiveInventoryReport. A seller can create an ActiveInventoryReport for a single listing format.
+    CreateInventoryTaskRequest:
+      type: object
+      properties:
+        feedType:
+          type: string
+          description: The feed type associated with the inventory task you are about to create. Presently, only one feed type is available:<br><ul><li><code>LMS_ACTIVE_INVENTORY_REPORT</code></li></ul>See <a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#merchant-data-reports-download-feed-types" target="_blank">Report download feed types</a> for more information.
+        filterCriteria:
+          description: This container allows a seller to create an ActiveInventoryReport for a single listing format.
+          $ref: '#/components/schemas/InventoryFilterCriteria'
+        schemaVersion:
+          type: string
+          description: The version number of the inventory task to use for the <b>feedType</b>.<br><br><span class="tablenote"><b>Note:</b> This field <b>must</b> have a value of <code>1.0</code>.</span>
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

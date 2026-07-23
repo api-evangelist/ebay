@@ -1,0 +1,95 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Kyc API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Kyc
+paths:
+  /kyc:
+    get:
+      tags:
+      - Kyc
+      description: <span class="tablenote"><b>Note:</b>This method was originally created to see which onboarding requirements were still pending for sellers being onboarded for eBay managed payments, but now that all seller accounts are onboarded globally, this method should now just returne an empty payload with a <code>204 No Content</code> HTTP status code. </span>
+      operationId: getKYC
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/KycResponse'
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '21400':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: This marketplace is not supported. Please refer to documentation.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+        - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+components:
+  schemas:
+    KycResponse:
+      type: object
+      properties:
+        kycChecks:
+          type: array
+          description: This array contains one or more KYC checks required from a managed payments seller. The seller may need to provide more documentation and/or information about themselves, their company, or the bank account they are using for seller payouts.<br/><br/>If no KYC checks are currently required from the seller, this array is not returned, and the seller only receives a <code>204 No Content</code> HTTP status code.
+          items:
+            $ref: '#/components/schemas/KycCheck'
+      description: This is the base response type of the <b>getKYC</b> method.
+    KycCheck:
+      type: object
+      properties:
+        dataRequired:
+          type: string
+          description: The enumeration value returned in this field categorizes the type of details needed for the KYC check. More information about the check is shown in the <b>detailMessage</b> and other applicable, corresponding fields. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/kyc:DetailsType'>eBay API documentation</a>
+        dueDate:
+          type: string
+          description: 'The timestamp in this field indicates the date by which the seller should resolve the KYC requirement.<br><br>The timestamp in this field uses the UTC date and time format described in the <a href="https://www.iso.org/iso-8601-date-and-time-format.html" target="_blank">ISO 8601 Standard</a>. See below for this format and an example: <br><br><i>MM-DD-YYYY HH:MM:SS</i><br/><code>06-05-2020 10:34:18</code>'
+        remedyUrl:
+          type: string
+          description: If applicable and available, a URL will be returned in this field, and the link will take the seller to an eBay page where they can provide the requested information.
+        alert:
+          type: string
+          description: This field gives a short summary of what is required from the seller. An example might be, '<code>Upload bank document now.</code>'. The <b>detailMessage</b> field will often provide more details on what is required of the seller.
+        detailMessage:
+          type: string
+          description: This field gives a detailed message about what is required from the seller. An example might be, '<code>Please upload a bank document by 2020-08-01 to get your account back in good standing.</code>'.
+      description: This type is used to provide details about any KYC check that is applicable to the managed payments seller.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

@@ -1,0 +1,828 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Subscription API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Subscription
+paths:
+  /subscription:
+    get:
+      tags:
+      - Subscription
+      description: This method retrieves a list of subscriptions associated with the seller account.
+      operationId: getSubscription
+      parameters:
+      - name: limit
+        in: query
+        description: This field is for future use.
+        required: false
+        schema:
+          type: string
+      - name: continuation_token
+        in: query
+        description: This field is for future use.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionResponse'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20400':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid request
+              '20403':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid {fieldName}. {additionalInfo}
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+        - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+    post:
+      tags:
+      - Subscription
+      description: This method allows applications to create a subscription for a topic and supported schema version. Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.<br><br>Each application and topic-schema pairing to a subscription should have a 1:1 cardinality.<br><br>You can create the subscription in disabled mode, test it (see the <b>test</b> method), and when everything is ready, you can enable the subscription (see the <b>enableSubscription</b> method).<br><br><span class="tablenote"><b>Note:</b> If an application is not authorized to subscribe to a topic, for example, if your authorization does not include the list of scopes required for the topic, an error code of 195011 is returned.</span>
+      operationId: createSubscription
+      parameters:
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The create subscription request.
+        content:
+          application/json:
+            schema:
+              description: The create subscription request.
+              $ref: '#/components/schemas/CreateSubscriptionRequest'
+        required: false
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+                description: The  subscription resource created.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '195006':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Invalid or missing subscription status.
+              '195007':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Invalid or missing destination id.
+              '195008':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Invalid or missing schema version. Please refer to /topic/{topic_id} for supported schema versions.
+              '195009':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Specified format is not supported for the topic.
+              '195010':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Invalid or missing protocol
+              '195027':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Invalid or missing topic id.
+        '403':
+          description: Forbidden
+          x-response-codes:
+            errors:
+              '195011':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Not authorized for this topic.
+        '409':
+          description: Conflict
+          x-response-codes:
+            errors:
+              '195003':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Please provide configurations required for notifications. Refer to /config
+              '195012':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Subscription already exists
+              '195015':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The subscription cannot be enabled since the destination is not enabled.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '195000':
+                domain: API_NOTIFICATION
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope
+        - https://api.ebay.com/oauth/api_scope/commerce.notification.subscription
+  /subscription/{subscription_id}/filter:
+    post:
+      tags:
+      - Subscription
+      description: This method allows applications to create a filter for a subscription. Filters allow applications to only be sent notifications that match a provided criteria. Notifications that do not match this criteria will not be sent to the destination.<br><br>The <strong>filterSchema</strong> value must be a valid <a href="https://json-schema.org " target="_blank">JSON Schema Core document</a> (version 2020-12 or later). The <strong>filterSchema</strong> provided must describe the subscription's notification payload such that it supplies valid criteria to filter the subscription's notifications. The user does not need to provide <code>$schema</code> and <code>$id</code> definitions.<br><br>When a filter is first created, it is not immediately active on the subscription. If the request has a valid JSON body, the successful call returns the HTTP status code <b>201&nbsp;Created</b>. Newly created filters are in <code>PENDING</code> status until they are reviewed. If a filter is valid, it will move from <code>PENDING</code> status to <code>ENABLED</code> status. You can find the status of a filter using the <a href="/api-docs/commerce/notification/resources/subscription/methods/getSubscriptionFilter">getSubscriptionFilter</a> method. See <a href="/api-docs/commerce/notification/overview.html#create-filter" target="_blank">Creating a subscription filter for a topic</a> for additional information.<br><br><span class="tablenote"><b>Note:</b> Only one filter can be in <strong>ENABLED</strong> (which means active) status on a subscription at a time. If an <strong>ENABLED</strong> filter is overwritten by a new call to <strong>CREATE</strong> a filter for the subscription, it stays in <strong>ENABLED</strong> status until the new <strong>PENDING</strong> filter becomes the <strong>ENABLED</strong> filter, and the existing filter then becomes <strong>DISABLED</strong>.</span>
+      operationId: createSubscriptionFilter
+      parameters:
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      - name: subscription_id
+        in: path
+        description: The unique identifier of the subscription for which a filter will be created.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The create subscription filter request.
+        content:
+          application/json:
+            schema:
+              description: The create subscription filter request.
+              $ref: '#/components/schemas/CreateSubscriptionFilterRequest'
+        required: false
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+                description: The location where the subscription filter resource was created.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '195032':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The specified subscription topic is not filterable.
+              '195033':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The specified 'filterSchema' value is invalid.
+        '403':
+          description: Forbidden
+          x-response-codes:
+            errors:
+              '195028':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The application is not authorized to access the specified subscription.
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '195013':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The subscription id does not exist.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '195000':
+                domain: API_NOTIFICATION
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope
+        - https://api.ebay.com/oauth/api_scope/commerce.notification.subscription
+  /subscription/{subscription_id}:
+    get:
+      tags:
+      - Subscription
+      description: This method allows applications to retrieve subscription details for the specified subscription.<br><br>Specify the subscription to retrieve using the <strong>subscription_id</strong>. Use the <strong>getSubscriptions</strong> method to browse all subscriptions if you do not know the <strong>subscription_id</strong>.<br><br>Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.
+      operationId: getSubscription
+      parameters:
+      - name: subscription_id
+        in: path
+        description: The unique identifier of the subscription to retrieve. Use <b>getSubscriptions</b> to retrieve subscription IDs.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Subscription_2'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '195013':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The subscription id does not exist.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '195000':
+                domain: API_NOTIFICATION
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope
+        - https://api.ebay.com/oauth/api_scope/commerce.notification.subscription.readonly
+        - https://api.ebay.com/oauth/api_scope/commerce.notification.subscription
+    put:
+      tags:
+      - Subscription
+      description: This method allows applications to update a subscription. Subscriptions allow applications to express interest in notifications and keep receiving the information relevant to their business.<br><br><span class="tablenote"><b>Note:</b> This call returns an error if an application is not authorized to subscribe to a topic.</span><br><br>You can pause and restart a subscription. See the <b>disableSubscription</b> and <b>enableSubscription</b> methods.
+      operationId: updateSubscription
+      parameters:
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      - name: subscription_id
+        in: path
+        description: The unique identifier for the subscription to update. Use <b>getSubscriptions</b> to retrieve subscription IDs.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The create subscription request.
+        content:
+          application/json:
+            schema:
+              description: The create subscription request.
+              $ref: '#/components/schemas/UpdateSubscriptionRequest'
+        required: false
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '195006':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Invalid or missing subscription status.
+              '195007':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Invalid or missing destination id.
+              '195008':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Invalid or missing schema version. Please refer to /topic/{topic_id} for supported schema versions.
+              '195009':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Specified format is not supported for the topic.
+              '195010':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Invalid or missing protocol
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '195013':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The subscription id does not exist.
+        '409':
+          description: Conflict
+          x-response-codes:
+            errors:
+              '195012':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Subscription already exists
+              '195014':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The subscription cannot be enabled since the topic or payload is no longer supported.
+              '195015':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The subscription cannot be enabled since the destination is not enabled.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '195000':
+                domain: API_NOTIFICATION
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope
+        - https://api.ebay.com/oauth/api_scope/commerce.notification.subscription
+    delete:
+      tags:
+      - Subscription
+      description: This method allows applications to delete a subscription. Subscriptions can be deleted regardless of status.
+      operationId: deleteSubscription
+      parameters:
+      - name: subscription_id
+        in: path
+        description: The unique identifier of the subscription to delete. Use <b>getSubscriptions</b> to retrieve subscription IDs.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '195013':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: ' The subscription id does not exist.'
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '195000':
+                domain: API_NOTIFICATION
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope
+        - https://api.ebay.com/oauth/api_scope/commerce.notification.subscription
+  /subscription/{subscription_id}/filter/{filter_id}:
+    get:
+      tags:
+      - Subscription
+      description: This method allows applications to retrieve the filter details for the specified subscription filter.<br><br>Specify the subscription filter to retrieve by using the <strong>subscription_id</strong> and the <strong>filter_id</strong> associated with the subscription filter. The <strong>filter_id</strong> can be found in the response body for the <strong>getSubscription</strong> method, if there is a filter applied on the subscription.<br><br>Filters allow applications to only be sent notifications that match a provided criteria. Notifications that do not match this criteria will not be sent to the destination.
+      operationId: getSubscriptionFilter
+      parameters:
+      - name: filter_id
+        in: path
+        description: The unique identifier of the subscription filter.  Filter ID values, if configured for a subscription, will be shown in the <b>subscriptions.filterId</b> field in <b>getSubscription</b> and <b>getSubscription</b> responses. The filter ID value is also returned in the Location response header when a filter is created with <b>createSubscriptionFilter</b>.
+        required: true
+        schema:
+          type: string
+      - name: subscription_id
+        in: path
+        description: The unique identifier of the subscription associated with the filter. Use <b>getSubscriptions</b> to retrieve subscription IDs.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubscriptionFilter'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '195031':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The specified subscription id does not match the specified filter id.
+        '403':
+          description: Forbidden
+          x-response-codes:
+            errors:
+              '195028':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The application is not authorized to access the specified subscription.
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '195013':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The subscription id does not exist.
+              '195029':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Invalid subscription filter id.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '195000':
+                domain: API_NOTIFICATION
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope
+        - https://api.ebay.com/oauth/api_scope/commerce.notification.subscription.readonly
+        - https://api.ebay.com/oauth/api_scope/commerce.notification.subscription
+    delete:
+      tags:
+      - Subscription
+      description: This method allows applications to disable the active filter on a subscription, so that a new subscription filter may be added.<br><br><span class="tablenote"><b>Note:</b> Subscription filters in <strong>PENDING</strong> status can not be disabled. However, a new filter can be created instead with the <strong>createSubscriptionFilter</strong> method and this new filter will override the <strong>PENDING</strong> filter.</span>
+      operationId: deleteSubscriptionFilter
+      parameters:
+      - name: filter_id
+        in: path
+        description: The unique identifier of the subscription filter to delete.  Filter ID values, if configured for a subscription, will be shown in the <b>subscriptions.filterId</b> field in <b>getSubscription</b> and <b>getSubscription</b> responses. The filter ID value is also returned in the Location response header when a filter is created with <b>createSubscriptionFilter</b>.
+        required: true
+        schema:
+          type: string
+      - name: subscription_id
+        in: path
+        description: The unique identifier of the subscription associated with the filter to delete. Use <b>getSubscriptions</b> to retrieve subscription IDs.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '195031':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The specified subscription id does not match the specified filter id.
+        '403':
+          description: Forbidden
+          x-response-codes:
+            errors:
+              '195028':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The application is not authorized to access the specified subscription.
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '195013':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The subscription id does not exist.
+              '195029':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Invalid subscription filter id.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '195000':
+                domain: API_NOTIFICATION
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope
+        - https://api.ebay.com/oauth/api_scope/commerce.notification.subscription
+  /subscription/{subscription_id}/disable:
+    post:
+      tags:
+      - Subscription
+      description: This method disables a subscription, which prevents the subscription from providing notifications. To restart a subscription, call <strong>enableSubscription</strong>.
+      operationId: disableSubscription
+      parameters:
+      - name: subscription_id
+        in: path
+        description: The unique identifier of an enabled subscription that will be disabled. Use <b>getSubscriptions</b> to retrieve subscription IDs.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '195013':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The subscription id does not exist.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '195000':
+                domain: API_NOTIFICATION
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope
+        - https://api.ebay.com/oauth/api_scope/commerce.notification.subscription
+  /subscription/{subscription_id}/enable:
+    post:
+      tags:
+      - Subscription
+      description: This method allows applications to enable a disabled subscription. To pause (or disable) an enabled subscription, call <strong>disableSubscription</strong>.
+      operationId: enableSubscription
+      parameters:
+      - name: subscription_id
+        in: path
+        description: The unique identifier of a disabled subscription that will be enabled. Use <b>getSubscriptions</b> to retrieve subscription IDs.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '195013':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The subscription id does not exist.
+        '409':
+          description: Conflict
+          x-response-codes:
+            errors:
+              '195014':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The subscription cannot be enabled since the topic or payload is no longer supported.
+              '195015':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: The subscription cannot be enabled since the destination is not enabled.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '195000':
+                domain: API_NOTIFICATION
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope
+        - https://api.ebay.com/oauth/api_scope/commerce.notification.subscription
+  /subscription/{subscription_id}/test:
+    post:
+      tags:
+      - Subscription
+      description: This method triggers a mocked test payload that includes a notification ID, publish date, and so on. Use this method to test your subscription end-to-end.<br><br>You can create the subscription in disabled mode, test it using this method, and when everything is ready, you can enable the subscription (see the <strong>enableSubscription</strong> method).<br><br><span class="tablenote"><b>Note:</b> Use the <strong>notificationId</strong> to tell the difference between a test payload and a real payload.</span>
+      operationId: testSubscription
+      parameters:
+      - name: subscription_id
+        in: path
+        description: The unique identifier of the subscription to test. Use <b>getSubscriptions</b> to retrieve subscription IDs.
+        required: true
+        schema:
+          type: string
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '195013':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: ' The subscription id does not exist.'
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '195000':
+                domain: API_NOTIFICATION
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope
+        - https://api.ebay.com/oauth/api_scope/commerce.notification.subscription
+components:
+  schemas:
+    TimeDuration:
+      type: object
+      properties:
+        unit:
+          type: string
+          description: These enum values represent the time measurement unit, such as <code>DAY</code>. A span of time is defined when you apply the value specified in the <b>value</b> field to the value specified for <b>unit</b>. <br><br>See <b>TimeDurationUnitEnum</b> for a complete list of possible time-measurement units. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:TimeDurationUnitEnum'>eBay API documentation</a>
+        value:
+          type: integer
+          description: An integer that represents an amount of time, as measured by the time-measurement unit specified in the <b>unit</b> field.
+          format: int32
+      description: A type used to specify a period of time using a specified time-measurement unit. Payment, return, and fulfillment business policies all use this type to specify time windows.<br><br>Whenever a container that uses this type is used in a request, both of these fields are required. Similarly, whenever a container that uses this type is returned in a response, both of these fields are always returned.
+    SubscriptionFilter:
+      type: object
+      properties:
+        creationDate:
+          type: string
+          description: The creation date for this subscription filter.
+        filterId:
+          type: string
+          description: The unique identifier for this subscription filter.
+        filterSchema:
+          type: object
+          additionalProperties:
+            type: object
+          description: The content of this subscription filter as a valid <a href="https://json-schema.org " target="_blank">JSON Schema Core document</a> (version 2020-12 or later). The <strong>filterSchema</strong> provided must describe the subscription's notification payload such that it supplies valid criteria to filter the subscription's notifications.
+        filterStatus:
+          type: string
+          description: The status of this subscription filter. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:SubscriptionFilterStatus'>eBay API documentation</a>
+        subscriptionId:
+          type: string
+          description: The unique identifier for the subscription.
+    Subscription_2:
+      type: object
+      properties:
+        creationDate:
+          type: string
+          description: The creation date for this subscription.
+        destinationId:
+          type: string
+          description: The unique identifier for the destination associated with this subscription.
+        filterId:
+          type: string
+          description: The unique identifier for the filter associated with this subscription.
+        payload:
+          description: The payload associated with this subscription.
+          $ref: '#/components/schemas/SubscriptionPayloadDetail'
+        status:
+          type: string
+          description: The status of this subscription. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:SubscriptionStatusEnum'>eBay API documentation</a>
+        subscriptionId:
+          type: string
+          description: The unique identifier for the subscription.
+        topicId:
+          type: string
+          description: The unique identifier for the topic associated with this subscription.
+      description: A type that describes the subscription.
+    SubscriptionResponse:
+      type: object
+      properties:
+        href:
+          type: string
+          description: This field is for future use.
+        limit:
+          type: integer
+          description: This field is for future use.
+          format: int32
+        next:
+          type: string
+          description: This field is for future use.
+        subscriptions:
+          type: array
+          description: An array of subscriptions associated with the seller account.
+          items:
+            $ref: '#/components/schemas/Subscription'
+        total:
+          type: integer
+          description: The total number of subscriptions displayed on the current page of results.
+          format: int32
+      description: 'This type is used by the response payload for the <b>getSubscription</b> method.<br><br><span class="tablenote"><b>Note</b>: Pagination has not yet been enabled for <b>getSubscription</b>, so all of the pagination-related fields are for future use.</span>'
+    Subscription:
+      type: object
+      properties:
+        marketplaceId:
+          type: string
+          description: The marketplace with which the subscription is associated. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum'>eBay API documentation</a>
+        subscriptionId:
+          type: string
+          description: The subscription ID.
+        subscriptionLevel:
+          type: string
+          description: The subscription level. For example, subscription levels for an eBay store include Starter, Basic, Featured, Anchor, and Enterprise levels.
+        subscriptionType:
+          type: string
+          description: The kind of entity with which the subscription is associated, such as an eBay store. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:SubscriptionTypeEnum'>eBay API documentation</a>
+        term:
+          description: The term of the subscription plan (typically in months).
+          $ref: '#/components/schemas/TimeDuration'
+      description: This type is used by the <strong>getSubscription</strong> response container, which defines the subscription types and levels for the seller account.
+    CreateSubscriptionFilterRequest:
+      type: object
+      properties:
+        filterSchema:
+          type: object
+          additionalProperties:
+            type: object
+          description: The content of a subscription filter as a valid <a href="https://json-schema.org " target="_blank">JSON Schema Core document</a> (version 2020-12 or later). The <strong>filterSchema</strong> provided must describe the subscription's notification payload such that it supplies valid criteria to filter the subscription's notifications.<br><br><span class="tablenote"><b>Note:</b> Not all topics can have filters applied to them. Use <a href="/api-docs/commerce/notification/resources/topic/methods/getTopic">getTopic</a> and <a href="/api-docs/commerce/notification/resources/topic/methods/getTopics">getTopics</a> requests to determine if a specific topic is filterable. Filterable topics have the boolean <b>filterable</b> returned as <code>true</code> in the response.</span><br><span class="tablenote"><b>Note:</b> If the JSON supplied as a subscription filter specifies a field that does not exist in the notifications for a topic, or if the topic is not filterable, the filter will be rejected and become <strong>DISABLED</strong>. If it is valid, however, the filter will move from <strong>PENDING</strong> status to <strong>ENABLED</strong> status.</span><br>Initially, when the <b>createSubscriptionFilter</b> request has been made, if the request has a valid JSON body a <b>201&nbsp;Created</b> is returned. After that, the validation of the <b>filterSchema</b> happens. See <a href="/api-docs/commerce/notification/overview.html#create-filter" target="_blank">Creating a subscription filter for a topic</a> for additional information.
+    CreateSubscriptionRequest:
+      type: object
+      properties:
+        destinationId:
+          type: string
+          description: The unique identifier of the destination endpoint that will receive notifications associated with this subscription. Use the <b>getDestinations</b> method to retrieve destination IDs.
+        payload:
+          description: The payload associated with the notification topic. Use <b>getTopics</b> or <b>getTopic</b> to get the supported payload for the topic.
+          $ref: '#/components/schemas/SubscriptionPayloadDetail'
+        status:
+          type: string
+          description: Set the status of the subscription to <code>ENABLED</code> or <code>DISABLED</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:SubscriptionStatusEnum'>eBay API documentation</a>
+        topicId:
+          type: string
+          description: The unique identifier of the notification topic to subscribe to. Use <b>getTopics</b> to get topic IDs.
+      description: This type contains information about a subscription request.
+    SubscriptionPayloadDetail:
+      type: object
+      properties:
+        deliveryProtocol:
+          type: string
+          description: The supported delivery protocol of the notification topic.<br><br><span class="tablenote"><b>Note:</b> <code>HTTPS</code> is currently the only supported delivery protocol of all notification topics. </span> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:ProtocolEnum'>eBay API documentation</a>
+        format:
+          type: string
+          description: The supported data format of the payload.<br><br><span class="tablenote"><b>Note:</b> JSON is currently the only supported format for all notification topics.</span> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:FormatTypeEnum'>eBay API documentation</a>
+        schemaVersion:
+          type: string
+          description: The supported schema version for the notification topic. See the <b>supportedPayloads.schemaVersion</b> field for the topic in <b>getTopics</b> or <b>getTopic</b> response.
+      description: A type that describes the details of the subscription payload.
+    UpdateSubscriptionRequest:
+      type: object
+      properties:
+        destinationId:
+          type: string
+          description: The unique identifier of the destination endpoint that will receive notifications associated with this subscription. Use <b>getDestinations</b> to retrieve destination IDs.
+        payload:
+          description: The payload associated with this subscription.
+          $ref: '#/components/schemas/SubscriptionPayloadDetail'
+        status:
+          type: string
+          description: Set the status of the subscription being updated to ENABLED or DISABLED. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:SubscriptionStatusEnum'>eBay API documentation</a>
+      description: A type that describes the details of the update subscription request.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

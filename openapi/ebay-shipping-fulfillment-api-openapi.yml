@@ -1,0 +1,339 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Shipping_fulfillment API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Shipping_fulfillment
+paths:
+  /order/{orderId}/shipping_fulfillment:
+    get:
+      tags:
+      - Shipping_fulfillment
+      description: Use this call to retrieve the contents of all fulfillments currently defined for a specified order based on the order's unique identifier, <b>orderId</b>. This value is returned in the <b>getOrders</b> call's <b>members.orderId</b> field when you search for orders by creation date or shipment status.
+      operationId: getShippingFulfillments
+      parameters:
+      - name: orderId
+        in: path
+        description: This path parameter is used to specify the unique identifier of the order associated with the shipping fulfillments being retrieved.<br><br>Use the <a href="/api-docs/sell/fulfillment/resources/order/methods/getOrders" target="_blank ">getOrders</a> method to retrieve order IDs. Order ID values are also shown in My eBay/Seller Hub.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingFulfillmentPagedCollection'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '32100':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: 'Invalid order ID: {orderId}'
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '30500':
+                domain: API_FULFILLMENT
+                category: APPLICATION
+                description: System error
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.fulfillment
+        - https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly
+    post:
+      tags:
+      - Shipping_fulfillment
+      description: When you group an order's line items into one or more packages, each package requires a corresponding plan for handling, addressing, and shipping; this is a <i>shipping fulfillment</i>. For each package, execute this call once to generate a shipping fulfillment associated with that package. <br><br> <span class="tablenote"><strong>Note:</strong> A single line item in an order can consist of multiple units of a purchased item, and one unit can consist of multiple parts or components. Although these components might be provided by the manufacturer in separate packaging, the seller must include all components of a given line item in the same package.</span> <br><br>Before using this call for a given package, you must determine which line items are in the package. If the package has been shipped, you should provide the date of shipment in the request. If not provided, it will default to the current date and time.
+      operationId: createShippingFulfillment
+      parameters:
+      - name: orderId
+        in: path
+        description: This path parameter is used to specify the unique identifier of the order associated with the shipping fulfillment being created.<br><br> Use the <a href="/api-docs/sell/fulfillment/resources/order/methods/getOrders" target="_blank ">getOrders</a> method to retrieve order IDs.
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: fulfillment payload
+        content:
+          application/json:
+            schema:
+              description: fulfillment payload
+              $ref: '#/components/schemas/ShippingFulfillmentDetails'
+        required: true
+      responses:
+        '201':
+          description: 'Created. The call also returns the following location response header: <br><br><code>{ENV}/sell/fulfillment/v1/order/{ORDERID}/shipping_fulfillment/{FULFILLMENTID}</code> <br><br>The <code>ENV</code> string is the HTTPS path to the same eBay supported environment in which this call was issued. The <code>ORDERID</code> parameter is the unique identifier of the order addressed by this call; for example, <code>01-03955-36441</code>. The <code>FULFILLMENTID</code> parameter identifies the newly created fulfillment; for example, <code>9405509699937003457459</code>. Use this Get Fulfillment URI to retrieve the contents of the new fulfillment.'
+          headers:
+            Location:
+              schema:
+                type: string
+                description: The <b>location</b> response header contains the <a href="/api-docs/sell/fulfillment/resources/order/shipping_fulfillment/methods/getShippingFulfillment" target="_blank ">getShippingFulfillment</a> URI to retrieve the contents of the newly created shipping fulfillment. The URL includes the eBay-assigned <code>fulfillmentId</code>, which you can use to reference the shipping fulfillment.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '32100':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: 'Invalid Order Id: {orderId}'
+              '32200':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: 'Invalid line item id: {lineItemId}'
+              '32210':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Duplicate line item in the request
+              '32300':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid shipment tracking number or carrier
+              '32400':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Requested user is suspended
+              '32500':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid shipped date
+              '32600':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid input data
+              '34100':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Maximum tracking number for order is exceeded
+              '34200':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Line Items contain Global Shipping Program and non-Global Shipping Program orders
+              '34300':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Mark As Shipped for multiple Global Shipping Program line items is not supported
+              '34500':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Please use PUT operation for updating shipping fulfillment
+        '409':
+          description: Conflict
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '30500':
+                domain: API_FULFILLMENT
+                category: APPLICATION
+                description: System error
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.fulfillment
+  /order/{orderId}/shipping_fulfillment/{fulfillmentId}:
+    get:
+      tags:
+      - Shipping_fulfillment
+      description: Use this call to retrieve the contents of a fulfillment based on its unique identifier, <b>fulfillmentId</b> (combined with the associated order's <b>orderId</b>). The <b>fulfillmentId</b> value was originally generated by the <b>createShippingFulfillment</b> call, and is returned by the <b>getShippingFulfillments</b> call in the <b>members.fulfillmentId</b> field.
+      operationId: getShippingFulfillment
+      parameters:
+      - name: fulfillmentId
+        in: path
+        description: This path parameter is used to specify the unique identifier of the shipping fulfillment being retrieved.<br><br>Use the <a href="/api-docs/sell/fulfillment/resources/order/shipping_fulfillment/methods/getShippingFulfillments" target="_blank ">getShippingFulfillments</a> method to retrieved fulfillment IDs.
+        required: true
+        schema:
+          type: string
+      - name: orderId
+        in: path
+        description: This path parameter is used to specify the unique identifier of the order associated with the shipping fulfillment being retrieved.<br><br> Use the <a href="/api-docs/sell/fulfillment/resources/order/methods/getOrders" target="_blank ">getOrders</a> method to retrieve order IDs. Order ID values are also shown in My eBay/Seller Hub.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShippingFulfillment'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '32100':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: 'Invalid order ID: {orderId}'
+              '32110':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: 'Invalid shipping fulfillment ID: {fulfillmentId}'
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '30500':
+                domain: API_FULFILLMENT
+                category: APPLICATION
+                description: System error
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.fulfillment
+        - https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly
+components:
+  schemas:
+    ShippingFulfillment:
+      type: object
+      properties:
+        fulfillmentId:
+          type: string
+          description: The unique identifier of the fulfillment; for example, <code>9405509699937003457459</code>. This eBay-generated value is created with a successful <b>createShippingFulfillment</b> call.
+        lineItems:
+          type: array
+          description: This array contains a list of one or more line items (and purchased quantity) to which the fulfillment applies.
+          items:
+            $ref: '#/components/schemas/LineItemReference'
+        shipmentTrackingNumber:
+          type: string
+          description: The tracking number provided by the shipping carrier for the package shipped in this fulfillment. This field is returned if available.
+        shippedDate:
+          type: string
+          description: The date and time that the fulfillment package was shipped. This timestamp is in ISO 8601 format, which uses the 24-hour Universal Coordinated Time (UTC) clock. This field should only be returned if the package has been shipped.<br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2015-08-04T19:09:02.768Z</code>
+        shippingCarrierCode:
+          type: string
+          description: The eBay code identifying the shipping carrier for this fulfillment. This field is returned if available. <br><br><span class="tablenote"><strong>Note:</strong> The Trading API's <b>ShippingCarrierCodeType</b> enumeration type contains the most current list of eBay shipping carrier codes and the countries served by each carrier. See <a href="https://developer.ebay.com/Devzone/XML/docs/Reference/eBay/types/ShippingCarrierCodeType.html " target="_blank">ShippingCarrierCodeType</a>.</span>
+      description: This type contains the complete details of an existing fulfillment for an order.
+    LineItemReference:
+      type: object
+      properties:
+        lineItemId:
+          type: string
+          description: This is the unique identifier of the eBay order line item that is part of the shipping fulfillment.<br><br>Line item Ids can be found in the lineItems.<b>lineItemId</b> field of the <a href="/api-docs/sell/fulfillment/resources/order/methods/getOrders" target="_blank">getOrders</a> response.
+        quantity:
+          type: integer
+          description: This is the number of lineItems associated with the <a href="#request.trackingNumber">trackingNumber</a> specified by the seller. This must be a whole number greater than zero (0).
+          format: int32
+      description: This type identifies the line item and quantity of that line item that comprises one fulfillment, such as a shipping package.
+    ErrorParameter:
+      type: object
+      properties:
+        name:
+          type: string
+          description: This is the name of input field that caused an issue with the call request.
+        value:
+          type: string
+          description: This is the actual value that was passed in for the element specified in the <strong>name</strong> field.
+      description: This type contains the name and value of an input parameter that contributed to a specific error or warning condition.
+    ShippingFulfillmentPagedCollection:
+      type: object
+      properties:
+        fulfillments:
+          type: array
+          description: This array contains one or more fulfillments required for the order that was specified in method endpoint.
+          items:
+            $ref: '#/components/schemas/ShippingFulfillment'
+        total:
+          type: integer
+          description: The total number of fulfillments in the specified order.<br><br><span class="tablenote"><strong>Note:</strong> If no fulfillments are found for the order, this field is returned with a value of <code>0</code>.</span>
+          format: int32
+        warnings:
+          type: array
+          description: This array is only returned if one or more errors or warnings occur with the call request.
+          items:
+            $ref: '#/components/schemas/Error'
+      description: This type contains the specifications for the entire collection of shipping fulfillments that are associated with the order specified by a <b>getShippingFulfillments</b> call. The <b>fulfillments</b> container returns an array of all the fulfillments in the collection.
+    ShippingFulfillmentDetails:
+      type: object
+      properties:
+        lineItems:
+          type: array
+          description: This array contains a list of or more line items and the quantity that will be shipped in the same package.
+          items:
+            $ref: '#/components/schemas/LineItemReference'
+        shippedDate:
+          type: string
+          description: This is the actual date and time that the fulfillment package was shipped. This timestamp is in ISO 8601 format, which uses the 24-hour Universal Coordinated Time (UTC) clock. The seller should use the actual date/time that the package was shipped, but if this field is omitted, it will default to the current date/time.<br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2015-08-04T19:09:02.768Z</code><br><br><b>Default:</b> The current date and time.
+        shippingCarrierCode:
+          type: string
+          description: The unique identifier of the shipping carrier being used to ship the line item(s). Technically, the <strong>shippingCarrierCode</strong> and <strong>trackingNumber</strong> fields are optional, but generally these fields will be provided if the shipping carrier and tracking number are known. <br><br><span class="tablenote"><strong>Note:</strong> Use the Trading API's <a href="https://developer.ebay.com/devzone/XML/docs/Reference/eBay/GeteBayDetails.html " target="_blank">GeteBayDetails</a> call to retrieve the latest shipping carrier enumeration values. When making the <a href="https://developer.ebay.com/devzone/XML/docs/Reference/eBay/GeteBayDetails.html " target="_blank">GeteBayDetails</a> call, include the <strong>DetailName</strong> field in the request payload and set its value to <code>ShippingCarrierDetails</code>. Each valid shipping carrier enumeration value is returned in a <strong>ShippingCarrierDetails.ShippingCarrier</strong> field in the response payload.</span>
+        trackingNumber:
+          type: string
+          description: The tracking number provided by the shipping carrier for this fulfillment. The seller should be careful that this tracking number is accurate since the buyer will use this tracking number to track shipment, and eBay has no way to verify the accuracy of this number.<br><br>This field and the <b>shippingCarrierCode</b> field are mutually dependent. If you include one, you must also include the other.<br><br><span class="tablenote"><strong>Note:</strong> If you include <b>trackingNumber</b> (and <b>shippingCarrierCode</b>) in the request, the resulting fulfillment's ID (returned in the HTTP location response header) is the tracking number. If you do not include shipment tracking information, the resulting fulfillment ID will default to an arbitrary number such as <code>999</code>.</span><br><span class="tablenote"><strong>Note:</strong> Only alphanumeric characters are supported for shipment tracking numbers. Spaces, hyphens, and all other special characters are not supported. Do not include a space in the tracking number even if a space appears in the tracking number on the shipping label.</span>
+      description: This type contains the details for creating a fulfillment for an order.
+    Error:
+      type: object
+      properties:
+        category:
+          type: string
+          description: The context or source of this error or warning.
+        domain:
+          type: string
+          description: The name of the domain containing the service or application. For example, <code>sell</code> is a domain.
+        errorId:
+          type: integer
+          description: A positive integer that uniquely identifies the specific error condition that occurred. Your application can use these values as error code identifiers in your customized error-handling algorithms.
+          format: int32
+        inputRefIds:
+          type: array
+          description: A list of one or more specific request elements (if any) associated with the error or warning. The format of these strings depends on the request payload format. For JSON, use JSONPath notation.
+          items:
+            type: string
+        longMessage:
+          type: string
+          description: An expanded version of the <b>message</b> field. <br><br><b>Maximum length:</b> 200 characters
+        message:
+          type: string
+          description: A message about the error or warning which is device agnostic and readable by end users and application developers. It explains what the error or warning is, and how to fix it (in a general sense). If applicable, the value is localized to the end user's requested locale. <br><br><b>Maximum length:</b> 50 characters
+        outputRefIds:
+          type: array
+          description: A list of one or more specific response elements (if any) associated with the error or warning. The format of these strings depends on the request payload format. For JSON, use JSONPath notation.
+          items:
+            type: string
+        parameters:
+          type: array
+          description: Contains a list of name-value pairs that provide additional information concerning this error or warning. Each item in the list is an input parameter that contributed to the error or warning condition.
+          items:
+            $ref: '#/components/schemas/ErrorParameter'
+        subdomain:
+          type: string
+          description: The name of the domain's subsystem or subdivision. For example, <code>fulfillment</code> is a subdomain in the <code>sell</code> domain.
+      description: 'This type contains a error or warning related to a call request. '
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

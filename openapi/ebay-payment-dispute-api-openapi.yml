@@ -1,0 +1,1147 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Payment_dispute API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Payment_dispute
+paths:
+  /payment_dispute/{payment_dispute_id}:
+    servers:
+    - url: https://apiz.ebay.com{basePath}
+      description: Production
+      variables:
+        basePath:
+          default: /sell/fulfillment/v1
+    get:
+      tags:
+      - Payment_dispute
+      summary: eBay Get Payment Dispute Details
+      description: This method retrieves detailed information on a specific payment dispute. The payment dispute identifier is passed in as path parameter at the end of the call URI.<br><br>Below is a summary of the information that is retrieved:<ul><li>Current status of payment dispute</li><li>Amount of the payment dispute</li><li>Reason the payment dispute was opened</li><li>Order and line items associated with the payment dispute</li><li>Seller response options if an action is currently required on the payment dispute</li><li>Details on the results of the payment dispute if it has been closed</li><li>Details on any evidence that was provided by the seller to fight the payment dispute</li></ul>
+      operationId: getPaymentDispute
+      parameters:
+      - name: payment_dispute_id
+        in: path
+        description: This parameter is used to specify the unique identifier of the payment dispute being retrieved.<br><br> Use the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDisputeSummaries" target="_blank ">getPaymentDisputeSummaries</a> method to retrieve payment dispute IDs.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentDispute'
+        '400':
+          description: Bad Request
+        '404':
+          description: Invalid Payment Dispute Id
+          x-response-codes:
+            errors:
+              '33001':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid Payment Dispute Id
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '33000':
+                domain: API_FULFILLMENT
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.payment.dispute
+  /payment_dispute/{payment_dispute_id}/fetch_evidence_content:
+    servers:
+    - url: https://apiz.ebay.com{basePath}
+      description: Production
+      variables:
+        basePath:
+          default: /sell/fulfillment/v1
+    get:
+      tags:
+      - Payment_dispute
+      summary: eBay Get Payment Dispute Evidence File
+      description: 'This call retrieves a specific evidence file for a payment dispute. The following three identifying parameters are needed in the call URI:<ul><li><strong>payment_dispute_id</strong>: the identifier of the payment dispute. The identifier of each payment dispute is returned in the <strong>getPaymentDisputeSummaries</strong> response.</li><li><strong>evidence_id</strong>: the identifier of the evidential file set. The identifier of an evidential file set for a payment dispute is returned under the <strong>evidence</strong> array in the <strong>getPaymentDispute</strong> response.</li><li><strong>file_id</strong>: the identifier of an evidential file. This file must belong to the evidential file set identified through the <strong>evidence_id</strong> query parameter. The identifier of each evidential file is returned under the <strong>evidence.files</strong> array in the <strong>getPaymentDispute</strong> response.</li></ul><p>An actual binary file is returned if the call is successful. An error will occur if any of three identifiers are invalid.</p>'
+      operationId: fetchEvidenceContent
+      parameters:
+      - name: payment_dispute_id
+        in: path
+        description: This path parameter is used to specify the unique identifier of the payment dispute associated with the evidence file being retrieved.<br><br> Use the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDisputeSummaries" target="_blank ">getPaymentDisputeSummaries</a> method to retrieve payment dispute IDs.
+        required: true
+        schema:
+          type: string
+      - name: evidence_id
+        in: query
+        description: This query parameter is used to specify the unique identifier of the evidential file set.<br><br>The identifier of an evidential file set for a payment dispute is returned under the <strong>evidence</strong> array in the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDispute" target="_blank ">getPaymentDispute</a> response.
+        required: true
+        schema:
+          type: string
+      - name: file_id
+        in: query
+        description: This query parameter is used to specify the unique identifier of an evidential file. This file must belong to the evidential file set identified through the <strong>evidence_id</strong> query parameter.<br><br>The identifier of each evidential file is returned under the <strong>evidence.files</strong> array in the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDispute" target="_blank ">getPaymentDispute</a> response.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/octet-stream:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '33002':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid Evidence Id
+              '33003':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid Evidence File Id
+        '404':
+          description: Invalid Payment Dispute Id
+          x-response-codes:
+            errors:
+              '33001':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid Payment Dispute Id
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '33000':
+                domain: API_FULFILLMENT
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.payment.dispute
+  /payment_dispute/{payment_dispute_id}/activity:
+    servers:
+    - url: https://apiz.ebay.com{basePath}
+      description: Production
+      variables:
+        basePath:
+          default: /sell/fulfillment/v1
+    get:
+      tags:
+      - Payment_dispute
+      summary: eBay Get Payment Dispute Activity
+      description: This method retrieve a log of activity for a payment dispute. The identifier of the payment dispute is passed in as a path parameter. The output includes a timestamp for each action of the payment dispute, from creation to resolution, and all steps in between.
+      operationId: getActivities
+      parameters:
+      - name: payment_dispute_id
+        in: path
+        description: This parameter is used to specify the unique identifier of the payment dispute associated with the activity log being retrieved.<br><br> Use the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDisputeSummaries" target="_blank ">getPaymentDisputeSummaries</a> method to retrieve payment dispute IDs.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentDisputeActivityHistory'
+        '400':
+          description: Bad Request
+        '404':
+          description: Invalid Payment Dispute Id
+          x-response-codes:
+            errors:
+              '33001':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid Payment Dispute Id
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '33000':
+                domain: API_FULFILLMENT
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.payment.dispute
+  /payment_dispute_summary:
+    servers:
+    - url: https://apiz.ebay.com{basePath}
+      description: Production
+      variables:
+        basePath:
+          default: /sell/fulfillment/v1
+    get:
+      tags:
+      - Payment_dispute
+      summary: eBay Search Payment Dispute by Filters
+      description: This method is used retrieve one or more payment disputes filed against the seller. These payment disputes can be open or recently closed. The following filter types are available in the request payload to control the payment disputes that are returned:<ul><li>Dispute filed against a specific order (<b>order_id</b> parameter is used)</li><li>Dispute(s) filed by a specific buyer (<b>buyer_username</b> parameter is used)</li><li>Dispute(s) filed within a specific date range (<b>open_date_from</b> and/or <b>open_date_to</b> parameters are used)</li><li>Disputes in a specific state (<b>payment_dispute_status</b> parameter is used)</li></ul>More than one of these filter types can be used together. See the request payload request fields for more information about how each filter is used.<br><br>If none of the filters are used, all open and recently closed payment disputes are returned.<br><br>Pagination is also available. See the <b>limit</b> and <b>offset</b> fields for more information on how pagination is used for this method.
+      operationId: getPaymentDisputeSummaries
+      parameters:
+      - name: order_id
+        in: query
+        description: This filter is used if the seller wishes to retrieve one or more payment disputes filed against a specific order. It is possible that there can be more than one dispute filed against an order if the order has multiple line items. If this filter is used, any other filters are ignored.<br><br>Use the <a href="/api-docs/sell/fulfillment/resources/order/methods/getOrders" target="_blank ">getOrders</a> method to retrieve order IDs. Order ID values are also shown in My eBay/Seller Hub.
+        required: false
+        schema:
+          type: string
+      - name: buyer_username
+        in: query
+        description: This filter is used if the seller wishes to retrieve one or more payment disputes opened by a specific buyer. The string that is passed in to this query parameter is the eBay user ID of the buyer.
+        required: false
+        schema:
+          type: string
+      - name: open_date_from
+        in: query
+        description: 'The <b>open_date_from</b> and/or <b>open_date_to</b> date filters are used if the seller wishes to retrieve payment disputes opened within a specific date range. A maximum date range that may be set with the <b>open_date_from</b> and/or <b>open_date_to</b> filters is 90 days. These date filters use the ISO-8601 24-hour date and time format, and time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu.<br><br>The <b>open_date_from</b> field sets the beginning date of the date range, and can be set as far back as 18 months from the present time. If a <b>open_date_from</b> field is used, but a <b>open_date_to</b> field is not used, the <b>open_date_to</b> value will default to 90 days after the date specified in the <b>open_date_from</b> field, or to the present time if less than 90 days in the past.<br><br>The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        required: false
+        schema:
+          type: string
+      - name: open_date_to
+        in: query
+        description: 'The <b>open_date_from</b> and/or <b>open_date_to</b> date filters are used if the seller wishes to retrieve payment disputes opened within a specific date range. A maximum date range that may be set with the <b>open_date_from</b> and/or <b>open_date_to</b> filters is 90 days. These date filters use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu.<br><br>The <b>open_date_to</b> field sets the ending date of the date range, and can be set up to 90 days from the date set in the <b>open_date_from</b> field. <br><br>The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        required: false
+        schema:
+          type: string
+      - name: payment_dispute_status
+        in: query
+        description: This filter is used if the seller wishes to only retrieve payment disputes in one or more specific states. To filter by more than one status value, a separate <b>payment_dispute_status</b> filter must be used for each value, as shown below:<br><br><i>https://apiz.ebay.com/sell/fulfillment/v1/payment_dispute_summary?payment_dispute_status=OPEN&payment_dispute_status=ACTION_NEEDED</i> <br><br>If no <b>payment_dispute_status</b> filter is used, payment disputes in all states are returned in the response.<br><br>See <a href="/api-docs/sell/fulfillment/types/api:DisputeStateEnum" target="_blank ">DisputeStatusEnum</a> type for supported values.
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: 'The value passed in this query parameter sets the maximum number of payment disputes to return per page of data. The value passed in this field should be an integer from 1 to 200. If this query parameter is not set, up to 200 records will be returned on each page of results.<br><br><b>Min</b>: 1<br><br> <b>Max</b>: 200<br><br><b>Default</b>: 200'
+        required: false
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: 'This field is used to specify the number of records to skip in the result set before returning the first payment dispute in the paginated response. A zero-based index is used, so if you set the <b>offset</b> value to <code>0</code> (default value), the first payment dispute in the result set appears at the top of the response. <br><br>Combine <b>offset</b> with the <b>limit</b> parameter to control the payment disputes returned in the response. For example, if you supply an <b>offset</b> value of <code>0</code> and a <b>limit</b> value of <code>10</code>, the response will contain the first 10 payment disputes from the result set that matches the input criteria. If you supply an <b>offset</b> value of <code>10</code> and a <b>limit</b> value of <code>20</code>, the response will contain payment disputes 11-30 from the result set that matches the input criteria.<br><br><b>Min</b>: 0 <br><br><b>Default</b>: 0'
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisputeSummaryResponse'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '33001':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid input request
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '33000':
+                domain: API_FULFILLMENT
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.payment.dispute
+  /payment_dispute/{payment_dispute_id}/contest:
+    servers:
+    - url: https://apiz.ebay.com{basePath}
+      description: Production
+      variables:
+        basePath:
+          default: /sell/fulfillment/v1
+    post:
+      tags:
+      - Payment_dispute
+      summary: eBay Contest Payment Dispute
+      description: This method is used if the seller wishes to contest a payment dispute initiated by the buyer. The unique identifier of the payment dispute is passed in as a path parameter, and unique identifiers for payment disputes can be retrieved with the <strong>getPaymentDisputeSummaries</strong> method.<br><br><span class="tablenote"><strong>Note:</strong> Before contesting a payment dispute, the seller must upload all supporting files using the <strong>addEvidence</strong> and <strong>updateEvidence</strong> methods. Once the seller has officially contested the dispute (using <strong>contestPaymentDispute</strong>), the <strong>addEvidence</strong> and <strong>updateEvidence</strong> methods can no longer be used. In the <strong>evidenceRequests</strong> array of the <strong>getPaymentDispute</strong> response, eBay prompts the seller with the type of supporting file(s) that will be needed to contest the payment dispute.</span><br><br>If a seller decides to contest a payment dispute, that seller should be prepared to provide supporting documents such as proof of delivery, proof of authentication, or other documents. The type of supporting documents that the seller will provide will depend on why the buyer filed the payment dispute.<br><br>The <strong>revision</strong> field in the request payload is required, and the <strong>returnAddress</strong> field should be supplied if the seller is expecting the buyer to return the item. See the Request Payload section for more information on these fields.
+      operationId: contestPaymentDispute
+      parameters:
+      - name: payment_dispute_id
+        in: path
+        description: This parameter is used to specify the unique identifier of the payment dispute being contested. <br><br> Use the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDisputeSummaries" target="_blank ">getPaymentDisputeSummaries</a> method to retrieve payment dispute IDs.
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ContestPaymentDisputeRequest'
+        required: false
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '33100':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid input request
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+          x-response-codes:
+            errors:
+              '33011':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: There was a change in payment dispute attributes. Please use get payment dispute api to get latest details.
+              '33101':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid payment dispute state
+              '33102':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: No evidence available for contest
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '33000':
+                domain: API_FULFILLMENT
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.payment.dispute
+  /payment_dispute/{payment_dispute_id}/accept:
+    servers:
+    - url: https://apiz.ebay.com{basePath}
+      description: Production
+      variables:
+        basePath:
+          default: /sell/fulfillment/v1
+    post:
+      tags:
+      - Payment_dispute
+      summary: eBay Accept Payment Dispute
+      description: This method is used if the seller wishes to accept a payment dispute. The unique identifier of the payment dispute is passed in as a path parameter, and unique identifiers for payment disputes can be retrieved with the <strong>getPaymentDisputeSummaries</strong> method.<br><br>The <strong>revision</strong> field in the request payload is required, and the <strong>returnAddress</strong> field should be supplied if the seller is expecting the buyer to return the item. See the Request Payload section for more information on theste fields.
+      operationId: acceptPaymentDispute
+      parameters:
+      - name: payment_dispute_id
+        in: path
+        description: This parameter is used to specify the unique identifier of the payment dispute being accepted. <br><br> Use the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDisputeSummaries" target="_blank ">getPaymentDisputeSummaries</a> method to retrieve payment dispute IDs.
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AcceptPaymentDisputeRequest'
+        required: false
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '33100':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid input request
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+          x-response-codes:
+            errors:
+              '33011':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: There was a change in payment dispute attributes. Please use get payment dispute api to get latest details.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '33000':
+                domain: API_FULFILLMENT
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.payment.dispute
+  /payment_dispute/{payment_dispute_id}/upload_evidence_file:
+    servers:
+    - url: https://apiz.ebay.com{basePath}
+      description: Production
+      variables:
+        basePath:
+          default: /sell/fulfillment/v1
+    post:
+      tags:
+      - Payment_dispute
+      summary: eBay Upload an Evidence File
+      description: This method is used to upload an evidence file for a contested payment dispute. The unique identifier of the payment dispute is passed in as a path parameter, and unique identifiers for payment disputes can be retrieved with the <strong>getPaymentDisputeSummaries</strong> method.<br><br><span class="tablenote"><strong>Note:</strong> The <strong>uploadEvidenceFile</strong> only uploads an encrypted, binary image file (using <strong>multipart/form-data</strong> HTTP request header), and does not have a JSON-based request payload.<br><br>Use 'file' as the name of the key that you use to upload the image file. The upload will not be successful if a different key name is used.<br><br>The three image formats supported at this time are <strong>.JPEG</strong>, <strong>.JPG</strong>, and <strong>.PNG</strong>.</span><br><br>After the file is successfully uploaded, the seller will need to grab the <strong>fileId</strong> value in the response payload to add this file to a new evidence set using the <strong>addEvidence</strong> method, or to add this file to an existing evidence set using the <strong>updateEvidence</strong> method.
+      operationId: uploadEvidenceFile
+      parameters:
+      - name: payment_dispute_id
+        in: path
+        description: This parameter is used to specify the unique identifier of the contested payment dispute for which the user intends to upload an evidence file.<br><br> Use the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDisputeSummaries" target="_blank ">getPaymentDisputeSummaries</a> method to retrieve payment dispute IDs.
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>multipart/form-data</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FileEvidence'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '33005':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: File type is invalid.
+              '33006':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: File size should be 1.5 MB or less.
+              '33106':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: The file name should not be empty and should not exceed 255 characters.
+              '33107':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Only one file can be uploaded per request.
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '33001':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid Payment Dispute Id
+        '409':
+          description: Conflict
+          x-response-codes:
+            errors:
+              '33004':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Upload file for evidence is not permitted for given payment dispute state.
+              '33105':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: You reached the maximum number of files you can upload.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '33000':
+                domain: API_FULFILLMENT
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.payment.dispute
+  /payment_dispute/{payment_dispute_id}/add_evidence:
+    servers:
+    - url: https://apiz.ebay.com{basePath}
+      description: Production
+      variables:
+        basePath:
+          default: /sell/fulfillment/v1
+    post:
+      tags:
+      - Payment_dispute
+      summary: eBay Add an Evidence File
+      description: This method is used by the seller to add one or more evidence files to address a payment dispute initiated by the buyer. The unique identifier of the payment dispute is passed in as a path parameter, and unique identifiers for payment disputes can be retrieved with the <strong>getPaymentDisputeSummaries</strong> method.<br><br><span class="tablenote"><strong>Note:</strong> All evidence files should be uploaded using <strong>addEvidence</strong> and <strong>updateEvidence</strong>  before the seller decides to contest the payment dispute. Once the seller has officially contested the dispute (using <strong>contestPaymentDispute</strong> or through My eBay), the <strong>addEvidence</strong> and <strong>updateEvidence</strong> methods can no longer be used. In the <strong>evidenceRequests</strong> array of the <strong>getPaymentDispute</strong> response, eBay prompts the seller with the type of evidence file(s) that will be needed to contest the payment dispute.</span><br><br>The file(s) to add are identified through the <strong>files</strong> array in the request payload.  Adding one or more new evidence files for a payment dispute triggers the creation of an evidence file, and the unique identifier for the new evidence file is automatically generated and returned in the <strong>evidenceId</strong> field of the <strong>addEvidence</strong> response payload upon a successful call.<br><br>The type of evidence being added should be specified in the <strong>evidenceType</strong> field. All files being added (if more than one) should correspond to this evidence type.<br><br>Upon a successful call, an <strong>evidenceId</strong> value is returned in the response. This indicates that a new evidence set has been created for the payment dispute, and this evidence set includes the evidence file(s) that were passed in to the <strong>fileId</strong> array. The <strong>evidenceId</strong> value will be needed if the seller wishes to add to the evidence set by using the <strong>updateEvidence</strong> method, or if they want to retrieve a specific evidence file within the evidence set by using the <strong>fetchEvidenceContent</strong> method.
+      operationId: addEvidence
+      parameters:
+      - name: payment_dispute_id
+        in: path
+        description: This parameter is used to specify the unique identifier of the contested payment dispute for which the seller wishes to add evidence files. <br><br> Use the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDisputeSummaries" target="_blank ">getPaymentDisputeSummaries</a> method to retrieve payment dispute IDs.
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddEvidencePaymentDisputeRequest'
+        required: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AddEvidencePaymentDisputeResponse'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '33003':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid Evidence File Id
+              '33007':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid line items.
+              '33008':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid evidence type.
+              '33009':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: User did not echo back the evidence metadata correctly.
+              '33100':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid input request
+              '33103':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Exceed allowed file count
+              '33104':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: The combined size of attached files should be 1.5MB or less.
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '33001':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid Payment Dispute Id
+        '409':
+          description: Conflict
+          x-response-codes:
+            errors:
+              '33004':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Upload file for evidence is not permitted for given payment dispute state.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '33000':
+                domain: API_FULFILLMENT
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.payment.dispute
+  /payment_dispute/{payment_dispute_id}/update_evidence:
+    servers:
+    - url: https://apiz.ebay.com{basePath}
+      description: Production
+      variables:
+        basePath:
+          default: /sell/fulfillment/v1
+    post:
+      tags:
+      - Payment_dispute
+      summary: eBay Update evidence
+      description: This method is used by the seller to update an existing evidence set for a payment dispute with one or more evidence files. The unique identifier of the payment dispute is passed in as a path parameter, and unique identifiers for payment disputes can be retrieved with the <strong>getPaymentDisputeSummaries</strong> method.<br><br><span class="tablenote"><strong>Note:</strong> All evidence files should be uploaded using <strong>addEvidence</strong> and <strong>updateEvidence</strong>  before the seller decides to contest the payment dispute. Once the seller has officially contested the dispute (using <strong>contestPaymentDispute</strong> or through My eBay), the <strong>addEvidence</strong> and <strong>updateEvidence</strong> methods can no longer be used. In the <strong>evidenceRequests</strong> array of the <strong>getPaymentDispute</strong> response, eBay prompts the seller with the type of evidence file(s) that will be needed to contest the payment dispute.</span><br><br>The unique identifier of the evidence set to update is specified through the <strong>evidenceId</strong> field, and the file(s) to add are identified through the <strong>files</strong> array in the request payload. The unique identifier for an evidence file is automatically generated and returned in the <strong>fileId</strong> field of the <strong>uploadEvidence</strong> response payload upon a successful call. Sellers must make sure to capture the <strong>fileId</strong> value for each evidence file that is uploaded with the <strong>uploadEvidence</strong> method.<br><br>The type of evidence being added should be specified in the <strong>evidenceType</strong> field.  All files being added (if more than one) should correspond to this evidence type.<br><br>Upon a successful call, an http status code of <code>204 Success</code> is returned. There is no response payload unless an error occurs. To verify that a new file is a part of the evidence set, the seller can use the <strong>fetchEvidenceContent</strong> method, passing in the proper <strong>evidenceId</strong> and <strong>fileId</strong> values.
+      operationId: updateEvidence
+      parameters:
+      - name: payment_dispute_id
+        in: path
+        description: This parameter is used to specify the unique identifier of the contested payment dispute for which the user plans to update the evidence set.<br><br> Use the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDisputeSummaries" target="_blank ">getPaymentDisputeSummaries</a> method to retrieve payment dispute IDs.
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateEvidencePaymentDisputeRequest'
+        required: false
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '33003':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid Evidence File Id
+              '33007':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid line items.
+              '33008':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid evidence type.
+              '33009':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: User did not echo back the evidence metadata correctly.
+              '33010':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Evidence Id is invalid
+              '33100':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid input request
+              '33103':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Exceed allowed file count
+              '33104':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: The combined size of attached files should be 1.5MB or less.
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '33001':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Invalid Payment Dispute Id
+        '409':
+          description: Conflict
+          x-response-codes:
+            errors:
+              '33004':
+                domain: API_FULFILLMENT
+                category: REQUEST
+                description: Upload file for evidence is not permitted for given payment dispute state.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '33000':
+                domain: API_FULFILLMENT
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.payment.dispute
+components:
+  schemas:
+    PaymentDisputeActivity:
+      type: object
+      properties:
+        activityDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time of the payment dispute activity.<br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        activityType:
+          type: string
+          description: This enumeration value indicates the type of activity that occured on the payment dispute. For example, a value of <code>DISPUTE_OPENED</code> is returned when a payment disute is first created,  a value indicating the seller's decision on the dispute, such as <code>SELLER_CONTEST</code>, is returned when seller makes a decision to accept or contest dispute, and a value of <code>DISPUTE_CLOSED</code> is returned when a payment disute is resolved. See <strong>ActivityEnum</strong> for an explanation of each of the values that may be returned here. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:ActivityEnum'>eBay API documentation</a>
+        actor:
+          type: string
+          description: This enumeration value indicates the actor that performed the action. Possible values include the <code>BUYER</code>, <code>SELLER</code>, <code>CS_AGENT</code> (eBay customer service), or <code>SYSTEM</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:ActorEnum'>eBay API documentation</a>
+      description: This type is used by each recorded activity on a payment dispute, from creation to resolution.
+    AddEvidencePaymentDisputeRequest:
+      type: object
+      properties:
+        evidenceType:
+          type: string
+          description: This field is used to indicate the type of evidence being provided through one or more evidence files. All evidence files (if more than one) should be associated with the evidence type passed in this field.<br><br>See the <a href="/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum" target="_blank ">EvidenceTypeEnum</a> type for the supported evidence types. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum'>eBay API documentation</a>
+        files:
+          type: array
+          description: This array is used to specify one or more evidence files that will become part of a new evidence set associated with a payment dispute. At least one evidence file must be specified in the <strong>files</strong> array.
+          items:
+            $ref: '#/components/schemas/FileEvidence'
+        lineItems:
+          type: array
+          description: This array identifies the order line item(s) for which the evidence file(s) will be applicable.<br><Br>These values are returned under the <strong>evidenceRequests.lineItems</strong> array in the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDispute" target="_blank ">getPaymentDispute</a> response.
+          items:
+            $ref: '#/components/schemas/OrderLineItems'
+      description: This type is used by the request payload of the <strong>addEvidence</strong> method. The <strong>addEvidence</strong> method is used to create a new evidence set against a payment dispute with one or more evidence files.
+    ContestPaymentDisputeRequest:
+      type: object
+      properties:
+        note:
+          type: string
+          description: This field shows information that the seller provides about the dispute, such as the basis for the dispute, any relevant evidence, tracking numbers, and so forth.<br><br><b>Max Length:</b> 1000 characters.
+        returnAddress:
+          description: This container is needed if the seller is requesting that the buyer return the item. If this container is used, all relevant fields must be included, including <strong>fullName</strong> and <strong>primaryPhone</strong>.
+          $ref: '#/components/schemas/ReturnAddress'
+        revision:
+          type: integer
+          description: This integer value indicates the revision number of the payment dispute. This field is required. The current <strong>revision</strong> number for a payment dispute can be retrieved with the <strong>getPaymentDispute</strong> method. Each time an action is taken against a payment dispute, this integer value increases by 1.
+          format: int32
+      description: This type is used by the request payload of the <strong>contestPaymentDispute</strong> method.
+    PaymentDisputeActivityHistory:
+      type: object
+      properties:
+        activity:
+          type: array
+          description: This array holds all activities of a payment dispute, from creation to resolution. For each activity, the activity type, the actor, and a timestamp is shown. The <strong>getActivities</strong> response is dynamic, and grows with each recorded activity.
+          items:
+            $ref: '#/components/schemas/PaymentDisputeActivity'
+      description: This type is used by the base response of the <strong>getActivities</strong> method, and includes a log of all activities of a payment dispute, from creation to resolution.
+    DisputeAmount:
+      type: object
+      properties:
+        convertedFromCurrency:
+          type: string
+          description: The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " target="_blank">ISO 4217</a> code representing the currency of the amount in the <b> convertedFromValue</b> field. This value is the pre-conversion currency.<br><br>This field is only returned if/when currency conversion was applied by eBay. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
+        convertedFromValue:
+          type: string
+          description: The monetary amount before any conversion is performed, in the currency specified by the <b> convertedFromCurrency</b> field. This value is the pre-conversion amount. The <b> value</b> field contains the converted amount of this value, in the currency specified by the <b> currency</b> field.<br><br>This field is only returned if/when currency conversion was applied by eBay.
+        currency:
+          type: string
+          description: 'A three-letter ISO 4217 code that indicates the currency of the amount in the <b>value</b> field. This field is always returned with any container using <b>Amount</b> type. <br><br><b>Default</b>: The currency of the authenticated user''s country. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/fulfillment/types/ba:CurrencyCodeEnum''>eBay API documentation</a>'
+        exchangeRate:
+          type: string
+          description: The exchange rate used for the monetary conversion. This field shows the exchange rate used to convert the dollar value in the <b>value</b> field from the dollar value in the <b>convertedFromValue</b> field.<br><br>This field is only returned if/when currency conversion was applied by eBay.
+        value:
+          type: string
+          description: The monetary amount, in the currency specified by the <b>currency</b> field. This field is always returned with any container using <b>Amount</b> type.
+      description: This type defines the monetary value of an amount. It can provide the amount in both the currency used on the eBay site where an item is being offered and the conversion of that value into another currency, if applicable.
+    MonetaryTransaction:
+      type: object
+      properties:
+        date:
+          type: string
+          description: 'This timestamp indicates when the monetary transaction occurred. A date is returned for all monetary transactions.<br><br> The following format is used: <code>YYYY-MM-DDTHH:MM:SS.SSSZ</code>. For example, <code>2015-08-04T19:09:02.768Z</code>.'
+        type:
+          type: string
+          description: This enumeration value indicates whether the monetary transaction is a charge or a credit to the seller. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:MonetaryTransactionTypeEnum'>eBay API documentation</a>
+        reason:
+          type: string
+          description: This enumeration value indicates the reason for the monetary transaction. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:MonetaryTransactionReasonEnum'>eBay API documentation</a>
+        amount:
+          description: The amount involved in the monetary transaction. For active cross-border trade orders, the currency conversion and <b>exchangeRate</b> fields will be displayed as well.
+          $ref: '#/components/schemas/DisputeAmount'
+      description: This type is used to provide details about one or more monetary transactions that occur as part of a payment dispute.
+    UpdateEvidencePaymentDisputeRequest:
+      type: object
+      properties:
+        evidenceId:
+          type: string
+          description: The unique identifier of the evidence set that is being updated with new evidence files.<br><br> This ID is returned under the <strong>evidence</strong> array in the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDispute" target="_blank ">getPaymentDispute</a> response.
+        evidenceType:
+          type: string
+          description: This field is used to indicate the type of evidence being provided through one or more evidence files. All evidence files (if more than one) should be associated with the evidence type passed in this field.<br><br>See the <a href="/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum" target="_blank ">EvidenceTypeEnum</a> type for the supported evidence types. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum'>eBay API documentation</a>
+        files:
+          type: array
+          description: This array is used to specify one or more evidence files that will be added to the evidence set associated with a payment dispute. At least one evidence file must be specified in the <strong>files</strong> array.<br><br> The unique identifier of an evidence file is returned in the response payload of the <strong>uploadEvidence</strong> method.
+          items:
+            $ref: '#/components/schemas/FileEvidence'
+        lineItems:
+          type: array
+          description: This required array identifies the order line item(s) for which the evidence file(s) will be applicable. <br><Br>These values are returned under the <strong>evidenceRequests.lineItems</strong> array in the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDispute" target="_blank ">getPaymentDispute</a> response. <br><br><span class="tablenote"><b>Note:</b> Both the <strong>itemId</strong> and <strong>lineItemID</strong> fields are needed to identify each order line item.</span>
+          items:
+            $ref: '#/components/schemas/OrderLineItems'
+      description: This type is used by the request payload of the <strong>updateEvidence</strong> method. The <strong>updateEvidence</strong> method is used to update an existing evidence set against a payment dispute with one or more evidence files.
+    DisputeSummaryResponse:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The URI of the <strong>getPaymentDisputeSummaries</strong> call request that produced the current page of the result set.
+        limit:
+          type: integer
+          description: 'This value shows the maximum number of payment disputes that will appear on one page of the result set. The <strong>limit</strong> value can be passed in as a query parameter in the request, or if it is not used, it defaults to <code>200</code>. If the value in the <strong>total</strong> field exceeds this <strong>limit</strong> value, there are multiple pages in the current result set.<br><br><b>Min</b>: 1; <b>Max</b>: 200; <b>Default</b>: 200'
+          format: int32
+        next:
+          type: string
+          description: The <strong>getPaymentDisputeSummaries</strong> call URI to use if you wish to view the next page of the result set. For example, the following URI returns records 11 thru 20 from the collection of payment disputes:<br><br><code>path/payment_dispute_summary?limit=10&offset=10</code><br><br>This field is only returned if there is a next page of results to view based on the current input criteria.
+        offset:
+          type: integer
+          description: This integer value indicates the number of payment disputes skipped before listing the first payment dispute from the result set. The <strong>offset</strong> value can be passed in as a query parameter in the request, or if it is not used, it defaults to <code>0</code> and the first payment dispute of the result set is shown at the top of the response.
+          format: int32
+        paymentDisputeSummaries:
+          type: array
+          description: Each payment dispute that matches the input criteria is returned under this array. If no payment disputes are found, an empty array is returned.
+          items:
+            $ref: '#/components/schemas/PaymentDisputeSummary'
+        prev:
+          type: string
+          description: The <strong>getPaymentDisputeSummaries</strong> call URI to use if you wish to view the previous page of the result set. For example, the following URI returns records 1 thru 10 from the collection of payment disputes:<br><br><code>path/payment_dispute_summary?limit=10&offset=0</code><br><br>This field is only returned if there is a previous page of results to view based on the current input criteria.
+        total:
+          type: integer
+          description: This integer value is the total number of payment disputes that matched the input criteria. If the total number of entries exceeds the value that was set for <strong>limit</strong> in the request payload, you will have to make multiple API calls to see all pages of the results set. This field is returned even if it is <code>0</code>.
+          format: int32
+      description: This type defines the base response payload of the <strong>getPaymentDisputeSummaries</strong> method. Each payment dispute that matches the input criteria is returned under the <strong>paymentDisputeSummaries</strong> array.
+    PaymentDispute:
+      type: object
+      properties:
+        amount:
+          description: This container shows the dollar value associated with the payment dispute in the currency used by the seller's marketplace.
+          $ref: '#/components/schemas/SimpleAmount'
+        availableChoices:
+          type: array
+          description: The value(s) returned in this array indicate the choices that the seller has when responding to the payment dispute. Once the seller has responded to the payment dispute, this field will no longer be shown, and instead, the <strong>sellerResponse</strong> field will show the decision that the seller made.
+          items:
+            type: string
+            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/fulfillment/types/api:SellerDecisionEnum''>eBay API documentation</a>'
+        buyerProvided:
+          description: This container is returned if the buyer is returning one or more line items in an order that is associated with the payment dispute, and that buyer has provided return shipping tracking information and/or a note about the return.
+          $ref: '#/components/schemas/InfoFromBuyer'
+        buyerUsername:
+          type: string
+          description: This is the eBay user ID of the buyer that initiated the payment dispute.
+        closedDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the payment dispute was closed, so this field is only returned for payment disputes in the <code>CLOSED</code> state.<br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        evidence:
+          type: array
+          description: This container shows any evidence that has been provided by the seller to contest the payment dispute. Evidence may include shipment tracking information, proof of authentication documentation, image(s) to proof that an item is as described, or financial documentation/invoice.<br><br>This container is only returned if the seller has provided at least one document used as evidence against the payment dispute.
+          items:
+            $ref: '#/components/schemas/DisputeEvidence'
+        evidenceRequests:
+          type: array
+          description: This container is returned if one or more evidence documents are being requested from the seller.
+          items:
+            $ref: '#/components/schemas/EvidenceRequest'
+        lineItems:
+          type: array
+          description: This array is used to identify one or more order line items associated with the payment dispute. There will always be at least one <b>itemId</b>/<b>lineItemId</b> pair returned in this array.
+          items:
+            $ref: '#/components/schemas/OrderLineItems'
+        monetaryTransactions:
+          type: array
+          description: This array provide details about one or more monetary transactions that occur as part of a payment dispute. This array is only returned once one or more monetary transacations occur with a payment dispute.
+          items:
+            $ref: '#/components/schemas/MonetaryTransaction'
+        note:
+          type: string
+          description: This field shows information that the seller provides about the dispute, such as the basis for the dispute, any relevant evidence, tracking numbers, and so forth.<br><br>This field is limited to 1000 characters.
+        openDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the payment dispute was opened. This field is returned for payment disputes in all states.<br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        orderId:
+          type: string
+          description: This is the unique identifier of the order involved in the payment dispute.
+        paymentDisputeId:
+          type: string
+          description: This is the unique identifier of the payment dispute. This is the same identifier that is passed in to the call URI. This identifier is automatically created by eBay once the payment dispute comes into the eBay system.
+        paymentDisputeStatus:
+          type: string
+          description: The enumeration value in this field gives the current status of the payment dispute. The status of a payment dispute partially determines other fields that are returned in the response. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:DisputeStateEnum'>eBay API documentation</a>
+        reason:
+          type: string
+          description: The enumeration value in this field gives the reason why the buyer initiated the payment dispute. See <strong>DisputeReasonEnum</strong> type for a description of the supported reasons that buyers can give for initiating a payment dispute. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:DisputeReasonEnum'>eBay API documentation</a>
+        resolution:
+          description: This container gives details about a payment dispute that has been resolved. This container is only returned for resolved/closed payment disputes.
+          $ref: '#/components/schemas/PaymentDisputeOutcomeDetail'
+        respondByDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the seller must response to a payment dispute, so this field is only returned for payment disputes in the <code>ACTION_NEEDED</code> state. For payment disputes that currently require action by the seller, that same seller should look at the <strong>availableChoices</strong> array to see the available actions.<br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        returnAddress:
+          description: This container gives the address where the order will be returned to. This container is returned if the seller is accepting the payment dispute and will issue a refund to the buyer once the item is returned to this address.
+          $ref: '#/components/schemas/ReturnAddress'
+        revision:
+          type: integer
+          description: This integer value indicates the revision number of the payment dispute. Each time an action is taken against a payment dispute, this integer value increases by 1.
+          format: int32
+        sellerResponse:
+          type: string
+          description: The enumeration value returned in this field indicates how the seller has responded to the payment dispute. The seller has the option of accepting the payment dispute and agreeing to issue a refund, accepting the payment dispute and agreeing to issue a refund as long as the buyer returns the item, or contesting the payment dispute. This field is returned as soon as the seller makes an initial decision on the payment dispute. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:SellerResponseEnum'>eBay API documentation</a>
+      description: This type is used by the base response of the <strong>getPaymentDispute</strong> method. The <strong>getPaymentDispute</strong> method retrieves detailed information on a specific payment dispute.
+    EvidenceRequest:
+      type: object
+      properties:
+        evidenceId:
+          type: string
+          description: Unique identifier of the evidential file set. Potentially, each evidential file set can have more than one file, that is why there is this file set identifier, and then an identifier for each file within this file set.
+        evidenceType:
+          type: string
+          description: This enumeration value shows the type of evidential document provided. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum'>eBay API documentation</a>
+        lineItems:
+          type: array
+          description: This array shows one or more order line items associated with the evidential document that has been provided.
+          items:
+            $ref: '#/components/schemas/OrderLineItems'
+        requestDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when eBay requested the evidential document from the seller in response to a payment dispute. <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        respondByDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the seller is expected to provide a requested evidential document to eBay.  <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+      description: This type is used by the <strong>evidenceRequests</strong> array that is returned in the <strong>getPaymentDispute</strong> response if one or more evidential documents are being requested to help resolve the payment dispute.
+    AddEvidencePaymentDisputeResponse:
+      type: object
+      properties:
+        evidenceId:
+          type: string
+          description: The value returned in this field is the unique identifier of the newly-created evidence set. Upon a successful call, this value is automatically genererated. This new evidence set for the payment dispute includes the evidence file(s) that were passed in to the <strong>fileId</strong> array in the request payload. The <strong>evidenceId</strong> value will be needed if the seller wishes to add to the evidence set by using the <strong>updateEvidence</strong> method, or if they want to retrieve a specific evidence file within the evidence set by using the <strong>fetchEvidenceContent</strong> method.
+      description: This type is used by the response payload of the <strong>addEvidence</strong> method. Its only field is an unique identifier of an evidence set.
+    TrackingInfo:
+      type: object
+      properties:
+        shipmentTrackingNumber:
+          type: string
+          description: This string value represents the shipment tracking number of the package.
+        shippingCarrierCode:
+          type: string
+          description: This string value represents the shipping carrier used to ship the package.
+      description: This type is used for seller provided shipment tracking information.
+    ReturnAddress:
+      type: object
+      properties:
+        addressLine1:
+          type: string
+          description: The first line of the street address.
+        addressLine2:
+          type: string
+          description: The second line of the street address. This line is not always necessarily, but is often used for apartment number or suite number, or other relevant information that can not fit on the first line.
+        city:
+          type: string
+          description: The city of the return address.
+        country:
+          type: string
+          description: The country's two-digit, ISO 3166-1 country code. See the enumeration type for a country's value. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/ba:CountryCodeEnum'>eBay API documentation</a>
+        county:
+          type: string
+          description: The county of the return address. Counties are not applicable to all countries.
+        fullName:
+          type: string
+          description: The full name of return address owner.
+        postalCode:
+          type: string
+          description: The postal code of the return address.
+        primaryPhone:
+          description: This container shows the seller's primary phone number associated with the return address.
+          $ref: '#/components/schemas/Phone'
+        stateOrProvince:
+          type: string
+          description: The state or province of the return address.
+      description: This type is used by the payment dispute methods, and is relevant if the buyer will be returning the item to the seller.
+    FileInfo:
+      type: object
+      properties:
+        fileId:
+          type: string
+          description: The unique identifier of the evidence file.
+        fileType:
+          type: string
+          description: The type of file uploaded. Supported file extensions are .JPEG, .JPG, and .PNG., and maximum file size allowed is 1.5 MB.
+        name:
+          type: string
+          description: The seller-provided name of the evidence file.
+        uploadedDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the seller uploaded the evidential document to eBay. <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+      description: This type is used by the <strong>files</strong> array, which shows the name, ID, file type, and upload date for each provided evidential file.
+    FileEvidence:
+      type: object
+      properties:
+        fileId:
+          type: string
+          description: This field is used to identify the evidence file to be uploaded to the evidence set.<br><br> This file is created with the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/uploadEvidenceFile" target="_blank ">uploadEvidenceFile</a> method and can be retrieved using the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDisputes" target="_blank ">getPaymentDisputes</a> method.
+      description: This type is used to store the unique identifier of an evidence file. Evidence files are used by seller to contest a payment dispute.
+    OrderLineItems:
+      type: object
+      properties:
+        itemId:
+          type: string
+          description: The unique identifier of the eBay listing associated with the order.
+        lineItemId:
+          type: string
+          description: The unique identifier of the line item within the order.
+      description: This type is used by the <strong>lineItems</strong> array that is used to identify one or more line items in the order with the payment dispute.
+    PaymentDisputeOutcomeDetail:
+      type: object
+      properties:
+        fees:
+          description: This container will show the dollar value of any fees associated with the payment dispute. This container is only returned if there are fees associated with the payment dispute.
+          $ref: '#/components/schemas/SimpleAmount'
+        protectedAmount:
+          description: This container shows the amount of money that the seller is protected against in a payment dispute under eBay's seller protection policy.
+          $ref: '#/components/schemas/SimpleAmount'
+        protectionStatus:
+          type: string
+          description: This enumeration value indicates if the seller is fully protected, partially protected, or not protected by eBay for the payment dispute. This field is always returned once the payment dispute is resolved. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:ProtectionStatusEnum'>eBay API documentation</a>
+        reasonForClosure:
+          type: string
+          description: The enumeration value returned in this field indicates the outcome of the payment dispute for the seller. This field is always returned once the payment dispute is resolved. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:OutcomeEnum'>eBay API documentation</a>
+        recoupAmount:
+          description: This container shows the dollar amount being recouped from the seller. This container is empty if the seller wins the payment dispute or if the seller is fully protected by eBay's seller protection policy.
+          $ref: '#/components/schemas/SimpleAmount'
+        totalFeeCredit:
+          description: This container shows the amount of money in selling fee credits due back to the seller after a payment dispute is settled.
+          $ref: '#/components/schemas/SimpleAmount'
+      description: This type is used by the <strong>resolution</strong> container that is returned for payment disputes that have been resolved.
+    InfoFromBuyer:
+      type: object
+      properties:
+        contentOnHold:
+          type: boolean
+          description: When the value of this field is <code>true</code> it indicates that the buyer's note regarding the payment dispute (i.e., the <b>buyerProvided.note</b> field,) is on hold. When this is the case, the <b>buyerProvided.note</b> field will not be returned.<br><br>When the value of this field is <code>false</code>, it is not returned.
+        note:
+          type: string
+          description: This field shows any note that was left by the buyer in regard to the dispute.
+        returnShipmentTracking:
+          type: array
+          description: This array shows shipment tracking information for one or more shipping packages being returned to the buyer after a payment dispute.
+          items:
+            $ref: '#/components/schemas/TrackingInfo'
+      description: This container is returned if the buyer is returning one or more line items in an order that is associated with the payment dispute, and that buyer has provided return shipping tracking information and/or a note about the return.
+    Phone:
+      type: object
+      properties:
+        countryCode:
+          type: string
+          description: The seller's country calling code. This field is needed if the buyer is located in a different country than the seller. It is also OK to provide if the buyer and seller are both located in the same country. For a full list of calling codes for all countries, see the <a href="https://countrycode.org/ " target="_blank">countrycode.org</a> site.
+        number:
+          type: string
+          description: 'The seller''s primary phone number associated with the return address. When this number is provided in a <strong>contestPaymentDispute</strong> or <strong>contestPaymentDispute</strong> method, it is provided as one continuous numeric string, including the area code. So, if the phone number''s area code was ''408'', a number in this field may look something like this: <br><br><code>"number" : "4088084356"</code><br><br>If the buyer is located in a different country than the seller, the seller''s country calling code will need to be specified in the <strong>countryCode</strong> field.'
+      description: This type is used by the <strong>returnAddress</strong field that is used by the payment dispute methods. If a buyer is returning the item (under payment dispute) to the seller, a primary phone number for the seller must be provided.
+    DisputeEvidence:
+      type: object
+      properties:
+        evidenceId:
+          type: string
+          description: Unique identifier of the evidential file set. Potentially, each evidential file set can have more than one file, that is why there is this file set identifier, and then an identifier for each file within this file set.
+        evidenceType:
+          type: string
+          description: This enumeration value shows the type of evidential file provided. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum'>eBay API documentation</a>
+        files:
+          type: array
+          description: This array shows the name, ID, file type, and upload date for each provided file.
+          items:
+            $ref: '#/components/schemas/FileInfo'
+        lineItems:
+          type: array
+          description: This array shows one or more order line items associated with the evidential document that has been provided.
+          items:
+            $ref: '#/components/schemas/OrderLineItems'
+        providedDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the seller provided a requested evidential document to eBay. <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        requestDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when eBay requested the evidential document from the seller in response to a payment dispute. <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        respondByDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the seller was expected to provide a requested evidential document to eBay.  <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        shipmentTracking:
+          type: array
+          description: This array shows the shipping carrier and shipment tracking number associated with each shipment package of the order. This array is returned under the <strong>evidence</strong> container if the seller has provided shipment tracking information as evidence to support <code>PROOF_OF_DELIVERY</code> for an INR-related payment dispute.
+          items:
+            $ref: '#/components/schemas/TrackingInfo'
+      description: 'This type is used by the <strong>evidence</strong> array that is returned in the <strong>getPaymentDispute</strong> response if one or more evidential documents are associated with the payment dispute. '
+    AcceptPaymentDisputeRequest:
+      type: object
+      properties:
+        returnAddress:
+          description: This container is used if the seller wishes to provide a return address to the buyer. This container should be used if the seller is requesting that the buyer return the item.
+          $ref: '#/components/schemas/ReturnAddress'
+        revision:
+          type: integer
+          description: This integer value indicates the revision number of the payment dispute. This field is required. The current <strong>revision</strong> number for a payment dispute can be retrieved with the <strong>getPaymentDispute</strong> method. Each time an action is taken against a payment dispute, this integer value increases by 1.
+          format: int32
+      description: This type is used by base request of the <strong>acceptPaymentDispute</strong> method.
+    PaymentDisputeSummary:
+      type: object
+      properties:
+        amount:
+          description: This container shows the dollar value associated with the payment dispute in the currency used by the seller's marketplace. This container is returned for all payment disputes returned in the response.
+          $ref: '#/components/schemas/SimpleAmount'
+        buyerUsername:
+          type: string
+          description: This is the buyer's eBay user ID. This field is returned for all payment disputes returned in the response.
+        closedDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the payment dispute was closed, so this field is only returned for payment disputes in the <code>CLOSED</code> state.<br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        openDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the payment dispute was opened. This field is returned for payment disputes in all states.<br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        orderId:
+          type: string
+          description: This is the unique identifier of the order involved in the payment dispute.
+        paymentDisputeId:
+          type: string
+          description: This is the unique identifier of the payment dispute. This identifier is automatically created by eBay once the payment dispute comes into the eBay system. This identifier is passed in at the end of the <strong>getPaymentDispute</strong> call URI to retrieve a specific payment dispute. The <strong>getPaymentDispute</strong> method returns more details about a payment dispute than the <strong>getPaymentDisputeSummaries</strong> method.
+        paymentDisputeStatus:
+          type: string
+          description: The enumeration value in this field gives the current status of the payment dispute. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:DisputeStateEnum'>eBay API documentation</a>
+        reason:
+          type: string
+          description: The enumeration value in this field gives the reason why the buyer initiated the payment dispute. See <strong>DisputeReasonEnum</strong> type for a description of the supported reasons that buyers can give for initiating a payment dispute. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:DisputeReasonEnum'>eBay API documentation</a>
+        respondByDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the seller must response to a payment dispute, so this field is only returned for payment disputes in the <code>ACTION_NEEDED</code> state. For payment disputes that require action by the seller, that same seller must call <strong>getPaymentDispute</strong> to see the next action(s) that they can take against the payment dispute.<br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+      description: This type is used by each payment dispute that is returned with the <strong>getPaymentDisputeSummaries</strong> method.
+    SimpleAmount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: A three-letter ISO 4217 code (such as <code>USD</code> for US site) that indicates the currency of the amount in the <strong>value</strong> field. Both the <strong>value</strong> and <strong>currency</strong> fields are always returned with the <strong>amount</strong> container. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
+        value:
+          type: string
+          description: The monetary amount of the payment dispute. Both the <strong>value</strong> and <strong>currency</strong> fields are always returned with the <strong>amount</strong> container.
+      description: This type defines the monetary value of the payment dispute, and the currency used.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

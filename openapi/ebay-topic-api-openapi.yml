@@ -1,0 +1,196 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Topic API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Topic
+paths:
+  /topic/{topic_id}:
+    get:
+      tags:
+      - Topic
+      description: This method allows applications to retrieve details for the specified topic. This information includes supported schema versions, formats, and other metadata for the topic.<br><br>Applications can subscribe to any of the topics for a supported schema version and format, limited by the authorization scopes required to subscribe to the topic.<br><br>A topic specifies the type of information to be received and the data types associated with an event. An event occurs in the eBay system, such as when a user requests deletion or revokes access for an application. An event is an instance of an event type (topic).<br><br>Specify the topic to retrieve using the <b>topic_id</b> URI parameter.<br><br><span class="tablenote"><b>Note:</b> Use the <a href="/api-docs/commerce/notification/resources/topic/methods/getTopics">getTopics</a> method to find a topic if you do not know the topic ID.</span>
+      operationId: getTopic
+      parameters:
+      - name: topic_id
+        in: path
+        description: The unique identifier of the notification topic for which the details are retrieved. Use <b>getTopics</b> to retrieve the topic ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Topic'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '195002':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Invalid or missing topic id.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '195000':
+                domain: API_NOTIFICATION
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope
+  /topic:
+    get:
+      tags:
+      - Topic
+      description: This method returns a paginated collection of all supported topics, along with the details for the topics. This information includes supported schema versions, formats, and other metadata for the topics.<br><br>Applications can subscribe to any of the topics for a supported schema version and format, limited by the authorization scopes required to subscribe to the topic.<br><br>A topic specifies the type of information to be received and the data types associated with an event. An event occurs in the eBay system, such as when a user requests deletion or revokes access for an application. An event is an instance of an event type (topic).
+      operationId: getTopics
+      parameters:
+      - name: continuation_token
+        in: query
+        description: This string value can be used to return the next page in the result set. The string to use here is returned in the <b>next</b> field of the current page of results.
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The maximum number of notification topics to return per page from the result set.<br><br><b>Min:</b> 10<br><br><b>Max:</b> 100<br><br><b>Default:</b> 20
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TopicSearchResponse'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '195004':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Invalid limit. Supported ranges 10 - 100.
+              '195005':
+                domain: API_NOTIFICATION
+                category: REQUEST
+                description: Invalid continuation token.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '195000':
+                domain: API_NOTIFICATION
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope
+components:
+  schemas:
+    PayloadDetail:
+      type: object
+      properties:
+        deliveryProtocol:
+          type: string
+          description: The supported delivery protocols. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:ProtocolEnum'>eBay API documentation</a>
+        deprecated:
+          type: boolean
+          description: A deprecation indicator.
+        format:
+          type: array
+          description: The supported format. Presently, <code>JSON</code> is the only supported format.
+          items:
+            type: string
+            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/commerce/notification/types/api:FormatTypeEnum''>eBay API documentation</a>'
+        schemaVersion:
+          type: string
+          description: The supported schema version.
+      description: A type that describes the details about a topic's payload.
+    TopicSearchResponse:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The path to the call URI that produced the current page of results.
+        limit:
+          type: integer
+          description: The value of the limit parameter submitted in the request, which is the maximum number of items to return per page, from the result set. A result set is the complete set of results returned by the method.<br><br><span class="tablenote"><b>Note:</b> Though this parameter is not required to be submitted in the request, the parameter defaults to <code>20</code> if omitted.</span>
+          format: int32
+        next:
+          type: string
+          description: The URL to access the next set of results. This field includes a <strong>continuation_token</strong>. No <b>prev</b> field is returned, but this value is persistent during the session so that you can use it to return to the next page.<br><br>This field is not returned if fewer records than specified by the <strong>limit</strong> field are returned.
+        topics:
+          type: array
+          description: An array of topics that match the specified criteria.
+          items:
+            $ref: '#/components/schemas/Topic'
+        total:
+          type: integer
+          description: The total number of matches for the search criteria.
+          format: int32
+      description: A type that describes the details of the topic search response.
+    Topic:
+      type: object
+      properties:
+        authorizationScopes:
+          type: array
+          description: The authorization scopes required to subscribe to this topic.
+          items:
+            type: string
+        context:
+          type: string
+          description: The business context associated with this topic. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:ContextEnum'>eBay API documentation</a>
+        description:
+          type: string
+          description: The description of the topic.
+        filterable:
+          type: boolean
+          description: The indicator of whether this topic is filterable or not.
+        scope:
+          type: string
+          description: The scope of this topic. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:ScopeEnum'>eBay API documentation</a>
+        status:
+          type: string
+          description: The status of this topic. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:StatusEnum'>eBay API documentation</a>
+        supportedPayloads:
+          type: array
+          description: The supported payloads for this topic.
+          items:
+            $ref: '#/components/schemas/PayloadDetail'
+        topicId:
+          type: string
+          description: The unique identifier for the topic.
+      description: A type that describes the details of the topic.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

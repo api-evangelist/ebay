@@ -1,0 +1,114 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Listing_violation_summary API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Listing_violation_summary
+paths:
+  /listing_violation_summary:
+    get:
+      tags:
+      - Listing_violation_summary
+      description: This call returns listing violation counts for a seller. A user can pass in one or more compliance types through the <strong>compliance_type</strong> query parameter. See <a href="/api-docs/sell/compliance/types/com:ComplianceTypeEnum">ComplianceTypeEnum</a> for more information on the supported listing compliance types. Listing violations are returned for multiple marketplaces if the seller sells on multiple eBay marketplaces.<br /><br /> <span class="tablenote"><strong>Note:</strong> Only a canned response, with counts for all listing compliance types, is returned in the Sandbox environment. Due to this limitation, the <strong>compliance_type</strong> query parameter (if used) will not have an effect on the response. </span>
+      operationId: getListingViolationsSummary
+      parameters:
+      - name: X-EBAY-C-MARKETPLACE-ID
+        in: header
+        description: This header identifies the seller's eBay marketplace. <br><br>Supported values for this header can be found in the <a href="/api-docs/sell/compliance/types/bas:MarketplaceIdEnum">MarketplaceIdEnum</a> type definition.
+        required: true
+        schema:
+          type: string
+      - name: compliance_type
+        in: query
+        description: This query parameter specifies the compliance type(s) of the listing violation counts being retrieved. <br><br>See <a href="/api-docs/sell/compliance/types/com:ComplianceTypeEnum">ComplianceTypeEnum</a> for more information on the supported compliance types that can be passed in here. <br><br>If more than one compliance type value is used, delimit these values with a comma. If no compliance type values are passed in, the listing count for all compliance types will be returned. <br /><br /> <span class="tablenote"><strong>Note:</strong> Only a canned response, with counts for all listing compliance types, is returned in the Sandbox environment. Due to this limitation, the <strong>compliance_type</strong> query parameter (if used) will not have an effect on the response. </span>
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json;charset=UTF-8:
+              schema:
+                $ref: '#/components/schemas/ComplianceSummary'
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '850101':
+                domain: API_COMPLIANCE
+                category: REQUEST
+                description: Marketplace ID is invalid
+              '850110':
+                domain: API_COMPLIANCE
+                category: REQUEST
+                description: Compliance type is invalid
+              '850111':
+                domain: API_COMPLIANCE
+                category: REQUEST
+                description: Compliance type is missing
+              '850114':
+                domain: API_COMPLIANCE
+                category: REQUEST
+                description: Mandatory headers are missing
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '850001':
+                domain: API_COMPLIANCE
+                category: APPLICATION
+                description: Any System error. {additionalInfo}
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+components:
+  schemas:
+    ComplianceSummary:
+      type: object
+      properties:
+        violationSummaries:
+          type: array
+          description: This container is an array of one or more policy violation counts. A policy violation count is returned for each unique eBay marketplace and compliance type violation. As long as there is at least one non-compliant listing for the specified compliance type(s), this container will be returned. If no non-compliant listings are found for the specified compliance type(s), an HTTP status code of <code>204 No Content</code> is returned, and there is no response body.
+          items:
+            $ref: '#/components/schemas/ComplianceSummaryInfo'
+      description: This type is the base type for the <strong>getListingViolationsSummary</strong> response. The <strong>violationSummaries</strong> container contains an array of policy violation counts for each unique eBay marketplace and compliance type violation.
+    ComplianceSummaryInfo:
+      type: object
+      properties:
+        complianceType:
+          type: string
+          description: This enumeration value indicates the type of compliance. See <a href="/api-docs/sell/compliance/types/com:ComplianceTypeEnum">ComplianceTypeEnum</a> for more information on each compliance type. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/compliance/types/com:ComplianceTypeEnum'>eBay API documentation</a>
+        marketplaceId:
+          type: string
+          description: This enumeration value indicates the eBay marketplace where the listing violations exist. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/compliance/types/bas:MarketplaceIdEnum'>eBay API documentation</a>
+        listingCount:
+          type: integer
+          description: This integer value indicates the number of eBay listings that are currently violating the compliance type indicated in the <strong>complianceType</strong> field, for the eBay marketplace indicated in the <strong>marketplaceId</strong> field.
+          format: int32
+      description: This type is used by each unique eBay marketplace and compliance type combination that is returned in the <strong>getListingViolationsSummary</strong> response to indicate the total number of listing violations in regards to that eBay marketplace and compliance type.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

@@ -1,0 +1,371 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Traffic_report API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Traffic_report
+paths:
+  /traffic_report:
+    get:
+      tags:
+      - Traffic_report
+      description: This method returns a report that details the user traffic received by a seller's listings. <br><br>A traffic report gives sellers the ability to review how often their listings appeared on eBay, how many times their listings are viewed, and how many purchases were made. The report also returns the report's start and end dates, and the date the information was last updated.  <br><br>For more information, see <a href="/api-docs/sell/static/performance/traffic-report.html" target="_blank">Traffic report details</a>
+      operationId: getTrafficReport
+      parameters:
+      - name: dimension
+        in: query
+        description: 'This query parameter specifies the <i>dimension</i>, or "attribute," that is applied to the report <b>metric</b>.  <br><br><b>Valid values:</b> <code>DAY</code> or <code>LISTING</code>  <br><br><b>Examples</b> <ul><li>If you specify <code>dimension=DAY</code> and <code>metric=CLICK_THROUGH_RATE</code>, the traffic report contains the number of times an item displayed on a search results page and the buyer clicked through to the View Item page for each day in the date range, as in: <br><code>12-06-17: 32, 12-07-17: 54, ...</code></li> <li>If you specify <code>dimension=LISTING</code> and <code>metric=LISTING_IMPRESSION_STORE</code>, the traffic report contains the number of times that listing appeared on the seller''s store during the specified date range. <br><br>For example, <code>LISTING_IMPRESSION_STORE: 157</code> means the item appeared 157 times in the store during the date range.</li><li>If you specify <code>dimension=LISTING</code> without specifying any <b>listing_ids</b> in the parameter filter, the traffic report returned in the response contains a maximum of 200 listings.</li></ul> <!-- Dimension - Enables user to specify input to slice the data that the user is interested in - For example specify listing and days as dimensions to get traffic report for all the sellers listings grouped by listing and days. Refer to DimensionEnum) -->'
+        required: false
+        schema:
+          type: string
+      - name: filter
+        in: query
+        description: 'This query parameter refines the information returned in the traffic report. <br><p><span class="tablenote"><b>Note: </b> URL encode all the values you supply in the <b>filter</b> parameter. See <b>URL encoding query parameter values</b> as described in <a href="/api-docs/static/rest-request-components.html#parameters" target="_blank">URL parameters</a>.</span></p>Configure the following properties of the <b>filter</b> parameter to tune the traffic report to your needs: <ul> <li><b>date_range</b> <br>Limits the report to the specified range of dates. This value can be formatted in one of two ways depending on the user''s time zone.<ul><li><b>For America/Los_Angeles time zone</b>, input the date range using <code>YYMMDD</code> format. As this is the default time zone used for timestamps in the report, the time zone does not need to be specified. Enclose the earliest date and end date for the report in brackets ("<code>[ ]</code>"), as follows:<br><br><code>[YYYYMMDD..YYYYMMDD]</code><br><br>For example:<br><pre>[20240101..20240131]</pre></li><li><b>For all other time zones</b>, input the date range using <a href="https://www.iso.org/iso-8601-date-and-time-format.html" target="_blank">ISO 8601</a> format, and specify the time zone using a UTC offset. A time zone offset is a positive or negative value that represents the number of hours a time zone is from UTC (see <a href="https://www.utctime.net/utc-time-zone-converter" target="_blank">UTC Time Zone Converter</a> for offset values for your time zone). Enclose the earliest date and end date for the report in brackets ("<code>[ ]</code>"), as follows:<br><br><code>[yyyy-MM-dd''T''HH:mm:ss.SSS+|-hh:mm..yyyy-MM-dd''T''HH:mm:ss.SSS+|-hh:mm]</code><br><br>For example:<br><pre>[2024-01-01T02:00:00.000-05:00..2024-01-31T02:00:00.000-05:00]</pre><span class="tablenote"><b>Note:</b> All time values entered in this format will be dropped, and will be replaced with <code>00:00:00.000</code> for <b>startDate</b> and <code>23:59:59.000</code> for <b>endDate</b> in the response body.</span></li></ul>The maximum range between the start and end dates is 90 days, and the earliest start date you can specify is two years prior to the current date, which is defined as 730 days (365 &#42; 2), not accounting for Leap Year.<br><br><a name="lastUDate"></a>The last date for which traffic data exists is a value called <b>lastUpdatedDate</b>. eBay returns an error if you specify a date range greater than 90 days, or the start date is after the lastUpdatedDate. If the specified end date is beyond the lastUpdatedDate, eBay returns data up to the lastUpdatedDate.<br><br><b>Required:</b> Always</li> <li><b>listing_ids</b> <br>This filter limits the results to only the supplied list of <b>listingId</b> values. <br><br><span class="tablenote"><b>Note:</b> If you specify <code>dimension=LISTING</code> without specifying any listing_ids in this parameter, the traffic report returned in the response contains a maximum of 200 listings.</span><br>You can specify to 200 different <b>listingId</b> values. Enclose the list of IDs with curly braces ("<code>{ }</code>"), and separate multiple values with a pipe character ("<code>|</code>").  <br><br>This filter only returns data for listings that have been either active or sold in last 90 days, and any unsold listings in the last 30 days. All listings must be the seller''s and they  must be listed on the marketplace specified by the <b>marketplace_ids</b> filter argument.</li> <li><b>marketplace_ids</b> <br>This filter limits the report to seller data related to only the specified marketplace ID (currently the filter allows only a single marketplace ID). Enclose the marketplace ID in curly braces ("<code>{ }</code>").  <br><br><b>Valid values:</b> <ul class="compact"><li><code>EBAY_AU</code></li> <li><code>EBAY_DE</code></li><li><code>EBAY_ES</code></li><li><code>EBAY_FR</code></li> <li><code>EBAY_GB</code></li> <li><code>EBAY_IT</code></li><li><code>EBAY_US</code></li> <li><code>EBAY_MOTORS_US</code></li></ul> <br><b>Required if</b> you set the <b>dimension</b> parameter to <code>DAY</code>.</li></ul> <br><b>Example filter parameter</b> <br>The following example shows how to configure the <b>filter</b> parameter with the <b>marketplace_ids</b> and <b>date_range</b> filters: <p><code>filter=marketplace_ids:{EBAY_US},date_range:[20170601..20170828]</code><br><br>Encoding this portion of the query parameter sample yields: <p><code>filter=marketplace_ids:%7BEBAY_US%7D,date_range:%5B20230601..20230828%5D</code> </p><br>See <a href=" /api-docs/sell/analytics/resources/traffic_report/methods/getTrafficReport#h2-samples">samples</a> for additional examples.<!-- **Filter results based on the specified filter parameters- window_days (WindowDaysEnum), date_range, marketplace_id (MarketplaceIdEnum - Only EBAY_US, EBAY_MOTORS_US, EBAY_GB, EBAY_AU, EBAY_DE are supported), listing_ids, traffic_source (Takes a list. Supported values: ORGANIC, PROMOTED_LISTINGS). Valid filters come from QueryParamEnum --> For implementation help, refer to eBay API documentation at https://developer.ebay.com/api-docs/sell/analytics/types/csb:FilterField'
+        required: false
+        schema:
+          type: string
+      - name: metric
+        in: query
+        description: '<a name="metrics"></a>This query parameter specifies the metrics you want covered in the report. <br><p><span class="tablenote"><b>Note: </b> Unlike names for parameters and enumerated values, metric values are not case sensitive.</span></p><b>Valid values:</b><ul>    <li><a href="/api-docs/sell/static/performance/traffic-report.html#click_through_rate" target="_blank">CLICK_THROUGH_RATE</a></li>    <li><a href="/api-docs/sell/static/performance/traffic-report.html#listing_impression_search_results_page" target="_blank">LISTING_IMPRESSION_SEARCH_RESULTS_PAGE</a> </li>    <li><a href="/api-docs/sell/static/performance/traffic-report.html#listing_impression_store" target="_blank">LISTING_IMPRESSION_STORE</a></li>    <li><a href="/api-docs/sell/static/performance/traffic-report.html#listing_impression_total" target="_blank">LISTING_IMPRESSION_TOTAL</a></li>    <li><a href="/api-docs/sell/static/performance/traffic-report.html#listing_views_source_direct" target="_blank">LISTING_VIEWS_SOURCE_DIRECT</a></li>    <li><a href="/api-docs/sell/static/performance/traffic-report.html#listing_views_source_off_ebay" target="_blank">LISTING_VIEWS_SOURCE_OFF_EBAY</a></li>    <li><a href="/api-docs/sell/static/performance/traffic-report.html#listing_views_source_other_ebay" target="_blank">LISTING_VIEWS_SOURCE_OTHER_EBAY</a></li>    <li><a href="/api-docs/sell/static/performance/traffic-report.html#listing_views_source_search_results_page" target="_blank">LISTING_VIEWS_SOURCE_SEARCH_RESULTS_PAGE</a></li>    <li><a href="/api-docs/sell/static/performance/traffic-report.html#listing_views_source_store" target="_blank">LISTING_VIEWS_SOURCE_STORE</a></li>    <li><a href="/api-docs/sell/static/performance/traffic-report.html#listing_views_total" target="_blank">LISTING_VIEWS_TOTAL</a></li>    <li><a href="/api-docs/sell/static/performance/traffic-report.html#sales_conversion_rate" target="_blank">SALES_CONVERSION_RATE</a></li>    <li><a href="/api-docs/sell/static/performance/traffic-report.html#total_impression_total" target="_blank">TOTAL_IMPRESSION_TOTAL</a></li>    <li><a href="/api-docs/sell/static/performance/traffic-report.html#transaction" target="_blank">TRANSACTION</a></li></ul>Specify a comma-separated list of the metrics to include them in the report. See <a href="/api-docs/sell/static/performance/traffic-report.html#metric-parameters" target="_blank">Using different metric parameters</a> for more information including detailed metric descriptions and localized names.<!-- Metric - Lets the user specify the list of fields that they would like to see in the report. Allowed values: CLICK_THROUGH_RATE, LISTING_IMPRESSION_SEARCH_RESULTS_PAGE, LISTING_IMPRESSION_STORE, LISTING_IMPRESSION_TOTAL, LISTING_VIEWS_SOURCE_DIRECT, LISTING_VIEWS_SOURCE_OFF_EBAY, LISTING_VIEWS_SOURCE_OTHER_EBAY, LISTING_VIEWS_SOURCE_SEARCH_RESULTS_PAGE, LISTING_VIEWS_SOURCE_STORE, LISTING_VIEWS_TOTAL, SALES_CONVERSION_RATE (DataMetricEnum), TOTAL_IMPRESSION_TOTAL, TRANSACTION -->'
+        required: false
+        schema:
+          type: string
+      - name: sort
+        in: query
+        description: 'This query parameter sorts the report on the specified metric.  <br><br>You can only specify a single metric in the sort parameter and the specified metric must be included in the configuration of the report''s <a href="#metrics">metric</a> parameter.  <br><br>Sorting is helpful when you want to review how a specific metric is performing, such as the CLICK_THROUGH_RATE.  <br><br>Most reports can be sorted in ascending or descending order. Precede the value of a descending-order request with a minus sign ("<code>-</code>"), for example: <code>sort=-CLICK_THROUGH_RATE</code>.<br /><br /><span class="tablenote"><b>Note:</b> There are a couple of constraints on sorting the report by different metrics:<ul><li>Sorting on the <code>SALES_CONVERSION_RATE</code> metric is not supported</li><li>The <code>TRANSACTION</code> metric can only be sorted in the descending order (sorting in the ascending order is not supported).</li></ul></span> <!-- Sort order for a collection of resources: Specify the metric value to be sorted. Allowed values are from DataMetricEnum --> For implementation help, refer to eBay API documentation at https://developer.ebay.com/api-docs/sell/analytics/types/csb:SortField'
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Report'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '50001':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: Invalid dimension specified. For help, see the documentation.
+              '50002':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: Invalid metric {metricName} specified. For help, see the documentation.
+              '50003':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: Invalid date range. End date must be before or equal to start date.
+              '50004':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: Invalid date range. Start date must be before or equal to end date.
+              '50005':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: No filter is specified, which is required. For help, see the documentation.
+              '50006':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: The sort field value {sortField} is not supported.
+              '50008':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: The call requires at least one metric. For help, see the documentation.
+              '50009':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: The call requires at least one URI query parameter. For help, see the documentation.
+              '50013':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: Invalid date range format - Start Date. The format is yyyyMMdd.
+              '50014':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: Invalid date range format - End Date. The format is yyyyMMdd.
+              '50018':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: Neither the start date nor the end date can be in the future.
+              '50021':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: Invalid filter field {filterField} specified.
+              '50022':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: Specify at least one marketplace ID.
+              '50023':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: The marketplace ID {marketplaceId} is not supported by this call. For help, see the documentation.
+              '50024':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: The marketplace ID {marketplaceId} is not valid.
+              '50025':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: The start date is too far in the past. The start date must be less than or equal to {maxStartDateInThePast}.
+              '50026':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: The date range is too long. The date range must be less than or equal to {maxDateWindow}.
+              '50027':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: The 'listing_id' value is empty.
+              '50028':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: The maximum number of listing IDs has been exceeded. The maximum number of listing IDs is {maxListingIdsNumber}.
+              '50029':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: Invalid listing ID {listingId}.
+              '50030':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: Data for the listing ID {listingId} could not be found.
+              '50031':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: Date range is required.
+              '50033':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: Invalid date range filter format {invalidDateRangeFilter}.
+              '50034':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: Invalid listing ids filter format {invalidListingIdsFilter}.
+              '50035':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: Requested sort field is not part of the list of metrics requested.
+              '50036':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: '{sortOrder} sort order is not supported for {sortField} metric.'
+              '50037':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: The Metric {metricName} does not have data available for the requested date range.
+              '50600':
+                domain: API_ANALYTICS
+                category: REQUEST
+                description: Data for the listing Ids {delayedListingIds} is not yet updated to {endDate}
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '50032':
+                domain: API_ANALYTICS
+                category: APPLICATION
+                description: We are unable to process data for accounts, like this one, which have listed in more than a few thousand leaf categories in the past couple years.
+              '50050':
+                domain: API_ANALYTICS
+                category: APPLICATION
+                description: We are doing some maintenance and cannot show all your information right now. We are still tracking everything, and you will see your updated stats soon.
+              '50500':
+                domain: API_ANALYTICS
+                category: APPLICATION
+                description: Internal server error. Wait a few minutes and try the call again. If error persists contact the eBay Developer Program.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+components:
+  schemas:
+    Metadata:
+      type: object
+      properties:
+        metadataHeader:
+          description: The container that returns the <b>dimensionKeys</b> and <b>metrics</b> headers for the report.
+          $ref: '#/components/schemas/MetadataHeader'
+        metadataRecords:
+          type: array
+          description: A list of the individual report records.
+          items:
+            $ref: '#/components/schemas/MetadataRecord'
+      description: Type the defines the metadata information of the report. This includes the headers and the individual metadata records.
+    Report:
+      type: object
+      properties:
+        dimensionMetadata:
+          type: array
+          description: A complex type containing the header of the report and the type of data containted in the rows of the report.
+          items:
+            $ref: '#/components/schemas/Metadata'
+        endDate:
+          type: string
+          description: '  <br><br>The time stamp is formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html" target="_blank">ISO 8601</a> string, which is based on the 24-hour Universal Coordinated Time (UTC) clock.  <br><br>If you specify an end date that is beyond the <a href="#response.lastUpdatedDate">lastUpdatedDate</a> value, eBay returns a report that contains data only up to the lastUpdateDate date. <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2018-08-20T07:09:00.000Z</code>'
+        header:
+          description: A complex type containing the header for the report.
+          $ref: '#/components/schemas/Header'
+        lastUpdatedDate:
+          type: string
+          description: The date and time, in ISO 8601 format, that indicates the last time the data returned in the report was updated.
+        records:
+          type: array
+          description: A complex type containing the individual data records for the traffic report.
+          items:
+            $ref: '#/components/schemas/Record'
+        startDate:
+          type: string
+          description: The start date of the date range used to calculate the report, in ISO 8601 format.
+        warnings:
+          type: array
+          description: An array of any process errors or warnings that were generated during the processing of the call processing.
+          items:
+            $ref: '#/components/schemas/Error'
+      description: The complex type that defines that defines the report.
+    Value:
+      type: object
+      properties:
+        applicable:
+          type: boolean
+          description: 'If set to <code>true</code>, this flag indicates the value in the <b>value</b> field is valid as computed.  <br><br>A value of <code>false</code> indicates one or more of the values used to calculate the value was invalid. The occurrence of this is a rare, however consider this case: suppose a buyer navigates to a View Item page at 11:59 pm (the end of the day) and purchases the item at 12:05am the next day. In this case, the item would have been purchased with <code>0</code> views for the day.'
+        value:
+          type: object
+          description: The value of the report data.
+      description: A complex type that contains a value, plus the veracity of that value.
+    ErrorParameter:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the entity that threw the error.
+        value:
+          type: string
+          description: A description of the error.
+      description: A complex type that defines an error and error message.
+    MetadataHeader:
+      type: object
+      properties:
+        key:
+          type: string
+          description: 'The key value used for the report. <br><br>For example: <code>"key": "LISTING_ID"</code>'
+        metadataKeys:
+          type: array
+          description: 'The list of dimension key values used for the report header. Each list element contains the key name, its data type, and its localized name.  <br><br>For example: <p><code>"metadataKeys": [<br>&nbsp;&nbsp;"key": "LISTING_TITLE",<br>&nbsp;&nbsp;"localizedName": "Listing title",<br>&nbsp;&nbsp;"dataType": "STRING"</code></p>'
+          items:
+            $ref: '#/components/schemas/Definition'
+      description: Type that defines the metadata header fields.
+    Record:
+      type: object
+      properties:
+        dimensionValues:
+          type: array
+          description: A list where each element contains either the string <code>DAY</code> (if the <b>dimension</b> is <code>DAY</code>), or the listing ID for which the record's metric data is computed. A second array member, <b>applicable</b>, is always <code>true</code> for dimension values.
+          items:
+            $ref: '#/components/schemas/Value'
+        metricValues:
+          type: array
+          description: A list where each element contains a <b>value</b> field that indicates the record's value for the metric. Each element also contains an <b>applicable</b> field that indicates the veracity of the computed <b>value</b>.   <br><br>Note that there are no metric names or IDs associated with the values returned in this array. The metadata to which these values relate can be found in the key values in <b>metadataKeys</b>. The order of the metric values in this array equals the order of the key values in <b>metadataHeader</b>.
+          items:
+            $ref: '#/components/schemas/Value'
+      description: Type that defines the fields of the individual record of the report.
+    Definition:
+      type: object
+      properties:
+        dataType:
+          type: string
+          description: Indicates the data type of the returned dimension. For example, if the <b>dimension</b> is <code>day</code>, the data type is <code>DATE</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/ssp:DataTypeEnum'>eBay API documentation</a>
+        key:
+          type: string
+          description: The value the <b>dimension</b> or <b>metric</b> parameter as submitted in the request.
+        localizedName:
+          type: string
+          description: The localized name of the metric or dimension (translated into the language specified in the <b>Accept-Language</b> HTTP request header). For example, if <b>Accept-Language</b> is set to <code>de-DE</code>, the value "day" in the <b>dimension</b> container is returned as "tag", and a metric of TRANSACTION is returned as "Transaktionsanzahl".
+      description: A complex type that defines a dimension key and metrics in a traffic report.
+    Header:
+      type: object
+      properties:
+        dimensionKeys:
+          type: array
+          description: A list of the dimension or metric keys returned in the report. The values for each are is returned in the associated <b>key</b> fields.
+          items:
+            $ref: '#/components/schemas/Definition'
+        metrics:
+          type: array
+          description: The list of metrics returned in the report. The values for each are is returned in the associated <b>key</b> fields.
+          items:
+            $ref: '#/components/schemas/Definition'
+      description: Type that defines the headers for the dimension keys and metrics returned in the report.
+    Error:
+      type: object
+      properties:
+        category:
+          type: string
+          description: Identifies whether the error was in the REQUEST or happened when running the APPLICATION.
+        domain:
+          type: string
+          description: The primary system where the error occurred. This is relevant for application errors. For Analytics errors, it always has the value <code>API_ANALYTICS</code>.
+        errorId:
+          type: integer
+          description: A positive integer that uniquely identifies the specific error condition that occurred. Your application can use error codes as identifiers in your customized error-handling algorithms. Traffic report error IDs range from 50001 to 50500.
+          format: int32
+        inputRefIds:
+          type: array
+          description: Identifies specific request elements associated with the error, if any. inputRefId's response is format specific. For JSON, use <i>JSONPath</i> notation.
+          items:
+            type: string
+        longMessage:
+          type: string
+          description: A more detailed explanation of the error than given in the <code>message</code> error field.
+        message:
+          type: string
+          description: Information on how to correct the problem, in the end user's terms and language where applicable. Its value is at most 50 characters long. If applicable, the value is localized in the end user's requested locale.
+        outputRefIds:
+          type: array
+          description: Identifies specific response elements associated with the error, if any. Path format is the same as <code>inputRefId</code>.
+          items:
+            type: string
+        parameters:
+          type: array
+          description: This optional list of name/value pairs that contain context-specific <code>ErrorParameter</code> objects, with each item in the list being a parameter (or input field name) that caused an error condition. Each <code>ErrorParameter</code> object consists of two fields, a <code>name</code> and a <code>value</code>.
+          items:
+            $ref: '#/components/schemas/ErrorParameter'
+        subdomain:
+          type: string
+          description: If present, indicates which subsystem in which the error occurred.
+      description: Type that defines the fields that can be returned in an error.
+    MetadataRecord:
+      type: object
+      properties:
+        metadataValues:
+          type: array
+          description: A list of data in a row returned in the traffic report. The data in each of the cells match the labels in headers of the report.
+          items:
+            $ref: '#/components/schemas/Value'
+        value:
+          description: 'The value of the key on which the report is based. <br><br>For example, if the key is the listing ID, the value of this container could be: <br><br><code>"value": {<br>&nbsp;&nbsp;"value": "142133954229",<br>&nbsp;&nbsp;"applicable": true<br>}</code>'
+          $ref: '#/components/schemas/Value'
+      description: A complex type that defines the data records returned in the report.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

@@ -1,0 +1,364 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Customer_service_metric_task API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Customer_service_metric_task
+paths:
+  /customer_service_metric_task:
+    get:
+      tags:
+      - Customer_service_metric_task
+      description: Use this method to return an array of customer service metric tasks. You can limit the tasks returned by specifying a date range. </p> <p> <span class="tablenote"><strong>Note:</strong> You can pass in either the <code>look_back_days </code>or<code> date_range</code>, but not both.</span></p>
+      operationId: getCustomerServiceMetricTasks
+      parameters:
+      - name: date_range
+        in: query
+        description: 'The task creation date range. The results are filtered to include only tasks with a creation date that is equal to the dates specified or is within the specified range. Do not use with the <code>look_back_days</code> parameter.<p><strong>Format: </strong>UTC</p><p>For example, tasks within a range: </p><p><code>yyyy-MM-ddThh:mm:ss.SSSZ..yyyy-MM-ddThh:mm:ss.SSSZ </code></p><p>Tasks created on March 8, 2020</p><p><code>2020-03-08T00:00.00.000Z..2020-03-09T00:00:00.000Z</code></p><p><b>Maximum: </b>90 days</p>'
+        required: false
+        schema:
+          type: string
+      - name: feed_type
+        in: query
+        description: The feed type associated with the tasks being retrieved. The only presently supported value is <code>CUSTOMER_SERVICE_METRICS_REPORT</code>.
+        required: false
+        schema:
+          type: string
+      - name: limit
+        in: query
+        description: The number of customer service metric tasks to return per page of the result set. Use this parameter in conjunction with the offset parameter to control the pagination of the output. <p>For example, if <strong>offset</strong> is set to 10 and <strong>limit</strong> is set to 10, the call retrieves tasks 11 thru 20 from the result set.</p><p>If this parameter is omitted, the default value is used.</p><p> <span class="tablenote"><strong>Note:</strong>This feature employs a zero-based list, where the first item in the list has an offset of <code>0</code>.</span></p><p><b>Default:</b> 10 <p><b>Maximum:</b> 500</p>
+        required: false
+        schema:
+          type: string
+      - name: look_back_days
+        in: query
+        description: The number of previous days in which to search for tasks. Do not use with the <code>date_range</code> parameter. If both <code>date_range</code> and <code>look_back_days</code> are omitted, this parameter's default value is used. <p><b>Default value:</b> 7</p><p><b>Range:</b> 1-90 (inclusive)</p>
+        required: false
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: 'The number of customer service metric tasks to skip in the result set before returning the first task in the paginated response. <p>Combine <strong>offset</strong> with the <strong>limit</strong> query parameter to control the items returned in the response. For example, if you supply an <strong>offset</strong> of <code>0</code> and a <strong>limit</strong> of <code>10</code>, the first page of the response contains the first 10 items from the complete list of items retrieved by the call. If <strong>offset</strong> is <code>10</code> and <strong>limit</strong> is <code>20</code>, the first page of the response contains items 11-30 from the complete result set. <br /><br /><b>Default: </b>0'
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomerServiceMetricTaskCollection'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '160002':
+                domain: API_FEED
+                category: REQUEST
+                description: The authentication scope {scope} is incorrect for 'feed_type' {feedType}. Refer to documentation for details about the scopes.
+              '160005':
+                domain: API_FEED
+                category: REQUEST
+                description: Both 'feed_type' and 'schedule_id' were provided. Please remove one of them.
+              '160006':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'feed_type' {feedTypeValue} is invalid.
+              '160008':
+                domain: API_FEED
+                category: REQUEST
+                description: Both 'look_back_days' and 'date_range' were provided. Please remove one of them.
+              '160009':
+                domain: API_FEED
+                category: REQUEST
+                description: The format of the 'date_range' is invalid. The format for a date range is yyyy-MM-ddThh:mm:ss.SSSZ..yyyy-MM-ddThh:mm:ss.SSSZ.
+              '160010':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'date_range' must be less than or equal to 90 days.
+              '160011':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'look_back_days' value must be greater than zero and less than or equal to 90.
+              '160012':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'limit' value must be greater than zero and less than or equal to 500.
+              '160013':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'offset' value cannot be less than zero.
+              '160029':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'offset' value must be a multiple of the 'limit' value.
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '160001':
+                domain: API_FEED
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay Developer Technical Support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+    post:
+      tags:
+      - Customer_service_metric_task
+      description: <p>Use this method to create a customer service metrics download task with filter criteria for the customer service metrics report. When using this method, specify the <strong>feedType</strong> and <strong>filterCriteria</strong> including both <strong>evaluationMarketplaceId</strong> and <strong>customerServiceMetricType</strong> for the report. The method returns the location response header containing the call URI to use with <strong>getCustomerServiceMetricTask</strong> to retrieve status and details on the task.</p><p>Only CURRENT Customer Service Metrics reports can be generated with the Sell Feed API. PROJECTED reports are not supported at this time. See the <a href="/api-docs/sell/analytics/resources/customer_service_metric/methods/getCustomerServiceMetric">getCustomerServiceMetric</a> method document in the Analytics API for more information about these two types of reports.</p><p><span class="tablenote"><strong>Note:</strong> Before calling this API, retrieve the summary of the seller's performance and rating for the customer service metric by calling <strong>getCustomerServiceMetric</strong> (part of the <a href="/api-docs/sell/analytics/resources/methods">Analytics API</a>). You can then populate the create task request fields with the values from the response. This technique eliminates failed tasks that request a report for a <strong>customerServiceMetricType</strong> and <strong>evaluationMarketplaceId</strong> that are without evaluation.</span></p>
+      operationId: createCustomerServiceMetricTask
+      parameters:
+      - name: Accept-Language
+        in: header
+        description: Use this header to specify the natural language in which the authenticated user desires the response. For example, <code>en-US</code> for English or <code>de-DE</code> for German.
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Request payload containing version, feedType, and optional filterCriteria.
+        content:
+          application/json:
+            schema:
+              description: Request payload containing version, feedType, and optional filterCriteria.
+              $ref: '#/components/schemas/CreateServiceMetricsTaskRequest'
+        required: true
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '160017':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'feedType' is missing or invalid.
+              '160018':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'schemaVersion' is invalid.
+              '160024':
+                domain: API_FEED
+                category: REQUEST
+                description: You have reached the maximum number of feed tasks that can be queued or processed concurrently. Wait for current tasks to complete before adding tasks. For more information, see the documentation for this API.
+              '160025':
+                domain: API_FEED
+                category: REQUEST
+                description: You have exceeded the maximum number of feed tasks that can be created or processed in a given period (hour or day). Wait until the present period ends before adding tasks. For more information, see the documentation for this API.
+              '164500':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'customerServiceMetricType' in 'filterCriteria' is not a valid type. Valid metric types are ITEM_NOT_AS_DESCRIBED or ITEM_NOT_RECEIVED.
+              '164501':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'evaluationMarketplaceId' in 'filterCriteria' is not a supported marketplace. For a complete list of the supported marketplace IDs, see the documentation.
+              '164502':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'listingCategories' in 'filterCriteria' or some part of the 'listingCategories' is invalid. {additionalInfo}
+              '164503':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'shippingRegions' in 'filterCriteria' or some part of the 'shippingRegions' is invalid. {additionalInfo}
+              '164504':
+                domain: API_FEED
+                category: REQUEST
+                description: The Accept-Language header is missing or invalid.
+              '164505':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'filterCriteria' is missing or invalid.
+              '164506':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'listingCategories' is not applicable to the 'customerServiceMetricType' {customerServiceMetricType} in 'filterCriteria'.
+              '164507':
+                domain: API_FEED
+                category: REQUEST
+                description: The 'shippingRegions' is not applicable to the 'customerServiceMetricType' {customerServiceMetricType} in 'filterCriteria'.
+        '403':
+          description: Forbidden
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '160001':
+                domain: API_FEED
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay Developer Technical Support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+  /customer_service_metric_task/{task_id}:
+    get:
+      tags:
+      - Customer_service_metric_task
+      description: <p>Use this method to retrieve customer service metric task details for the specified task. The input is <strong>task_id</strong>.</p>
+      operationId: getCustomerServiceMetricTask
+      parameters:
+      - name: task_id
+        in: path
+        description: This path parameter is the unique identifier of the customer service metric task being retrieved.<br><br>Use the <a href="/api-docs/sell/feed/resources/customer_service_metric_task/methods/getCustomerServiceMetricTasks">getCustomerServiceMetricTasks</a> method to retrieve task IDs.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceMetricsTask'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '160002':
+                domain: API_FEED
+                category: REQUEST
+                description: The authentication scope {scope} is incorrect for 'feed_type' {feedType}. Refer to documentation for details about the scopes.
+              '160003':
+                domain: API_FEED
+                category: REQUEST
+                description: Task {taskID} does not exist.
+        '403':
+          description: Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '160001':
+                domain: API_FEED
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay Developer Technical Support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+components:
+  schemas:
+    CreateServiceMetricsTaskRequest:
+      type: object
+      properties:
+        feedType:
+          type: string
+          description: The <strong>feedType</strong> specified for the customer service metric task being created. The report lists the transaction details that contribute to the service metrics evaluation. Supported types include:<p><code>CUSTOMER_SERVICE_METRICS_REPORT</code></p>
+        filterCriteria:
+          description: This container is used to customize and set criteria for Customer Service Metric report that will be associated with the task.
+          $ref: '#/components/schemas/CustomerServiceMetricsFilterCriteria'
+        schemaVersion:
+          type: string
+          description: The version number of the customer service metric.<br><br><span class="tablenote"><b>Note:</b> This field <b>must</b> have a value of <code>1.0</code>.</span>
+      description: The type that defines the fields for the Customer Service Metric reports generated with the Feed API.
+    ServiceMetricsTask:
+      type: object
+      properties:
+        completionDate:
+          type: string
+          description: The timestamp when the customer service metrics task went into the <code>COMPLETED</code> or <code>COMPLETED_WITH_ERROR</code> state. This field is only returned if the status is one of the two completed values. This state means that eBay has compiled the report for the seller based on the seller’s filter criteria, and the seller can run a <strong>getResultFile</strong> call to download the report.
+        creationDate:
+          type: string
+          description: The date the customer service metrics task was created.
+        detailHref:
+          type: string
+          description: The relative <strong>getCustomerServiceMetricTask</strong> call URI path to retrieve the corresponding task.
+        feedType:
+          type: string
+          description: The feed type associated with the task.
+        filterCriteria:
+          description: This container shows the criteria set for the report.
+          $ref: '#/components/schemas/CustomerServiceMetricsFilterCriteria'
+        schemaVersion:
+          type: string
+          description: 'The schema version number of the file format. If omitted, the default value is used. <p><b>Default value: </b><code>1.0</code><p>'
+        status:
+          type: string
+          description: An enumeration value that indicates the state of the task. See <strong>FeedStatusEnum</strong> for values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:FeedStatusEnum'>eBay API documentation</a>
+        taskId:
+          type: string
+          description: The unique eBay-assigned ID of the task.
+    CustomerServiceMetricsFilterCriteria:
+      type: object
+      properties:
+        customerServiceMetricType:
+          type: string
+          description: An enumeration value that specifies the customer service metric that eBay tracks to measure seller performance.<br><br>See <a href="/api-docs/sell/feed/types/api:CustomerServiceMetricTypeEnum">CustomerServiceMetricTypeEnum</a> for values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:CustomerServiceMetricTypeEnum'>eBay API documentation</a>
+        evaluationMarketplaceId:
+          type: string
+          description: An enumeration value that specifies the eBay marketplace where the evaluation occurs.<br><br>See <a href="/api-docs/sell/feed/types/bas:MarketplaceIdEnum">MarketplaceIdEnum</a> for values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/bas:MarketplaceIdEnum'>eBay API documentation</a>
+        listingCategories:
+          type: array
+          description: 'A list of listing category IDs on which the service metric is measured. A seller can use one or more L1 (top-level) eBay categories to get metrics specific to those L1 categories. The Category IDs for each L1 category are required. Category ID values for L1 categories can be retrieved using the Taxonomy API.<p> <span class="tablenote"><strong>Note: </strong>Pass this attribute to narrow down your filter results for the <code>ITEM_NOT_AS_DESCRIBED</code> customerServiceMetricType.</span></p> <p>Supported categories include:</p><p><code>primary(L1) category Id</code></p>'
+          items:
+            type: string
+        shippingRegions:
+          type: array
+          description: 'A list of shipping region enumeration values on which the service metric is measured. This comma delimited array allows the seller to customize the report to focus on domestic or international shipping. <p> <span class="tablenote"><strong>Note: </strong>Pass this attribute to narrow down your filter results for the <code>ITEM_NOT_RECEIVED</code> customerServiceMetricType.</span></p> <p>Supported categories include:</p><p><code>primary(L1) category Id</code></p>See <strong>ShippingRegionTypeEnum</strong> for values'
+          items:
+            type: string
+            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/feed/types/api:ShippingRegionTypeEnum''>eBay API documentation</a>'
+      description: A complex data type that filters data for report creation. See <strong>CustomerServiceMetricsFilterCriteria</strong> for fields and descriptions.
+    CustomerServiceMetricTaskCollection:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The URI of the current page of results.
+        limit:
+          type: integer
+          description: The value of the <strong>limit</strong> parameter submitted in the request, which is the maximum number of tasks to return per page, from the result set. A result set is the complete set of tasks returned by the method. <p> <span class="tablenote"><strong>Note:</strong> Even though this parameter is not required to be submitted in the request, the parameter defaults to 10 if omitted.</span></p><p> <span class="tablenote"><strong>Note:</strong> If this is the last or only page of the result set, the page may contain fewer tasks than the limit value. To determine the number of pages in a result set, divide the total value (total number of tasks matching input criteria) by this limit value, and then round up to the next integer. For example, if the <strong>total</strong> value was <code>120</code> (120 total tasks) and the <strong>limit</strong> value was <code>50</code> (show 50 tasks per page), the total number of pages in the result set is three, so the seller would have to make three separate <strong>getCustomerServiceMetricTasks</strong> calls to view all tasks matching the input criteria.</span></p>
+          format: int32
+        next:
+          type: string
+          description: The relative path to the call URI for the next page of results. This value is returned if there is an additional page of results to return from the result set.
+        offset:
+          type: integer
+          description: 'The number of results skipped in the result set before returning the first result. This value can be set in the request with the <b>offset</b> query parameter. <p class="tablenote"><strong>Note: </strong>The items in a paginated result set use a zero-based list where the first item in the list has an offset of <code>0</code>.</p>'
+          format: int32
+        prev:
+          type: string
+          description: The URI for the previous page of results. This parameter is returned if a previous page of results from the result set exists.
+        tasks:
+          type: array
+          description: An array of the customer service tasks on this page. The tasks are sorted by creation date. An empty array is returned if the filter criteria excludes all tasks.
+          items:
+            $ref: '#/components/schemas/ServiceMetricsTask'
+        total:
+          type: integer
+          description: The total number of tasks that match the criteria.
+          format: int32
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

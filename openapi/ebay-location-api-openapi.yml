@@ -1,0 +1,629 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Location API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Location
+paths:
+  /location/{merchantLocationKey}:
+    get:
+      tags:
+      - Location
+      description: This call retrieves all defined details of the inventory location that is specified by the <b>merchantLocationKey</b> path parameter. <p>The <code>authorization</code> HTTP header is the only required request header for this call. </p><p>A successful call will return an HTTP status value of <i>200 OK</i>.</p>
+      operationId: getInventoryLocation
+      parameters:
+      - name: merchantLocationKey
+        in: path
+        description: 'This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is being retrieved. <br><br>Use the <a href="/api-docs/sell/inventory/resources/location/methods/getInventoryLocations">getInventoryLocations</a> method to retrieve merchant location keys. <br><br><b>Max length</b>: 36'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/InventoryLocationResponse'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '25804':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Input error. {additionalInfo}
+              '25805':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: '{fieldName} Not Found.'
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '25001':
+                domain: API_INVENTORY
+                category: APPLICATION
+                description: System error. {additionalInfo}
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory.readonly
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+    post:
+      tags:
+      - Location
+      description: <p>Use this call to create a new inventory location. In order to create and publish an offer (and create an eBay listing), a seller must have at least one inventory location, as every offer must be associated with a location.</p><p>Upon first creating an inventory location, only a seller-defined location identifier and a physical location is required, and once set, these values can not be changed. The unique identifier value (<i>merchantLocationKey</i>) is passed in at the end of the call URI. This <i>merchantLocationKey</i> value will be used in other Inventory Location calls to identify the inventory location to perform an action against.</p><p>At this time, location types are either warehouse or store. Warehouse locations are used for traditional shipping, and store locations are generally used by US merchants selling products through the In-Store Pickup program, or used by UK, Australian, and German merchants selling products through the Click and Collect program. A full address is required for store inventory locations. However, for warehouse inventory locations, a full street address is not needed, but the city, state/province, and country of the location must be provided. </p><p>Note that all inventory locations are "enabled" by default when they are created, and you must specifically disable them (by passing in a value of <code>DISABLED</code> in the <strong>merchantLocationStatus</strong> field) if you want them to be set to the disabled state. The seller's inventory cannot be loaded to inventory locations in the disabled state.</p><p>Unless one or more errors and/or warnings occur with the call, there is no response payload for this call. A successful call will return an HTTP status value of <i>204 No Content</i>.</p>
+      operationId: createInventoryLocation
+      parameters:
+      - name: merchantLocationKey
+        in: path
+        description: 'This path parameter specifies the unique, seller-defined key (ID) for an inventory location.<br><br><b>Max length</b>: 36'
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Inventory Location details
+        content:
+          application/json:
+            schema:
+              description: Inventory Location details
+              $ref: '#/components/schemas/InventoryLocationFull'
+        required: true
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '25800':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Invalid {fieldName}.
+              '25801':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Missing field {fieldName}.
+              '25802':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Input error. {additionalInfo}
+              '25803':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: '{fieldName} already exists.'
+              '25804':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Input error. {additionalInfo}
+        '409':
+          description: Location Already Exists
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '25001':
+                domain: API_INVENTORY
+                category: APPLICATION
+                description: System error. {additionalInfo}
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+    delete:
+      tags:
+      - Location
+      description: <p>This call deletes the inventory location that is specified in the <code>merchantLocationKey</code> path parameter. Note that deleting a location will not affect any active eBay listings associated with the deleted location, but the seller will not be able modify the offers associated with the inventory location once it is deleted.</p><p>The <code>authorization</code> HTTP header is the only required request header for this call. </p><p>Unless one or more errors and/or warnings occur with the call, there is no response payload for this call. A successful call will return an HTTP status value of <i>200 OK</i>.</p>
+      operationId: deleteInventoryLocation
+      parameters:
+      - name: merchantLocationKey
+        in: path
+        description: 'This path parameter specifies the unique merchant-defined key (ID) for the inventory location that is to be deleted.<br><br>Use the <a href="/api-docs/sell/inventory/resources/location/methods/getInventoryLocations">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36'
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '25802':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Input error. {additionalInfo}
+              '25804':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Input error. {additionalInfo}
+              '25805':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: '{fieldName} Not Found.'
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '25001':
+                domain: API_INVENTORY
+                category: APPLICATION
+                description: System error. {additionalInfo}
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+  /location/{merchantLocationKey}/disable:
+    post:
+      tags:
+      - Location
+      description: <p>This call disables the inventory location that is specified in the <code>merchantLocationKey</code> path parameter. Sellers can not load/modify inventory to disabled inventory locations. Note that disabling an inventory location will not affect any active eBay listings associated with the disabled location, but the seller will not be able modify the offers associated with a disabled inventory location.</p><p>A successful call will return an HTTP status value of <i>200 OK</i>.</p>
+      operationId: disableInventoryLocation
+      parameters:
+      - name: merchantLocationKey
+        in: path
+        description: 'This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is to be disabled. <br><br>Use the <a href="/api-docs/sell/inventory/resources/location/methods/getInventoryLocations">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '25802':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Input error. {additionalInfo}
+              '25804':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Input error. {additionalInfo}
+              '25805':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: '{fieldName} Not Found.'
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '25001':
+                domain: API_INVENTORY
+                category: APPLICATION
+                description: System error. {additionalInfo}
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+  /location/{merchantLocationKey}/enable:
+    post:
+      tags:
+      - Location
+      description: <p>This call enables a disabled inventory location that is specified in the <code>merchantLocationKey</code> path parameter. Once a disabled inventory location is enabled, sellers can start loading/modifying inventory to that inventory location. </p><p>A successful call will return an HTTP status value of <i>200 OK</i>.</p>
+      operationId: enableInventoryLocation
+      parameters:
+      - name: merchantLocationKey
+        in: path
+        description: 'This path parameter specifies unique merchant-defined key (ID) for a <code>disabled</code> inventory location that is to be enabled.<br><br>Use the <a href="/api-docs/sell/inventory/resources/location/methods/getInventoryLocations">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36'
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '25802':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Input error. {additionalInfo}
+              '25804':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Input error. {additionalInfo}
+              '25805':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: '{fieldName} Not Found.'
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '25001':
+                domain: API_INVENTORY
+                category: APPLICATION
+                description: System error. {additionalInfo}
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+  /location:
+    get:
+      tags:
+      - Location
+      description: This call retrieves all defined details for every inventory location associated with the seller's account. There are no required parameters for this call and no request payload. However, there are two optional query parameters, <strong>limit</strong> and <strong>offset</strong>. The <strong>limit</strong> query parameter sets the maximum number of inventory locations returned on one page of data, and the <strong>offset</strong> query parameter specifies the page of data to return. These query parameters are discussed more in the <strong>URI parameters</strong> table below. <p>The <code>authorization</code> HTTP header is the only required request header for this call. </p><p>A successful call will return an HTTP status value of <i>200 OK</i>.</p>
+      operationId: getInventoryLocations
+      parameters:
+      - name: limit
+        in: query
+        description: 'The value passed in this query parameter sets the maximum number of records to return per page of data. Although this field is a string, the value passed in this field should be a positive integer value. If this query parameter is not set, up to 100 records will be returned on each page of results. <br><br> <strong>Min</strong>: 1'
+        required: false
+        schema:
+          type: string
+      - name: offset
+        in: query
+        description: Specifies the number of locations to skip in the result set before returning the first location in the paginated response.  <p>Combine <b>offset</b> with the <b>limit</b> query parameter to control the items returned in the response. For example, if you supply an <b>offset</b> of <code>0</code> and a <b>limit</b> of <code>10</code>, the first page of the response contains the first 10 items from the complete list of items retrieved by the call. If <b>offset</b> is <code>10</code> and <b>limit</b> is <code>20</code>, the first page of the response contains items 11-30 from the complete result set.</p> <p><b>Default:</b> 0</p>
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LocationResponse'
+        '400':
+          description: Bad Request
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '25001':
+                domain: API_INVENTORY
+                category: APPLICATION
+                description: System error. {additionalInfo}
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory.readonly
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+  /location/{merchantLocationKey}/update_location_details:
+    post:
+      tags:
+      - Location
+      description: '<p>Use this call to update non-physical location details for an existing inventory location. Specify the inventory location you want to update using the <b>merchantLocationKey</b> path parameter. <br><br>You can update the following text-based fields: <strong>name</strong>, <strong>phone</strong>, <strong>locationWebUrl</strong>, <strong>locationInstructions</strong> and <strong>locationAdditionalInformation</strong>. Whatever text is passed in for these fields in an <strong>updateInventoryLocation</strong> call will replace the current text strings defined for these fields. For store inventory locations, the operating hours and/or the special hours can also be updated. <br><br> The merchant location key, the physical location of the store, and its geo-location coordinates can not be updated with an <strong>updateInventoryLocation</strong> call </p><p>Unless one or more errors and/or warnings occurs with the call, there is no response payload for this call. A successful call will return an HTTP status value of <i>204 No Content</i>.</p>'
+      operationId: updateInventoryLocation
+      parameters:
+      - name: merchantLocationKey
+        in: path
+        description: 'This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is to be updated. <br><br>Use the <a href="/api-docs/sell/inventory/resources/location/methods/getInventoryLocations">getInventoryLocations</a> method to retrieve merchant location keys. <br><br><b>Max length</b>: 36'
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The inventory location details to be updated (other than the address and geo co-ordinates).
+        content:
+          application/json:
+            schema:
+              description: The inventory location details to be updated (other than the address and geo co-ordinates).
+              $ref: '#/components/schemas/InventoryLocation'
+        required: true
+      responses:
+        '204':
+          description: Success
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '25800':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Invalid {fieldName}.
+              '25801':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Missing field {fieldName}.
+              '25802':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Input error. {additionalInfo}
+              '25804':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: Input error. {additionalInfo}
+              '25805':
+                domain: API_INVENTORY
+                category: REQUEST
+                description: '{fieldName} Not Found.'
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '25001':
+                domain: API_INVENTORY
+                category: APPLICATION
+                description: System error. {additionalInfo}
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.inventory
+components:
+  schemas:
+    InventoryLocation:
+      type: object
+      properties:
+        locationAdditionalInformation:
+          type: string
+          description: 'This text field is used by the merchant to provide/update additional information about an inventory location. Whatever text is passed in this field will replace the current text string defined for this field. If the text will not change, the same text should be passed in once again. <br><br><b>Max length</b>: 256'
+        locationInstructions:
+          type: string
+          description: 'This text field is generally used by the merchant to provide/update special pickup instructions for a store inventory location. Although this field is optional, it is recommended that merchants provide this field to create a pleasant and easy pickup experience for In-Store Pickup and Click and Collect orders. If this field is not included in the call request payload, eBay will use the default pickup instructions contained in the merchant''s profile (if available). Whatever text is passed in this field will replace the current text string defined for this field. If the text will not change, the same text should be passed in once again. <br><br><b>Max length</b>: 1000'
+        locationWebUrl:
+          type: string
+          description: 'This text field is used by the merchant to provide/update the Website address (URL) associated with the inventory location. The URL that is passed in this field will replace any other URL that may be defined for this field. <br><br><b>Max length</b>: 512'
+        name:
+          type: string
+          description: This text field is used by the merchant to update the name of the inventory location. This name should be a human-friendly name as it will be in In-Store Pickup and Click and Collect listings. A name is not required for warehouse inventory locations. For store inventory locations, this field is not immediately required, but will be required before an offer enabled with the In-Store Pickup or Click and Collect capability can be published. So, if the seller omitted this field in the <strong>createInventoryLocation</strong> call, it is required for an <strong>updateInventoryLocation</strong> call. The name that is passed in this field will replace any other name that may be defined for this field.
+        operatingHours:
+          type: array
+          description: This container is used to provide/update the regular operating hours for a store location during the days of the week. A <strong>dayOfWeekEnum</strong> field and an <strong>intervals</strong> container will be needed for each day of the week that the store location is open. Note that if operating hours are already set for an inventory location for a specific day of the week, whatever is set through an <strong>updateInventoryLocation</strong> call will override those existing hours.
+          items:
+            $ref: '#/components/schemas/OperatingHours'
+        phone:
+          type: string
+          description: 'This text field is used by the merchant to provide/update the phone number for the inventory location. The phone number that is passed in this field will replace any other phone number that may be defined for this field. <br><br><b>Max length</b>: 36'
+        specialHours:
+          type: array
+          description: This container is used to provide/update the special operating hours for a store location on a specific date, such as a holiday. The special hours specified for the specific date will override the normal operating hours for that particular day of the week. If special hours have already been set up for an inventory location, specifying special hours through an <strong>updateInventoryLocation</strong> call will only add to the list, unless the date(s) used are the same special date(s) already set up, in which case, the special hours set up through the <strong>updateInventoryLocation</strong> call will override the existing special hours.
+          items:
+            $ref: '#/components/schemas/SpecialHours'
+      description: This type is used by the <strong>updateInventoryLocation</strong> call to update operating hours, special hours, phone number, and other minor details of an inventory location.
+    InventoryLocationFull:
+      type: object
+      properties:
+        location:
+          description: This required container is used to set the physical address and geographical coordinates (optional) of a warehouse or store inventory location. A warehouse inventory location only requires the city, province/state, and country, and does not require a full street address. However, the seller may still supply a full street address for a warehouse location. The physical location/address for an inventory location cannot be modified once set with a <strong>createInventoryLocation</strong> call. All other details of an inventory location (e.g. phone or operating hours) can be changed with an <strong>updateInventoryLocation</strong> call.
+          $ref: '#/components/schemas/LocationDetails'
+        locationAdditionalInformation:
+          type: string
+          description: 'This text field is used by the merchant to provide additional information about an inventory location. <br><br><b>Max length</b>: 256'
+        locationInstructions:
+          type: string
+          description: This text field is generally used by the merchant to provide special pickup instructions for a store inventory location. Although this field is optional, it is recommended that merchants provide this field to create a pleasant and easy pickup experience for In-Store Pickup and Click and Collect orders. If this field is not included in the call request payload, eBay will use the default pickup instructions contained in the merchant's profile (if available).
+        locationTypes:
+          type: array
+          description: 'This container is used to define the function of the inventory location. Typically, an inventory location will serve as a store or a warehouse, but in some cases, an inventory location may be both.<br><br>For In-Store Pickup inventory set <b>StoreTypeEnum</b> to <code>STORE</code>.<br><br> If this container is omitted, the location type of the inventory location will default to <code>WAREHOUSE</code>. See <a href="/api-docs/sell/inventory/types/api:StoreTypeEnum">StoreTypeEnum</a> for the supported values.<br><br><b>Default</b>: WAREHOUSE'
+          items:
+            type: string
+            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/inventory/types/api:StoreTypeEnum''>eBay API documentation</a>'
+        locationWebUrl:
+          type: string
+          description: 'This text field is used by the merchant to provide the Website address (URL) associated with the inventory location. <br><br><b>Max length</b>: 512'
+        merchantLocationStatus:
+          type: string
+          description: 'This field is used to indicate whether the inventory location will be enabled (inventory can be loaded to location) or disabled (inventory can not be loaded to location). If this field is omitted, a successful <strong>createInventoryLocation</strong> call will automatically enable the inventory location. A merchant may want to create a new inventory location but leave it as disabled if the inventory location is not yet ready for active inventory. Once the inventory location is ready, the merchant can use the <strong>enableInventoryLocation</strong> call to enable an inventory location that is in a disabled state.<br><br>See <a href="/api-docs/sell/inventory/types/api:StatusEnum">StatusEnum</a> for the supported values.  <br><br><b>Default</b>: ENABLED For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/inventory/types/api:StatusEnum''>eBay API documentation</a>'
+        name:
+          type: string
+          description: 'The seller-defined name of the inventory location. This name should be a human-friendly name as it will be displayed in In-Store Pickup and Click and Collect listings. A name is not required for warehouse inventory locations. For store inventory locations, this field is not immediately required, but will be required before an offer enabled with the In-Store Pickup or Click and Collect capability can be published. So, if the seller omits this field in a <strong>createInventoryLocation</strong> call, it becomes required for an <strong>updateInventoryLocation</strong> call.<br><br><b>Max length</b>: 1000'
+        operatingHours:
+          type: array
+          description: Although not technically required, this container is highly recommended to be used to specify operating hours for a store inventory location. This container is used to express the regular operating hours for a store location during each day of the week. A <strong>dayOfWeekEnum</strong> field and an <strong>intervals</strong> container will be needed for each day of the week that the store location is open.
+          items:
+            $ref: '#/components/schemas/OperatingHours'
+        phone:
+          type: string
+          description: 'This field is used to specify the phone number for an inventory location. <br><br><b>Max length</b>: 36'
+        specialHours:
+          type: array
+          description: This container is used to express the special operating hours for a store inventory location on a specific date, such as a holiday. The special hours specified for the specific date will override the normal operating hours for that particular day of the week.
+          items:
+            $ref: '#/components/schemas/SpecialHours'
+      description: This type is used by the <strong>createInventoryLocation</strong> call to provide details on the inventory location, including the location's name, physical address, operating hours, special hours, phone number and other details of an inventory location.
+    Address:
+      type: object
+      properties:
+        addressLine1:
+          type: string
+          description: 'The first line of a street address. This field is required for store inventory locations that will be holding In-Store Pickup inventory. A street address is not required if the inventory location is not holding In-Store Pickup Inventory.<br><br>This field will be returned if defined for an inventory location. <br><br><b>Max length</b>: 128'
+        addressLine2:
+          type: string
+          description: 'The second line of a street address. This field can be used for additional address information, such as a suite or apartment number. A street address is not required if the inventory location is not holding In-Store Pickup Inventory.<br><br>This field will be returned if defined for an inventory location. <br><br><b>Max length</b>: 128'
+        city:
+          type: string
+          description: 'The city in which the inventory location resides. This field is required for store inventory locations that will be holding In-Store Pickup inventory. For warehouse locations, this field is technically optional, as a <strong>postalCode</strong> can be used instead of  <strong>city</strong>/<strong>stateOrProvince</strong> pair, and then the city is just derived from this postal/zip code.<br><br>This field is returned if defined for an inventory location. <br><br><b>Max length</b>: 128'
+        country:
+          type: string
+          description: The country in which the address resides, represented as two-letter <a href="https://www.iso.org/iso-3166-country-codes.html " title="https://www.iso.org " target="_blank">ISO 3166</a> country code. For example, <code>US</code> represents the United States, and <code>DE</code> represents Germany. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/inventory/types/ba:CountryCodeEnum'>eBay API documentation</a>
+        county:
+          type: string
+          description: The county in which the address resides.<br><br>This field is returned if defined for an inventory location.
+        postalCode:
+          type: string
+          description: 'The postal/zip code of the address. eBay uses postal codes to surface In-Store Pickup items within the vicinity of a buyer''s location, and it also user postal codes (origin and destination) to estimate shipping costs when the seller uses calculated shipping. A <strong>city</strong>/<strong>stateOrProvince</strong> pair can be used instead of a <strong>postalCode</strong> value, and then the postal code is just derived from the city and state/province.<br><br>This field is returned if defined for an inventory location. <br><br><b>Max length</b>: 16'
+        stateOrProvince:
+          type: string
+          description: 'The state/province in which the inventory location resides. This field is required for store inventory locations that will be holding In-Store Pickup inventory. For warehouse locations, this field is technically optional, as a <strong>postalCode</strong> can be used instead of <strong>city</strong>/<strong>stateOrProvince</strong> pair, and then the state or province is just derived from this postal/zip code. <br><br><b>Max length</b>: 128'
+      description: This type is used to define the physical address of an inventory location.
+    Location:
+      type: object
+      properties:
+        address:
+          description: The <strong>address</strong> container is always returned in <strong>getInventoryLocation</strong>/<strong>getInventoryLocations</strong> calls. Except in the case of an inventory location that supports In-Store Pickup  inventory, a full address is not a requirement when setting up an inventory location.
+          $ref: '#/components/schemas/Address'
+        geoCoordinates:
+          description: This container displays the Global Positioning System (GPS) latitude and longitude coordinates for the inventory location. This container is only returned if the geo-coordinates are set for an inventory location.
+          $ref: '#/components/schemas/GeoCoordinates'
+        locationId:
+          type: string
+          description: A unique eBay-assigned ID for the location. <br><br> <span class="tablenote"> <strong>Note:</strong> This field should not be confused with the seller-defined <b>merchantLocationKey</b> value. It is the <b>merchantLocationKey</b> value which is used to identify an inventory location when working with inventory location API calls. The <strong>locationId</strong> value is only used internally by eBay.</span>
+      description: A complex type that is used to provide the physical address of a location, and it geo-coordinates.
+    OperatingHours:
+      type: object
+      properties:
+        dayOfWeekEnum:
+          type: string
+          description: A <strong>dayOfWeekEnum</strong> value is required for each day of the week that the store location has regular operating hours. <br><br>This field is returned if operating hours are defined for the store location. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/inventory/types/api:DayOfWeekEnum'>eBay API documentation</a>
+        intervals:
+          type: array
+          description: This container is used to define the opening and closing times of a store's working day (defined in the <strong>dayOfWeekEnum</strong> field). An <strong>intervals</strong> container is needed for each day of the week that the store location is open. If a store location closes for lunch (or any other period during the day) and then reopens, multiple <strong>open</strong> and <strong>close</strong> pairs are needed <br><br>This container is returned if operating hours are defined for the store location.
+          items:
+            $ref: '#/components/schemas/Interval'
+      description: This type is used to express the regular operating hours of a merchant's store during the days of the week.
+    SpecialHours:
+      type: object
+      properties:
+        date:
+          type: string
+          description: A <strong>date</strong> value is required for each specific date that the store location has special operating hours.  <br><br>The timestamp is formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html " title="https://www.iso.org " target="_blank">ISO 8601</a> string, which is based on the 24-hour Coordinated Universal Time (UTC) clock.  <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2018-08-04T07:09:00.000Z</code> <br><br>This field is returned if set for the store location.
+        intervals:
+          type: array
+          description: This container is used to define the opening and closing times of a store on a specific date (defined in the <strong>date</strong> field). An <strong>intervals</strong> container is needed for each specific date that the store has special operating hours. These special operating hours on the specific date override the normal operating hours for the specific day of the week. If a store location closes for lunch (or any other period during the day) and then reopens, multiple <strong>open</strong> and <strong>close</strong> pairs are needed. <br><br>This container is returned if set for the store location.
+          items:
+            $ref: '#/components/schemas/Interval'
+      description: This type is used to express the special operating hours of a store location on a specific date. A <strong>specialHours</strong> container is needed when the store's opening hours on a specific date are different than the normal operating hours on that particular day of the week.
+    GeoCoordinates:
+      type: object
+      properties:
+        latitude:
+          type: number
+          description: The latitude (North-South) component of the geographic coordinate. This field is required if a <strong>geoCoordinates</strong> container is used. <br><br>For In-Store Pickup inventory, geographical coordinates are required.<br><br>This field is returned if geographical coordinates are set for the inventory location.
+        longitude:
+          type: number
+          description: The longitude (East-West) component of the geographic coordinate. This field is required if a <strong>geoCoordinates</strong> container is used. <br><br>For In-Store Pickup inventory, geographical coordinates are required.<br><br>This field is returned if geographical coordinates are set for the inventory location.
+      description: This type is used to express the Global Positioning System (GPS) latitude and longitude coordinates of an inventory location.
+    LocationDetails:
+      type: object
+      properties:
+        address:
+          description: The <b>address</b> container is required for a <b>createInventoryLocation</b> call. Except in the case of an inventory location that supports In-Store Pickup inventory, a full address is not a requirement when setting up an inventory location.
+          $ref: '#/components/schemas/Address'
+        geoCoordinates:
+          description: This container is used to set the Global Positioning System (GPS) latitude and longitude coordinates for the inventory location.<br><br>Geographical coordinates are required for the location of In-Store Pickup inventory.
+          $ref: '#/components/schemas/GeoCoordinates'
+      description: This type is used by the <b>createInventoryLocation</b> call to provide an full or partial address of an inventory location.
+    InventoryLocationResponse:
+      type: object
+      properties:
+        location:
+          description: This container provides location details of an inventory location. The <strong>address</strong> container will always be returned, but it will not always have a complete street address. Except in the case of an inventory location that supports In-Store Pickup inventory, a full address is not a requirement when setting up an inventory location. The <strong>geoCoordinates</strong> container will only be returned if the merchant provided geographical coordinates. The <strong>locationId</strong> field is always returned, but this value is only used internally by eBay.
+          $ref: '#/components/schemas/Location'
+        locationAdditionalInformation:
+          type: string
+          description: 'This text field provides additional information about an inventory location. This field is returned if it is set for the inventory location. <br><br><b>Max length</b>: 256'
+        locationInstructions:
+          type: string
+          description: 'This text field is used by the merchant to provide special pickup instructions for the store location. This field can help create a pleasant and easy pickup experience for In-Store Pickup and Click and Collect orders. If this field was not set up through a <strong>createInventoryLocation</strong> or a <strong>updateInventoryLocation</strong> call, eBay will use the default pickup instructions contained in the merchant''s profile.<br><br><b>Max length</b>: 1000'
+        locationTypes:
+          type: array
+          description: This container defines the function of the inventory location. Typically, an inventory location will serve as a store or a warehouse, but in some cases, an inventory location may be both.<br><br>For In-Store Pickup inventory set <b>StoreTypeEnum</b> to <code>STORE</code>.<br><br>The location type of an inventory location defaults to <code>WAREHOUSE</code> if a location type is not specified when a merchant creates an inventory location.
+          items:
+            type: string
+            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/inventory/types/api:StoreTypeEnum''>eBay API documentation</a>'
+        locationWebUrl:
+          type: string
+          description: 'This text field shows the  Website address (URL) associated with the inventory location. This field is returned if defined for the inventory location. <br><br><b>Max length</b>: 512'
+        merchantLocationKey:
+          type: string
+          description: 'The unique identifier of the inventory location. This identifier is set up by the merchant when the inventory location is first created with the <strong>createInventoryLocation</strong> call. Once this value is set for an inventory location, it cannot be modified.<br><br><b>Max length</b>: 36'
+        merchantLocationStatus:
+          type: string
+          description: This field indicates whether the inventory location is enabled (inventory can be loaded to location) or disabled (inventory can not be loaded to location). The merchant can use the <strong>enableInventoryLocation</strong> call to enable an inventory location in disabled status, or the <strong>disableInventoryLocation</strong> call to disable an inventory location in enabled status. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/inventory/types/api:StatusEnum'>eBay API documentation</a>
+        name:
+          type: string
+          description: 'The name of the inventory location. This name should be a human-friendly name as it will be displayed in In-Store Pickup and Click and Collect listings. For store inventory locations, this field is not required for the <strong>createInventoryLocation</strong> call, but a store inventory location must have a defined <strong>name</strong> value before an In-Store Pickup and Click and Collect enabled offer is published. So, if the seller omits this field in the <strong>createInventoryLocation</strong> call, it will have to be added later through a <strong>updateInventoryLocation</strong> call.<br><br><b>Max length</b>: 1000'
+        operatingHours:
+          type: array
+          description: This container shows the regular operating hours for a store location during the days of the week. A <strong>dayOfWeekEnum</strong> field and an <strong>intervals</strong> container is shown for each day of the week that the store location is open.
+          items:
+            $ref: '#/components/schemas/OperatingHours'
+        phone:
+          type: string
+          description: 'The phone number for an inventory location. This field will typically only be set and returned for store locations.<br><br><b>Max length</b>: 36'
+        specialHours:
+          type: array
+          description: This container shows the special operating hours for a store location on a specific date or dates.
+          items:
+            $ref: '#/components/schemas/SpecialHours'
+      description: This type is used by the base response of the <strong>getInventoryLocation</strong> and <strong>getInventoryLocations</strong> calls. These responses provide details about inventory location(s) defined for the merchant's account.
+    LocationResponse:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The URI of the current page of results from the result set.
+        limit:
+          type: integer
+          description: The number of items returned on a single page from the result set.
+          format: int32
+        next:
+          type: string
+          description: 'The URI for the following page of results. This value is returned only if there is an additional page of results to display from the result set. <br><br><b>Max length</b>: 2048'
+        offset:
+          type: integer
+          description: 'The number of results skipped in the result set before listing the first returned result. This value is set in the request with the <b>offset</b> query parameter. <p class="tablenote"><strong>Note: </strong>The items in a paginated result set use a zero-based list where the first item in the list has an offset of <code>0</code>.</p>'
+          format: int32
+        prev:
+          type: string
+          description: 'The URI for the preceding page of results. This value is returned only if there is a previous page of results to display from the result set. <br><br><b>Max length</b>: 2048'
+        total:
+          type: integer
+          description: The total number of items retrieved in the result set.  <br><br>If no items are found, this field is returned with a value of <code>0</code>.
+          format: int32
+        locations:
+          type: array
+          description: An array of one or more of the merchant's inventory locations.
+          items:
+            $ref: '#/components/schemas/InventoryLocationResponse'
+      description: This type is used by the base response payload for the <strong>getInventoryLocations</strong> call.
+    Interval:
+      type: object
+      properties:
+        close:
+          type: string
+          description: 'The <strong>close</strong> value is actually the time that the store closes. Local time (in Military format) is used. So, if a store closed at 8 PM local time, the <strong>close</strong> time would look like the following: <code>20:00:00</code>. This field is conditionally required if the <strong>intervals</strong> container is used to specify working hours or special hours for a store. <br><br>This field is returned if set for the store location.'
+        open:
+          type: string
+          description: 'The <strong>open</strong> value is actually the time that the store opens. Local time (in Military format) is used. So, if a store opens at 9 AM local time, the <strong>close</strong> time would look like the following: <code>09:00:00</code>. This field is conditionally required if the <strong>intervals</strong> container is used to specify working hours or special hours for a store. <br><br>This field is returned if set for the store location.'
+      description: 'This type is used by the <strong>intervals</strong> container to define the opening and closing times of a store''s working day. Local time (in Military format) is used, with the following format: <code>hh:mm:ss</code>.'
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

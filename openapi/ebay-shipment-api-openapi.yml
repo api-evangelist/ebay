@@ -1,0 +1,484 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Shipment API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Shipment
+paths:
+  /shipment/{shipmentId}/cancel:
+    post:
+      tags:
+      - Shipment
+      description: This method cancels the shipment associated with the specified shipment ID and the associated shipping label is deleted. When you cancel a shipment, the <b>totalShippingCost</b> of the canceled shipment is refunded to the account established by the user's billing agreement.  <br><br>Note that you cannot cancel a shipment if you have used the associated shipping label.
+      operationId: cancelShipment
+      parameters:
+      - name: shipmentId
+        in: path
+        description: This path parameter specifies the unique eBay-assigned ID of the shipment to be canceled.<br><br>The <b>shipmentId</b> value is generated and returned by the <a href="/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote" target="_blank">createFromShippingQuote</a> method.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '90005':
+                domain: API_LOGISTICS
+                category: REQUEST
+                description: The resource could not be found.
+        '409':
+          description: Conflict
+          x-response-codes:
+            errors:
+              '90260':
+                domain: API_LOGISTICS
+                category: REQUEST
+                description: Cannot cancel shipment {shipmentId}
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '90000':
+                domain: API_LOGISTICS
+                category: APPLICATION
+                description: A system error has occurred.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.logistics
+  /shipment/create_from_shipping_quote:
+    post:
+      tags:
+      - Shipment
+      description: 'This method creates a shipment based on the <b>shippingQuoteId</b> and <b>rateId</b> values supplied in the request. The rate identified by the <b>rateId</b> value specifies the carrier and service for the package shipment, and the rate ID must be contained in the shipping quote identified by the <b>shippingQuoteId</b> value. Call <b>createShippingQuote</b> to retrieve a set of live shipping rates.<br><br><span class="tablenote"><b>Note:</b> The Logistics API only supports USPS shipping rates and labels.</span><br/>When you create a shipment, eBay generates a shipping label that you can download and use to ship your package.<br/><br/>In a <b>createFromShippingQuote</b> request, sellers can include a list of shipping options they want to add to the base service quoted in the selected rate. The list of available shipping options is specific to each quoted rate and if available, the options are listed in the rate container of the shipping quote.<br/><br/>In addition to a configurable return-to location and other details about the shipment, the response to this method includes:<ul><li>The shipping carrier and service to be used for the package shipment</li><li>A list of selected shipping options, if any</li><li>The shipment tracking number</li><li>The total shipping cost (the sum cost of the base shipping service and any added options)</li></ul>When you create a shipment, your billing agreement account is charged the sum of the <b>baseShippingCost</b> and the total cost of any additional shipping options you might have selected. Use the URL returned in <b>labelDownloadURL</b> field, or call <b>downloadLabelFile</b> with the <b>shipmentId</b> value from the response, to download a shipping label for your package.<br/><br/><div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> Sellers must set up their payment method before they can use this method to create a shipment and the associated shipping label.</p></div><h3 id="ba">Set up a billing agreement</h3>Prior to using this method to create a shipment, sellers must first set up their billing agreement. Failure to do so will return <code>Error 90030 Payment could not be completed.</code><br/><br/>The preferred method for sellers to set up their billing agreement is to go to <a href="https://gslblui.ebay.com/gslblui/payments " target="_blank">Set up billing agreement</a> and follow the on-screen directions.<br/><br/>Alternatively, sellers can do the following:<ul><li>Go to https://www.ebay.com/ship/single/{order_id}, where {order_id} is that of the order for which the label is being printed.</li><li>When prompted, select <b>PayPal</b>.</li><li>Verify that <b>Save PayPal for future purchases</b> is selected.</li><li>Click <b>Set up Payments</b> which will open PayPal in a pop-up window.</li><li>Log in using <i>PayPal credentials</i>, and then follow the on-screen prompts to set up the billing agreement.</li><li>Once the agreement has been set up, sellers can leave this page as there is no need to actually print a label.</li></ul>'
+      operationId: createFromShippingQuote
+      parameters:
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: The create shipment from quote request.
+        content:
+          application/json:
+            schema:
+              description: The create shipment from quote request.
+              $ref: '#/components/schemas/CreateShipmentFromQuoteRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '90010':
+                domain: API_LOGISTICS
+                category: REQUEST
+                description: Missing field {fieldName}.
+              '90020':
+                domain: API_LOGISTICS
+                category: REQUEST
+                description: Invalid field {fieldName}.
+        '409':
+          description: Conflict
+          x-response-codes:
+            errors:
+              '90030':
+                domain: API_LOGISTICS
+                category: REQUEST
+                description: Payment could not be completed.
+              '90200':
+                domain: API_LOGISTICS
+                category: REQUEST
+                description: The quote has expired. Please request a new quote.
+              '90210':
+                domain: API_LOGISTICS
+                category: REQUEST
+                description: The quote has already been purchased. Please request a new quote.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '90000':
+                domain: API_LOGISTICS
+                category: APPLICATION
+                description: A system error has occurred.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.logistics
+  /shipment/{shipmentId}/download_label_file:
+    get:
+      tags:
+      - Shipment
+      description: This method returns the shipping label file that was generated for the <b>shipmentId</b> value specified in the request. Call <b>createFromShippingQuote</b> to generate a shipment ID.<br><br><span class="tablenote"><b>Note:</b> The Logistics API only supports USPS shipping rates and labels.</span><br>Use the <code>Accept</code> HTTP header to specify the format of the returned file. The default file format is a PDF file. <!-- Are other options available? -->
+      operationId: downloadLabelFile
+      parameters:
+      - name: shipmentId
+        in: path
+        description: This path parameter specifies the unique eBay-assigned identifier of the shipment associated with the shipping label you want to download.<br><br> The <b>shipmentId</b> value is generated and returned by the <a href="/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote" target="_blank">createFromShippingQuote</a> method.
+        required: true
+        schema:
+          type: string
+      - name: Accept
+        in: header
+        description: 'This header specifies the format of the returned file. For this method, the value of the header should be <code>Accept: application/pdf</code>. '
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/pdf:
+              schema:
+                type: array
+                items:
+                  type: string
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '90005':
+                domain: API_LOGISTICS
+                category: REQUEST
+                description: The resource could not be found.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '90000':
+                domain: API_LOGISTICS
+                category: APPLICATION
+                description: A system error has occurred.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.logistics
+  /shipment/{shipmentId}:
+    get:
+      tags:
+      - Shipment
+      description: This method retrieves the shipment details for the specified shipment ID. Call <b>createFromShippingQuote</b> to generate a shipment ID.
+      operationId: getShipment
+      parameters:
+      - name: shipmentId
+        in: path
+        description: This path parameter specifies the unique eBay-assigned identifier of the shipment you want to retrieve.<br><br>The <b>shipmentId</b> value is generated and returned by the <a href="/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote" target="_blank">createFromShippingQuote</a> method.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Shipment'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not Found
+          x-response-codes:
+            errors:
+              '90005':
+                domain: API_LOGISTICS
+                category: REQUEST
+                description: The resource could not be found.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '90000':
+                domain: API_LOGISTICS
+                category: APPLICATION
+                description: A system error has occurred.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.logistics
+components:
+  schemas:
+    ContactAddress:
+      type: object
+      properties:
+        addressLine1:
+          type: string
+          description: The first line of the street address.
+        addressLine2:
+          type: string
+          description: The second line of the street address. Use this field for additional address information, such as a suite or apartment number.
+        city:
+          type: string
+          description: The city in which the address is located.
+        countryCode:
+          type: string
+          description: The country of the address, represented as two-letter <a href="https://www.iso.org/iso-3166-country-codes.html " title="https://www.iso.org " target="_blank">ISO 3166</a> country code. For example, <code>US</code> represents the United States and <code>DE</code> represents Germany. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/logistics/types/bas:CountryCodeEnum'>eBay API documentation</a>
+        county:
+          type: string
+          description: The county (not country) in which the address is located. Counties typically contain multiple cities or towns.
+        postalCode:
+          type: string
+          description: The postal code of the address.
+        stateOrProvince:
+          type: string
+          description: The state or province in which the address is located. States and provinces often contain multiple counties.
+      description: This complex type specifies the details of a geographical address.
+    Contact:
+      type: object
+      properties:
+        companyName:
+          type: string
+          description: The company name with which the contact is associated.
+        contactAddress:
+          description: The details of the contact's geographical address.
+          $ref: '#/components/schemas/ContactAddress'
+        fullName:
+          type: string
+          description: The contact's full name.
+        primaryPhone:
+          description: The contact's primary telephone number.
+          $ref: '#/components/schemas/PhoneNumber'
+      description: This complex type contains contact information for an individual buyer or seller.
+    Dimensions:
+      type: object
+      properties:
+        height:
+          type: string
+          description: The numeric value of the height of the package.
+        length:
+          type: string
+          description: The numeric value of the length of the package.
+        unit:
+          type: string
+          description: The unit of measure used to express the height, length, and width of the package. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/logistics/types/api:LengthUnitOfMeasureEnum'>eBay API documentation</a>
+        width:
+          type: string
+          description: The numeric value of the width of the package.
+      description: This complex type defines the dimensions of a package to be shipped.
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: The base currency applied to the <b>value</b> field to establish a monetary amount.  <br><br>The currency is represented as a 3-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " title="https://www.iso.org " target="_blank">ISO 4217</a> currency code. For example, the code for the Canadian Dollar is <code>CAD</code>.  <br><br><b>Default:</b> The default currency of the eBay marketplace that hosts the listing. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/logistics/types/bas:CurrencyCodeEnum'>eBay API documentation</a>
+        value:
+          type: string
+          description: The monetary amount in the specified <b>currency</b>.  <br><br><i>Required in</i> the <b>amount</b> type.
+      description: A complex type that describes the value of a monetary amount as represented by a global currency.
+    Order:
+      type: object
+      properties:
+        channel:
+          type: string
+          description: The marketplace where the order was created.<br><br>Use the value <code>EBAY</code> to get the rates available for eBay orders.
+        orderId:
+          type: string
+          description: The unique identifier of the order. The <a href=/api-docs/sell/fulfillment/resources/order/methods/getOrders" target="_blank">getOrders</a> method of the <b>Fulfillment API</b> can be used to retrieve order IDs.
+      description: This complex type defines an order from which a seller is including one or more line items in a single package to be shipped.
+    PackageSpecification:
+      type: object
+      properties:
+        dimensions:
+          description: Declares the height, length, width, and unit of measure for the package to be shipped.
+          $ref: '#/components/schemas/Dimensions'
+        weight:
+          description: Declares the weight of the package.
+          $ref: '#/components/schemas/Weight'
+      description: This complex type specifies the dimensions and weight of a package.
+    PurchasedRate:
+      type: object
+      properties:
+        additionalOptions:
+          type: array
+          description: An list of additional, optional features that have been purchased for the shipment.
+          items:
+            $ref: '#/components/schemas/AdditionalOption'
+        baseShippingCost:
+          description: The amount of the "base cost" for the shipment as set by the given carrier for the specified service. This cost excludes any addition costs accrued from the addition of any optional shipping options.
+          $ref: '#/components/schemas/Amount'
+        destinationTimeZone:
+          type: string
+          description: The time zone of the destination according to <a href="https://www.iana.org/time-zones " target="_blank">Time Zone Database</a>. For example, "America/Los_Angeles".
+        maxEstimatedDeliveryDate:
+          type: string
+          description: A string value representing maximum (latest) estimated delivery time, formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html " title="https://www.iso.org " target="_blank">ISO 8601</a> string, which is based on the 24-hour Coordinated Universal Time (UTC) clock.  <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2018-08-20T07:09:00.000Z</code>
+        minEstimatedDeliveryDate:
+          type: string
+          description: A string value representing minimum (earliest) estimated delivery time, formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html " title="https://www.iso.org " target="_blank">ISO 8601</a>ISO 8601</a> UTC string.
+        pickupNetworks:
+          type: array
+          description: A list of pickup networks compatible with the shipping service.
+          items:
+            type: string
+        pickupSlotId:
+          type: string
+          description: This unique eBay-assigned ID value is returned only if the shipment has been configured for a scheduled pickup.
+        pickupType:
+          type: string
+          description: The type of pickup or drop off configured for the shipment. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/logistics/types/api:PickupTypeEnum'>eBay API documentation</a>
+        rateId:
+          type: string
+          description: The eBay-generated ID of the shipping rate that the seller has chosen to purchase for the shipment.
+        shippingCarrierCode:
+          type: string
+          description: The ID code for the carrier that was selected for the package shipment.
+        shippingCarrierName:
+          type: string
+          description: The name of the shipping carrier.
+        shippingQuoteId:
+          type: string
+          description: The unique eBay-generated ID of the <i>shipping quote</i> from which the seller selected a shipping rate (<b>rateId</b>).
+        shippingServiceCode:
+          type: string
+          description: String ID code for the shipping service selected for the package shipment. This is a service that the shipping carrier supplies.
+        shippingServiceName:
+          type: string
+          description: The name of the shipping service.
+        totalShippingCost:
+          description: The total shipping cost, which is the sum cost of the base shipping cost and the cost of all the selected shipping options.
+          $ref: '#/components/schemas/Amount'
+      description: The "rate" that has been selected and purchased for the shipment, as referenced by the <b>rateId</b> value.
+    ShipmentCancellation:
+      type: object
+      properties:
+        cancellationRequestedDate:
+          type: string
+          description: The time and date the request was made to cancel the shipment, formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html " title="https://www.iso.org " target="_blank">ISO 8601</a> UTC string.
+        cancellationStatus:
+          type: string
+          description: This enum specifies the current cancellation status of a shipment, if a cancellation request has been made. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/logistics/types/api:ShipmentCancellationStatusEnum'>eBay API documentation</a>
+      description: This type defines a shipment cancellation by the date and time the cancellation request was made and the current status of the request.
+    Shipment:
+      type: object
+      properties:
+        cancellation:
+          description: Cancellation status for the package, if one exists.
+          $ref: '#/components/schemas/ShipmentCancellation'
+        creationDate:
+          type: string
+          description: The date and time the shipment was created, formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html " title="https://www.iso.org " target="_blank">ISO 8601</a> string, which is based on the 24-hour Coordinated Universal Time (UTC) clock.  <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2018-08-20T07:09:00.000Z</code>
+        labelCustomMessage:
+          type: string
+          description: If supported by the selected shipping carrier, this field can contain optional seller text to be printed on the shipping label.
+        labelDownloadUrl:
+          type: string
+          description: The direct URL the seller can use to download an image of the shipping label. By default, the file format is PDF. See <a href="/api-docs/sell/logistics/resources/shipment/methods/downloadLabelFile">downloadLabelFile</a> for requesting different response file formats.
+        labelSize:
+          type: string
+          description: 'The seller''s desired label size. The support for multi-sized labels is shipping-carrier specific and if the size requested in the <b>creaateFromShippingQuote</b> call matches a size the carrier supports, the value will be represented here in the shipment. <br><br>Currently, the only valid value is: <code>4"x6"</code>'
+        orders:
+          type: array
+          description: A list of one or more orders that will be shipped in the shipping package.
+          items:
+            $ref: '#/components/schemas/Order'
+        packageSpecification:
+          description: The weight and dimensions of the package.
+          $ref: '#/components/schemas/PackageSpecification'
+        rate:
+          description: The shipping rate that the seller has chosen to purchase for this shipment. Each rate, identified by a <b>rateId</b>, contains the offered base service, options, and shipping parameters that were selected for the package shipment.
+          $ref: '#/components/schemas/PurchasedRate'
+        returnTo:
+          description: The address and contact details that should be used for item returns. Sellers have the option to define a return address that is different from their <b>shipFrom</b> address. If not specified, the return address defaults to the <b>shipFrom</b> address in the shipping quote.
+          $ref: '#/components/schemas/Contact'
+        shipFrom:
+          description: The address and contact details for the origin of the package shipment.
+          $ref: '#/components/schemas/Contact'
+        shipmentId:
+          type: string
+          description: The unique eBay-assigned ID for the shipment. The ID is generated when the shipment is created by a call to <b>createFromShippingQuote</b>.
+        shipmentTrackingNumber:
+          type: string
+          description: A unique carrier-assigned ID string that can be used to track the shipment.
+        shipTo:
+          description: The address and contact details for the destination of the shipment.
+          $ref: '#/components/schemas/Contact'
+      description: 'This complex type defines a shipment for a specific package (for example, a box or letter). Shipments are always linked to a purchased shipping label. '
+    AdditionalOption:
+      type: object
+      properties:
+        additionalCost:
+          description: The monetary cost of the additional shipping option identified by the <b>optionType</b> field.
+          $ref: '#/components/schemas/Amount'
+        optionType:
+          type: string
+          description: The name of a shipping option that can be purchased in addition to the base shipping cost of this rate. The value supplied in this field must match exactly the option name as supplied by the selected rate.
+      description: This complex type contains information about a shipping option that can be purchased in addition to the base shipping cost of a recommended rate. Additional options for each rate are defined, named, and offered by the selected shipping carrier. Examples include shipping insurance or the requirement for a recipient signature.
+    Weight:
+      type: object
+      properties:
+        unit:
+          type: string
+          description: The unit of measurement used to specify the weight of a shipping package. Both the <strong>unit</strong> and <strong>value</strong> fields are required if the <strong>weight</strong> container is used. If the English system of measurement is being used, the applicable values for weight units are <code>POUND</code> and <code>OUNCE</CODE>. If the metric system of measurement is being used, the applicable values for weight units are <code>KILOGRAM</code> and <code>GRAM</code>. The metric system is used by most countries outside of the US. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/logistics/types/api:WeightUnitOfMeasureEnum'>eBay API documentation</a>
+        value:
+          type: string
+          description: The numeric value of the weight of the package, as measured by the value of <b>unit</b>.
+      description: This complex type contains information about the weight of an object such as a shipping package.
+    CreateShipmentFromQuoteRequest:
+      type: object
+      properties:
+        additionalOptions:
+          type: array
+          description: Supply a list of one or more shipping options that the seller wants to purchase for this shipment.  <br><br>The <b>baseShippingCost</b> field that's associated with the selected shipping rate is the cost of the base service offered in the rate. In addition to the base service, sellers can add additional shipping services to the base service. Shipping options include things such as shipping insurance or a recipient's signature upon delivery. The cost of any added services is summed with the base shipping cost to determine the final cost for the shipment. All options added to the shipment must be chosen from the set of shipping options offered with the selected rate.
+          items:
+            $ref: '#/components/schemas/AdditionalOption'
+        labelCustomMessage:
+          type: string
+          description: Optional text to be printed on the shipping label if the selected shipping carrier supports custom messages on their labels.
+        labelSize:
+          type: string
+          description: 'The seller''s desired label size. Any supplied value is applied only if the shipping carrier supports multiple label sizes, otherwise the carrier''s default label size is used.  <br><br>Currently, the only valid value is: <code>4"x6"</code>'
+        rateId:
+          type: string
+          description: The unique eBay-assigned identifier of the shipping rate that the seller selected for the shipment. This value is generated by using the <a href="/api-docs/sell/logistics/resources/shipping_quote/methods/createShippingQuote" target="_blank">createShippingQuote</a> method and is returned in the <b>rates.rateId</b> field.
+        returnTo:
+          description: 'The optional return address and contact details for the shipment. The return address is printed on the shipping label. If not specified, the return address defaults to the <b>shipFrom</b> address returned in shipping quote. '
+          $ref: '#/components/schemas/Contact'
+        shippingQuoteId:
+          type: string
+          description: The unique eBay-assigned identifier of the shipping quote that was generated by the <a href="/api-docs/sell/logistics/resources/shipping_quote/methods/createShippingQuote" target="_blank">createShippingQuote</a> method.
+      description: This complex type contains the request payload for the <b>createFromShippingQuote</b> method.
+    PhoneNumber:
+      type: object
+      properties:
+        phoneNumber:
+          type: string
+          description: A telephone number.
+      description: This complex type contains a string field representing a telephone number.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

@@ -1,0 +1,424 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Guest_purchase_order API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Guest_purchase_order
+paths:
+  /guest_purchase_order/{purchaseOrderId}:
+    servers:
+    - url: https://api.ebay.com{basePath}
+      description: Production
+      variables:
+        basePath:
+          default: /buy/order/v2
+    get:
+      tags:
+      - Guest_purchase_order
+      description: '<span class="tablenote"><b>Note:</b> The Order API (v2) currently only supports the guest payment/checkout flow. If you need to support member payment/checkout flow, use the <a href="/api-docs/buy/order_v1/resources/methods">v1_beta version</a> of the Order API.</span><br><div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> <a href="https://developer.ebay.com/api-docs/static/versioning.html#limited" target="_blank"><img src="/cms/img/docs/partners-api.svg" class="legend-icon partners-icon"  alt="Limited Release" title="Limited Release" />(Limited Release)</a> This method is only available to select developers approved by business units.</p></div><br>This method retrieves the details about a specific guest purchase order. It returns the line items, including purchase  order status, dates created and modified, item quantity and listing data, payment and shipping information, and prices, taxes, discounts and credits.<br><br>The <b>purchaseOrderId</b> is passed in as a URI parameter and is required.<br><br><span class="tablenote"><b>Note:</b> The <b>purchaseOrderId</b> value is returned in the call-back URL that is sent through the new eBay pay widget. For more information about eBay managed payments and the new Order API payment flow, see <a href="/api-docs/buy/static/api-order.html">Order API</a> in the Buying Integration Guide.</span><br>You can use this method to not only get the details of a purchase order, but to check the value of the <a href="#response.purchaseOrderPaymentStatus">purchaseOrderPaymentStatus</a> field to determine if the order has been paid for. If the order has been paid for, this field will return <code>PAID</code>.<br><br>For a list of supported sites and other restrictions, see <a href="/api-docs/buy/order/overview.html#API">API Restrictions</a> in the Order API overview.'
+      operationId: getGuestPurchaseOrder
+      parameters:
+      - name: purchaseOrderId
+        in: path
+        description: This path parameter specifies the unique identifier of a purchase order made by a guest buyer, for which details are to be retrieved.<br><br><span class="tablenote"><b>Note:</b> This value is returned in the response URL that is sent through the new eBay pay widget. For more information about eBay managed payments and the new Order API payment flow, see <a href="/api-docs/buy/static/api-order.html">Order API</a> in the Buying Integration Guide.</span>
+        required: true
+        schema:
+          type: string
+      - name: X-EBAY-C-MARKETPLACE-ID
+        in: header
+        description: This header identifies the eBay marketplace where the order will occur. <br><br><span class="tablenote"><b>Note:</b>  For this method, this value must match the <b>X-EBAY-C-MARKETPLACE-ID</b> used when the associated checkout session was created.</span><br>See <a href="/api-docs/static/rest-request-components.html#marketpl " target="_blank ">HTTP request headers</a> for the marketplace ID values.
+        required: false
+        schema:
+          type: string
+      - name: X-EBAY-C-ENDUSERCTX
+        in: header
+        description: This header is used to specify the <b>deviceId</b> for the device/user attempting to make the call.<br><br>It contains an alphanumeric string that allows a payment gateway to track an API call attempt and confirm that it is a verified payment attempt by a device/user.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GuestPurchaseOrderV2'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '16002':
+                domain: API_ORDER
+                category: REQUEST
+                description: The purchase order ID was not found.
+              '16003':
+                domain: API_ORDER
+                category: REQUEST
+                description: Access to the purchase order is not authorized.
+        '403':
+          description: Access Forbidden
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '16001':
+                domain: API_ORDER
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/buy.guest.order
+components:
+  schemas:
+    AuthenticityVerificationProgram:
+      type: object
+      properties:
+        description:
+          type: string
+          description: An informational message that applies to the Authenticity Guarantee program.
+        outcomeReason:
+          type: string
+          description: An informational message regarding the authentication outcome of an Authenticity Guarantee verification inspection.<br><br><span class="tablenote"><b>Note:</b> This field is conditionally returned when there is information that applies to the Authenticity Guarantee program.</span>
+        status:
+          type: string
+          description: An enumerated value that indicates whether the order line item has passed or failed the Authenticity Guarantee verification inspection, or whether the inspection and/or results are still pending.<br><br><span class="tablenote"><b>Note:</b> This field is conditionally returned when the purchase is complete.</span><br><br><b>Valid Values:</b><ul><li><code>PENDING</code></li><li><code>PASSED</code></li><li><code>FAILED</code></li><li><code>INELIGIBLE</code></li></ul> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/order/types/gct:AuthenticityVerificationStatusEnum'>eBay API documentation</a>
+        termsWebUrl:
+          type: string
+          description: The terms and conditions that apply to the Authenticity Guarantee program.
+      description: A type that provides the status and outcome of an order line item going through the Authenticity Guarantee verification process.
+    ImportTax:
+      type: object
+      properties:
+        amount:
+          description: The total amount of import tax for all line items of an order.
+          $ref: '#/components/schemas/Amount'
+        importTaxType:
+          type: string
+          description: An enumeration value that indicates the type of import tax applicable to the order. Currently, the only applicable import tax is the <i>Goods and Services</i> tax (indicated with <code>GST</code>). The Goods and Services tax is only applicable to orders for the eBay Australia marketplace. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/order/types/gct:ImportTaxTypeEnum'>eBay API documentation</a>
+      description: This container defines the type of import tax applicable to the order, and the total amount of tax for all line items in the order.
+    ErrorParameter:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the input field that caused an issue with the method request.
+        value:
+          type: string
+          description: The actual value that was passed in for the element specified in the <b>name</b> field.
+      description: An array of name/value pairs that provide details regarding the error.
+    PricingSummary:
+      type: object
+      properties:
+        additionalSavings:
+          description: The total amount of the coupon discounts in the purchase order.
+          $ref: '#/components/schemas/Amount'
+        adjustment:
+          description: The total amount of any seller adjustments. An adjustment can be a credit or debit. This is used to catch any monetary changes to the order that are not already captured in one of the other fields.
+          $ref: '#/components/schemas/Adjustment'
+        deliveryCost:
+          description: The delivery cost for all of the line items, after any delivery discounts are applied.<br><br>For example, there are four line items, and the delivery cost for each line item is $5. One of the line items qualifies for free delivery. The <b>deliveryCost</b> would be $15, which is the total cost for delivering all of the line items after the discount is applied.<br><br><span class="tablenote"><b>Note:</b> The cost includes the value-added tax (VAT) for applicable jurisdictions when requested from supported marketplaces. In this case, users must pass the <a href="/api-docs/static/rest-request-components.html#HTTP"><code>X-EBAY-C-MARKETPLACE-ID</code></a> request header specifying the supported marketplace (such as <code>EBAY_GB</code>) to see VAT-inclusive pricing. For more information on VAT, refer to <a href="https://www.ebay.co.uk/help/listings/default/vat-obligations-eu?id=4650&st=12&pos=1&query=Your%20VAT%20obligations%20in%20the%20EU&intent=VAT">VAT Obligations in the EU</a>.</span>
+          $ref: '#/components/schemas/Amount'
+        deliveryDiscount:
+          description: The total amount of the order delivery discounts for all of the line items, such as free shipping.
+          $ref: '#/components/schemas/Amount'
+        fee:
+          description: The total amount of any fees for all the line items in the order, such as a recycling fee.
+          $ref: '#/components/schemas/Amount'
+        importCharges:
+          description: The sum of all <a href="https://pages.ebay.com/seller-center/shipping/global-shipping-program.html ">Global Shipping Program</a> import charges, for all the line items in the order.
+          $ref: '#/components/schemas/Amount'
+        importTax:
+          description: The type of import tax applicable to the order, and the total amount of tax for all line items in the order.
+          $ref: '#/components/schemas/ImportTax'
+        priceDiscount:
+          description: The total discount amount for all line items in the order.<br><br>For example, there are four line items in the order. Two of the line items qualify for a <i>Buy 1, Get 1</i> offer, which is a $6 and a $15 discount. The <b>priceDiscount</b> value returned would be 21, which is the total of the two discounts.<br><br><span class="tablenote"><b>Note:</b> Delivery discount amounts, if applicable, are not reflected in the value returned in this field.</span>
+          $ref: '#/components/schemas/Amount'
+        priceSubtotal:
+          description: The total cost for all line items in the order, taking into account the item quantity, but before adding taxes and delivery costs, or applying discounts, fees, and adjustments.<br><br><span class="tablenote"><b>Note:</b> The price includes the value-added tax (VAT) for applicable jurisdictions when requested from supported marketplaces. In this case, users must pass the <a href="/api-docs/static/rest-request-components.html#HTTP"><code>X-EBAY-C-MARKETPLACE-ID</code></a> request header specifying the supported marketplace (such as <code>EBAY_GB</code>) to see VAT-inclusive pricing. For more information on VAT, refer to <a href="https://www.ebay.co.uk/help/listings/default/vat-obligations-eu?id=4650&st=12&pos=1&query=Your%20VAT%20obligations%20in%20the%20EU&intent=VAT">VAT Obligations in the EU</a>.</span>
+          $ref: '#/components/schemas/Amount'
+        tax:
+          description: The total amount of taxes for all line items in the order.
+          $ref: '#/components/schemas/Amount'
+        total:
+          description: 'The total cost of the order, which includes: (<b>priceSubtotal</b> - <b>priceDiscount</b>) + <b>deliveryCost</b> + <b>tax</b> +/- <b>adjustment</b> + <b>fee</b> + <b>importCharges</b> - <b>additionalSavings</b>.'
+          $ref: '#/components/schemas/Amount'
+      description: A type that returns cost details for all of the line items in the order, such as tax, item price, delivery cost, and discounts.
+    Region:
+      type: object
+      properties:
+        regionName:
+          type: string
+          description: A localized text string that indicates the name of the region. Taxes are generally charged at the state/province level, or at the country level in the case of VAT tax.
+        regionType:
+          type: string
+          description: An enumeration value that indicates the type of region for the tax jurisdiction.<br><br><b>Valid Values:</b> <ul><li><code>STATE_OR_PROVINCE</code></li><li><code>COUNTRY</code></li></ul> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/order/types/bas:RegionTypeEnum'>eBay API documentation</a>
+      description: A type that provides region details for a tax jurisdiction.
+    ShippingDetail:
+      type: object
+      properties:
+        maxEstimatedDeliveryDate:
+          type: string
+          description: The end of the date range in which the purchase order is expected to be delivered to the shipping address (final destination).
+        minEstimatedDeliveryDate:
+          type: string
+          description: The beginning of the date range in which the purchase order is expected to be delivered to the shipping address (final destination).
+        shippingCarrierCode:
+          type: string
+          description: The shipping provider for the line item, such as FedEx or USPS.
+        shippingServiceCode:
+          type: string
+          description: The name of the shipping service option. For example, Priority Mail Express (provided by USPS) or FedEx International Priority (Provided by FedEx).
+      description: A type that defines the fields for the shipping information, such as delivery date estimates and shipping provider.
+    Image:
+      type: object
+      properties:
+        imageUrl:
+          type: string
+          description: The URL for the image.
+      description: A container that returns the URL for an image.
+    Promotion:
+      type: object
+      properties:
+        discount:
+          description: The details regarding the monetary value of the promotional discount.<br><br><span class="tablenote"><b>Note:</b> eBay Bucks are not supported.</span>
+          $ref: '#/components/schemas/Amount'
+        message:
+          type: string
+          description: The text for the promotion title, which describes the promotion.
+        promotionType:
+          type: string
+          description: 'The kind of promotion. Some examples are: <code>SellerDiscountedPromotionalOffer</code> and <code>COUPON</code>.'
+      description: A container that returns the details of an item promotion.
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: The currency used in the monetary transaction. Generally, this is the currency used by the country of the eBay site offering the item. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/order/types/bas:CurrencyCodeEnum'>eBay API documentation</a>
+        value:
+          type: string
+          description: The amount of the currency specified in the <b>currency</b> field. The value of the <b>currency</b> defaults to the standard currency used by the country of the eBay site offering the item.
+      description: A container defining the monetary value of an amount, in the currency used on the eBay site that offers the item, and the conversion of that value into another currency.
+    OrderLineItemV2:
+      type: object
+      properties:
+        authenticityVerification:
+          description: A container that is returned for orders that are eligible for eBay's Authenticity Guarantee program. The seller ships Authenticity Guarantee program items to the authentication partner instead of the buyer. If the item is successfully authenticated, the authenticator will ship the item to the buyer.
+          $ref: '#/components/schemas/AuthenticityVerificationProgram'
+        baseUnitPrice:
+          description: The cost of a single quantity of the line item.<br><br><span class="tablenote"><b>Note:</b> The price includes the value-added tax (VAT) for applicable jurisdictions when requested from supported marketplaces. In this case, users must pass the <a href="/api-docs/static/rest-request-components.html#HTTP"><code>X-EBAY-C-MARKETPLACE-ID</code></a> request header specifying the supported marketplace (such as <code>EBAY_GB</code>) to see VAT-inclusive pricing. For more information on VAT, refer to <a href="https://www.ebay.co.uk/help/listings/default/vat-obligations-eu?id=4650&st=12&pos=1&query=Your%20VAT%20obligations%20in%20the%20EU&intent=VAT">VAT Obligations in the EU</a>.</span>
+          $ref: '#/components/schemas/Amount'
+        fees:
+          type: array
+          description: A breakdown of the fees applicable to the line item.
+          items:
+            $ref: '#/components/schemas/Fee'
+        image:
+          description: An eBay-assigned URL of the item image.
+          $ref: '#/components/schemas/Image'
+        itemId:
+          type: string
+          description: The eBay identifier of an item. This ID is returned by the <b>Browse</b> and <b>Feed</b> API methods.
+        itemOnHold:
+          type: boolean
+          description: When this value is <code>true</code> it indicates that the item has been put on hold due to a violation of eBay Policy.
+        legacyReference:
+          description: A container that returns fields to support using the <a href="https://developer.ebay.com/devzone/post-order/index.html#callindex ">Post Order API</a> for returns and cancellations. For information about what is returned in these fields and how to use the Post Order API, see <a href="/api-docs/buy/static/api-order.html#using">Using the Post Order API</a>.<br><br><b>Note:</b> The Post Order API can be used only with eBay member checkouts.
+          $ref: '#/components/schemas/LegacyReference'
+        lineItemId:
+          type: string
+          description: A unique eBay-assigned ID value that identifies a line item in a checkout session. This is created by the <a href="/api-docs/buy/order/resources/guest_checkout_session/methods/initiateGuestCheckoutSession">initiateGuestCheckoutSession</a>.
+        lineItemPaymentStatus:
+          type: string
+          description: An enumeration value that indicates the payment status of the line item. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/order/types/gct:LineItemPaymentStatusEnum'>eBay API documentation</a>
+        lineItemStatus:
+          type: string
+          description: An enumeration value that indicates the fulfillment state of this line item.<br><br><span class="tablenote"><b>Note:</b> When there is no tracking information, the status will never change from <code>FULFILLMENT_IN_PROGRESS</code>; without tracking information, eBay has no way of knowing whether the order was delivered.</span> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/order/types/gct:LineItemStatusEnum'>eBay API documentation</a>
+        netPrice:
+          description: The total cost for the line item, taking into account the quantity, any seller item discounts, and any coupon that applies.<br><br><span class="tablenote"><b>Note:</b> This does not include any shipping discounts, shipping costs, fees, or seller adjustments.</span>
+          $ref: '#/components/schemas/Amount'
+        orderId:
+          type: string
+          description: The unique order ID for the line item.<br><br><b>Maximum Length:</b> 40 characters
+        promotions:
+          type: array
+          description: An array of promotions applied to the line item.
+          items:
+            $ref: '#/components/schemas/Promotion'
+        quantity:
+          type: integer
+          description: The quantity ordered for the line item.
+          format: int32
+        seller:
+          description: A container for information about the seller offering this item, such as the seller's user name.
+          $ref: '#/components/schemas/Seller'
+        shippingDetail:
+          description: A container for information about the shipping details of the order.
+          $ref: '#/components/schemas/ShippingDetail'
+        taxDetails:
+          type: array
+          description: A container for the tax information for the line item.
+          items:
+            $ref: '#/components/schemas/TaxDetail'
+        title:
+          type: string
+          description: The seller-created title of the item.
+      description: A type that defines the fields for line item information in a purchase order.
+    TaxJurisdiction:
+      type: object
+      properties:
+        region:
+          description: The region of the tax jurisdiction.
+          $ref: '#/components/schemas/Region'
+        taxJurisdictionId:
+          type: string
+          description: The identifier of the tax jurisdiction.
+      description: The type that defines the fields for the tax jurisdiction details.
+    LegacyReference:
+      type: object
+      properties:
+        legacyItemId:
+          type: string
+          description: The legacy ID used to identify an item.<br><br>This is used by the Post Order API <a href="https://developer.ebay.com/Devzone/post-order/post-order_v2_return__post.html " target="_blank">Create Return Request</a> method. This call initiates the item return process. For more information on how to use this field in the Post Order API, see <a href="/api-docs/buy/static/api-order.html#return-request">Create a return request</a> in the Buy Integration Guide.<br><br><b> Restriction:</b> The Post Order API can be used only with eBay member checkouts.
+        legacyOrderId:
+          type: string
+          description: The legacy ID of the order.<br><br>This is used by the Post Order API <a href="https://developer.ebay.com/Devzone/post-order/post-order_v2_cancellation__post.html " target="_blank">Submit Cancellation Request</a> method. This method initiates the item cancellation process. For more information on how to use this field in the Post Order API, see <a href="/api-docs/buy/static/api-order.html#using">Using the Post Order API</a>.<br><br><b>Restriction:</b> The Post Order API can be used only with eBay member checkouts.
+        legacyTransactionId:
+          type: string
+          description: The legacy ID of the transaction.<br><br>This is used by the Post Order API <a href="https://developer.ebay.com/devzone/post-order/post-order_v2_return__post.html " target="_blank">Create Return Request</a> call. This call initiates the item return process. For more information on how to use this field in the Post Order API, see <a href="/api-docs/buy/static/api-order.html#using">Using the Post Order API</a> in the Buy Integration Guide.<br><br><b>Restriction:</b> The Post Order API can be used only with eBay member checkouts.
+      description: A type that defines the fields to support using the <a href="https://developer.ebay.com/devzone/post-order/index.html#callindex ">Post Order API</a> for returns and cancellations.<br><br><b> Restriction:</b> The Post Order API can be used only with eBay member checkouts.
+    Seller:
+      type: object
+      properties:
+        username:
+          type: string
+          description: The user name created by the seller for use on eBay.
+      description: A type that identifies the seller.
+    Fee:
+      type: object
+      properties:
+        amount:
+          description: A container for the currency type and monetary amount of the fee associated with the line item.
+          $ref: '#/components/schemas/Amount'
+        feeType:
+          type: string
+          description: The type of fee associated with the line item. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/order/types/gct:FeeEnum'>eBay API documentation</a>
+      description: A breakdown of the fees associated with the line item.
+    TaxDetail:
+      type: object
+      properties:
+        includedInPrice:
+          type: boolean
+          description: A field that indicates whether tax was applied for the cost of the item and its shipping.
+        taxJurisdiction:
+          description: A container that returns the tax jurisdiction information.
+          $ref: '#/components/schemas/TaxJurisdiction'
+        taxType:
+          type: string
+          description: A field that indicates the type of tax that may be collected for the item. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/order/types/gct:TaxType'>eBay API documentation</a>
+      description: A type that defines the tax fields.
+    GuestPurchaseOrderV2:
+      type: object
+      properties:
+        lineItems:
+          type: array
+          description: An array of line items in the order.
+          items:
+            $ref: '#/components/schemas/OrderLineItemV2'
+        pricingSummary:
+          description: A container that breaks down the costs for the order, including total cost, shipping cost, tax, fees, and any discounts.
+          $ref: '#/components/schemas/PricingSummary'
+        purchaseOrderCreationDate:
+          type: string
+          description: The creation date of the purchase order.
+        purchaseOrderId:
+          type: string
+          description: The unique identifier of the purchase order.
+        purchaseOrderPaymentStatus:
+          type: string
+          description: A container that returns the payment status for the purchase order. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/order/types/gct:PurchaseOrderPaymentStatusEnum'>eBay API documentation</a>
+        purchaseOrderStatus:
+          type: string
+          description: An enumeration value that indicates the current status of the buyer's payment and any refund that applies to the purchase order. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/order/types/gct:PurchaseOrderStatusEnum'>eBay API documentation</a>
+        refundedAmount:
+          description: The total amount of any refunds for the purchase order.
+          $ref: '#/components/schemas/Amount'
+        warnings:
+          type: array
+          description: A container for any warning messages.
+          items:
+            $ref: '#/components/schemas/Error'
+      description: A type that defines the fields for a guest purchase order.
+    Error:
+      type: object
+      properties:
+        category:
+          type: string
+          description: 'This string value indicates the error category. There are three categories of errors: request errors, application errors, and system errors.'
+        domain:
+          type: string
+          description: The name of the primary system where the error occurred. This is relevant for application errors.
+        errorId:
+          type: integer
+          description: A unique code that identifies the particular error or warning that occurred. Your application can use error codes as identifiers in your customized error-handling algorithms.
+          format: int32
+        inputRefIds:
+          type: array
+          description: An array of reference IDs that identify the specific request elements most closely associated to the error or warning, if any.
+          items:
+            type: string
+        longMessage:
+          type: string
+          description: A detailed description of the condition that caused the error or warning, and information on what what must be done to correct the problem.
+        message:
+          type: string
+          description: A description of the condition that caused the error or warning.
+        outputRefIds:
+          type: array
+          description: An array of reference IDs that identify the specific response elements most closely associated to the error or warning, if any.
+          items:
+            type: string
+        parameters:
+          type: array
+          description: An array of warning and error messages that return one or more variables contextual information about the error or warning. This is often the field or value that triggered the error or warning.
+          items:
+            $ref: '#/components/schemas/ErrorParameter'
+        subdomain:
+          type: string
+          description: The name of the subdomain in which the error or warning occurred.
+      description: A type that defines the fields for the error messages.
+    Adjustment:
+      type: object
+      properties:
+        amount:
+          description: The container that returns the amount and currency of an adjustment.
+          $ref: '#/components/schemas/Amount'
+        label:
+          type: string
+          description: The text indicating what the adjustment was for.
+      description: A type that defines the fields for seller adjustments. An adjustment can be a credit or debit.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

@@ -1,0 +1,189 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Transfer API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Transfer
+paths:
+  /transfer/{transfer_Id}:
+    get:
+      tags:
+      - Transfer
+      description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> Due to EU &amp; UK Payments regulatory requirements, an additional security verification via Digital Signatures is required for certain API calls that are made on behalf of EU/UK sellers, including all <b>Finances API</b> methods. Please refer to <a href="/develop/guides/digital-signatures-for-apis " target="_blank">Digital Signatures for APIs</a> to learn more on the impacted APIs and the process to create signatures to be included in the HTTP payload.</p></div><br>This method retrieves detailed information regarding a <code>TRANSFER</code> transaction type. A <code>TRANSFER</code> is a  monetary transaction type that involves a seller transferring money to eBay for reimbursement of one or more charges. For example, when a seller reimburses eBay for a buyer refund.<br><br>If an ID is passed into the URI that is an identifier for another transaction type, this call will return an http status code of <code>404 Not found</code>.'
+      operationId: getTransfer
+      parameters:
+      - name: X-EBAY-C-MARKETPLACE-ID
+        in: header
+        description: This header identifies the seller's eBay marketplace.<br><br>See <a href="/api-docs/static/rest-request-components.html#marketpl " target="_blank ">HTTP request headers</a> for the marketplace ID values.<br><br><span class="tablenote"><b>Note:</b> If a marketplace ID value is not provided, the default value of <code>EBAY_US</code> is used.</span>
+        required: true
+        schema:
+          type: string
+      - name: transfer_Id
+        in: path
+        description: This path parameter is used to specify the unique identifier of the <code>TRANSFER</code> transaction type you wish to retrieve.<br><br>Use the <a href="/api-docs/sell/finances/resources/transaction/methods/getTransactions" target="_blank ">getTransactions</a> method to retrieve this value by setting the <b>transactionType</b> filter to <code>TRANSFER</code>. The <b>transfer_id</b> value will then be returned in the <b>transaction_id</b> field of the response.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transfer'
+        '400':
+          description: Bad Request
+        '404':
+          description: Not found.
+          x-response-codes:
+            errors:
+              '135012':
+                domain: API_FINANCES
+                category: REQUEST
+                description: The transfer id was not found.
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '135000':
+                domain: API_FINANCES
+                category: APPLICATION
+                description: There was a problem with an eBay internal system or process. Contact eBay developer support for assistance.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.finances
+components:
+  schemas:
+    Amount:
+      type: object
+      properties:
+        convertedFromCurrency:
+          type: string
+          description: The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " target="_blank">ISO 4217</a> code representing the currency of the amount in the <b> convertedFromValue</b> field. This value is the pre-conversion currency.<br><br>This field is only returned if/when currency conversion was applied by eBay. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
+        convertedFromValue:
+          type: string
+          description: The monetary amount before any conversion is performed, in the currency specified by the <b> convertedFromCurrency</b> field. This value is the pre-conversion amount. The <b> value</b> field contains the converted amount of this value, in the currency specified by the <b> currency</b> field.<br><br>This field is only returned if/when currency conversion was applied by eBay.
+        convertedToCurrency:
+          type: string
+          description: <span class="tablenote"><b>Note:</b> This field is only applicable for Mainland China sellers with an available CNY Bank payment instrument. This response can <b>only</b> have a value of <code>CNY</code>.</span>The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " target="_blank">ISO 4217</a> code representing the currency of the amount in the <b>convertedToValue</b> field. <br/><br/>This field is only returned for payouts to bank accounts when currency conversion was applied by eBay. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
+        convertedToValue:
+          type: string
+          description: <span class="tablenote"><b>Note:</b> This field is only applicable for Mainland China sellers with an available CNY Bank payment instrument. This response <b>only</b> returns value in CNY.</span>The monetary value after any conversion is performed, in the currency specified by the <b>convertedToCurrency</b> field. This value is the converted amount. <br/><br/>The field is only returned for payouts to bank accounts when currency conversion was applied by eBay.
+        currency:
+          type: string
+          description: 'A three-letter ISO 4217 code that indicates the currency of the amount in the <b>value</b> field. This field is always returned with any container using <b>Amount</b> type. <br><br><b>Default</b>: The currency of the authenticated user''s country. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/finances/types/ba:CurrencyCodeEnum''>eBay API documentation</a>'
+        exchangeRate:
+          type: string
+          description: The exchange rate used for the monetary conversion. This field shows the exchange rate used to convert the dollar value in the <b>value</b> field from the dollar value in the <b>convertedFromValue</b> field.<br><br> For sellers in mainland China, this field shows shows the exchange rate to convert the dollar value in the <b>value</b> field to the CNY value in the <b>convertedToValue</b> field.<br><br>This field is only returned when eBay does a currency version, and a currency conversion is generally needed if the buyer is viewing, or has purchased an item on an international site. <br><br>This field is only returned if/when currency conversion was applied by eBay.
+        value:
+          type: string
+          description: The monetary amount, in the currency specified by the <b>currency</b> field. This field is always returned with any container using <b>Amount</b> type.
+      description: This type is used to express the dollar value and currency used for any transaction retrieved with the <strong>Finances API</strong>, including an order total, a seller payout, a buyer refund, or a seller credit.
+    FundingSource:
+      type: object
+      properties:
+        brand:
+          type: string
+          description: The brand name of the credit card or the name of the financial institution that is the source of payment. This field may not be populated for other funding sources.
+        memo:
+          type: string
+          description: This field provides a note about the funding source. If the seller's credit card or bank account is the funding source, this field might contain the last four digits of the credit card or bank account. This field may also be returned as null.
+        type:
+          type: string
+          description: 'The string value returned here indicates the funding source. Possible values include the following:<ul><li><code>AVAILABLE_FUNDS</code>: transfer is funded with seller payout funds</li><li><code>CREDIT_CARD</code>: transfer is funded with seller''s credit card</li><li><code>BANK</code>: transfer is funded with a direct debit to seller''s bank account on file with eBay</li><li><code>PAY_UPON_INVOICE</code>: eBay will bill the seller for the transfer on the monthly invoice</li></ul>'
+      description: This type provided details on the funding source for the transfer.
+    BalanceAdjustment:
+      type: object
+      properties:
+        adjustmentAmount:
+          description: The seller payout balance amount that will be applied toward the charges outlined in the <b>charges</b> array.
+          $ref: '#/components/schemas/Amount'
+        adjustmentType:
+          type: string
+          description: The enumeration value returned here indicates if the charge is a <code>DEBIT</code> or a <code>CREDIT</code> to the seller. Generally, all transfer transaction types are going to be <code>DEBIT</code>, since the money is being tranferred from the seller to eBay. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:BookingEntryEnum'>eBay API documentation</a>
+      description: This type is used by the <b>balanceAdjustment</b> container, which shows the seller payout balance that will be applied toward the charges outlined in the <b>charges</b> array.
+    TransferDetail:
+      type: object
+      properties:
+        balanceAdjustment:
+          description: This container shows the seller payout balance that will be applied toward the charges outlined in the <b>charges</b> array.
+          $ref: '#/components/schemas/BalanceAdjustment'
+        charges:
+          type: array
+          description: This container is an array of one or more charges related to the transfer. Charges can be related to an order cancellation, order return, case, payment dispute, etc.
+          items:
+            $ref: '#/components/schemas/Charge'
+        totalChargeNetAmount:
+          description: This container shows the total amount that the seller owes for all of the charges outlined in the <b>charges</b> array.
+          $ref: '#/components/schemas/Amount'
+      description: This type is used by the <b>transferDetail</b> container, which provides more details about the transfer and the charge(s) associated with the transfer.
+    Charge:
+      type: object
+      properties:
+        cancellationId:
+          type: string
+          description: The unique identifier of an order cancellation. This field is only applicable and returned if the charge is related to an order  cancellation.
+        caseId:
+          type: string
+          description: The unique identifier of a case filed against an order. This field is only applicable and returned if the charge is related to a case filed against an order.
+        chargeNetAmount:
+          description: This container shows the net amount of the charge, which is the total amount of the charge minus the total amount of fees credited towards this refund as per eBay policy. It is possible for there to be multiple charges from multiple orders with one transfer. The net aggregate amount for all charges found in the <b>charges</b> array can be found in the <b>transferDetail.totalChargeNetAmount</b> container.
+          $ref: '#/components/schemas/Amount'
+        inquiryId:
+          type: string
+          description: The unique identifier of an Item Not Received (INR) inquiry filed against an order. This field is only applicable and returned if the charge is related to has an INR inquiry filed against the order.
+        orderId:
+          type: string
+          description: The unique identifier of the order that is associated with the charge.
+        paymentDisputeId:
+          type: string
+          description: The unique identifier of a third-party payment dispute filed against an order. This occurs when the buyer files a dispute against the order with their payment provider, and then the dispute comes into eBay's system. This field is only applicable and returned if the charge is related to a third-party payment dispute filed against an order.
+        refundId:
+          type: string
+          description: The unique identifier of a buyer refund associated with the charge.
+        returnId:
+          type: string
+          description: The unique identifier of an order return. This field is only applicable and returned if the charge is related to an order that was returned by the buyer.
+      description: This type is used by the <b>charge</b> container, which is an array of one or more charges related to the transfer.
+    Transfer:
+      type: object
+      properties:
+        fundingSource:
+          description: This container provides details about the seller's funding source to reimburse eBay for the transfer, such as a bank account, a credit card, or available seller payout funds.
+          $ref: '#/components/schemas/FundingSource'
+        transactionDate:
+          type: string
+          description: 'This timestamp indicates the date/time of the transfer. The following (UTC) format is used: <code>YYYY-MM-DDTHH:MM:SS.SSSZ</code>. For example, <code>2020-08-04T19:09:02.768Z</code>'
+        transferAmount:
+          description: The amount of the transfer being deducted from the funding source.
+          $ref: '#/components/schemas/Amount'
+        transferDetail:
+          description: This container provides more details about the transfer, including details on the charge(s) associated with the transfer. Multiple charges can be addressed with one transfer.
+          $ref: '#/components/schemas/TransferDetail'
+        transferId:
+          type: string
+          description: The unique identifier of the <code>TRANSFER</code> transaction type. This is the same value that was passed into the end of the call URI.
+      description: This type is the base response type used by <code>TRANSFER</code> transaction type that is returned in the response.
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

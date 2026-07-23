@@ -1,0 +1,363 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Custom_policy API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Custom_policy
+paths:
+  /custom_policy/:
+    get:
+      tags:
+      - Custom_policy
+      description: This method retrieves the list of custom policies specified by the <b>policy_types</b> query parameter.<br><br><span class="tablenote"><b>Note:</b> Custom policies are no longer coupled with a specific eBay marketplace, so the <b>EBAY-C-MARKETPLACE-ID</b> request header is no longer needed or relevant for any of the Custom Policy methods.</span>
+      operationId: getCustomPolicies
+      parameters:
+      - name: policy_types
+        in: query
+        description: This query parameter specifies the type of custom policies to be returned.<br><br>Multiple policy types may be requested in a single call by providing a comma-delimited set of all policy types to be returned.<br><br><span class="tablenote"><strong>Note:</strong> Omitting this query parameter from a request will also return policies of all policy types.</span><br> See the <a href="/api-docs/sell/account/types/api:CustomPolicyTypeEnum" target="_blank ">CustomPolicyTypeEnum</a> type for a list of supported values.
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomPolicyResponse'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20411':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid/Missing policyTypes {policyType}
+              '20415':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid/Missing marketplaceId
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+        - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+    post:
+      tags:
+      - Custom_policy
+      description: 'This method creates a new custom policy in which a seller specifies their terms for complying with local governmental regulations. <br/><br/>Two Custom Policy types are supported: <ul><li>Product Compliance (PRODUCT_COMPLIANCE)</li> <li>Takeback (TAKE_BACK)</li></ul>Each Custom Policy targets a <b>policyType</b>. Multiple policies may be created as follows: <ul><li><b>Product Compliance</b>: a maximum of 60 policies per seller may be created</li> <li><b>Takeback</b>: a maximum of 18 policies per seller may be created</li></ul>A successful create policy call returns an HTTP status code of <b>201 Created</b> with the system-generated policy ID included in the <b>Location</b> response header.<br/><br/><b>Product Compliance Policy</b><br/><br/>Product Compliance policies disclose product information as required for regulatory compliance.<br/><br/><span class="tablenote"><strong>Note:</strong> A maximum of 60 Product Compliance policies per seller may be created.</span> <br/><br/> <b>Takeback Policy</b><br/><br/>Takeback policies describe the seller''s legal obligation to take back a previously purchased item when the buyer purchases a new one.<br/><br/><span class="tablenote"><strong>Note:</strong> A maximum of 18 Takeback policies per seller may be created.</span><br><br><span class="tablenote"><b>Note:</b> Custom policies are no longer coupled with a specific eBay marketplace, so the <b>EBAY-C-MARKETPLACE-ID</b> request header is no longer needed or relevant for any of the Custom Policy methods.</span>'
+      operationId: createCustomPolicy
+      parameters:
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Request to create a new Custom Policy.
+        content:
+          application/json:
+            schema:
+              description: Request to create a new Custom Policy.
+              $ref: '#/components/schemas/CustomPolicyCreateRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+                description: The <b>location</b> response header contains the URL to the newly created custom policy. The URL includes the eBay-assigned <code>custom_policy_id</code>, which can be used to reference the policy.
+          content:
+            application/json:
+              schema:
+                type: object
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20411':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid/Missing policyType {policyType}
+              '20412':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid/Missing label
+              '20413':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid/Missing name
+              '20414':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid/Missing description
+              '20415':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid/Missing marketplaceId
+              '20417':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Maximum custom policy per site is reached
+              '20418':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: This policy name is already used
+        '409':
+          description: Policy Name already used/ Maximum no of policies per site reached
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+  /custom_policy/{custom_policy_id}:
+    get:
+      tags:
+      - Custom_policy
+      description: This method retrieves the custom policy specified by the <b>custom_policy_id</b> path parameter.<br><br><span class="tablenote"><b>Note:</b> Custom policies are no longer coupled with a specific eBay marketplace, so the <b>EBAY-C-MARKETPLACE-ID</b> request header is no longer needed or relevant for any of the Custom Policy methods.</span>
+      operationId: getCustomPolicy
+      parameters:
+      - name: custom_policy_id
+        in: path
+        description: This path parameter is the unique identifier of the custom policy to retrieve.<br><br> This ID can be retrieved for a custom policy by using the <a href="/api-docs/sell/account/resources/custom_policy/methods/getCustomPolicies" target="_blank ">getCustomPolicies</a> method.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomPolicy'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20415':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid/Missing marketplaceId
+              '20416':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid/Missing customPolicyId
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+        - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+    put:
+      tags:
+      - Custom_policy
+      description: This method updates an existing custom policy specified by the <b>custom_policy_id</b> path parameter. This method overwrites the policy's <b>Name</b>, <b>Label</b>, and <b>Description</b> fields. Therefore, the complete, current text of all three policy fields must be included in the request payload even when one or two of these fields will not actually be updated.<br/> <br/>For example, the value for the <b>Label</b> field is to be updated, but the <b>Name</b> and <b>Description</b> values will remain unchanged. The existing <b>Name</b> and <b>Description</b> values, as they are defined in the current policy, must also be passed in. <br/><br/>A successful policy update call returns an HTTP status code of <b>204 No Content</b>.<br><br><span class="tablenote"><b>Note:</b> Custom policies are no longer coupled with a specific eBay marketplace, so the <b>EBAY-C-MARKETPLACE-ID</b> request header is no longer needed or relevant for any of the Custom Policy methods.</span>
+      operationId: updateCustomPolicy
+      parameters:
+      - name: custom_policy_id
+        in: path
+        description: This path parameter is the unique identifier of the custom policy to retrieve.<br><br> This ID can be retrieved for a custom policy by using the <a href="/api-docs/sell/account/resources/custom_policy/methods/getCustomPolicies" target="_blank ">getCustomPolicies</a> method.
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Request to update a current custom policy.
+        content:
+          application/json:
+            schema:
+              description: Request to update a current custom policy.
+              $ref: '#/components/schemas/CustomPolicyRequest'
+        required: true
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20412':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid/Missing label
+              '20413':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid/Missing name
+              '20414':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid/Missing description
+              '20415':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid/Missing marketplaceId
+              '20416':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid/Missing customPolicyId
+              '20418':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: This policy name is already used
+        '404':
+          description: Not Found
+        '409':
+          description: Policy Name already used/ Maximum no of policies per site reached
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+components:
+  schemas:
+    CompactCustomPolicyResponse:
+      type: object
+      properties:
+        customPolicyId:
+          type: string
+          description: The unique custom policy identifier for the policy being returned.<br><br><span class="tablenote"><strong>Note:</strong> This value is automatically assigned by the system when the policy is created.</span>
+        label:
+          type: string
+          description: Customer-facing label shown on View Item pages for items to which the policy applies. This seller-defined string is displayed as a system-generated hyperlink pointing to detailed policy information.<br><br><b>Max length:</b> 65
+        name:
+          type: string
+          description: The seller-defined name for the custom policy. Names must be unique for policies assigned to the same seller and policy type.<br><span class="tablenote"><strong>Note:</strong> This field is visible only to the seller. </span><br><br><b>Max length:</b> 65
+        policyType:
+          type: string
+          description: 'Specifies the type of Custom Policy being returned. <br><br>Two Custom Policy types are supported: <ul><li>Product Compliance (PRODUCT_COMPLIANCE)</li> <li>Takeback (TAKE_BACK)</li></ul> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/account/types/api:CustomPolicyTypeEnum''>eBay API documentation</a>'
+      description: The response payload for requests that return a list of custom policies.
+    CustomPolicyCreateRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Details of the seller's specific policy and terms for this policy.<br><br><b>Max length:</b> 15,000
+        label:
+          type: string
+          description: Customer-facing label shown on View Item pages for items to which the policy applies. This seller-defined string is displayed as a system-generated hyperlink pointing to detailed policy information.<br><br><b>Max length:</b> 65
+        name:
+          type: string
+          description: The seller-defined name for the custom policy. Names must be unique for policies assigned to the same seller and policy type.<br><br><span class="tablenote"><strong>Note:</strong> This field is visible only to the seller. </span><br><b>Max length:</b> 65
+        policyType:
+          type: string
+          description: 'Specifies the type of custom policy being created. <br><br>Two Custom Policy types are supported: <ul><li>Product Compliance (PRODUCT_COMPLIANCE)</li> <li>Takeback (TAKE_BACK)</li></ul> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/account/types/api:CustomPolicyTypeEnum''>eBay API documentation</a>'
+      description: This type is used by the request payload of the createCustomPolicy method to define a new custom policy for a specific marketplace.
+    CustomPolicy:
+      type: object
+      properties:
+        customPolicyId:
+          type: string
+          description: The unique custom policy identifier for a policy.<br><br><span class="tablenote"><strong>Note:</strong> This value is automatically assigned by the system when the policy is created.</span>
+        description:
+          type: string
+          description: Details of the seller's specific policy and terms associated with the policy. Buyers access this information from the View Item page for items to which the policy has been applied.<br><br><b>Max length:</b> 15,000
+        label:
+          type: string
+          description: Customer-facing label shown on View Item pages for items to which the policy applies. This seller-defined string is displayed as a system-generated hyperlink pointing to detailed policy information.<br><br><b>Max length:</b> 65
+        name:
+          type: string
+          description: The seller-defined name for the custom policy. Names must be unique for policies assigned to the same seller and policy type.<br /><span class="tablenote"><strong>Note:</strong> This field is visible only to the seller. </span><br/><br/><b>Max length:</b> 65
+        policyType:
+          type: string
+          description: 'Specifies the type of Custom Policy. <br><br>Two Custom Policy types are supported: <ul><li>Product Compliance (PRODUCT_COMPLIANCE)</li> <li>Takeback (TAKE_BACK)</li></ul> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/account/types/api:CustomPolicyTypeEnum''>eBay API documentation</a>'
+      description: This container defines a seller's custom policy identified by policy ID for the selected eBay marketplace. A successful call returns the requested policy information.
+    CustomPolicyRequest:
+      type: object
+      properties:
+        description:
+          type: string
+          description: Details of the seller's specific policy and terms for this policy.<br><br><b>Max length:</b> 15,000
+        label:
+          type: string
+          description: Customer-facing label shown on View Item pages for items to which the policy applies. This seller-defined string is displayed as a system-generated hyperlink pointing to detailed policy information.<br><br><b>Max length:</b> 65
+        name:
+          type: string
+          description: The seller-defined name for the custom policy. Names must be unique for policies assigned to the same seller and policy type.<br><br><span class="tablenote"><strong>Note:</strong> This field is visible only to the seller. </span><br><b>Max length:</b> 65
+    CustomPolicyResponse:
+      type: object
+      properties:
+        customPolicies:
+          type: array
+          description: This array contains the custom policies that match the input criteria.
+          items:
+            $ref: '#/components/schemas/CompactCustomPolicyResponse'
+        href:
+          type: string
+          description: <i>This field is for future use.</i>
+        limit:
+          type: integer
+          description: <i>This field is for future use.</i>
+          format: int32
+        next:
+          type: string
+          description: <i>This field is for future use.</i>
+        offset:
+          type: integer
+          description: <i>This field is for future use.</i>
+          format: int32
+        prev:
+          type: string
+          description: <i>This field is for future use.</i>
+        total:
+          type: integer
+          description: <i>This field is for future use.</i>
+          format: int32
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings

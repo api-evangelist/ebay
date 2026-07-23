@@ -1,0 +1,683 @@
+openapi: 3.0.0
+info:
+  title: eBay Account Advertising_eligibility Payment_policy API
+  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  contact:
+    name: eBay Inc,
+  license:
+    name: eBay API License Agreement
+    url: https://go.developer.ebay.com/api-license-agreement
+  version: v1.9.2
+servers:
+- url: https://api.ebay.com{basePath}
+  description: Production
+  variables:
+    basePath:
+      default: /sell/account/v1
+tags:
+- name: Payment_policy
+paths:
+  /payment_policy:
+    get:
+      tags:
+      - Payment_policy
+      description: 'This method retrieves all the payment policies configured for the marketplace you specify using the <code>marketplace_id</code> query parameter.  <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policies for a marketplace that supports multiple locales using the <code>Content-Language</code> request header. For example, get the policies for the French locale of the Canadian marketplace by specifying <code>fr-CA</code> for the <code>Content-Language</code> header. Likewise, target the Dutch locale of the Belgium marketplace by setting <code>Content-Language: nl-BE</code>. For details on header values, see <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank">HTTP request headers</a>.'
+      operationId: getPaymentPolicies
+      parameters:
+      - name: marketplace_id
+        in: query
+        description: This query parameter specifies the eBay marketplace of the policies you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentPolicyResponse'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20401':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Missing field {fieldName}. {additionalInfo}
+              '20403':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid {fieldName}. {additionalInfo}
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+              '20501':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: Service unavailable. Please try again in next 24 hours.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+        - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+    post:
+      tags:
+      - Payment_policy
+      description: This method creates a new payment policy where the policy encapsulates seller's terms for order payments.  <br><br>Each policy targets a specific eBay marketplace and category group, and you can create multiple policies for each combination.  <br><br>A successful request returns the <b>getPaymentPolicy</b> URI to the new policy in the <b>Location</b> response header and the ID for the new policy is returned in the response payload.  <p class="tablenote"><b>Tip:</b> For details on creating and using the business policies supported by the Account API, see <a href="/api-docs/sell/static/seller-accounts/business-policies.html">eBay business policies</a>.</p>
+      operationId: createPaymentPolicy
+      parameters:
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Payment policy request
+        content:
+          application/json:
+            schema:
+              description: Payment policy request
+              $ref: '#/components/schemas/PaymentPolicyRequest'
+        required: true
+      responses:
+        '201':
+          description: Created
+          headers:
+            Location:
+              schema:
+                type: string
+                description: The <b>location</b> response header contains the URL to the newly created payment policy. The URL includes the eBay-assigned <code>paymentPolicyId</code>, which you can use to reference the policy.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetPaymentPolicyResponse'
+          x-response-codes:
+            errors:
+              '20200':
+                domain: API_ACCOUNT
+                category: BUSINESS
+                description: Warning. {additionalInfo}
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20400':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid request. {additionalInfo}
+              '20401':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Missing field {fieldName}. {additionalInfo}
+              '20403':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid {fieldName}. {additionalInfo}
+              '20404':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: '{fieldName} not found.'
+              '20405':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid payment method. {fieldName}
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+              '20501':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: Service unavailable. Please try again in next 24 hours.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+  /payment_policy/{payment_policy_id}:
+    get:
+      tags:
+      - Payment_policy
+      description: This method retrieves the complete details of a payment policy. Supply the ID of the policy you want to retrieve using the <b>paymentPolicyId</b> path parameter.
+      operationId: getPaymentPolicy
+      parameters:
+      - name: payment_policy_id
+        in: path
+        description: This path parameter specifies the ID of the payment policy you want to retrieve. <br><br> This ID can be retrieved for a payment policy by using the <a href="/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies" target="_blank ">getPaymentPolices</a> method.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentPolicy'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20403':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid {fieldName}. {additionalInfo}
+              '20404':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: '{fieldName} not found.'
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+              '20501':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: Service unavailable. Please try again in next 24 hours.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+        - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+    put:
+      tags:
+      - Payment_policy
+      description: This method updates an existing payment policy. Specify the policy you want to update using the <b>payment_policy_id</b> path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing policy with the new details specified in the payload.
+      operationId: updatePaymentPolicy
+      parameters:
+      - name: payment_policy_id
+        in: path
+        description: This path parameter specifies the ID of the payment policy you want to update. <br><br> This ID can be retrieved for a payment policy by using the <a href="/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies" target="_blank ">getPaymentPolices</a> method.
+        required: true
+        schema:
+          type: string
+      - name: Content-Type
+        in: header
+        description: This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank ">HTTP request headers</a>.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        description: Payment policy request
+        content:
+          application/json:
+            schema:
+              description: Payment policy request
+              $ref: '#/components/schemas/PaymentPolicyRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SetPaymentPolicyResponse'
+          x-response-codes:
+            errors:
+              '20200':
+                domain: API_ACCOUNT
+                category: BUSINESS
+                description: Warning. {additionalInfo}
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20400':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid request. {additionalInfo}
+              '20401':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Missing field {fieldName}. {additionalInfo}
+              '20402':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid input. {additionalInfo}
+              '20403':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid {fieldName}. {additionalInfo}
+              '20404':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: '{fieldName} not found.'
+              '20405':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid payment method. {fieldName}
+        '404':
+          description: Not Found
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+              '20501':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: Service unavailable. Please try again in next 24 hours.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+    delete:
+      tags:
+      - Payment_policy
+      description: 'This method deletes a payment policy. Supply the ID of the policy you want to delete in the <b>paymentPolicyId</b> path parameter. '
+      operationId: deletePaymentPolicy
+      parameters:
+      - name: payment_policy_id
+        in: path
+        description: This path parameter specifies the unique identifier of the payment policy you want to delete.<br><br> This ID can be retrieved for a payment policy by using the <a href="/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies" target="_blank ">getPaymentPolices</a> method.
+        required: true
+        schema:
+          type: string
+      responses:
+        '204':
+          description: No Content
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20401':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Missing field {fieldName}. {additionalInfo}
+              '20402':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid input. {additionalInfo}
+              '20403':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid {fieldName}. {additionalInfo}
+              '20404':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: '{fieldName} not found.'
+        '404':
+          description: Not Found
+        '409':
+          description: Conflict
+          x-response-codes:
+            errors:
+              '20409':
+                domain: API_ACCOUNT
+                category: BUSINESS
+                description: Invalid default policy type. {additionalInfo}
+              '21409':
+                domain: API_ACCOUNT
+                category: BUSINESS
+                description: Invalid default for category type. {additionalInfo}
+              '22409':
+                domain: API_ACCOUNT
+                category: BUSINESS
+                description: Invalid target default policy. {additionalInfo}
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+              '20501':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: Service unavailable. Please try again in next 24 hours.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+  /payment_policy/get_by_policy_name:
+    get:
+      tags:
+      - Payment_policy
+      description: 'This method retrieves the details of a specific payment policy. Supply both the policy <code>name</code> and its associated <code>marketplace_id</code> in the request query parameters.   <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policy for a marketplace that supports multiple locales using the <code>Content-Language</code> request header. For example, get a policy for the French locale of the Canadian marketplace by specifying <code>fr-CA</code> for the <code>Content-Language</code> header. Likewise, target the Dutch locale of the Belgium marketplace by setting <code>Content-Language: nl-BE</code>. For details on header values, see <a href="/api-docs/static/rest-request-components.html#HTTP">HTTP request headers</a>.'
+      operationId: getPaymentPolicyByName
+      parameters:
+      - name: marketplace_id
+        in: query
+        description: This query parameter specifies the eBay marketplace of the policy you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum
+        required: true
+        schema:
+          type: string
+      - name: name
+        in: query
+        description: This query parameter specifies the seller-defined name of the payment policy you want to retrieve.<br><br> This value can be retrieved for a payment policy by using the <a href="/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies" target="_blank ">getPaymentPolicies</a> method.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentPolicy'
+        '400':
+          description: Bad Request
+          x-response-codes:
+            errors:
+              '20401':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Missing field {fieldName}. {additionalInfo}
+              '20403':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: Invalid {fieldName}. {additionalInfo}
+              '20404':
+                domain: API_ACCOUNT
+                category: REQUEST
+                description: '{fieldName} not found.'
+        '500':
+          description: Internal Server Error
+          x-response-codes:
+            errors:
+              '20500':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: System error.
+              '20501':
+                domain: API_ACCOUNT
+                category: APPLICATION
+                description: Service unavailable. Please try again in next 24 hours.
+      security:
+      - api_auth:
+        - https://api.ebay.com/oauth/api_scope/sell.account
+        - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+components:
+  schemas:
+    RecipientAccountReference:
+      type: object
+      properties:
+        referenceId:
+          type: string
+          description: '<span class="tablenote"><b>Note</b>: DO NOT USE THIS FIELD. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span>'
+        referenceType:
+          type: string
+          description: '<span class="tablenote"><b>Note</b>: DO NOT USE THIS FIELD. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/account/types/api:RecipientAccountReferenceTypeEnum''>eBay API documentation</a>'
+      description: '<span class="tablenote"><b>Note</b>: This type is no longer applicable. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span>'
+    SetPaymentPolicyResponse:
+      type: object
+      properties:
+        categoryTypes:
+          type: array
+          description: This container indicates whether the payment business policy applies to motor vehicle listings, or if it applies to non-motor vehicle listings.
+          items:
+            $ref: '#/components/schemas/CategoryType'
+        deposit:
+          description: This container is only returned if the seller just created or updated a motor vehicles payment business policy and requires buyers to pay an initial deposit after they commit to buying a motor vehicle.
+          $ref: '#/components/schemas/Deposit'
+        description:
+          type: string
+          description: 'A seller-defined description of the payment business policy. This description is only for the seller''s use, and is not exposed on any eBay pages. This field is returned if set for the policy. <br><br><b>Max length</b>: 250'
+        fullPaymentDueIn:
+          description: 'The number of days (after the buyer commits to buy) that a buyer has to pay the remaining balance of a motor vehicle transaction. Sellers can set this value to 3, 7, 10, or 14 days.<p class="tablenote"><b>Note:</b> This value is always returned if <b>categoryTypes</b> is set to <code>MOTORS_VEHICLES</code>.</p> '
+          $ref: '#/components/schemas/TimeDuration'
+        immediatePay:
+          type: boolean
+          description: 'The value returned in this field will reflect the value set by the seller in the <b>immediatePay</b> request field. A value of <code>true</code> indicates that immediate payment is required from the buyer for: <ul><li>A fixed-price item</li><li>An auction item where the buyer is using the ''Buy it Now'' option</li><li>A deposit for a motor vehicle listing</li></ul><br>It is possible for the seller to set this field as <code>true</code> in the payment business policy, but it will not apply in some scenarios. For example, immediate payment is not applicable for auction listings that have a winning bidder, for buyer purchases that involve the Best Offer feature, or for transactions that happen offline between the buyer and seller.'
+        marketplaceId:
+          type: string
+          description: The ID of the eBay marketplace to which this payment business policy applies. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum'>eBay API documentation</a>
+        name:
+          type: string
+          description: A seller-defined name for this payment business policy. Names must be unique for policies assigned to the same marketplace.<br><br><b>Max length:</b> 64
+        paymentInstructions:
+          type: string
+          description: <p class="tablenote"><b>Note:</b> NO LONGER SUPPORTED. Although this field may be returned for some older payment business policies, payment instructions are no longer supported by payment business policies. If this field is returned, it can be ignored and these payment instructions will not appear in any listings that use the corresponding business policy.</p>A free-form string field that allows sellers to add detailed payment instructions to their listings.
+        paymentMethods:
+          type: array
+          description: This array shows the available payment methods that the seller has set for the payment business policy.<br><br>Sellers do not have to specify any electronic payment methods for listings, so this array will often be returned empty unless the payment business policy is intended for motor vehicle listings or other items in categories where offline payments are required or supported.
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+        paymentPolicyId:
+          type: string
+          description: A unique eBay-assigned ID for a payment business policy. This ID is generated when the policy is created.
+        warnings:
+          type: array
+          description: An array of one or more errors or warnings that were generated during the processing of the request. If there were no issues with the request, this array will return empty.
+          items:
+            $ref: '#/components/schemas/Error'
+      description: Complex type that that gets populated with a response containing a payment policy.
+    ErrorParameter:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the parameter that caused the error.
+        value:
+          type: string
+          description: The value of the parameter that caused the error.
+      description: A complex type that indicates a parameter that caused an error and the value of the parameter which caused the error.
+    Deposit:
+      type: object
+      properties:
+        amount:
+          description: 'This value indicates the initial deposit amount required from the buyer in order to purchase a motor vehicle. This value can be as high as $2,000.00 if immediate payment is not required, and up to $500.00 if immediate payment is required.<br><br><b>Max</b>: <code>2000.0</code>'
+          $ref: '#/components/schemas/Amount'
+        dueIn:
+          description: 'This value indicates the number of hours that the buyer has (after they commit to buy) to pay the initial deposit on a motor vehicle. Valid <b>dueIn</b> times are 24, 48, and 72 hours. <code>HOUR</code> is set as the <b>unit</b> value, and <code>24</code>, <code>48</code> or <code>72</code> are set in the <b>value</b> field.<br><br><span class="tablenote"><b>Note</b>: The <b>dueIn</b> value is overridden if the seller has set the motor vehicle listing to require immediate payment. If the listing requires immediate payment, the buyer must pay the deposit immediately in order to be eligible to purchase the motor vehicle.</span><br><br><b>Min</b>=24 (hours)<b>Max</b>=72 (hours), <b>Default</b>=48 (hours)'
+          $ref: '#/components/schemas/TimeDuration'
+        paymentMethods:
+          type: array
+          description: This array is no longer applicable and should not be used since eBay now manages the electronic payment options available to buyers to pay the deposit.
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+      description: This type is used to specify/indicate that an initial deposit is required for a motor vehicle listing.
+    PaymentPolicyRequest:
+      type: object
+      properties:
+        categoryTypes:
+          type: array
+          description: This container is used to specify whether the payment business policy applies to motor vehicle listings, or if it applies to non-motor vehicle listings.
+          items:
+            $ref: '#/components/schemas/CategoryType'
+        deposit:
+          description: 'This container is used if the seller wants to require an initial deposit on a motor vehicle listing. In this container, the seller sets the deposit amount and the due date for the deposit.<br><br>Because eBay controls all electronic payment methods, sellers do not need to specify a payment method and the <b>deposit.paymentMethods</b> array is not needed.<p class="tablenote"><b>Note: </b>The ''due date'' specified in the <b>deposit</b> container will be overridden if the payment business policy requires immediate payment (in this case, for the deposit), and the buyer commits to purchase the motor vehicle through a fixed-price listing or through the ''Buy it Now'' option of an auction listing.</p>'
+          $ref: '#/components/schemas/Deposit'
+        description:
+          type: string
+          description: 'A seller-defined description of the payment business policy. This description is only for the seller''s use, and is not exposed on any eBay pages.  <br><br><b>Max length</b>: 250'
+        fullPaymentDueIn:
+          description: 'This container is used to specify the number of days that a buyer has to make their full payment to the seller and close the remaining balance on a motor vehicle transaction. This container must be specified for motor vehicles listings. <br><br>The period starts when the buyer commits to buy. The valid values, as specified with <b>TimeDuration</b>, are:<ul><li><code>3 DAYS</code></li><li><code>7 DAYS</code> (the default)</li><li><code>10 DAYS</code></li><li><code>14 DAYS</code></li></ul>In order for a buyer to make a full payment on a motor vehicle, at least one of the following <b>paymentMethods</b> values must be specified for the corresponding payment business policy: <ul> <li><code>CASH_ON_PICKUP</code></li> <li><code>CASHIER_CHECK</code></li> <li><code>MONEY_ORDER</code></li> <li><code>PERSONAL_CHECK</code></li></ul><b>Default:</b> <code>7 DAYS</code>'
+          $ref: '#/components/schemas/TimeDuration'
+        immediatePay:
+          type: boolean
+          description: 'This field should be included and set to <code>true</code> if the seller wants to require immediate payment from the buyer for: <ul><li>A fixed-price item</li><li>An auction item where the buyer is using the ''Buy it Now'' option</li><li>A deposit for a motor vehicle listing</li></ul><br><b>Default:</b> False'
+        marketplaceId:
+          type: string
+          description: The ID of the eBay marketplace to which this payment business policy applies. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum'>eBay API documentation</a>
+        name:
+          type: string
+          description: A seller-defined name for this payment business policy. Names must be unique for policies assigned to the same marketplace.<br><br><b>Max length:</b> 64
+        paymentInstructions:
+          type: string
+          description: <p class="tablenote"><b>Note:</b> DO NOT USE THIS FIELD. Payment instructions are no longer supported by payment business policies.</p>A free-form string field that allows sellers to add detailed payment instructions to their listings.
+        paymentMethods:
+          type: array
+          description: <p class="tablenote"><b>Note:</b> This field applies only when the seller needs to specify one or more offline payment methods. eBay now manages the electronic payment options available to buyers to pay for the item.</p>This array is used to specify one or more offline payment methods that will be accepted for payment that occurs off of eBay's platform.
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+      description: This root container defines a seller's payment business policy for a specific marketplace and category group. This type is used when creating or updating a payment business policy.
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: The base currency applied to the <b>value</b> field to establish a monetary amount.  <br><br>The currency is represented as a 3-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " title="https://www.iso.org " target="_blank">ISO 4217</a> currency code. For example, the code for the Canadian Dollar is <code>CAD</code>.<br><br><b>Default:</b> The default currency of the eBay marketplace that hosts the listing. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
+        value:
+          type: string
+          description: The monetary amount in the specified <b>currency</b>.
+      description: A complex type that describes the value of a monetary amount as represented by a global currency. When passing in an amount in a request payload, both <b>currency</b> and <b>value</b> fields are required, and both fields are also always returned for an amount in a response field.
+    PaymentPolicy:
+      type: object
+      properties:
+        categoryTypes:
+          type: array
+          description: This container indicates whether the fulfillment policy applies to motor vehicle listings, or if it applies to non-motor vehicle listings.
+          items:
+            $ref: '#/components/schemas/CategoryType'
+        deposit:
+          description: This container is applicable only if the <b>categoryTypes.name</b> field is set to <code>MOTORS_VEHICLES</code>, and is only returned if the seller requires an initial deposit on motor vehicles.<br><br>The container shows the amount due for the deposit and when it is due (within 1-3 days after commitment to purchase, unless the listing requires immediate payment). <p class="tablenote"><b>Note:</b> The due date that is specified in the <b>deposit</b> container will be overridden if the payment business policy requires immediate payment (in this case, for the deposit), and the buyer commits to purchasing the motor vehicle through a fixed-price listing or through the 'Buy it Now' option of an auction listing. </p>
+          $ref: '#/components/schemas/Deposit'
+        description:
+          type: string
+          description: 'A seller-defined description of the payment policy. This description is only for the seller''s use, and is not exposed on any eBay pages.  <br><br><b>Max length</b>: 250'
+        fullPaymentDueIn:
+          description: 'This container applies to motor vehicles listings only and indicates when a final payment for the vehicle is due. This value is always returned if <b>categoryTypes</b> is set to <code>MOTORS_VEHICLES</code>. <br><br>This container indicates the number of days that a buyer has to make their full payment to the seller and close the remaining balance on a motor vehicle transaction. The period starts when the buyer commits to buy. The valid values, as specified with <b>TimeDuration</b>, are:<ul><li>3 DAYS</li><li>7 DAYS (the default)</li><li>10 DAYS</li><li>14 DAYS</li></ul>A <code>MOTORS_VEHICLES</code>) payment business policy must specify at least one of the following <b>paymentMethods</b> values for the final payment: <ul> <li>CASH_ON_PICKUP<br><br><span class="tablenote"><b>Note:</b> This payment method is only available to sellers outside the US.</span></li> <li>CASHIER_CHECK</li> <li>MONEY_ORDER</li><li>PERSONAL_CHECK</li></ul>'
+          $ref: '#/components/schemas/TimeDuration'
+        immediatePay:
+          type: boolean
+          description: 'If this field is returned as <code>true</code>, immediate payment is required from the buyer for: <ul><li>A fixed-price item</li><li>An auction item where the buyer uses the ''Buy it Now'' option</li><li>A deposit for a motor vehicle listing</li></ul><br>It is possible for the seller to set this field as <code>true</code> in the payment business policy, but it will not apply in some scenarios. For example, immediate payment is not applicable for auction listings that have a winning bidder, for buyer purchases that involve the Best Offer feature, or for transactions that happen offline between the buyer and seller.'
+        marketplaceId:
+          type: string
+          description: The ID of the eBay marketplace to which the payment business policy applies. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum'>eBay API documentation</a>
+        name:
+          type: string
+          description: 'A seller-defined name for this fulfillment policy. Names must be unique for policies assigned to the same marketplace. <br><br><b>Max length</b>: 64'
+        paymentInstructions:
+          type: string
+          description: 'Although this field may be returned for some older payment business policies, payment instructions are no longer supported by payment business policies. If this field is returned, it can be ignored and these payment instructions will not appear in any listings that use the corresponding business policy. <br><br><b>Max length</b>: 1000'
+        paymentMethods:
+          type: array
+          description: 'This container is returned to show the payment methods that are accepted for the payment business policy.  <br><br>Sellers do not have to specify any electronic payment methods for listings, so this array will often be returned empty unless the payment business policy is intended for motor vehicle listings or other items in categories where offline payments are required or supported. '
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+        paymentPolicyId:
+          type: string
+          description: A unique eBay-assigned ID for a payment business policy. This ID is generated when the policy is created.
+      description: This type is used by the <b>paymentPolicy</b> response container, a container which defines a seller's payment business policy for a specific marketplace.
+    PaymentMethod:
+      type: object
+      properties:
+        brands:
+          type: array
+          description: '<span class="tablenote"><b>Note</b>: This array is no longer applicable and should not be used. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods, including any credit card brands accepted. </span>'
+          items:
+            type: string
+            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/account/types/api:PaymentInstrumentBrandEnum''>eBay API documentation</a>'
+        paymentMethodType:
+          type: string
+          description: eBay now controls all electronic payment methods available for a marketplace, so only offline payment method enum values may be used in this field, and offline payment methods will only be applicable to listings that require or support offline payments. See the <b>PaymentMethodTypeEnum</b> type for supported offline payment method enum values. </p> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:PaymentMethodTypeEnum'>eBay API documentation</a>
+        recipientAccountReference:
+          description: '<span class="tablenote"><b>Note</b>: This container is no longer applicable and should not be used. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods, including PayPal. </span>'
+          $ref: '#/components/schemas/RecipientAccountReference'
+      description: 'This type is used by the <b>paymentMethods</b> container, which is used by the seller to specify one or more offline payment methods. <br><br> <span class="tablenote"><b>Note</b>: eBay now controls all electronic payment methods available for a marketplace, so a seller will no longer use this type to specify any electronic payment methods.</span>'
+    Error:
+      type: object
+      properties:
+        category:
+          type: string
+          description: 'The category type for this error or warning. It is a string that can have one of three values:<ul><li><code>Application</code>: Indicates an exception or error occurred in the application code or at runtime. Examples include catching an exception in a service''s business logic, system failures, or request errors from a dependency.</li><li><code>Business</code>: Used when your service or a dependent service refused to continue processing on the resource because of a business rule violation such as "Seller does not ship item to Antarctica" or "Buyer ineligible to purchase an alcoholic item". Business errors are not syntactical input errors.</li><li><code>Request</code>: Used when there is anything wrong with the request, such as authentication, syntactical errors, rate limiting or missing headers, bad HTTP header values, and so on.</li></ul>'
+        domain:
+          type: string
+          description: Name of the domain ,or primary system, of the service or application where the error occurred.
+        errorId:
+          type: integer
+          description: A positive integer that uniquely identifies the specific error condition that occurred. Your application can use error codes as identifiers in your customized error-handling algorithms.
+          format: int32
+        inputRefIds:
+          type: array
+          description: Identifies specific request elements associated with the error, if any. inputRefId's response is format specific. For JSON, use <i>JSONPath</i> notation.
+          items:
+            type: string
+        longMessage:
+          type: string
+          description: A more detailed explanation of the error than given in the <code>message</code> error field.
+        message:
+          type: string
+          description: Information on how to correct the problem, in the end user's terms and language where applicable. Its value is at most 50 characters long. If applicable, the value is localized in the end user's requested locale.
+        outputRefIds:
+          type: array
+          description: Identifies specific response elements associated with the error, if any. Path format is the same as <code>inputRefId</code>.
+          items:
+            type: string
+        parameters:
+          type: array
+          description: This optional list of name/value pairs that contain context-specific <code>ErrorParameter</code> objects, with each item in the list being a parameter (or input field name) that caused an error condition. Each <code>ErrorParameter</code> object consists of two fields, a <code>name</code> and a <code>value</code>.
+          items:
+            $ref: '#/components/schemas/ErrorParameter'
+        subdomain:
+          type: string
+          description: If present, indicates the subsystem in which the error occurred.
+      description: A container that defines the elements of error and warning messages.
+    TimeDuration:
+      type: object
+      properties:
+        unit:
+          type: string
+          description: These enum values represent the time measurement unit, such as <code>DAY</code>. A span of time is defined when you apply the value specified in the <b>value</b> field to the value specified for <b>unit</b>. <br><br>See <b>TimeDurationUnitEnum</b> for a complete list of possible time-measurement units. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:TimeDurationUnitEnum'>eBay API documentation</a>
+        value:
+          type: integer
+          description: An integer that represents an amount of time, as measured by the time-measurement unit specified in the <b>unit</b> field.
+          format: int32
+      description: A type used to specify a period of time using a specified time-measurement unit. Payment, return, and fulfillment business policies all use this type to specify time windows.<br><br>Whenever a container that uses this type is used in a request, both of these fields are required. Similarly, whenever a container that uses this type is returned in a response, both of these fields are always returned.
+    CategoryType:
+      type: object
+      properties:
+        default:
+          type: boolean
+          description: <span class="tablenote"><strong>Note:</strong> This field has been deprecated and is no longer used.<ul><li>Do not include this field in any <b>create</b> or <b>update</b> method.</li><li>This field may be returned within the payload of a <b>get</b> method, but it can be ignored.</li></ul></span>
+        name:
+          type: string
+          description: The category type to which the policy applies (motor vehicles or non-motor vehicles). <br><br>The <code>MOTORS_VEHICLES</code> category type is not valid for return policies. eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:CategoryTypeEnum'>eBay API documentation</a>
+      description: The category type discerns whether the policy applies to motor vehicle listings, or to any other items except motor vehicle listings. <br><br>Each business policy can be associated with either or both categories ('MOTORS_VEHICLES' and 'ALL_EXCLUDING_MOTORS_VEHICLES'); however, return business policies are not applicable for motor vehicle listings.
+    PaymentPolicyResponse:
+      type: object
+      properties:
+        href:
+          type: string
+          description: This field is for future use.
+        limit:
+          type: integer
+          description: This field is for future use.
+          format: int32
+        next:
+          type: string
+          description: This field is for future use.
+        offset:
+          type: integer
+          description: This field is for future use.
+          format: int32
+        paymentPolicies:
+          type: array
+          description: A list of all of the seller's payment business policies defined for the specified marketplace. This array will be returned as empty if no payment business policies are defined for the specified marketplace.
+          items:
+            $ref: '#/components/schemas/PaymentPolicy'
+        prev:
+          type: string
+          description: This field is for future use.
+        total:
+          type: integer
+          description: The total number of payment business policies retrieved in the result set.  <br><br>If no payment business policies are defined for the specified marketplace, this field is returned with a value of <code>0</code>.
+          format: int32
+      description: 'The response payload for the <b>getPaymentPolicies</b> method. <br><br><span class="tablenote"><b>Note</b>: Pagination has not yet been enabled for <b>getPaymentPolicies</b>, so all of the pagination-related fields are for future use.</span>'
+  securitySchemes:
+    api_auth:
+      type: oauth2
+      description: The security definitions for this API. Please check individual operations for applicable scopes.
+      flows:
+        authorizationCode:
+          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+          tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
+          scopes:
+            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
+            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings
