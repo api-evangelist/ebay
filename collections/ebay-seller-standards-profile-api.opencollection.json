@@ -1,0 +1,74 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "eBay Account Advertising_eligibility Seller_standards_profile API",
+    "version": "v1.9.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Seller_standards_profile",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "findSellerStandardsProfiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ebay.com{basePath}/seller_standards_profile",
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This call retrieves all the standards profiles for the associated seller.  <br><br>A <i>standards profile </i> is a set of eBay seller metrics and the seller's associated compliance values (either <code>TOP_RATED</code>, <code>ABOVE_STANDARD</code>, or <code>BELOW_STANDARD</code>).  <br><br>A seller's multiple profiles are distinguished by two criteria, a \"program\" and a \"cycle.\" A profile's <i>program </i> is one of three regions where the seller may have done business, or <code>PROGRAM_GLOBAL<"
+        },
+        {
+          "info": {
+            "name": "getSellerStandardsProfile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ebay.com{basePath}/seller_standards_profile/:program/:cycle",
+            "params": [
+              {
+                "name": "cycle",
+                "value": "",
+                "type": "path",
+                "description": "This path parameter is used to specify the cycle for which metrics and metadata will be retrieved.<br><br>See <a href=\"/api-docs/sell/analytics/types/ssp:CycleTypeEnum\" target=\"_blank\">CycleTypeEnum</a> for a list of supported values."
+              },
+              {
+                "name": "program",
+                "value": "",
+                "type": "path",
+                "description": "This path parameter is used to specify the seller standards program for which metrics and metadata will be retrieved. <br><br>See <a href=\"/api-docs/sell/analytics/types/ssp:ProgramEnum\" target=\"_blank\">ProgramEnum</a> for a list of supported values."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This call retrieves a single standards profile for the associated seller.  <br><br>A <i>standards profile </i> is a set of eBay seller metrics and the seller's associated compliance values (either <code>TOP_RATED</code>, <code>ABOVE_STANDARD</code>, or <code>BELOW_STANDARD</code>).  <br><br>A seller can have multiple profiles distinguished by two criteria, a \"program\" and a \"cycle.\" A profile's <i>program </i> is one of three regions where the seller may have done business, or <code>PROGRAM_GLOB"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

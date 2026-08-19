@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "eBay Account Advertising_eligibility Customer_service_metric API",
+    "version": "v1.9.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Customer_service_metric",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getCustomerServiceMetric",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ebay.com{basePath}/customer_service_metric/:customer_service_metric_type/:evaluation_type",
+            "params": [
+              {
+                "name": "customer_service_metric_type",
+                "value": "",
+                "type": "path",
+                "description": "Use this path parameter to specify the type of customer service metrics and benchmark data you want returned for the seller. Supported types are:<br> <ul><li><code>ITEM_NOT_AS_DESCRIBED</code></li><li><code>ITEM_NOT_RECEIVED</code></li></ul>"
+              },
+              {
+                "name": "evaluation_marketplace_id",
+                "value": "",
+                "type": "query",
+                "description": "Use this query parameter to specify the Marketplace ID to evaluate for the customer service metrics and benchmark data.  <br><br>For the list of supported marketplaces, see <a href=\"/api-docs/sell/analytics/static/overview.html#requirements\" title=\"Analytics API Overview\" target=\"_blank\">Analytics API requirements and restrictions</a>. For implementation help, refer to eBay API documentation at https://developer.ebay.com/api-docs/sell/analytics/types/bas:MarketplaceIdEnum"
+              },
+              {
+                "name": "evaluation_type",
+                "value": "",
+                "type": "path",
+                "description": "Use this path parameter to specify the evaluation period to use for the performance metrics. See <a href=\"/api-docs/sell/analytics/types/api:EvaluationTypeEnum\" target=\"_blank\"> EvaluationTypeEnum</a> for more information on the supported values."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "Use this method to retrieve a seller's performance and rating for the customer service metric.  <br><br>Control the response from the <b>getCustomerServiceMetric</b> method using the following path and query parameters: <ul><li><b>customer_service_metric_type</b> controls the type of customer service transactions evaluated for the metric rating.</li> <li><b>evaluation_type</b> controls the period you want to review.</li> <li><b>evaluation_marketplace_id</b> specifies the target marketplace for t"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "eBay Account Advertising_eligibility Listing API",
+    "version": "v1.9.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Listing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "bulkMigrateListing",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ebay.com{basePath}/bulk_migrate_listing",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This call is used to convert existing eBay Listings to the corresponding Inventory API objects. If an eBay listing is successfully migrated to the Inventory API model, new Inventory Location, Inventory Item, and Offer objects are created. For a multiple-variation listing that is successfully migrated, in addition to the three new Inventory API objects just mentioned, an Inventory Item Group object will also be created. If the eBay listing is a motor vehicle part or accessory listing with a compa"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

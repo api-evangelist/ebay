@@ -1,0 +1,483 @@
+{
+  "item": [
+    {
+      "id": "6d2acf7e-18e8-468c-95d9-b699e4d5208d",
+      "name": "Customer_service_metric",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "04c0e873-8128-434e-b97a-7b8f2d8b78e5",
+          "name": "get Customer Service Metric",
+          "request": {
+            "name": "get Customer Service Metric",
+            "description": {
+              "content": "Use this method to retrieve a seller's performance and rating for the customer service metric.  <br><br>Control the response from the <b>getCustomerServiceMetric</b> method using the following path and query parameters: <ul><li><b>customer_service_metric_type</b> controls the type of customer service transactions evaluated for the metric rating.</li> <li><b>evaluation_type</b> controls the period you want to review.</li> <li><b>evaluation_marketplace_id</b> specifies the target marketplace for the evaluation.</li></ul> Currently, metric data is returned for only peer benchmarking. For details on the workings of peer benchmarking, see <a href=\"https://www.ebay.com/help/policies/selling-policies/seller-performance-policy/service-metrics-policy?id=4769\" title=\"eBay Help pages\" target=\"_blank\">Service metrics policy</a>.  <br><br>For details on using and understanding the response from this method, see <a href=\"/api-docs/sell/static/performance/customer-service-metric.html\" title=\"Selling Integration Guide\">Interpreting customer service metric ratings</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "customer_service_metric",
+                ":customer_service_metric_type",
+                ":evaluation_type"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "evaluation_marketplace_id",
+                  "value": "<string>",
+                  "description": "(Required) Use this query parameter to specify the Marketplace ID to evaluate for the customer service metrics and benchmark data.  <br><br>For the list of supported marketplaces, see <a href=\"/api-docs/sell/analytics/static/overview.html#requirements\" title=\"Analytics API Overview\" target=\"_blank\">Analytics API requirements and restrictions</a>. For implementation help, refer to eBay API documentation at https://developer.ebay.com/api-docs/sell/analytics/types/bas:MarketplaceIdEnum"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "customer_service_metric_type",
+                  "description": "(Required) Use this path parameter to specify the type of customer service metrics and benchmark data you want returned for the seller. Supported types are:<br> <ul><li><code>ITEM_NOT_AS_DESCRIBED</code></li><li><code>ITEM_NOT_RECEIVED</code></li></ul>"
+                },
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "evaluation_type",
+                  "description": "(Required) Use this path parameter to specify the evaluation period to use for the performance metrics. See <a href=\"/api-docs/sell/analytics/types/api:EvaluationTypeEnum\" target=\"_blank\"> EvaluationTypeEnum</a> for more information on the supported values."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9cb7ebe5-e60d-4e62-a7e7-3451659c7ec9",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer_service_metric",
+                    ":customer_service_metric_type",
+                    ":evaluation_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "evaluation_marketplace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_service_metric_type",
+                      "description": "(Required) Use this path parameter to specify the type of customer service metrics and benchmark data you want returned for the seller. Supported types are:<br> <ul><li><code>ITEM_NOT_AS_DESCRIBED</code></li><li><code>ITEM_NOT_RECEIVED</code></li></ul>"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "evaluation_type",
+                      "description": "(Required) Use this path parameter to specify the evaluation period to use for the performance metrics. See <a href=\"/api-docs/sell/analytics/types/api:EvaluationTypeEnum\" target=\"_blank\"> EvaluationTypeEnum</a> for more information on the supported values."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dimensionMetrics\": [\n    {\n      \"dimension\": {\n        \"dimensionKey\": \"string\",\n        \"name\": \"string\",\n        \"value\": \"string\"\n      },\n      \"metrics\": [\n        {\n          \"benchmark\": {\n            \"adjustment\": \"string\",\n            \"basis\": \"string\",\n            \"metadata\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rating\": \"string\"\n          },\n          \"distributions\": [\n            {\n              \"basis\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"data\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"basis\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"data\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"metricKey\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"benchmark\": {\n            \"adjustment\": \"string\",\n            \"basis\": \"string\",\n            \"metadata\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rating\": \"string\"\n          },\n          \"distributions\": [\n            {\n              \"basis\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"data\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"basis\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"data\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"metricKey\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    {\n      \"dimension\": {\n        \"dimensionKey\": \"string\",\n        \"name\": \"string\",\n        \"value\": \"string\"\n      },\n      \"metrics\": [\n        {\n          \"benchmark\": {\n            \"adjustment\": \"string\",\n            \"basis\": \"string\",\n            \"metadata\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rating\": \"string\"\n          },\n          \"distributions\": [\n            {\n              \"basis\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"data\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"basis\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"data\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"metricKey\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"benchmark\": {\n            \"adjustment\": \"string\",\n            \"basis\": \"string\",\n            \"metadata\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"rating\": \"string\"\n          },\n          \"distributions\": [\n            {\n              \"basis\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"data\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"basis\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"data\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"metricKey\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"evaluationCycle\": {\n    \"endDate\": \"string\",\n    \"evaluationDate\": \"string\",\n    \"evaluationType\": \"string\",\n    \"startDate\": \"string\"\n  },\n  \"marketplaceId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b9b88a41-306e-4f95-b20e-03d116969dbb",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer_service_metric",
+                    ":customer_service_metric_type",
+                    ":evaluation_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "evaluation_marketplace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_service_metric_type",
+                      "description": "(Required) Use this path parameter to specify the type of customer service metrics and benchmark data you want returned for the seller. Supported types are:<br> <ul><li><code>ITEM_NOT_AS_DESCRIBED</code></li><li><code>ITEM_NOT_RECEIVED</code></li></ul>"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "evaluation_type",
+                      "description": "(Required) Use this path parameter to specify the evaluation period to use for the performance metrics. See <a href=\"/api-docs/sell/analytics/types/api:EvaluationTypeEnum\" target=\"_blank\"> EvaluationTypeEnum</a> for more information on the supported values."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ebd0b96d-c8f3-41f3-be7e-0a3798a04904",
+              "name": "Resource not found. Invalid path parameters. ",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer_service_metric",
+                    ":customer_service_metric_type",
+                    ":evaluation_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "evaluation_marketplace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_service_metric_type",
+                      "description": "(Required) Use this path parameter to specify the type of customer service metrics and benchmark data you want returned for the seller. Supported types are:<br> <ul><li><code>ITEM_NOT_AS_DESCRIBED</code></li><li><code>ITEM_NOT_RECEIVED</code></li></ul>"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "evaluation_type",
+                      "description": "(Required) Use this path parameter to specify the evaluation period to use for the performance metrics. See <a href=\"/api-docs/sell/analytics/types/api:EvaluationTypeEnum\" target=\"_blank\"> EvaluationTypeEnum</a> for more information on the supported values."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "00ff1adf-5dac-4d7c-85a7-799feff3029f",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer_service_metric",
+                    ":customer_service_metric_type",
+                    ":evaluation_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "evaluation_marketplace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_service_metric_type",
+                      "description": "(Required) Use this path parameter to specify the type of customer service metrics and benchmark data you want returned for the seller. Supported types are:<br> <ul><li><code>ITEM_NOT_AS_DESCRIBED</code></li><li><code>ITEM_NOT_RECEIVED</code></li></ul>"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "evaluation_type",
+                      "description": "(Required) Use this path parameter to specify the evaluation period to use for the performance metrics. See <a href=\"/api-docs/sell/analytics/types/api:EvaluationTypeEnum\" target=\"_blank\"> EvaluationTypeEnum</a> for more information on the supported values."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7ed4d43c-f116-4fe0-b7bc-f69ecff26e03",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "customer_service_metric",
+                    ":customer_service_metric_type",
+                    ":evaluation_type"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "evaluation_marketplace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "customer_service_metric_type",
+                      "description": "(Required) Use this path parameter to specify the type of customer service metrics and benchmark data you want returned for the seller. Supported types are:<br> <ul><li><code>ITEM_NOT_AS_DESCRIBED</code></li><li><code>ITEM_NOT_RECEIVED</code></li></ul>"
+                    },
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "evaluation_type",
+                      "description": "(Required) Use this path parameter to specify the evaluation period to use for the performance metrics. See <a href=\"/api-docs/sell/analytics/types/api:EvaluationTypeEnum\" target=\"_blank\"> EvaluationTypeEnum</a> for more information on the supported values."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "/sell/account/v1",
+      "key": "basePath"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ebay.com{{basePath}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "17df5d94-fada-4e95-ad24-2b7b8355c36f",
+    "name": "eBay Account Advertising_eligibility Customer_service_metric API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href=\"/api-docs/sell/account/overview.html#requirements\">Account API requirements and restrictions</a>.\n\nContact Support:\n Name: eBay Inc,",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,137 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "eBay Account Advertising_eligibility Inventory_task API",
+    "version": "v1.9.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Inventory_task",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getInventoryTasks",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ebay.com{basePath}/inventory_task",
+            "params": [
+              {
+                "name": "feed_type",
+                "value": "",
+                "type": "query",
+                "description": "The feed type associated with the inventory tasks being retrieved. Presently, only one feed type is available:<br><ul><li><code>LMS_ACTIVE_INVENTORY_REPORT</code></li></ul>See <a href=\"/api-docs/sell/static/feed/lms-feeds-quick-reference.html#merchant-data-reports-download-feed-types\" target=\"_blank\">Report value feed types</a> for more information."
+              },
+              {
+                "name": "schedule_id",
+                "value": "",
+                "type": "query",
+                "description": "<span class=\"tablenote\"><b>Note:</b> Schedule functionality for ActiveInventoryReport is currently unavailable, so this field is not usable.</span>"
+              },
+              {
+                "name": "look_back_days",
+                "value": "",
+                "type": "query",
+                "description": "The number of previous days in which to search for tasks. Do not use with the <code>date_range</code> parameter. If both <code>date_range</code> and <code>look_back_days</code> are omitted, this parameter's default value is used.  <br /><br /><b>Default: </b> 7 <br /><br /><b>Range: </b> 1-90 (inclusive)"
+              },
+              {
+                "name": "date_range",
+                "value": "",
+                "type": "query",
+                "description": "Specifies the range of task creation dates used to filter the results. The results are filtered to include only tasks with a creation date that is equal to this date or is within specified range. <p> <span class=\"tablenote\"><strong>Note:</strong> Maximum date range window size is 90 days.</span></p><br /><b>Valid Format (UTC): </b><code>yyyy-MM-ddThh:mm:ss.SSSZ..yyyy-MM-ddThh:mm:ss.SSSZ</code><br /><br />For example: Tasks created on March 31, 2021<br /> <code>2021-03-31T00:00:00.000Z..2021-03-31T00:00:00.000Z</code><br /><br />"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of tasks that can be returned on each page of the paginated response. Use this parameter in conjunction with the <strong>offset</strong> parameter to control the pagination of the output. <p> <span class=\"tablenote\"><strong>Note:</strong> This feature employs a zero-based list, where the first item in the list has an offset of <code>0</code>.</span></p><p>For example, if <strong>offset</strong> is set to 10 and <strong>limit</strong> is set to 10, the call retrieves tasks 11 thru 20 from the result set.</p><p>If this parameter is omitted, the default value is used. <br /><br /><b>Default: </b> 10 <br /><br /><b>Maximum: </b>500"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of tasks to skip in the result set before returning the first task in the paginated response. <p>Combine <strong>offset</strong> with the <strong>limit</strong> query parameter to control the items returned in the response. For example, if you supply an <strong>offset</strong> of <code>0</code> and a <strong>limit</strong> of <code>10</code>, the first page of the response contains the first 10 items from the complete list of items retrieved by the call. If <strong>offset</strong> is <code>10</code> and <strong>limit</strong> is <code>20</code>, the first page of the response contains items 11-30 from the complete result set. If this query parameter is not set, the default value is used and the first page of records is returned. <br /><br /><b>Default: </b>0"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This method searches for multiple tasks of a specific feed type, and includes date filters and pagination."
+        },
+        {
+          "info": {
+            "name": "createInventoryTask",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ebay.com{basePath}/inventory_task",
+            "headers": [
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This method creates an inventory-related download task for a specified feed type with optional filter criteria. When using this method, specify the <strong>feedType</strong>. <br/><br/>This method returns the location response header containing the <strong>getInventoryTask</strong> call URI to retrieve the inventory task you just created. The URL includes the eBay-assigned task ID, which you can use to reference the inventory task.<br/><br/>To retrieve the status of the task, use the <strong>get"
+        },
+        {
+          "info": {
+            "name": "getInventoryTask",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ebay.com{basePath}/inventory_task/:task_id",
+            "params": [
+              {
+                "name": "task_id",
+                "value": "",
+                "type": "path",
+                "description": "This path parameter is the unique identifier of the inventory task being retrieved.<br><br> Use the <a href=\"/api-docs/sell/feed/resources/inventory_task/methods/getInventoryTasks\">getInventoryTasks</a> method to retrieve inventory task IDs."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This method retrieves the task details and status of the specified inventory-related task. The input is <strong>task_id</strong>."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

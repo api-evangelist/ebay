@@ -1,0 +1,710 @@
+{
+  "item": [
+    {
+      "id": "8d150263-d289-4f51-b812-a1014023fe51",
+      "name": "Shipping_quote",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "1006e077-f4bb-4623-8def-4f28a603660e",
+          "name": "create Shipping Quote",
+          "request": {
+            "name": "create Shipping Quote",
+            "description": {
+              "content": "The <b>createShippingQuote</b> method returns a <i>shipping quote </i> that contains a list of live \"rates.\"  <br><br>Each rate represents an offer made by a shipping carrier for a specific service and each offer has a live quote for the base service cost. Rates have a time window in which they are \"live,\" and rates expire when their purchase window ends. If offered by the carrier, rates can include shipping options (and their associated prices), and users can add any offered shipping option to the base service should they desire.  Also, depending on the services required, rates can also include pickup and delivery windows.<br><br><span class=\"tablenote\"><b>Note:</b> The Logistics API only supports USPS shipping rates and labels.</span><br>Each rate is for a single package and is based on the following information: <ul><li>The shipping origin</li> <li>The shipping destination</li> <li>The package size (weight and dimensions)</li></ul>  Rates are identified by a unique eBay-assigned <b>rateId</b> and rates are based on price points, pickup and delivery time frames, and other user requirements. Because each rate offered must be compliant with the eBay shipping program, all rates reflect eBay-negotiated prices.  <br><br>The various rates returned in a shipping quote offer the user a choice from which they can choose a shipping service that best fits their needs. Select the rate for your shipment and using the associated <b>rateId</b>, call <b>createFromShippingQuote</b> to create a shipment and generate a shipping label that you can use to ship the package.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipping_quote"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) This header parameter specifies the eBay marketplace for the shipping quote that is being created.<br><br>For a list of valid values, refer to the section <a href=\"/api-docs/static/rest-request-components.html#marketpl\" target=\"_blank\">Marketplace ID Values</a> in the <b>Using eBay RESTful APIs</b> guide.",
+                "key": "X-EBAY-C-MARKETPLACE-ID",
+                "value": "<string>"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"orders\": [\n    {\n      \"channel\": \"<string>\",\n      \"orderId\": \"<string>\"\n    },\n    {\n      \"channel\": \"<string>\",\n      \"orderId\": \"<string>\"\n    }\n  ],\n  \"packageSpecification\": {\n    \"dimensions\": {\n      \"height\": \"<string>\",\n      \"length\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"width\": \"<string>\"\n    },\n    \"weight\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  },\n  \"shipFrom\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"shipTo\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4299a841-3e7b-403d-b802-6d7d3a562ccd",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipping_quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header parameter specifies the eBay marketplace for the shipping quote that is being created.<br><br>For a list of valid values, refer to the section <a href=\"/api-docs/static/rest-request-components.html#marketpl\" target=\"_blank\">Marketplace ID Values</a> in the <b>Using eBay RESTful APIs</b> guide.",
+                    "key": "X-EBAY-C-MARKETPLACE-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orders\": [\n    {\n      \"channel\": \"<string>\",\n      \"orderId\": \"<string>\"\n    },\n    {\n      \"channel\": \"<string>\",\n      \"orderId\": \"<string>\"\n    }\n  ],\n  \"packageSpecification\": {\n    \"dimensions\": {\n      \"height\": \"<string>\",\n      \"length\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"width\": \"<string>\"\n    },\n    \"weight\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  },\n  \"shipFrom\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"shipTo\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"creationDate\": \"string\",\n  \"expirationDate\": \"string\",\n  \"orders\": [\n    {\n      \"channel\": \"<string>\",\n      \"orderId\": \"<string>\"\n    },\n    {\n      \"channel\": \"<string>\",\n      \"orderId\": \"<string>\"\n    }\n  ],\n  \"packageSpecification\": {\n    \"dimensions\": {\n      \"height\": \"<string>\",\n      \"length\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"width\": \"<string>\"\n    },\n    \"weight\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  },\n  \"rates\": [\n    {\n      \"additionalOptions\": [\n        {\n          \"additionalCost\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"optionType\": \"string\"\n        },\n        {\n          \"additionalCost\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"optionType\": \"string\"\n        }\n      ],\n      \"baseShippingCost\": {\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"destinationTimeZone\": \"string\",\n      \"maxEstimatedDeliveryDate\": \"string\",\n      \"minEstimatedDeliveryDate\": \"string\",\n      \"pickupNetworks\": [\n        \"string\",\n        \"string\"\n      ],\n      \"pickupSlots\": [\n        {\n          \"pickupSlotEndTime\": \"string\",\n          \"pickupSlotId\": \"string\",\n          \"pickupSlotStartTime\": \"string\",\n          \"pickupSlotTimeZone\": \"string\"\n        },\n        {\n          \"pickupSlotEndTime\": \"string\",\n          \"pickupSlotId\": \"string\",\n          \"pickupSlotStartTime\": \"string\",\n          \"pickupSlotTimeZone\": \"string\"\n        }\n      ],\n      \"pickupType\": \"string\",\n      \"rateId\": \"string\",\n      \"rateRecommendation\": [\n        \"string\",\n        \"string\"\n      ],\n      \"shippingCarrierCode\": \"string\",\n      \"shippingCarrierName\": \"string\",\n      \"shippingServiceCode\": \"string\",\n      \"shippingServiceName\": \"string\"\n    },\n    {\n      \"additionalOptions\": [\n        {\n          \"additionalCost\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"optionType\": \"string\"\n        },\n        {\n          \"additionalCost\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"optionType\": \"string\"\n        }\n      ],\n      \"baseShippingCost\": {\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"destinationTimeZone\": \"string\",\n      \"maxEstimatedDeliveryDate\": \"string\",\n      \"minEstimatedDeliveryDate\": \"string\",\n      \"pickupNetworks\": [\n        \"string\",\n        \"string\"\n      ],\n      \"pickupSlots\": [\n        {\n          \"pickupSlotEndTime\": \"string\",\n          \"pickupSlotId\": \"string\",\n          \"pickupSlotStartTime\": \"string\",\n          \"pickupSlotTimeZone\": \"string\"\n        },\n        {\n          \"pickupSlotEndTime\": \"string\",\n          \"pickupSlotId\": \"string\",\n          \"pickupSlotStartTime\": \"string\",\n          \"pickupSlotTimeZone\": \"string\"\n        }\n      ],\n      \"pickupType\": \"string\",\n      \"rateId\": \"string\",\n      \"rateRecommendation\": [\n        \"string\",\n        \"string\"\n      ],\n      \"shippingCarrierCode\": \"string\",\n      \"shippingCarrierName\": \"string\",\n      \"shippingServiceCode\": \"string\",\n      \"shippingServiceName\": \"string\"\n    }\n  ],\n  \"shipFrom\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"shippingQuoteId\": \"string\",\n  \"shipTo\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"warnings\": [\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 6351,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    },\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 4713,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "326734f8-3e93-4c0a-b6c8-407f0806d457",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipping_quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header parameter specifies the eBay marketplace for the shipping quote that is being created.<br><br>For a list of valid values, refer to the section <a href=\"/api-docs/static/rest-request-components.html#marketpl\" target=\"_blank\">Marketplace ID Values</a> in the <b>Using eBay RESTful APIs</b> guide.",
+                    "key": "X-EBAY-C-MARKETPLACE-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orders\": [\n    {\n      \"channel\": \"<string>\",\n      \"orderId\": \"<string>\"\n    },\n    {\n      \"channel\": \"<string>\",\n      \"orderId\": \"<string>\"\n    }\n  ],\n  \"packageSpecification\": {\n    \"dimensions\": {\n      \"height\": \"<string>\",\n      \"length\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"width\": \"<string>\"\n    },\n    \"weight\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  },\n  \"shipFrom\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"shipTo\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e4057938-acdc-4187-a8d7-ed966e17ddd8",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipping_quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header parameter specifies the eBay marketplace for the shipping quote that is being created.<br><br>For a list of valid values, refer to the section <a href=\"/api-docs/static/rest-request-components.html#marketpl\" target=\"_blank\">Marketplace ID Values</a> in the <b>Using eBay RESTful APIs</b> guide.",
+                    "key": "X-EBAY-C-MARKETPLACE-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orders\": [\n    {\n      \"channel\": \"<string>\",\n      \"orderId\": \"<string>\"\n    },\n    {\n      \"channel\": \"<string>\",\n      \"orderId\": \"<string>\"\n    }\n  ],\n  \"packageSpecification\": {\n    \"dimensions\": {\n      \"height\": \"<string>\",\n      \"length\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"width\": \"<string>\"\n    },\n    \"weight\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  },\n  \"shipFrom\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"shipTo\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b04c8f14-e903-4b6c-b00a-5daca594e6f2",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipping_quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header parameter specifies the eBay marketplace for the shipping quote that is being created.<br><br>For a list of valid values, refer to the section <a href=\"/api-docs/static/rest-request-components.html#marketpl\" target=\"_blank\">Marketplace ID Values</a> in the <b>Using eBay RESTful APIs</b> guide.",
+                    "key": "X-EBAY-C-MARKETPLACE-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"orders\": [\n    {\n      \"channel\": \"<string>\",\n      \"orderId\": \"<string>\"\n    },\n    {\n      \"channel\": \"<string>\",\n      \"orderId\": \"<string>\"\n    }\n  ],\n  \"packageSpecification\": {\n    \"dimensions\": {\n      \"height\": \"<string>\",\n      \"length\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"width\": \"<string>\"\n    },\n    \"weight\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  },\n  \"shipFrom\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"shipTo\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e3dde084-e00d-4663-8d3f-4c68af947e9d",
+          "name": "get Shipping Quote",
+          "request": {
+            "name": "get Shipping Quote",
+            "description": {
+              "content": "This method retrieves the complete details of the shipping quote associated with the specified <b>shippingQuoteId</b> value.  <br><br>A \"shipping quote\" pertains to a single specific package and contains a set of shipping \"rates\" that quote the cost to ship the package by different shipping carriers and services. The quotes are based on the package's origin, destination, and size.  <br><br>Call <b>createShippingQuote</b> to create a <b>shippingQuoteId</b>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipping_quote",
+                ":shippingQuoteId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "shippingQuoteId",
+                  "description": "(Required) This path parameter specifies the unique eBay-assigned ID of the shipping quote you want to retrieve.<br><br>The <b>shippingQuoteId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipping_quote/methods/createShippingQuote\" target=\"_blank\">createShippingQuote</a> method."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a60d07ec-f6eb-4fde-8893-708f084897c2",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipping_quote",
+                    ":shippingQuoteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shippingQuoteId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned ID of the shipping quote you want to retrieve.<br><br>The <b>shippingQuoteId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipping_quote/methods/createShippingQuote\" target=\"_blank\">createShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"creationDate\": \"string\",\n  \"expirationDate\": \"string\",\n  \"orders\": [\n    {\n      \"channel\": \"<string>\",\n      \"orderId\": \"<string>\"\n    },\n    {\n      \"channel\": \"<string>\",\n      \"orderId\": \"<string>\"\n    }\n  ],\n  \"packageSpecification\": {\n    \"dimensions\": {\n      \"height\": \"<string>\",\n      \"length\": \"<string>\",\n      \"unit\": \"<string>\",\n      \"width\": \"<string>\"\n    },\n    \"weight\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  },\n  \"rates\": [\n    {\n      \"additionalOptions\": [\n        {\n          \"additionalCost\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"optionType\": \"string\"\n        },\n        {\n          \"additionalCost\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"optionType\": \"string\"\n        }\n      ],\n      \"baseShippingCost\": {\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"destinationTimeZone\": \"string\",\n      \"maxEstimatedDeliveryDate\": \"string\",\n      \"minEstimatedDeliveryDate\": \"string\",\n      \"pickupNetworks\": [\n        \"string\",\n        \"string\"\n      ],\n      \"pickupSlots\": [\n        {\n          \"pickupSlotEndTime\": \"string\",\n          \"pickupSlotId\": \"string\",\n          \"pickupSlotStartTime\": \"string\",\n          \"pickupSlotTimeZone\": \"string\"\n        },\n        {\n          \"pickupSlotEndTime\": \"string\",\n          \"pickupSlotId\": \"string\",\n          \"pickupSlotStartTime\": \"string\",\n          \"pickupSlotTimeZone\": \"string\"\n        }\n      ],\n      \"pickupType\": \"string\",\n      \"rateId\": \"string\",\n      \"rateRecommendation\": [\n        \"string\",\n        \"string\"\n      ],\n      \"shippingCarrierCode\": \"string\",\n      \"shippingCarrierName\": \"string\",\n      \"shippingServiceCode\": \"string\",\n      \"shippingServiceName\": \"string\"\n    },\n    {\n      \"additionalOptions\": [\n        {\n          \"additionalCost\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"optionType\": \"string\"\n        },\n        {\n          \"additionalCost\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"optionType\": \"string\"\n        }\n      ],\n      \"baseShippingCost\": {\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"destinationTimeZone\": \"string\",\n      \"maxEstimatedDeliveryDate\": \"string\",\n      \"minEstimatedDeliveryDate\": \"string\",\n      \"pickupNetworks\": [\n        \"string\",\n        \"string\"\n      ],\n      \"pickupSlots\": [\n        {\n          \"pickupSlotEndTime\": \"string\",\n          \"pickupSlotId\": \"string\",\n          \"pickupSlotStartTime\": \"string\",\n          \"pickupSlotTimeZone\": \"string\"\n        },\n        {\n          \"pickupSlotEndTime\": \"string\",\n          \"pickupSlotId\": \"string\",\n          \"pickupSlotStartTime\": \"string\",\n          \"pickupSlotTimeZone\": \"string\"\n        }\n      ],\n      \"pickupType\": \"string\",\n      \"rateId\": \"string\",\n      \"rateRecommendation\": [\n        \"string\",\n        \"string\"\n      ],\n      \"shippingCarrierCode\": \"string\",\n      \"shippingCarrierName\": \"string\",\n      \"shippingServiceCode\": \"string\",\n      \"shippingServiceName\": \"string\"\n    }\n  ],\n  \"shipFrom\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"shippingQuoteId\": \"string\",\n  \"shipTo\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"warnings\": [\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 4157,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    },\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 1884,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4d04fdda-9eb9-4ff6-8c87-50ac671ab677",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipping_quote",
+                    ":shippingQuoteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shippingQuoteId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned ID of the shipping quote you want to retrieve.<br><br>The <b>shippingQuoteId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipping_quote/methods/createShippingQuote\" target=\"_blank\">createShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "71a0f5fe-b17a-44f7-ae4e-9c4db68a5342",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipping_quote",
+                    ":shippingQuoteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shippingQuoteId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned ID of the shipping quote you want to retrieve.<br><br>The <b>shippingQuoteId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipping_quote/methods/createShippingQuote\" target=\"_blank\">createShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "62509872-7436-43ec-b3b4-bb1ad879ef80",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipping_quote",
+                    ":shippingQuoteId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shippingQuoteId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned ID of the shipping quote you want to retrieve.<br><br>The <b>shippingQuoteId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipping_quote/methods/createShippingQuote\" target=\"_blank\">createShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "/sell/account/v1",
+      "key": "basePath"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ebay.com{{basePath}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cebe3614-f3a8-45f8-9a40-f3559df38211",
+    "name": "eBay Account Advertising_eligibility Shipping_quote API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href=\"/api-docs/sell/account/overview.html#requirements\">Account API requirements and restrictions</a>.\n\nContact Support:\n Name: eBay Inc,",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,1206 @@
+{
+  "item": [
+    {
+      "id": "13200bd6-f38a-4cc5-830e-cce7502f5312",
+      "name": "Order",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "c02cb87f-a1d1-41ab-88bc-6cfd4f4fcccd",
+          "name": "get Order",
+          "request": {
+            "name": "get Order",
+            "description": {
+              "content": "Use this call to retrieve the contents of an order based on its unique identifier, <i>orderId</i>. This value was returned in the <b> getOrders</b> call's <b>orders.orderId</b> field when you searched for orders by creation date, modification date, or fulfillment status. Include the optional <b>fieldGroups</b> query parameter set to <code>TAX_BREAKDOWN</code> to return a breakdown of the taxes and fees. <br><br> The returned <b>Order</b> object contains information you can use to create and process fulfillments, including: <ul> <li>Information about the buyer and seller</li> <li>Information about the order's line items</li> <li> The plans for packaging, addressing and shipping the order</li> <li>The status of payment, packaging, addressing, and shipping the order</li> <li>A summary of monetary amounts specific to the order such as pricing, payments, and shipping costs</li> <li>A summary of applied taxes and fees, and optionally a breakdown of each </li></ul>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order",
+                ":orderId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fieldGroups",
+                  "value": "<string>",
+                  "description": "This parameter lets you control what is returned in the response.<br><br><span class=\"tablenote\"><b>Note:</b> The only presently supported value is <code>TAX_BREAKDOWN</code>. This field group adds addition fields to the response that return a breakdown of taxes and fees.</span>"
+                }
+              ],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "orderId",
+                  "description": "(Required) This path parameter is used to specify the unique identifier of the order being retrieved.<br><br> Use the <a href=\"/api-docs/sell/fulfillment/resources/order/methods/getOrders\" target=\"_blank \">getOrders</a> method to retrieve order IDs. Order ID values are also shown in My eBay/Seller Hub.<br><br><span class=\"tablenote\"><strong>Note:</strong> <b>getOrders</b> can return orders up to two years old. Do not provide the <b>orderId</b> for an order created more than two years in the past.</span>"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "d0d5ace1-8ce0-4c1e-a727-7d8fcb2ae754",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fieldGroups",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) This path parameter is used to specify the unique identifier of the order being retrieved.<br><br> Use the <a href=\"/api-docs/sell/fulfillment/resources/order/methods/getOrders\" target=\"_blank \">getOrders</a> method to retrieve order IDs. Order ID values are also shown in My eBay/Seller Hub.<br><br><span class=\"tablenote\"><strong>Note:</strong> <b>getOrders</b> can return orders up to two years old. Do not provide the <b>orderId</b> for an order created more than two years in the past.</span>"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"buyer\": {\n    \"buyerRegistrationAddress\": {\n      \"companyName\": \"string\",\n      \"contactAddress\": {\n        \"addressLine1\": \"string\",\n        \"addressLine2\": \"string\",\n        \"city\": \"string\",\n        \"countryCode\": \"string\",\n        \"county\": \"string\",\n        \"postalCode\": \"string\",\n        \"stateOrProvince\": \"string\"\n      },\n      \"email\": \"string\",\n      \"fullName\": \"string\",\n      \"primaryPhone\": {\n        \"phoneNumber\": \"string\"\n      }\n    },\n    \"taxAddress\": {\n      \"city\": \"string\",\n      \"countryCode\": \"string\",\n      \"postalCode\": \"string\",\n      \"stateOrProvince\": \"string\"\n    },\n    \"taxIdentifier\": {\n      \"taxpayerId\": \"string\",\n      \"taxIdentifierType\": \"string\",\n      \"issuingCountry\": \"string\"\n    },\n    \"username\": \"string\"\n  },\n  \"buyerCheckoutNotes\": \"string\",\n  \"cancelStatus\": {\n    \"cancelledDate\": \"string\",\n    \"cancelRequests\": [\n      {\n        \"cancelCompletedDate\": \"string\",\n        \"cancelInitiator\": \"string\",\n        \"cancelReason\": \"string\",\n        \"cancelRequestedDate\": \"string\",\n        \"cancelRequestId\": \"string\",\n        \"cancelRequestState\": \"string\"\n      },\n      {\n        \"cancelCompletedDate\": \"string\",\n        \"cancelInitiator\": \"string\",\n        \"cancelReason\": \"string\",\n        \"cancelRequestedDate\": \"string\",\n        \"cancelRequestId\": \"string\",\n        \"cancelRequestState\": \"string\"\n      }\n    ],\n    \"cancelState\": \"string\"\n  },\n  \"creationDate\": \"string\",\n  \"ebayCollectAndRemitTax\": true,\n  \"fulfillmentHrefs\": [\n    \"string\",\n    \"string\"\n  ],\n  \"fulfillmentStartInstructions\": [\n    {\n      \"appointment\": {\n        \"appointmentEndTime\": \"string\",\n        \"appointmentStartTime\": \"string\",\n        \"appointmentStatus\": \"string\",\n        \"appointmentType\": \"string\",\n        \"appointmentWindow\": \"string\",\n        \"serviceProviderAppointmentDate\": \"string\"\n      },\n      \"ebaySupportedFulfillment\": false,\n      \"finalDestinationAddress\": {\n        \"addressLine1\": \"string\",\n        \"addressLine2\": \"string\",\n        \"city\": \"string\",\n        \"countryCode\": \"string\",\n        \"county\": \"string\",\n        \"postalCode\": \"string\",\n        \"stateOrProvince\": \"string\"\n      },\n      \"fulfillmentInstructionsType\": \"string\",\n      \"maxEstimatedDeliveryDate\": \"string\",\n      \"minEstimatedDeliveryDate\": \"string\",\n      \"pickupStep\": {\n        \"merchantLocationKey\": \"string\"\n      },\n      \"shippingStep\": {\n        \"shippingCarrierCode\": \"string\",\n        \"shippingServiceCode\": \"string\",\n        \"shipTo\": {\n          \"companyName\": \"string\",\n          \"contactAddress\": {\n            \"addressLine1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressLine2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"city\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"countryCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"county\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postalCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"stateOrProvince\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"email\": \"string\",\n          \"fullName\": \"string\",\n          \"primaryPhone\": {\n            \"phoneNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"shipToReferenceId\": \"string\"\n      }\n    },\n    {\n      \"appointment\": {\n        \"appointmentEndTime\": \"string\",\n        \"appointmentStartTime\": \"string\",\n        \"appointmentStatus\": \"string\",\n        \"appointmentType\": \"string\",\n        \"appointmentWindow\": \"string\",\n        \"serviceProviderAppointmentDate\": \"string\"\n      },\n      \"ebaySupportedFulfillment\": true,\n      \"finalDestinationAddress\": {\n        \"addressLine1\": \"string\",\n        \"addressLine2\": \"string\",\n        \"city\": \"string\",\n        \"countryCode\": \"string\",\n        \"county\": \"string\",\n        \"postalCode\": \"string\",\n        \"stateOrProvince\": \"string\"\n      },\n      \"fulfillmentInstructionsType\": \"string\",\n      \"maxEstimatedDeliveryDate\": \"string\",\n      \"minEstimatedDeliveryDate\": \"string\",\n      \"pickupStep\": {\n        \"merchantLocationKey\": \"string\"\n      },\n      \"shippingStep\": {\n        \"shippingCarrierCode\": \"string\",\n        \"shippingServiceCode\": \"string\",\n        \"shipTo\": {\n          \"companyName\": \"string\",\n          \"contactAddress\": {\n            \"addressLine1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressLine2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"city\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"countryCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"county\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postalCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"stateOrProvince\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"email\": \"string\",\n          \"fullName\": \"string\",\n          \"primaryPhone\": {\n            \"phoneNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"shipToReferenceId\": \"string\"\n      }\n    }\n  ],\n  \"lastModifiedDate\": \"string\",\n  \"legacyOrderId\": \"string\",\n  \"lineItems\": [\n    {\n      \"appliedPromotions\": [\n        {\n          \"description\": \"string\",\n          \"discountAmount\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"promotionId\": \"string\"\n        },\n        {\n          \"description\": \"string\",\n          \"discountAmount\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"promotionId\": \"string\"\n        }\n      ],\n      \"deliveryCost\": {\n        \"discountAmount\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"handlingCost\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"importCharges\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"shippingCost\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"shippingIntermediationFee\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        }\n      },\n      \"discountedLineItemCost\": {\n        \"convertedFromCurrency\": \"string\",\n        \"convertedFromValue\": \"string\",\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"ebayCollectAndRemitTaxes\": [\n        {\n          \"amount\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"ebayReference\": {\n            \"name\": \"string\",\n            \"value\": \"string\"\n          },\n          \"taxType\": \"string\",\n          \"collectionMethod\": \"string\"\n        },\n        {\n          \"amount\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"ebayReference\": {\n            \"name\": \"string\",\n            \"value\": \"string\"\n          },\n          \"taxType\": \"string\",\n          \"collectionMethod\": \"string\"\n        }\n      ],\n      \"ebayCollectedCharges\": {\n        \"ebayShipping\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        }\n      },\n      \"giftDetails\": {\n        \"message\": \"string\",\n        \"recipientEmail\": \"string\",\n        \"senderName\": \"string\"\n      },\n      \"itemLocation\": {\n        \"countryCode\": \"string\",\n        \"location\": \"string\",\n        \"postalCode\": \"string\"\n      },\n      \"legacyItemId\": \"string\",\n      \"legacyVariationId\": \"string\",\n      \"lineItemCost\": {\n        \"convertedFromCurrency\": \"string\",\n        \"convertedFromValue\": \"string\",\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"lineItemFulfillmentInstructions\": {\n        \"guaranteedDelivery\": false,\n        \"maxEstimatedDeliveryDate\": \"string\",\n        \"minEstimatedDeliveryDate\": \"string\",\n        \"shipByDate\": \"string\"\n      },\n      \"lineItemFulfillmentStatus\": \"string\",\n      \"lineItemId\": \"string\",\n      \"linkedOrderLineItems\": [\n        {\n          \"lineItemAspects\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"lineItemId\": \"string\",\n          \"maxEstimatedDeliveryDate\": \"string\",\n          \"minEstimatedDeliveryDate\": \"string\",\n          \"orderId\": \"string\",\n          \"sellerId\": \"string\",\n          \"shipments\": [\n            {\n              \"shipmentTrackingNumber\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCarrierCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"shipmentTrackingNumber\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCarrierCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"title\": \"string\"\n        },\n        {\n          \"lineItemAspects\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"lineItemId\": \"string\",\n          \"maxEstimatedDeliveryDate\": \"string\",\n          \"minEstimatedDeliveryDate\": \"string\",\n          \"orderId\": \"string\",\n          \"sellerId\": \"string\",\n          \"shipments\": [\n            {\n              \"shipmentTrackingNumber\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCarrierCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"shipmentTrackingNumber\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCarrierCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"title\": \"string\"\n        }\n      ],\n      \"listingMarketplaceId\": \"string\",\n      \"properties\": {\n        \"buyerProtection\": true,\n        \"fromBestOffer\": true,\n        \"soldViaAdCampaign\": true\n      },\n      \"purchaseMarketplaceId\": \"string\",\n      \"quantity\": 1259,\n      \"refunds\": [\n        {\n          \"amount\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"refundDate\": \"string\",\n          \"refundId\": \"string\",\n          \"refundReferenceId\": \"string\"\n        },\n        {\n          \"amount\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"refundDate\": \"string\",\n          \"refundId\": \"string\",\n          \"refundReferenceId\": \"string\"\n        }\n      ],\n      \"sku\": \"string\",\n      \"soldFormat\": \"string\",\n      \"taxes\": [\n        {\n          \"amount\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"taxType\": \"string\"\n        },\n        {\n          \"amount\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"taxType\": \"string\"\n        }\n      ],\n      \"title\": \"string\",\n      \"total\": {\n        \"convertedFromCurrency\": \"string\",\n        \"convertedFromValue\": \"string\",\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"variationAspects\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    },\n    {\n      \"appliedPromotions\": [\n        {\n          \"description\": \"string\",\n          \"discountAmount\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"promotionId\": \"string\"\n        },\n        {\n          \"description\": \"string\",\n          \"discountAmount\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"promotionId\": \"string\"\n        }\n      ],\n      \"deliveryCost\": {\n        \"discountAmount\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"handlingCost\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"importCharges\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"shippingCost\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"shippingIntermediationFee\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        }\n      },\n      \"discountedLineItemCost\": {\n        \"convertedFromCurrency\": \"string\",\n        \"convertedFromValue\": \"string\",\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"ebayCollectAndRemitTaxes\": [\n        {\n          \"amount\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"ebayReference\": {\n            \"name\": \"string\",\n            \"value\": \"string\"\n          },\n          \"taxType\": \"string\",\n          \"collectionMethod\": \"string\"\n        },\n        {\n          \"amount\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"ebayReference\": {\n            \"name\": \"string\",\n            \"value\": \"string\"\n          },\n          \"taxType\": \"string\",\n          \"collectionMethod\": \"string\"\n        }\n      ],\n      \"ebayCollectedCharges\": {\n        \"ebayShipping\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        }\n      },\n      \"giftDetails\": {\n        \"message\": \"string\",\n        \"recipientEmail\": \"string\",\n        \"senderName\": \"string\"\n      },\n      \"itemLocation\": {\n        \"countryCode\": \"string\",\n        \"location\": \"string\",\n        \"postalCode\": \"string\"\n      },\n      \"legacyItemId\": \"string\",\n      \"legacyVariationId\": \"string\",\n      \"lineItemCost\": {\n        \"convertedFromCurrency\": \"string\",\n        \"convertedFromValue\": \"string\",\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"lineItemFulfillmentInstructions\": {\n        \"guaranteedDelivery\": true,\n        \"maxEstimatedDeliveryDate\": \"string\",\n        \"minEstimatedDeliveryDate\": \"string\",\n        \"shipByDate\": \"string\"\n      },\n      \"lineItemFulfillmentStatus\": \"string\",\n      \"lineItemId\": \"string\",\n      \"linkedOrderLineItems\": [\n        {\n          \"lineItemAspects\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"lineItemId\": \"string\",\n          \"maxEstimatedDeliveryDate\": \"string\",\n          \"minEstimatedDeliveryDate\": \"string\",\n          \"orderId\": \"string\",\n          \"sellerId\": \"string\",\n          \"shipments\": [\n            {\n              \"shipmentTrackingNumber\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCarrierCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"shipmentTrackingNumber\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCarrierCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"title\": \"string\"\n        },\n        {\n          \"lineItemAspects\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"lineItemId\": \"string\",\n          \"maxEstimatedDeliveryDate\": \"string\",\n          \"minEstimatedDeliveryDate\": \"string\",\n          \"orderId\": \"string\",\n          \"sellerId\": \"string\",\n          \"shipments\": [\n            {\n              \"shipmentTrackingNumber\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCarrierCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"shipmentTrackingNumber\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCarrierCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"title\": \"string\"\n        }\n      ],\n      \"listingMarketplaceId\": \"string\",\n      \"properties\": {\n        \"buyerProtection\": false,\n        \"fromBestOffer\": true,\n        \"soldViaAdCampaign\": false\n      },\n      \"purchaseMarketplaceId\": \"string\",\n      \"quantity\": 2841,\n      \"refunds\": [\n        {\n          \"amount\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"refundDate\": \"string\",\n          \"refundId\": \"string\",\n          \"refundReferenceId\": \"string\"\n        },\n        {\n          \"amount\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"refundDate\": \"string\",\n          \"refundId\": \"string\",\n          \"refundReferenceId\": \"string\"\n        }\n      ],\n      \"sku\": \"string\",\n      \"soldFormat\": \"string\",\n      \"taxes\": [\n        {\n          \"amount\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"taxType\": \"string\"\n        },\n        {\n          \"amount\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"taxType\": \"string\"\n        }\n      ],\n      \"title\": \"string\",\n      \"total\": {\n        \"convertedFromCurrency\": \"string\",\n        \"convertedFromValue\": \"string\",\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"variationAspects\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"orderFulfillmentStatus\": \"string\",\n  \"orderId\": \"string\",\n  \"orderPaymentStatus\": \"string\",\n  \"paymentSummary\": {\n    \"payments\": [\n      {\n        \"amount\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"paymentDate\": \"string\",\n        \"paymentHolds\": [\n          {\n            \"expectedReleaseDate\": \"string\",\n            \"holdAmount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"holdReason\": \"string\",\n            \"holdState\": \"string\",\n            \"releaseDate\": \"string\",\n            \"sellerActionsToRelease\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"expectedReleaseDate\": \"string\",\n            \"holdAmount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"holdReason\": \"string\",\n            \"holdState\": \"string\",\n            \"releaseDate\": \"string\",\n            \"sellerActionsToRelease\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"paymentMethod\": \"string\",\n        \"paymentReferenceId\": \"string\",\n        \"paymentStatus\": \"string\"\n      },\n      {\n        \"amount\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"paymentDate\": \"string\",\n        \"paymentHolds\": [\n          {\n            \"expectedReleaseDate\": \"string\",\n            \"holdAmount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"holdReason\": \"string\",\n            \"holdState\": \"string\",\n            \"releaseDate\": \"string\",\n            \"sellerActionsToRelease\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          {\n            \"expectedReleaseDate\": \"string\",\n            \"holdAmount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"holdReason\": \"string\",\n            \"holdState\": \"string\",\n            \"releaseDate\": \"string\",\n            \"sellerActionsToRelease\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          }\n        ],\n        \"paymentMethod\": \"string\",\n        \"paymentReferenceId\": \"string\",\n        \"paymentStatus\": \"string\"\n      }\n    ],\n    \"refunds\": [\n      {\n        \"amount\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"refundDate\": \"string\",\n        \"refundId\": \"string\",\n        \"refundReferenceId\": \"string\",\n        \"refundStatus\": \"string\"\n      },\n      {\n        \"amount\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"refundDate\": \"string\",\n        \"refundId\": \"string\",\n        \"refundReferenceId\": \"string\",\n        \"refundStatus\": \"string\"\n      }\n    ],\n    \"totalDueSeller\": {\n      \"convertedFromCurrency\": \"string\",\n      \"convertedFromValue\": \"string\",\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    }\n  },\n  \"pricingSummary\": {\n    \"adjustment\": {\n      \"convertedFromCurrency\": \"string\",\n      \"convertedFromValue\": \"string\",\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    },\n    \"deliveryCost\": {\n      \"convertedFromCurrency\": \"string\",\n      \"convertedFromValue\": \"string\",\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    },\n    \"deliveryDiscount\": {\n      \"convertedFromCurrency\": \"string\",\n      \"convertedFromValue\": \"string\",\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    },\n    \"fee\": {\n      \"convertedFromCurrency\": \"string\",\n      \"convertedFromValue\": \"string\",\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    },\n    \"priceDiscount\": {\n      \"convertedFromCurrency\": \"string\",\n      \"convertedFromValue\": \"string\",\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    },\n    \"priceSubtotal\": {\n      \"convertedFromCurrency\": \"string\",\n      \"convertedFromValue\": \"string\",\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    },\n    \"tax\": {\n      \"convertedFromCurrency\": \"string\",\n      \"convertedFromValue\": \"string\",\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    },\n    \"total\": {\n      \"convertedFromCurrency\": \"string\",\n      \"convertedFromValue\": \"string\",\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    }\n  },\n  \"program\": {\n    \"authenticityVerification\": {\n      \"outcomeReason\": \"string\",\n      \"status\": \"string\"\n    },\n    \"ebayShipping\": {\n      \"shippingLabelProvidedBy\": \"string\"\n    },\n    \"ebayVault\": {\n      \"fulfillmentType\": \"string\"\n    },\n    \"ebayInternationalShipping\": {\n      \"returnsManagedBy\": \"string\"\n    },\n    \"fulfillmentProgram\": {\n      \"fulfilledBy\": \"string\"\n    }\n  },\n  \"salesRecordReference\": \"string\",\n  \"sellerId\": \"string\",\n  \"totalFeeBasisAmount\": {\n    \"convertedFromCurrency\": \"string\",\n    \"convertedFromValue\": \"string\",\n    \"currency\": \"string\",\n    \"value\": \"string\"\n  },\n  \"totalMarketplaceFee\": {\n    \"convertedFromCurrency\": \"string\",\n    \"convertedFromValue\": \"string\",\n    \"currency\": \"string\",\n    \"value\": \"string\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "937c423b-9bf2-4408-b2fb-7c551b42689b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fieldGroups",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) This path parameter is used to specify the unique identifier of the order being retrieved.<br><br> Use the <a href=\"/api-docs/sell/fulfillment/resources/order/methods/getOrders\" target=\"_blank \">getOrders</a> method to retrieve order IDs. Order ID values are also shown in My eBay/Seller Hub.<br><br><span class=\"tablenote\"><strong>Note:</strong> <b>getOrders</b> can return orders up to two years old. Do not provide the <b>orderId</b> for an order created more than two years in the past.</span>"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "a7db8b93-7655-42b4-b051-71b74696a302",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fieldGroups",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) This path parameter is used to specify the unique identifier of the order being retrieved.<br><br> Use the <a href=\"/api-docs/sell/fulfillment/resources/order/methods/getOrders\" target=\"_blank \">getOrders</a> method to retrieve order IDs. Order ID values are also shown in My eBay/Seller Hub.<br><br><span class=\"tablenote\"><strong>Note:</strong> <b>getOrders</b> can return orders up to two years old. Do not provide the <b>orderId</b> for an order created more than two years in the past.</span>"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "719c4ec2-e876-4320-a1f2-8d9d75e5f948",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":orderId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fieldGroups",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "orderId",
+                      "description": "(Required) This path parameter is used to specify the unique identifier of the order being retrieved.<br><br> Use the <a href=\"/api-docs/sell/fulfillment/resources/order/methods/getOrders\" target=\"_blank \">getOrders</a> method to retrieve order IDs. Order ID values are also shown in My eBay/Seller Hub.<br><br><span class=\"tablenote\"><strong>Note:</strong> <b>getOrders</b> can return orders up to two years old. Do not provide the <b>orderId</b> for an order created more than two years in the past.</span>"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "d5abb84a-f72c-4842-8618-0e4e98a76f4c",
+          "name": "get Orders",
+          "request": {
+            "name": "get Orders",
+            "description": {
+              "content": "Use this method to search for and retrieve one or more orders based on their creation date, last modification date, or fulfillment status using the <b>filter</b> parameter. You can alternatively specify a list of orders using the <b>orderIds</b> parameter. Include the optional <b>fieldGroups</b> query parameter set to <code>TAX_BREAKDOWN</code> to return a breakdown of the taxes and fees. By default, when no filters are used this call returns all orders created within the last 90 days. <br><br> The returned <b>Order</b> objects contain information you can use to create and process fulfillments, including: <ul> <li>Information about the buyer and seller</li> <li>Information about the order's line items</li> <li>The plans for packaging, addressing and shipping the order</li> <li>The status of payment, packaging, addressing, and shipping the order</li> <li>A summary of monetary amounts specific to the order such as pricing, payments, and shipping costs</li> <li>A summary of applied taxes and fees, and optionally a breakdown of each </li></ul> <br><br> <span class=\"tablenote\"><strong>Important:</strong> In this call, the <b>cancelStatus.cancelRequests</b> array is returned but is always empty. Use the <b>getOrder</b> call instead, which returns this array fully populated with information about any cancellation requests.</span>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fieldGroups",
+                  "value": "<string>",
+                  "description": "This parameter lets you control what is returned in the response.<br><br><span class=\"tablenote\"><b>Note:</b> The only presently supported value is <code>TAX_BREAKDOWN</code>. This field group adds addition fields to the response that return a breakdown of taxes and fees.</span>"
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "One or more comma-separated criteria for narrowing down the collection of orders returned by this call. These criteria correspond to specific fields in the response payload. Multiple filter criteria combine to further restrict the results. <br><br><span class=\"tablenote\"><strong>Note:</strong> <b>getOrders</b> can return orders up to two years old. Do not set the <code>creationdate</code> filter to a date beyond two years in the past.</span><br><span class=\"tablenote\"><strong>Note:</strong> If the <b>orderIds</b> parameter is included in the request, the <b>filter</b> parameter will be ignored.</span><br>The available criteria are as follows: <dl> <dt><code><b>creationdate</b></code></dt> <dd>The time period during which qualifying orders were created (the <b>orders.creationDate</b> field). In the URI, this is expressed as a starting timestamp, with or without an ending timestamp (in brackets). The timestamps are in ISO 8601 format, which uses the 24-hour Universal Coordinated Time (UTC) clock.For example: <ul> <li><code>creationdate:[2016-02-21T08:25:43.511Z..]</code> identifies orders created on or after the given timestamp.</li> <li><code>creationdate:[2016-02-21T08:25:43.511Z..2016-04-21T08:25:43.511Z]</code> identifies orders created between the given timestamps, inclusive.</li> </ul> </dd> <dt><code><b>lastmodifieddate</b></code></dt> <dd>The time period during which qualifying orders were last modified (the <b>orders.modifiedDate</b> field).  In the URI, this is expressed as a starting timestamp, with or without an ending timestamp (in brackets). The timestamps are in ISO 8601 format, which uses the 24-hour Universal Coordinated Time (UTC) clock.For example: <ul> <li><code>lastmodifieddate:[2016-05-15T08:25:43.511Z..]</code> identifies orders modified on or after the given timestamp.</li> <li><code>lastmodifieddate:[2016-05-15T08:25:43.511Z..2016-05-31T08:25:43.511Z]</code> identifies orders modified between the given timestamps, inclusive.</li> </ul> <span class=\"tablenote\"><strong>Note:</strong> If <b>creationdate</b> and <b>lastmodifieddate</b> are both included, only <b>creationdate</b> is used.</span> <br><br></dd> <dt><code><b>orderfulfillmentstatus</b></code></dt> <dd>The degree to which qualifying orders have been shipped (the <b>orders.orderFulfillmentStatus</b> field). In the URI, this is expressed as one of the following value combinations: <ul> <li><code>orderfulfillmentstatus:{NOT_STARTED|IN_PROGRESS}</code> specifies orders for which no shipping fulfillments have been started, plus orders for which at least one shipping fulfillment has been started but not completed.</li> <li><code>orderfulfillmentstatus:{FULFILLED|IN_PROGRESS}</code> specifies orders for which all shipping fulfillments have been completed, plus orders for which at least one shipping fulfillment has been started but not completed.</li> </ul> <span class=\"tablenote\"><strong>Note:</strong> The values <code>NOT_STARTED</code>, <code>IN_PROGRESS</code>, and <code>FULFILLED</code> can be used in various combinations, but only the combinations shown here are currently supported.</span> </dd> </dl> Here is an example of a <b>getOrders</b> call using all of these filters: <br><br> <code>GET https://api.ebay.com/sell/v1/order?<br>filter=<b>creationdate</b>:%5B2016-03-21T08:25:43.511Z..2016-04-21T08:25:43.511Z%5D,<br><b>lastmodifieddate</b>:%5B2016-05-15T08:25:43.511Z..%5D,<br><b>orderfulfillmentstatus</b>:%7BNOT_STARTED%7CIN_PROGRESS%7D</code> <br><br> <span class=\"tablenote\"><strong>Note:</strong> This call requires that certain special characters in the URI query string be percent-encoded: <br> &nbsp;&nbsp;&nbsp;&nbsp;<code>[</code> = <code>%5B</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>]</code> = <code>%5D</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>{</code> = <code>%7B</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>|</code> = <code>%7C</code> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<code>}</code> = <code>%7D</code> <br> This query filter example uses these codes.</span> For implementation help, refer to eBay API documentation at https://developer.ebay.com/api-docs/sell/fulfillment/types/api:FilterField"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>",
+                  "description": "The number of orders to return per page of the result set. Use this parameter in conjunction with the <b>offset</b> parameter to control the pagination of the output. <br><br>For example, if <b>offset</b> is set to <code>10</code> and <b>limit</b> is set to <code>10</code>, the call retrieves orders 11 thru 20 from the result set. <br><br> If a limit is not set, the <b>limit</b> defaults to 50 and returns up to 50 orders. If a requested limit is more than 200, the call fails and returns an error.<br ><br> <span class=\"tablenote\"><strong>Note:</strong> This feature employs a zero-based list, where the first item in the list has an offset of <code>0</code>. If the <b>orderIds</b> parameter is included in the request, this parameter will be ignored.</span> <br><br> <b>Maximum:</b> <code>200</code> <br> <b>Default:</b> <code>50</code>"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<string>",
+                  "description": "Specifies the number of orders to skip in the result set before returning the first order in the paginated response.  <p>Combine <b>offset</b> with the <b>limit</b> query parameter to control the items returned in the response. For example, if you supply an <b>offset</b> of <code>0</code> and a <b>limit</b> of <code>10</code>, the first page of the response contains the first 10 items from the complete list of items retrieved by the call. If <b>offset</b> is <code>10</code> and <b>limit</b> is <code>20</code>, the first page of the response contains items 11-30 from the complete result set.</p> <p><b>Default:</b> 0</p>"
+                },
+                {
+                  "disabled": false,
+                  "key": "orderIds",
+                  "value": "<string>",
+                  "description": "A comma-separated list of the unique identifiers of the orders to retrieve (maximum 50). If one or more order ID values are specified through the <b>orderIds</b> query parameter, all other query parameters will be ignored.<br><br><span class=\"tablenote\"><strong>Note:</strong> <b>getOrders</b> can return orders up to two years old. Do not provide the <b>orderId</b> for an order created more than two years in the past.</span>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5c62f9dc-cb85-4b6a-a040-c91a4814f326",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fieldGroups",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderIds",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"href\": \"string\",\n  \"limit\": 2144,\n  \"next\": \"string\",\n  \"offset\": 5097,\n  \"orders\": [\n    {\n      \"buyer\": {\n        \"buyerRegistrationAddress\": {\n          \"companyName\": \"string\",\n          \"contactAddress\": {\n            \"addressLine1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressLine2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"city\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"countryCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"county\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postalCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"stateOrProvince\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"email\": \"string\",\n          \"fullName\": \"string\",\n          \"primaryPhone\": {\n            \"phoneNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"taxAddress\": {\n          \"city\": \"string\",\n          \"countryCode\": \"string\",\n          \"postalCode\": \"string\",\n          \"stateOrProvince\": \"string\"\n        },\n        \"taxIdentifier\": {\n          \"taxpayerId\": \"string\",\n          \"taxIdentifierType\": \"string\",\n          \"issuingCountry\": \"string\"\n        },\n        \"username\": \"string\"\n      },\n      \"buyerCheckoutNotes\": \"string\",\n      \"cancelStatus\": {\n        \"cancelledDate\": \"string\",\n        \"cancelRequests\": [\n          {\n            \"cancelCompletedDate\": \"string\",\n            \"cancelInitiator\": \"string\",\n            \"cancelReason\": \"string\",\n            \"cancelRequestedDate\": \"string\",\n            \"cancelRequestId\": \"string\",\n            \"cancelRequestState\": \"string\"\n          },\n          {\n            \"cancelCompletedDate\": \"string\",\n            \"cancelInitiator\": \"string\",\n            \"cancelReason\": \"string\",\n            \"cancelRequestedDate\": \"string\",\n            \"cancelRequestId\": \"string\",\n            \"cancelRequestState\": \"string\"\n          }\n        ],\n        \"cancelState\": \"string\"\n      },\n      \"creationDate\": \"string\",\n      \"ebayCollectAndRemitTax\": false,\n      \"fulfillmentHrefs\": [\n        \"string\",\n        \"string\"\n      ],\n      \"fulfillmentStartInstructions\": [\n        {\n          \"appointment\": {\n            \"appointmentEndTime\": \"string\",\n            \"appointmentStartTime\": \"string\",\n            \"appointmentStatus\": \"string\",\n            \"appointmentType\": \"string\",\n            \"appointmentWindow\": \"string\",\n            \"serviceProviderAppointmentDate\": \"string\"\n          },\n          \"ebaySupportedFulfillment\": false,\n          \"finalDestinationAddress\": {\n            \"addressLine1\": \"string\",\n            \"addressLine2\": \"string\",\n            \"city\": \"string\",\n            \"countryCode\": \"string\",\n            \"county\": \"string\",\n            \"postalCode\": \"string\",\n            \"stateOrProvince\": \"string\"\n          },\n          \"fulfillmentInstructionsType\": \"string\",\n          \"maxEstimatedDeliveryDate\": \"string\",\n          \"minEstimatedDeliveryDate\": \"string\",\n          \"pickupStep\": {\n            \"merchantLocationKey\": \"string\"\n          },\n          \"shippingStep\": {\n            \"shippingCarrierCode\": \"string\",\n            \"shippingServiceCode\": \"string\",\n            \"shipTo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"shipToReferenceId\": \"string\"\n          }\n        },\n        {\n          \"appointment\": {\n            \"appointmentEndTime\": \"string\",\n            \"appointmentStartTime\": \"string\",\n            \"appointmentStatus\": \"string\",\n            \"appointmentType\": \"string\",\n            \"appointmentWindow\": \"string\",\n            \"serviceProviderAppointmentDate\": \"string\"\n          },\n          \"ebaySupportedFulfillment\": false,\n          \"finalDestinationAddress\": {\n            \"addressLine1\": \"string\",\n            \"addressLine2\": \"string\",\n            \"city\": \"string\",\n            \"countryCode\": \"string\",\n            \"county\": \"string\",\n            \"postalCode\": \"string\",\n            \"stateOrProvince\": \"string\"\n          },\n          \"fulfillmentInstructionsType\": \"string\",\n          \"maxEstimatedDeliveryDate\": \"string\",\n          \"minEstimatedDeliveryDate\": \"string\",\n          \"pickupStep\": {\n            \"merchantLocationKey\": \"string\"\n          },\n          \"shippingStep\": {\n            \"shippingCarrierCode\": \"string\",\n            \"shippingServiceCode\": \"string\",\n            \"shipTo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"shipToReferenceId\": \"string\"\n          }\n        }\n      ],\n      \"lastModifiedDate\": \"string\",\n      \"legacyOrderId\": \"string\",\n      \"lineItems\": [\n        {\n          \"appliedPromotions\": [\n            {\n              \"description\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"discountAmount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"promotionId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"description\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"discountAmount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"promotionId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"deliveryCost\": {\n            \"discountAmount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"handlingCost\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"importCharges\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"shippingCost\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"shippingIntermediationFee\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"discountedLineItemCost\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"ebayCollectAndRemitTaxes\": [\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ebayReference\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"taxType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"collectionMethod\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ebayReference\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"taxType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"collectionMethod\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"ebayCollectedCharges\": {\n            \"ebayShipping\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"giftDetails\": {\n            \"message\": \"string\",\n            \"recipientEmail\": \"string\",\n            \"senderName\": \"string\"\n          },\n          \"itemLocation\": {\n            \"countryCode\": \"string\",\n            \"location\": \"string\",\n            \"postalCode\": \"string\"\n          },\n          \"legacyItemId\": \"string\",\n          \"legacyVariationId\": \"string\",\n          \"lineItemCost\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"lineItemFulfillmentInstructions\": {\n            \"guaranteedDelivery\": false,\n            \"maxEstimatedDeliveryDate\": \"string\",\n            \"minEstimatedDeliveryDate\": \"string\",\n            \"shipByDate\": \"string\"\n          },\n          \"lineItemFulfillmentStatus\": \"string\",\n          \"lineItemId\": \"string\",\n          \"linkedOrderLineItems\": [\n            {\n              \"lineItemAspects\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"lineItemId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxEstimatedDeliveryDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"minEstimatedDeliveryDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"orderId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sellerId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shipments\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"title\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"lineItemAspects\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"lineItemId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxEstimatedDeliveryDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"minEstimatedDeliveryDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"orderId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sellerId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shipments\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"title\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"listingMarketplaceId\": \"string\",\n          \"properties\": {\n            \"buyerProtection\": true,\n            \"fromBestOffer\": true,\n            \"soldViaAdCampaign\": true\n          },\n          \"purchaseMarketplaceId\": \"string\",\n          \"quantity\": 9311,\n          \"refunds\": [\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundReferenceId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundReferenceId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"sku\": \"string\",\n          \"soldFormat\": \"string\",\n          \"taxes\": [\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"taxType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"taxType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"title\": \"string\",\n          \"total\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"variationAspects\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"appliedPromotions\": [\n            {\n              \"description\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"discountAmount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"promotionId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"description\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"discountAmount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"promotionId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"deliveryCost\": {\n            \"discountAmount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"handlingCost\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"importCharges\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"shippingCost\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"shippingIntermediationFee\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"discountedLineItemCost\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"ebayCollectAndRemitTaxes\": [\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ebayReference\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"taxType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"collectionMethod\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ebayReference\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"taxType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"collectionMethod\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"ebayCollectedCharges\": {\n            \"ebayShipping\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"giftDetails\": {\n            \"message\": \"string\",\n            \"recipientEmail\": \"string\",\n            \"senderName\": \"string\"\n          },\n          \"itemLocation\": {\n            \"countryCode\": \"string\",\n            \"location\": \"string\",\n            \"postalCode\": \"string\"\n          },\n          \"legacyItemId\": \"string\",\n          \"legacyVariationId\": \"string\",\n          \"lineItemCost\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"lineItemFulfillmentInstructions\": {\n            \"guaranteedDelivery\": true,\n            \"maxEstimatedDeliveryDate\": \"string\",\n            \"minEstimatedDeliveryDate\": \"string\",\n            \"shipByDate\": \"string\"\n          },\n          \"lineItemFulfillmentStatus\": \"string\",\n          \"lineItemId\": \"string\",\n          \"linkedOrderLineItems\": [\n            {\n              \"lineItemAspects\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"lineItemId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxEstimatedDeliveryDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"minEstimatedDeliveryDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"orderId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sellerId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shipments\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"title\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"lineItemAspects\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"lineItemId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxEstimatedDeliveryDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"minEstimatedDeliveryDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"orderId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sellerId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shipments\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"title\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"listingMarketplaceId\": \"string\",\n          \"properties\": {\n            \"buyerProtection\": false,\n            \"fromBestOffer\": false,\n            \"soldViaAdCampaign\": true\n          },\n          \"purchaseMarketplaceId\": \"string\",\n          \"quantity\": 9824,\n          \"refunds\": [\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundReferenceId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundReferenceId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"sku\": \"string\",\n          \"soldFormat\": \"string\",\n          \"taxes\": [\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"taxType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"taxType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"title\": \"string\",\n          \"total\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"variationAspects\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"orderFulfillmentStatus\": \"string\",\n      \"orderId\": \"string\",\n      \"orderPaymentStatus\": \"string\",\n      \"paymentSummary\": {\n        \"payments\": [\n          {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"paymentDate\": \"string\",\n            \"paymentHolds\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"paymentMethod\": \"string\",\n            \"paymentReferenceId\": \"string\",\n            \"paymentStatus\": \"string\"\n          },\n          {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"paymentDate\": \"string\",\n            \"paymentHolds\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"paymentMethod\": \"string\",\n            \"paymentReferenceId\": \"string\",\n            \"paymentStatus\": \"string\"\n          }\n        ],\n        \"refunds\": [\n          {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refundDate\": \"string\",\n            \"refundId\": \"string\",\n            \"refundReferenceId\": \"string\",\n            \"refundStatus\": \"string\"\n          },\n          {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refundDate\": \"string\",\n            \"refundId\": \"string\",\n            \"refundReferenceId\": \"string\",\n            \"refundStatus\": \"string\"\n          }\n        ],\n        \"totalDueSeller\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        }\n      },\n      \"pricingSummary\": {\n        \"adjustment\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"deliveryCost\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"deliveryDiscount\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"fee\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"priceDiscount\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"priceSubtotal\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"tax\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"total\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        }\n      },\n      \"program\": {\n        \"authenticityVerification\": {\n          \"outcomeReason\": \"string\",\n          \"status\": \"string\"\n        },\n        \"ebayShipping\": {\n          \"shippingLabelProvidedBy\": \"string\"\n        },\n        \"ebayVault\": {\n          \"fulfillmentType\": \"string\"\n        },\n        \"ebayInternationalShipping\": {\n          \"returnsManagedBy\": \"string\"\n        },\n        \"fulfillmentProgram\": {\n          \"fulfilledBy\": \"string\"\n        }\n      },\n      \"salesRecordReference\": \"string\",\n      \"sellerId\": \"string\",\n      \"totalFeeBasisAmount\": {\n        \"convertedFromCurrency\": \"string\",\n        \"convertedFromValue\": \"string\",\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"totalMarketplaceFee\": {\n        \"convertedFromCurrency\": \"string\",\n        \"convertedFromValue\": \"string\",\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      }\n    },\n    {\n      \"buyer\": {\n        \"buyerRegistrationAddress\": {\n          \"companyName\": \"string\",\n          \"contactAddress\": {\n            \"addressLine1\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"addressLine2\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"city\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"countryCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"county\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"postalCode\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"stateOrProvince\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"email\": \"string\",\n          \"fullName\": \"string\",\n          \"primaryPhone\": {\n            \"phoneNumber\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        },\n        \"taxAddress\": {\n          \"city\": \"string\",\n          \"countryCode\": \"string\",\n          \"postalCode\": \"string\",\n          \"stateOrProvince\": \"string\"\n        },\n        \"taxIdentifier\": {\n          \"taxpayerId\": \"string\",\n          \"taxIdentifierType\": \"string\",\n          \"issuingCountry\": \"string\"\n        },\n        \"username\": \"string\"\n      },\n      \"buyerCheckoutNotes\": \"string\",\n      \"cancelStatus\": {\n        \"cancelledDate\": \"string\",\n        \"cancelRequests\": [\n          {\n            \"cancelCompletedDate\": \"string\",\n            \"cancelInitiator\": \"string\",\n            \"cancelReason\": \"string\",\n            \"cancelRequestedDate\": \"string\",\n            \"cancelRequestId\": \"string\",\n            \"cancelRequestState\": \"string\"\n          },\n          {\n            \"cancelCompletedDate\": \"string\",\n            \"cancelInitiator\": \"string\",\n            \"cancelReason\": \"string\",\n            \"cancelRequestedDate\": \"string\",\n            \"cancelRequestId\": \"string\",\n            \"cancelRequestState\": \"string\"\n          }\n        ],\n        \"cancelState\": \"string\"\n      },\n      \"creationDate\": \"string\",\n      \"ebayCollectAndRemitTax\": true,\n      \"fulfillmentHrefs\": [\n        \"string\",\n        \"string\"\n      ],\n      \"fulfillmentStartInstructions\": [\n        {\n          \"appointment\": {\n            \"appointmentEndTime\": \"string\",\n            \"appointmentStartTime\": \"string\",\n            \"appointmentStatus\": \"string\",\n            \"appointmentType\": \"string\",\n            \"appointmentWindow\": \"string\",\n            \"serviceProviderAppointmentDate\": \"string\"\n          },\n          \"ebaySupportedFulfillment\": true,\n          \"finalDestinationAddress\": {\n            \"addressLine1\": \"string\",\n            \"addressLine2\": \"string\",\n            \"city\": \"string\",\n            \"countryCode\": \"string\",\n            \"county\": \"string\",\n            \"postalCode\": \"string\",\n            \"stateOrProvince\": \"string\"\n          },\n          \"fulfillmentInstructionsType\": \"string\",\n          \"maxEstimatedDeliveryDate\": \"string\",\n          \"minEstimatedDeliveryDate\": \"string\",\n          \"pickupStep\": {\n            \"merchantLocationKey\": \"string\"\n          },\n          \"shippingStep\": {\n            \"shippingCarrierCode\": \"string\",\n            \"shippingServiceCode\": \"string\",\n            \"shipTo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"shipToReferenceId\": \"string\"\n          }\n        },\n        {\n          \"appointment\": {\n            \"appointmentEndTime\": \"string\",\n            \"appointmentStartTime\": \"string\",\n            \"appointmentStatus\": \"string\",\n            \"appointmentType\": \"string\",\n            \"appointmentWindow\": \"string\",\n            \"serviceProviderAppointmentDate\": \"string\"\n          },\n          \"ebaySupportedFulfillment\": true,\n          \"finalDestinationAddress\": {\n            \"addressLine1\": \"string\",\n            \"addressLine2\": \"string\",\n            \"city\": \"string\",\n            \"countryCode\": \"string\",\n            \"county\": \"string\",\n            \"postalCode\": \"string\",\n            \"stateOrProvince\": \"string\"\n          },\n          \"fulfillmentInstructionsType\": \"string\",\n          \"maxEstimatedDeliveryDate\": \"string\",\n          \"minEstimatedDeliveryDate\": \"string\",\n          \"pickupStep\": {\n            \"merchantLocationKey\": \"string\"\n          },\n          \"shippingStep\": {\n            \"shippingCarrierCode\": \"string\",\n            \"shippingServiceCode\": \"string\",\n            \"shipTo\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"shipToReferenceId\": \"string\"\n          }\n        }\n      ],\n      \"lastModifiedDate\": \"string\",\n      \"legacyOrderId\": \"string\",\n      \"lineItems\": [\n        {\n          \"appliedPromotions\": [\n            {\n              \"description\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"discountAmount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"promotionId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"description\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"discountAmount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"promotionId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"deliveryCost\": {\n            \"discountAmount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"handlingCost\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"importCharges\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"shippingCost\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"shippingIntermediationFee\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"discountedLineItemCost\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"ebayCollectAndRemitTaxes\": [\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ebayReference\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"taxType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"collectionMethod\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ebayReference\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"taxType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"collectionMethod\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"ebayCollectedCharges\": {\n            \"ebayShipping\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"giftDetails\": {\n            \"message\": \"string\",\n            \"recipientEmail\": \"string\",\n            \"senderName\": \"string\"\n          },\n          \"itemLocation\": {\n            \"countryCode\": \"string\",\n            \"location\": \"string\",\n            \"postalCode\": \"string\"\n          },\n          \"legacyItemId\": \"string\",\n          \"legacyVariationId\": \"string\",\n          \"lineItemCost\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"lineItemFulfillmentInstructions\": {\n            \"guaranteedDelivery\": true,\n            \"maxEstimatedDeliveryDate\": \"string\",\n            \"minEstimatedDeliveryDate\": \"string\",\n            \"shipByDate\": \"string\"\n          },\n          \"lineItemFulfillmentStatus\": \"string\",\n          \"lineItemId\": \"string\",\n          \"linkedOrderLineItems\": [\n            {\n              \"lineItemAspects\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"lineItemId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxEstimatedDeliveryDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"minEstimatedDeliveryDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"orderId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sellerId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shipments\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"title\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"lineItemAspects\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"lineItemId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxEstimatedDeliveryDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"minEstimatedDeliveryDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"orderId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sellerId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shipments\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"title\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"listingMarketplaceId\": \"string\",\n          \"properties\": {\n            \"buyerProtection\": false,\n            \"fromBestOffer\": true,\n            \"soldViaAdCampaign\": true\n          },\n          \"purchaseMarketplaceId\": \"string\",\n          \"quantity\": 6544,\n          \"refunds\": [\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundReferenceId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundReferenceId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"sku\": \"string\",\n          \"soldFormat\": \"string\",\n          \"taxes\": [\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"taxType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"taxType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"title\": \"string\",\n          \"total\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"variationAspects\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"appliedPromotions\": [\n            {\n              \"description\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"discountAmount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"promotionId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"description\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"discountAmount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"promotionId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"deliveryCost\": {\n            \"discountAmount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"handlingCost\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"importCharges\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"shippingCost\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"shippingIntermediationFee\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"discountedLineItemCost\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"ebayCollectAndRemitTaxes\": [\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ebayReference\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"taxType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"collectionMethod\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"ebayReference\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"taxType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"collectionMethod\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"ebayCollectedCharges\": {\n            \"ebayShipping\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          \"giftDetails\": {\n            \"message\": \"string\",\n            \"recipientEmail\": \"string\",\n            \"senderName\": \"string\"\n          },\n          \"itemLocation\": {\n            \"countryCode\": \"string\",\n            \"location\": \"string\",\n            \"postalCode\": \"string\"\n          },\n          \"legacyItemId\": \"string\",\n          \"legacyVariationId\": \"string\",\n          \"lineItemCost\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"lineItemFulfillmentInstructions\": {\n            \"guaranteedDelivery\": false,\n            \"maxEstimatedDeliveryDate\": \"string\",\n            \"minEstimatedDeliveryDate\": \"string\",\n            \"shipByDate\": \"string\"\n          },\n          \"lineItemFulfillmentStatus\": \"string\",\n          \"lineItemId\": \"string\",\n          \"linkedOrderLineItems\": [\n            {\n              \"lineItemAspects\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"lineItemId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxEstimatedDeliveryDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"minEstimatedDeliveryDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"orderId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sellerId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shipments\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"title\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"lineItemAspects\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"lineItemId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"maxEstimatedDeliveryDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"minEstimatedDeliveryDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"orderId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sellerId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shipments\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"title\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"listingMarketplaceId\": \"string\",\n          \"properties\": {\n            \"buyerProtection\": false,\n            \"fromBestOffer\": true,\n            \"soldViaAdCampaign\": true\n          },\n          \"purchaseMarketplaceId\": \"string\",\n          \"quantity\": 6983,\n          \"refunds\": [\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundReferenceId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundDate\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"refundReferenceId\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"sku\": \"string\",\n          \"soldFormat\": \"string\",\n          \"taxes\": [\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"taxType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"amount\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"taxType\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ],\n          \"title\": \"string\",\n          \"total\": {\n            \"convertedFromCurrency\": \"string\",\n            \"convertedFromValue\": \"string\",\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"variationAspects\": [\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"name\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"value\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"orderFulfillmentStatus\": \"string\",\n      \"orderId\": \"string\",\n      \"orderPaymentStatus\": \"string\",\n      \"paymentSummary\": {\n        \"payments\": [\n          {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"paymentDate\": \"string\",\n            \"paymentHolds\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"paymentMethod\": \"string\",\n            \"paymentReferenceId\": \"string\",\n            \"paymentStatus\": \"string\"\n          },\n          {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"paymentDate\": \"string\",\n            \"paymentHolds\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"paymentMethod\": \"string\",\n            \"paymentReferenceId\": \"string\",\n            \"paymentStatus\": \"string\"\n          }\n        ],\n        \"refunds\": [\n          {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refundDate\": \"string\",\n            \"refundId\": \"string\",\n            \"refundReferenceId\": \"string\",\n            \"refundStatus\": \"string\"\n          },\n          {\n            \"amount\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"refundDate\": \"string\",\n            \"refundId\": \"string\",\n            \"refundReferenceId\": \"string\",\n            \"refundStatus\": \"string\"\n          }\n        ],\n        \"totalDueSeller\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        }\n      },\n      \"pricingSummary\": {\n        \"adjustment\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"deliveryCost\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"deliveryDiscount\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"fee\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"priceDiscount\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"priceSubtotal\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"tax\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"total\": {\n          \"convertedFromCurrency\": \"string\",\n          \"convertedFromValue\": \"string\",\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        }\n      },\n      \"program\": {\n        \"authenticityVerification\": {\n          \"outcomeReason\": \"string\",\n          \"status\": \"string\"\n        },\n        \"ebayShipping\": {\n          \"shippingLabelProvidedBy\": \"string\"\n        },\n        \"ebayVault\": {\n          \"fulfillmentType\": \"string\"\n        },\n        \"ebayInternationalShipping\": {\n          \"returnsManagedBy\": \"string\"\n        },\n        \"fulfillmentProgram\": {\n          \"fulfilledBy\": \"string\"\n        }\n      },\n      \"salesRecordReference\": \"string\",\n      \"sellerId\": \"string\",\n      \"totalFeeBasisAmount\": {\n        \"convertedFromCurrency\": \"string\",\n        \"convertedFromValue\": \"string\",\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"totalMarketplaceFee\": {\n        \"convertedFromCurrency\": \"string\",\n        \"convertedFromValue\": \"string\",\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      }\n    }\n  ],\n  \"prev\": \"string\",\n  \"total\": 6416,\n  \"warnings\": [\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 2186,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    },\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 3688,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d3513328-81c8-4a0b-b583-9a1dee193419",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fieldGroups",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderIds",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9e7ebc7f-e470-4f37-90f9-b89c4806b987",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fieldGroups",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "orderIds",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "deeb57c3-908d-4da7-bd9a-dabeeaec1b5a",
+          "name": "eBay Issue Refund",
+          "request": {
+            "name": "eBay Issue Refund",
+            "description": {
+              "content": "<div class=\"msgbox_important\"><p class=\"msgbox_importantInDiv\" data-mc-autonum=\"&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;\"><span class=\"autonumber\"><span><b><span style=\"color: #dd1e31;\" class=\"mcFormatColor\">Important!</span></b></span></span> Due to EU &amp; UK Payments regulatory requirements, an additional security verification via Digital Signatures is required for certain API calls that are made on behalf of EU/UK sellers, including <b>issueRefund</b>. Please refer to <a href=\"/develop/guides/digital-signatures-for-apis \" target=\"_blank\">Digital Signatures for APIs</a> to learn more on the impacted APIs and the process to create signatures to be included in the HTTP payload.</p></div><br> This method allows a seller to issue a full or partial refund to a buyer for an order. Full or partial refunds can be issued at the order level or line item level.<br><br>The refunds issued through this method are processed asynchronously, so the refund will not show as 'Refunded' right away. A seller will have to make a subsequent <a href=\"/api-docs/sell/fulfillment/resources/order/methods/getOrder\" target=\"_blank\">getOrder</a> call to check the status of the refund.  The status of an order refund can be found in the <a href=\"/api-docs/sell/fulfillment/resources/order/methods/getOrder#response.paymentSummary.refunds.refundStatus\" target=\"_blank\">paymentSummary.refunds.refundStatus</a> field of the <a href=\"/api-docs/sell/fulfillment/resources/order/methods/getOrder\" target=\"_blank\">getOrder</a> response.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "order",
+                ":order_id",
+                "issue_refund"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "order_id",
+                  "description": "(Required) This path parameter is used to specify the unique identifier of the order associated with a refund.<br><br>Use the <a href=\"/api-docs/sell/fulfillment/resources/order/methods/getOrders\" target=\"_blank \">getOrders</a> method to retrieve order IDs."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reasonForRefund\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"refundItems\": [\n    {\n      \"refundAmount\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"lineItemId\": \"<string>\",\n      \"legacyReference\": {\n        \"legacyItemId\": \"<string>\",\n        \"legacyTransactionId\": \"<string>\"\n      }\n    },\n    {\n      \"refundAmount\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"lineItemId\": \"<string>\",\n      \"legacyReference\": {\n        \"legacyItemId\": \"<string>\",\n        \"legacyTransactionId\": \"<string>\"\n      }\n    }\n  ],\n  \"orderLevelRefundAmount\": {\n    \"currency\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "a62815b4-8bb3-42db-9b1f-1b58c4ad0400",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":order_id",
+                    "issue_refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) This path parameter is used to specify the unique identifier of the order associated with a refund.<br><br>Use the <a href=\"/api-docs/sell/fulfillment/resources/order/methods/getOrders\" target=\"_blank \">getOrders</a> method to retrieve order IDs."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reasonForRefund\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"refundItems\": [\n    {\n      \"refundAmount\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"lineItemId\": \"<string>\",\n      \"legacyReference\": {\n        \"legacyItemId\": \"<string>\",\n        \"legacyTransactionId\": \"<string>\"\n      }\n    },\n    {\n      \"refundAmount\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"lineItemId\": \"<string>\",\n      \"legacyReference\": {\n        \"legacyItemId\": \"<string>\",\n        \"legacyTransactionId\": \"<string>\"\n      }\n    }\n  ],\n  \"orderLevelRefundAmount\": {\n    \"currency\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"refundId\": \"string\",\n  \"refundStatus\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "32a1081f-84e7-4021-9e0f-b04494d24449",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":order_id",
+                    "issue_refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) This path parameter is used to specify the unique identifier of the order associated with a refund.<br><br>Use the <a href=\"/api-docs/sell/fulfillment/resources/order/methods/getOrders\" target=\"_blank \">getOrders</a> method to retrieve order IDs."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reasonForRefund\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"refundItems\": [\n    {\n      \"refundAmount\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"lineItemId\": \"<string>\",\n      \"legacyReference\": {\n        \"legacyItemId\": \"<string>\",\n        \"legacyTransactionId\": \"<string>\"\n      }\n    },\n    {\n      \"refundAmount\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"lineItemId\": \"<string>\",\n      \"legacyReference\": {\n        \"legacyItemId\": \"<string>\",\n        \"legacyTransactionId\": \"<string>\"\n      }\n    }\n  ],\n  \"orderLevelRefundAmount\": {\n    \"currency\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1fa8b5c0-249c-4a93-bf73-8a4529eb0910",
+              "name": "Access Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":order_id",
+                    "issue_refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) This path parameter is used to specify the unique identifier of the order associated with a refund.<br><br>Use the <a href=\"/api-docs/sell/fulfillment/resources/order/methods/getOrders\" target=\"_blank \">getOrders</a> method to retrieve order IDs."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reasonForRefund\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"refundItems\": [\n    {\n      \"refundAmount\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"lineItemId\": \"<string>\",\n      \"legacyReference\": {\n        \"legacyItemId\": \"<string>\",\n        \"legacyTransactionId\": \"<string>\"\n      }\n    },\n    {\n      \"refundAmount\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"lineItemId\": \"<string>\",\n      \"legacyReference\": {\n        \"legacyItemId\": \"<string>\",\n        \"legacyTransactionId\": \"<string>\"\n      }\n    }\n  ],\n  \"orderLevelRefundAmount\": {\n    \"currency\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "75b19b35-a189-414f-8cc3-cc4e08b485fb",
+              "name": "Resource Not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":order_id",
+                    "issue_refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) This path parameter is used to specify the unique identifier of the order associated with a refund.<br><br>Use the <a href=\"/api-docs/sell/fulfillment/resources/order/methods/getOrders\" target=\"_blank \">getOrders</a> method to retrieve order IDs."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reasonForRefund\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"refundItems\": [\n    {\n      \"refundAmount\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"lineItemId\": \"<string>\",\n      \"legacyReference\": {\n        \"legacyItemId\": \"<string>\",\n        \"legacyTransactionId\": \"<string>\"\n      }\n    },\n    {\n      \"refundAmount\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"lineItemId\": \"<string>\",\n      \"legacyReference\": {\n        \"legacyItemId\": \"<string>\",\n        \"legacyTransactionId\": \"<string>\"\n      }\n    }\n  ],\n  \"orderLevelRefundAmount\": {\n    \"currency\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "25383abc-6d58-4f09-a867-e70d3fe0e8b6",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":order_id",
+                    "issue_refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) This path parameter is used to specify the unique identifier of the order associated with a refund.<br><br>Use the <a href=\"/api-docs/sell/fulfillment/resources/order/methods/getOrders\" target=\"_blank \">getOrders</a> method to retrieve order IDs."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reasonForRefund\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"refundItems\": [\n    {\n      \"refundAmount\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"lineItemId\": \"<string>\",\n      \"legacyReference\": {\n        \"legacyItemId\": \"<string>\",\n        \"legacyTransactionId\": \"<string>\"\n      }\n    },\n    {\n      \"refundAmount\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"lineItemId\": \"<string>\",\n      \"legacyReference\": {\n        \"legacyItemId\": \"<string>\",\n        \"legacyTransactionId\": \"<string>\"\n      }\n    }\n  ],\n  \"orderLevelRefundAmount\": {\n    \"currency\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "e5b3e3d6-08db-44fd-8b31-92254d2e2853",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "order",
+                    ":order_id",
+                    "issue_refund"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "order_id",
+                      "description": "(Required) This path parameter is used to specify the unique identifier of the order associated with a refund.<br><br>Use the <a href=\"/api-docs/sell/fulfillment/resources/order/methods/getOrders\" target=\"_blank \">getOrders</a> method to retrieve order IDs."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"reasonForRefund\": \"<string>\",\n  \"comment\": \"<string>\",\n  \"refundItems\": [\n    {\n      \"refundAmount\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"lineItemId\": \"<string>\",\n      \"legacyReference\": {\n        \"legacyItemId\": \"<string>\",\n        \"legacyTransactionId\": \"<string>\"\n      }\n    },\n    {\n      \"refundAmount\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"lineItemId\": \"<string>\",\n      \"legacyReference\": {\n        \"legacyItemId\": \"<string>\",\n        \"legacyTransactionId\": \"<string>\"\n      }\n    }\n  ],\n  \"orderLevelRefundAmount\": {\n    \"currency\": \"<string>\",\n    \"value\": \"<string>\"\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "/sell/account/v1",
+      "key": "basePath"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ebay.com{{basePath}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "2cd6936f-383e-4682-911a-a1bd3da02390",
+    "name": "eBay Account Advertising_eligibility Order API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href=\"/api-docs/sell/account/overview.html#requirements\">Account API requirements and restrictions</a>.\n\nContact Support:\n Name: eBay Inc,",
+      "type": "text/plain"
+    }
+  }
+}

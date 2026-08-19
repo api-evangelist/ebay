@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "eBay Account Advertising_eligibility Listing_violation_summary API",
+    "version": "v1.9.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Listing_violation_summary",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getListingViolationsSummary",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ebay.com{basePath}/listing_violation_summary",
+            "headers": [
+              {
+                "name": "X-EBAY-C-MARKETPLACE-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "compliance_type",
+                "value": "",
+                "type": "query",
+                "description": "This query parameter specifies the compliance type(s) of the listing violation counts being retrieved. <br><br>See <a href=\"/api-docs/sell/compliance/types/com:ComplianceTypeEnum\">ComplianceTypeEnum</a> for more information on the supported compliance types that can be passed in here. <br><br>If more than one compliance type value is used, delimit these values with a comma. If no compliance type values are passed in, the listing count for all compliance types will be returned. <br /><br /> <span class=\"tablenote\"><strong>Note:</strong> Only a canned response, with counts for all listing compliance types, is returned in the Sandbox environment. Due to this limitation, the <strong>compliance_type</strong> query parameter (if used) will not have an effect on the response. </span>"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This call returns listing violation counts for a seller. A user can pass in one or more compliance types through the <strong>compliance_type</strong> query parameter. See <a href=\"/api-docs/sell/compliance/types/com:ComplianceTypeEnum\">ComplianceTypeEnum</a> for more information on the supported listing compliance types. Listing violations are returned for multiple marketplaces if the seller sells on multiple eBay marketplaces.<br /><br /> <span class=\"tablenote\"><strong>Note:</strong> Only a ca"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

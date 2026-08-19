@@ -1,0 +1,1387 @@
+{
+  "item": [
+    {
+      "id": "afd5f2a9-1372-440a-b8cb-74da9881d188",
+      "name": "Shipment",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "11f95a5f-8462-4fc1-9257-e2923770a96e",
+          "name": "cancel Shipment",
+          "request": {
+            "name": "cancel Shipment",
+            "description": {
+              "content": "This method cancels the shipment associated with the specified shipment ID and the associated shipping label is deleted. When you cancel a shipment, the <b>totalShippingCost</b> of the canceled shipment is refunded to the account established by the user's billing agreement.  <br><br>Note that you cannot cancel a shipment if you have used the associated shipping label.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipment",
+                ":shipmentId",
+                "cancel"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "shipmentId",
+                  "description": "(Required) This path parameter specifies the unique eBay-assigned ID of the shipment to be canceled.<br><br>The <b>shipmentId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote\" target=\"_blank\">createFromShippingQuote</a> method."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3f49f598-6954-48a7-983e-ef940e7d10f8",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    ":shipmentId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned ID of the shipment to be canceled.<br><br>The <b>shipmentId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote\" target=\"_blank\">createFromShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cancellation\": {\n    \"cancellationRequestedDate\": \"string\",\n    \"cancellationStatus\": \"string\"\n  },\n  \"creationDate\": \"string\",\n  \"labelCustomMessage\": \"string\",\n  \"labelDownloadUrl\": \"string\",\n  \"labelSize\": \"string\",\n  \"orders\": [\n    {\n      \"channel\": \"string\",\n      \"orderId\": \"string\"\n    },\n    {\n      \"channel\": \"string\",\n      \"orderId\": \"string\"\n    }\n  ],\n  \"packageSpecification\": {\n    \"dimensions\": {\n      \"height\": \"string\",\n      \"length\": \"string\",\n      \"unit\": \"string\",\n      \"width\": \"string\"\n    },\n    \"weight\": {\n      \"unit\": \"string\",\n      \"value\": \"string\"\n    }\n  },\n  \"rate\": {\n    \"additionalOptions\": [\n      {\n        \"additionalCost\": {\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"optionType\": \"string\"\n      },\n      {\n        \"additionalCost\": {\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"optionType\": \"string\"\n      }\n    ],\n    \"baseShippingCost\": {\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    },\n    \"destinationTimeZone\": \"string\",\n    \"maxEstimatedDeliveryDate\": \"string\",\n    \"minEstimatedDeliveryDate\": \"string\",\n    \"pickupNetworks\": [\n      \"string\",\n      \"string\"\n    ],\n    \"pickupSlotId\": \"string\",\n    \"pickupType\": \"string\",\n    \"rateId\": \"string\",\n    \"shippingCarrierCode\": \"string\",\n    \"shippingCarrierName\": \"string\",\n    \"shippingQuoteId\": \"string\",\n    \"shippingServiceCode\": \"string\",\n    \"shippingServiceName\": \"string\",\n    \"totalShippingCost\": {\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    }\n  },\n  \"returnTo\": {\n    \"companyName\": \"string\",\n    \"contactAddress\": {\n      \"addressLine1\": \"string\",\n      \"addressLine2\": \"string\",\n      \"city\": \"string\",\n      \"countryCode\": \"string\",\n      \"county\": \"string\",\n      \"postalCode\": \"string\",\n      \"stateOrProvince\": \"string\"\n    },\n    \"fullName\": \"string\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"string\"\n    }\n  },\n  \"shipFrom\": {\n    \"companyName\": \"string\",\n    \"contactAddress\": {\n      \"addressLine1\": \"string\",\n      \"addressLine2\": \"string\",\n      \"city\": \"string\",\n      \"countryCode\": \"string\",\n      \"county\": \"string\",\n      \"postalCode\": \"string\",\n      \"stateOrProvince\": \"string\"\n    },\n    \"fullName\": \"string\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"string\"\n    }\n  },\n  \"shipmentId\": \"string\",\n  \"shipmentTrackingNumber\": \"string\",\n  \"shipTo\": {\n    \"companyName\": \"string\",\n    \"contactAddress\": {\n      \"addressLine1\": \"string\",\n      \"addressLine2\": \"string\",\n      \"city\": \"string\",\n      \"countryCode\": \"string\",\n      \"county\": \"string\",\n      \"postalCode\": \"string\",\n      \"stateOrProvince\": \"string\"\n    },\n    \"fullName\": \"string\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"string\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "e5b00f76-94ca-4050-a09e-bfd746ebb3c5",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    ":shipmentId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned ID of the shipment to be canceled.<br><br>The <b>shipmentId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote\" target=\"_blank\">createFromShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "25d7a539-9354-48a6-98bf-e0edbaae95d9",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    ":shipmentId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned ID of the shipment to be canceled.<br><br>The <b>shipmentId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote\" target=\"_blank\">createFromShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d0c7e11b-8bef-4328-9cee-ddc9f2628f4a",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    ":shipmentId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned ID of the shipment to be canceled.<br><br>The <b>shipmentId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote\" target=\"_blank\">createFromShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "0ddb951a-041c-45ba-a5c9-32b7aaf0f4df",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    ":shipmentId",
+                    "cancel"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned ID of the shipment to be canceled.<br><br>The <b>shipmentId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote\" target=\"_blank\">createFromShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "cb94ff9c-bedf-45f3-8b07-478edaea91ea",
+          "name": "create From Shipping Quote",
+          "request": {
+            "name": "create From Shipping Quote",
+            "description": {
+              "content": "This method creates a shipment based on the <b>shippingQuoteId</b> and <b>rateId</b> values supplied in the request. The rate identified by the <b>rateId</b> value specifies the carrier and service for the package shipment, and the rate ID must be contained in the shipping quote identified by the <b>shippingQuoteId</b> value. Call <b>createShippingQuote</b> to retrieve a set of live shipping rates.<br><br><span class=\"tablenote\"><b>Note:</b> The Logistics API only supports USPS shipping rates and labels.</span><br/>When you create a shipment, eBay generates a shipping label that you can download and use to ship your package.<br/><br/>In a <b>createFromShippingQuote</b> request, sellers can include a list of shipping options they want to add to the base service quoted in the selected rate. The list of available shipping options is specific to each quoted rate and if available, the options are listed in the rate container of the shipping quote.<br/><br/>In addition to a configurable return-to location and other details about the shipment, the response to this method includes:<ul><li>The shipping carrier and service to be used for the package shipment</li><li>A list of selected shipping options, if any</li><li>The shipment tracking number</li><li>The total shipping cost (the sum cost of the base shipping service and any added options)</li></ul>When you create a shipment, your billing agreement account is charged the sum of the <b>baseShippingCost</b> and the total cost of any additional shipping options you might have selected. Use the URL returned in <b>labelDownloadURL</b> field, or call <b>downloadLabelFile</b> with the <b>shipmentId</b> value from the response, to download a shipping label for your package.<br/><br/><div class=\"msgbox_important\"><p class=\"msgbox_importantInDiv\" data-mc-autonum=\"&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;\"><span class=\"autonumber\"><span><b><span style=\"color: #dd1e31;\" class=\"mcFormatColor\">Important!</span></b></span></span> Sellers must set up their payment method before they can use this method to create a shipment and the associated shipping label.</p></div><h3 id=\"ba\">Set up a billing agreement</h3>Prior to using this method to create a shipment, sellers must first set up their billing agreement. Failure to do so will return <code>Error 90030 Payment could not be completed.</code><br/><br/>The preferred method for sellers to set up their billing agreement is to go to <a href=\"https://gslblui.ebay.com/gslblui/payments \" target=\"_blank\">Set up billing agreement</a> and follow the on-screen directions.<br/><br/>Alternatively, sellers can do the following:<ul><li>Go to https://www.ebay.com/ship/single/{order_id}, where {order_id} is that of the order for which the label is being printed.</li><li>When prompted, select <b>PayPal</b>.</li><li>Verify that <b>Save PayPal for future purchases</b> is selected.</li><li>Click <b>Set up Payments</b> which will open PayPal in a pop-up window.</li><li>Log in using <i>PayPal credentials</i>, and then follow the on-screen prompts to set up the billing agreement.</li><li>Once the agreement has been set up, sellers can leave this page as there is no need to actually print a label.</li></ul>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipment",
+                "create_from_shipping_quote"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"additionalOptions\": [\n    {\n      \"additionalCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"optionType\": \"<string>\"\n    },\n    {\n      \"additionalCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"optionType\": \"<string>\"\n    }\n  ],\n  \"labelCustomMessage\": \"<string>\",\n  \"labelSize\": \"<string>\",\n  \"rateId\": \"<string>\",\n  \"returnTo\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"shippingQuoteId\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "fabb9794-0d4b-448c-b2eb-0edc223e6abb",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    "create_from_shipping_quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"additionalOptions\": [\n    {\n      \"additionalCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"optionType\": \"<string>\"\n    },\n    {\n      \"additionalCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"optionType\": \"<string>\"\n    }\n  ],\n  \"labelCustomMessage\": \"<string>\",\n  \"labelSize\": \"<string>\",\n  \"rateId\": \"<string>\",\n  \"returnTo\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"shippingQuoteId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cancellation\": {\n    \"cancellationRequestedDate\": \"string\",\n    \"cancellationStatus\": \"string\"\n  },\n  \"creationDate\": \"string\",\n  \"labelCustomMessage\": \"string\",\n  \"labelDownloadUrl\": \"string\",\n  \"labelSize\": \"string\",\n  \"orders\": [\n    {\n      \"channel\": \"string\",\n      \"orderId\": \"string\"\n    },\n    {\n      \"channel\": \"string\",\n      \"orderId\": \"string\"\n    }\n  ],\n  \"packageSpecification\": {\n    \"dimensions\": {\n      \"height\": \"string\",\n      \"length\": \"string\",\n      \"unit\": \"string\",\n      \"width\": \"string\"\n    },\n    \"weight\": {\n      \"unit\": \"string\",\n      \"value\": \"string\"\n    }\n  },\n  \"rate\": {\n    \"additionalOptions\": [\n      {\n        \"additionalCost\": {\n          \"currency\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        \"optionType\": \"<string>\"\n      },\n      {\n        \"additionalCost\": {\n          \"currency\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        \"optionType\": \"<string>\"\n      }\n    ],\n    \"baseShippingCost\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"destinationTimeZone\": \"string\",\n    \"maxEstimatedDeliveryDate\": \"string\",\n    \"minEstimatedDeliveryDate\": \"string\",\n    \"pickupNetworks\": [\n      \"string\",\n      \"string\"\n    ],\n    \"pickupSlotId\": \"string\",\n    \"pickupType\": \"string\",\n    \"rateId\": \"string\",\n    \"shippingCarrierCode\": \"string\",\n    \"shippingCarrierName\": \"string\",\n    \"shippingQuoteId\": \"string\",\n    \"shippingServiceCode\": \"string\",\n    \"shippingServiceName\": \"string\",\n    \"totalShippingCost\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  },\n  \"returnTo\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"shipFrom\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"shipmentId\": \"string\",\n  \"shipmentTrackingNumber\": \"string\",\n  \"shipTo\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "6c77566b-e550-4567-92e3-2fb6d26781bc",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    "create_from_shipping_quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"additionalOptions\": [\n    {\n      \"additionalCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"optionType\": \"<string>\"\n    },\n    {\n      \"additionalCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"optionType\": \"<string>\"\n    }\n  ],\n  \"labelCustomMessage\": \"<string>\",\n  \"labelSize\": \"<string>\",\n  \"rateId\": \"<string>\",\n  \"returnTo\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"shippingQuoteId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "cd0d78f1-5e58-46b4-be86-3375926ce9e9",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    "create_from_shipping_quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"additionalOptions\": [\n    {\n      \"additionalCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"optionType\": \"<string>\"\n    },\n    {\n      \"additionalCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"optionType\": \"<string>\"\n    }\n  ],\n  \"labelCustomMessage\": \"<string>\",\n  \"labelSize\": \"<string>\",\n  \"rateId\": \"<string>\",\n  \"returnTo\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"shippingQuoteId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b94d2cda-9aa6-4ff7-a4a4-05d65e6093a0",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    "create_from_shipping_quote"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"additionalOptions\": [\n    {\n      \"additionalCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"optionType\": \"<string>\"\n    },\n    {\n      \"additionalCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"optionType\": \"<string>\"\n    }\n  ],\n  \"labelCustomMessage\": \"<string>\",\n  \"labelSize\": \"<string>\",\n  \"rateId\": \"<string>\",\n  \"returnTo\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"shippingQuoteId\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "563c41e0-8647-4fa7-a36a-81432c615811",
+          "name": "download Label File",
+          "request": {
+            "name": "download Label File",
+            "description": {
+              "content": "This method returns the shipping label file that was generated for the <b>shipmentId</b> value specified in the request. Call <b>createFromShippingQuote</b> to generate a shipment ID.<br><br><span class=\"tablenote\"><b>Note:</b> The Logistics API only supports USPS shipping rates and labels.</span><br>Use the <code>Accept</code> HTTP header to specify the format of the returned file. The default file format is a PDF file. <!-- Are other options available? -->",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipment",
+                ":shipmentId",
+                "download_label_file"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "shipmentId",
+                  "description": "(Required) This path parameter specifies the unique eBay-assigned identifier of the shipment associated with the shipping label you want to download.<br><br> The <b>shipmentId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote\" target=\"_blank\">createFromShippingQuote</a> method."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/pdf"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9cb4ecc4-392a-4b27-8571-6ab282bf617f",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    ":shipmentId",
+                    "download_label_file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned identifier of the shipment associated with the shipping label you want to download.<br><br> The <b>shipmentId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote\" target=\"_blank\">createFromShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header specifies the format of the returned file. For this method, the value of the header should be <code>Accept: application/pdf</code>. ",
+                    "key": "Accept",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/pdf"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/pdf"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "115c2e99-3052-48b9-a7f0-9e669917bffb",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    ":shipmentId",
+                    "download_label_file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned identifier of the shipment associated with the shipping label you want to download.<br><br> The <b>shipmentId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote\" target=\"_blank\">createFromShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header specifies the format of the returned file. For this method, the value of the header should be <code>Accept: application/pdf</code>. ",
+                    "key": "Accept",
+                    "value": "string"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "61b1d094-9b10-4d2e-a2da-4083b71c4c48",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    ":shipmentId",
+                    "download_label_file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned identifier of the shipment associated with the shipping label you want to download.<br><br> The <b>shipmentId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote\" target=\"_blank\">createFromShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header specifies the format of the returned file. For this method, the value of the header should be <code>Accept: application/pdf</code>. ",
+                    "key": "Accept",
+                    "value": "string"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "b1a7a146-1a3f-4a44-b02e-50d3803e115d",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    ":shipmentId",
+                    "download_label_file"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned identifier of the shipment associated with the shipping label you want to download.<br><br> The <b>shipmentId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote\" target=\"_blank\">createFromShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header specifies the format of the returned file. For this method, the value of the header should be <code>Accept: application/pdf</code>. ",
+                    "key": "Accept",
+                    "value": "string"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "25633403-b490-48ae-8cb5-ac998be4a6c8",
+          "name": "get Shipment",
+          "request": {
+            "name": "get Shipment",
+            "description": {
+              "content": "This method retrieves the shipment details for the specified shipment ID. Call <b>createFromShippingQuote</b> to generate a shipment ID.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "shipment",
+                ":shipmentId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "shipmentId",
+                  "description": "(Required) This path parameter specifies the unique eBay-assigned identifier of the shipment you want to retrieve.<br><br>The <b>shipmentId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote\" target=\"_blank\">createFromShippingQuote</a> method."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "8c3f9f93-bd84-42f8-b104-d37ed96dba49",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned identifier of the shipment you want to retrieve.<br><br>The <b>shipmentId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote\" target=\"_blank\">createFromShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"cancellation\": {\n    \"cancellationRequestedDate\": \"string\",\n    \"cancellationStatus\": \"string\"\n  },\n  \"creationDate\": \"string\",\n  \"labelCustomMessage\": \"string\",\n  \"labelDownloadUrl\": \"string\",\n  \"labelSize\": \"string\",\n  \"orders\": [\n    {\n      \"channel\": \"string\",\n      \"orderId\": \"string\"\n    },\n    {\n      \"channel\": \"string\",\n      \"orderId\": \"string\"\n    }\n  ],\n  \"packageSpecification\": {\n    \"dimensions\": {\n      \"height\": \"string\",\n      \"length\": \"string\",\n      \"unit\": \"string\",\n      \"width\": \"string\"\n    },\n    \"weight\": {\n      \"unit\": \"string\",\n      \"value\": \"string\"\n    }\n  },\n  \"rate\": {\n    \"additionalOptions\": [\n      {\n        \"additionalCost\": {\n          \"currency\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        \"optionType\": \"<string>\"\n      },\n      {\n        \"additionalCost\": {\n          \"currency\": \"<string>\",\n          \"value\": \"<string>\"\n        },\n        \"optionType\": \"<string>\"\n      }\n    ],\n    \"baseShippingCost\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"destinationTimeZone\": \"string\",\n    \"maxEstimatedDeliveryDate\": \"string\",\n    \"minEstimatedDeliveryDate\": \"string\",\n    \"pickupNetworks\": [\n      \"string\",\n      \"string\"\n    ],\n    \"pickupSlotId\": \"string\",\n    \"pickupType\": \"string\",\n    \"rateId\": \"string\",\n    \"shippingCarrierCode\": \"string\",\n    \"shippingCarrierName\": \"string\",\n    \"shippingQuoteId\": \"string\",\n    \"shippingServiceCode\": \"string\",\n    \"shippingServiceName\": \"string\",\n    \"totalShippingCost\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    }\n  },\n  \"returnTo\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"shipFrom\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  },\n  \"shipmentId\": \"string\",\n  \"shipmentTrackingNumber\": \"string\",\n  \"shipTo\": {\n    \"companyName\": \"<string>\",\n    \"contactAddress\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"countryCode\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"fullName\": \"<string>\",\n    \"primaryPhone\": {\n      \"phoneNumber\": \"<string>\"\n    }\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2952f7d0-da73-4e7a-a31c-416f73b33cc7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned identifier of the shipment you want to retrieve.<br><br>The <b>shipmentId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote\" target=\"_blank\">createFromShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ffc575da-5cfa-4de9-8c9d-bb7332cad143",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned identifier of the shipment you want to retrieve.<br><br>The <b>shipmentId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote\" target=\"_blank\">createFromShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "24ddcb06-8133-4ce9-a4c9-711a4bcb7784",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "shipment",
+                    ":shipmentId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "shipmentId",
+                      "description": "(Required) This path parameter specifies the unique eBay-assigned identifier of the shipment you want to retrieve.<br><br>The <b>shipmentId</b> value is generated and returned by the <a href=\"/api-docs/sell/logistics/resources/shipment/methods/createFromShippingQuote\" target=\"_blank\">createFromShippingQuote</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "/sell/account/v1",
+      "key": "basePath"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ebay.com{{basePath}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "cb0421d3-db38-4664-9419-c15213d2bd26",
+    "name": "eBay Account Advertising_eligibility Shipment API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href=\"/api-docs/sell/account/overview.html#requirements\">Account API requirements and restrictions</a>.\n\nContact Support:\n Name: eBay Inc,",
+      "type": "text/plain"
+    }
+  }
+}

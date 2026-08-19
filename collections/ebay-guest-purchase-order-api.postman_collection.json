@@ -1,0 +1,489 @@
+{
+  "item": [
+    {
+      "id": "c96c565f-fac5-4e05-bc08-1647bfcf34c9",
+      "name": "Guest_purchase_order",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "60e0b493-c8bc-4ee4-8966-af18cd1d97c7",
+          "name": "get Guest Purchase Order",
+          "request": {
+            "name": "get Guest Purchase Order",
+            "description": {
+              "content": "<span class=\"tablenote\"><b>Note:</b> The Order API (v2) currently only supports the guest payment/checkout flow. If you need to support member payment/checkout flow, use the <a href=\"/api-docs/buy/order_v1/resources/methods\">v1_beta version</a> of the Order API.</span><br><div class=\"msgbox_important\"><p class=\"msgbox_importantInDiv\" data-mc-autonum=\"&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;\"><span class=\"autonumber\"><span><b><span style=\"color: #dd1e31;\" class=\"mcFormatColor\">Important!</span></b></span></span> <a href=\"https://developer.ebay.com/api-docs/static/versioning.html#limited\" target=\"_blank\"><img src=\"/cms/img/docs/partners-api.svg\" class=\"legend-icon partners-icon\"  alt=\"Limited Release\" title=\"Limited Release\" />(Limited Release)</a> This method is only available to select developers approved by business units.</p></div><br>This method retrieves the details about a specific guest purchase order. It returns the line items, including purchase  order status, dates created and modified, item quantity and listing data, payment and shipping information, and prices, taxes, discounts and credits.<br><br>The <b>purchaseOrderId</b> is passed in as a URI parameter and is required.<br><br><span class=\"tablenote\"><b>Note:</b> The <b>purchaseOrderId</b> value is returned in the call-back URL that is sent through the new eBay pay widget. For more information about eBay managed payments and the new Order API payment flow, see <a href=\"/api-docs/buy/static/api-order.html\">Order API</a> in the Buying Integration Guide.</span><br>You can use this method to not only get the details of a purchase order, but to check the value of the <a href=\"#response.purchaseOrderPaymentStatus\">purchaseOrderPaymentStatus</a> field to determine if the order has been paid for. If the order has been paid for, this field will return <code>PAID</code>.<br><br>For a list of supported sites and other restrictions, see <a href=\"/api-docs/buy/order/overview.html#API\">API Restrictions</a> in the Order API overview.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "guest_purchase_order",
+                ":purchaseOrderId"
+              ],
+              "host": [
+                "{{guest_purchase_order-purchaseOrderId-Url}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "purchaseOrderId",
+                  "description": "(Required) This path parameter specifies the unique identifier of a purchase order made by a guest buyer, for which details are to be retrieved.<br><br><span class=\"tablenote\"><b>Note:</b> This value is returned in the response URL that is sent through the new eBay pay widget. For more information about eBay managed payments and the new Order API payment flow, see <a href=\"/api-docs/buy/static/api-order.html\">Order API</a> in the Buying Integration Guide.</span>"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "This header identifies the eBay marketplace where the order will occur. <br><br><span class=\"tablenote\"><b>Note:</b>  For this method, this value must match the <b>X-EBAY-C-MARKETPLACE-ID</b> used when the associated checkout session was created.</span><br>See <a href=\"/api-docs/static/rest-request-components.html#marketpl \" target=\"_blank \">HTTP request headers</a> for the marketplace ID values.",
+                "key": "X-EBAY-C-MARKETPLACE-ID",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "This header is used to specify the <b>deviceId</b> for the device/user attempting to make the call.<br><br>It contains an alphanumeric string that allows a payment gateway to track an API call attempt and confirm that it is a verified payment attempt by a device/user.",
+                "key": "X-EBAY-C-ENDUSERCTX",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1f9a00db-b35d-4374-84c3-8c5acdeb6933",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guest_purchase_order",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{guest_purchase_order-purchaseOrderId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) This path parameter specifies the unique identifier of a purchase order made by a guest buyer, for which details are to be retrieved.<br><br><span class=\"tablenote\"><b>Note:</b> This value is returned in the response URL that is sent through the new eBay pay widget. For more information about eBay managed payments and the new Order API payment flow, see <a href=\"/api-docs/buy/static/api-order.html\">Order API</a> in the Buying Integration Guide.</span>"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This header identifies the eBay marketplace where the order will occur. <br><br><span class=\"tablenote\"><b>Note:</b>  For this method, this value must match the <b>X-EBAY-C-MARKETPLACE-ID</b> used when the associated checkout session was created.</span><br>See <a href=\"/api-docs/static/rest-request-components.html#marketpl \" target=\"_blank \">HTTP request headers</a> for the marketplace ID values.",
+                    "key": "X-EBAY-C-MARKETPLACE-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This header is used to specify the <b>deviceId</b> for the device/user attempting to make the call.<br><br>It contains an alphanumeric string that allows a payment gateway to track an API call attempt and confirm that it is a verified payment attempt by a device/user.",
+                    "key": "X-EBAY-C-ENDUSERCTX",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"lineItems\": [\n    {\n      \"authenticityVerification\": {\n        \"description\": \"string\",\n        \"outcomeReason\": \"string\",\n        \"status\": \"string\",\n        \"termsWebUrl\": \"string\"\n      },\n      \"baseUnitPrice\": {\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"fees\": [\n        {\n          \"amount\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"feeType\": \"string\"\n        },\n        {\n          \"amount\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"feeType\": \"string\"\n        }\n      ],\n      \"image\": {\n        \"imageUrl\": \"string\"\n      },\n      \"itemId\": \"string\",\n      \"itemOnHold\": true,\n      \"legacyReference\": {\n        \"legacyItemId\": \"string\",\n        \"legacyOrderId\": \"string\",\n        \"legacyTransactionId\": \"string\"\n      },\n      \"lineItemId\": \"string\",\n      \"lineItemPaymentStatus\": \"string\",\n      \"lineItemStatus\": \"string\",\n      \"netPrice\": {\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"orderId\": \"string\",\n      \"promotions\": [\n        {\n          \"discount\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"message\": \"string\",\n          \"promotionType\": \"string\"\n        },\n        {\n          \"discount\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"message\": \"string\",\n          \"promotionType\": \"string\"\n        }\n      ],\n      \"quantity\": 3182,\n      \"seller\": {\n        \"username\": \"string\"\n      },\n      \"shippingDetail\": {\n        \"maxEstimatedDeliveryDate\": \"string\",\n        \"minEstimatedDeliveryDate\": \"string\",\n        \"shippingCarrierCode\": \"string\",\n        \"shippingServiceCode\": \"string\"\n      },\n      \"taxDetails\": [\n        {\n          \"includedInPrice\": true,\n          \"taxJurisdiction\": {\n            \"region\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taxJurisdictionId\": \"string\"\n          },\n          \"taxType\": \"string\"\n        },\n        {\n          \"includedInPrice\": true,\n          \"taxJurisdiction\": {\n            \"region\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taxJurisdictionId\": \"string\"\n          },\n          \"taxType\": \"string\"\n        }\n      ],\n      \"title\": \"string\"\n    },\n    {\n      \"authenticityVerification\": {\n        \"description\": \"string\",\n        \"outcomeReason\": \"string\",\n        \"status\": \"string\",\n        \"termsWebUrl\": \"string\"\n      },\n      \"baseUnitPrice\": {\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"fees\": [\n        {\n          \"amount\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"feeType\": \"string\"\n        },\n        {\n          \"amount\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"feeType\": \"string\"\n        }\n      ],\n      \"image\": {\n        \"imageUrl\": \"string\"\n      },\n      \"itemId\": \"string\",\n      \"itemOnHold\": false,\n      \"legacyReference\": {\n        \"legacyItemId\": \"string\",\n        \"legacyOrderId\": \"string\",\n        \"legacyTransactionId\": \"string\"\n      },\n      \"lineItemId\": \"string\",\n      \"lineItemPaymentStatus\": \"string\",\n      \"lineItemStatus\": \"string\",\n      \"netPrice\": {\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"orderId\": \"string\",\n      \"promotions\": [\n        {\n          \"discount\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"message\": \"string\",\n          \"promotionType\": \"string\"\n        },\n        {\n          \"discount\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"message\": \"string\",\n          \"promotionType\": \"string\"\n        }\n      ],\n      \"quantity\": 7713,\n      \"seller\": {\n        \"username\": \"string\"\n      },\n      \"shippingDetail\": {\n        \"maxEstimatedDeliveryDate\": \"string\",\n        \"minEstimatedDeliveryDate\": \"string\",\n        \"shippingCarrierCode\": \"string\",\n        \"shippingServiceCode\": \"string\"\n      },\n      \"taxDetails\": [\n        {\n          \"includedInPrice\": true,\n          \"taxJurisdiction\": {\n            \"region\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taxJurisdictionId\": \"string\"\n          },\n          \"taxType\": \"string\"\n        },\n        {\n          \"includedInPrice\": true,\n          \"taxJurisdiction\": {\n            \"region\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            },\n            \"taxJurisdictionId\": \"string\"\n          },\n          \"taxType\": \"string\"\n        }\n      ],\n      \"title\": \"string\"\n    }\n  ],\n  \"pricingSummary\": {\n    \"additionalSavings\": {\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    },\n    \"adjustment\": {\n      \"amount\": {\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"label\": \"string\"\n    },\n    \"deliveryCost\": {\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    },\n    \"deliveryDiscount\": {\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    },\n    \"fee\": {\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    },\n    \"importCharges\": {\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    },\n    \"importTax\": {\n      \"amount\": {\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"importTaxType\": \"string\"\n    },\n    \"priceDiscount\": {\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    },\n    \"priceSubtotal\": {\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    },\n    \"tax\": {\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    },\n    \"total\": {\n      \"currency\": \"string\",\n      \"value\": \"string\"\n    }\n  },\n  \"purchaseOrderCreationDate\": \"string\",\n  \"purchaseOrderId\": \"string\",\n  \"purchaseOrderPaymentStatus\": \"string\",\n  \"purchaseOrderStatus\": \"string\",\n  \"refundedAmount\": {\n    \"currency\": \"string\",\n    \"value\": \"string\"\n  },\n  \"warnings\": [\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 2707,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    },\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 4278,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c1ed08d6-f852-4655-a5fe-020e34dec24e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guest_purchase_order",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{guest_purchase_order-purchaseOrderId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) This path parameter specifies the unique identifier of a purchase order made by a guest buyer, for which details are to be retrieved.<br><br><span class=\"tablenote\"><b>Note:</b> This value is returned in the response URL that is sent through the new eBay pay widget. For more information about eBay managed payments and the new Order API payment flow, see <a href=\"/api-docs/buy/static/api-order.html\">Order API</a> in the Buying Integration Guide.</span>"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This header identifies the eBay marketplace where the order will occur. <br><br><span class=\"tablenote\"><b>Note:</b>  For this method, this value must match the <b>X-EBAY-C-MARKETPLACE-ID</b> used when the associated checkout session was created.</span><br>See <a href=\"/api-docs/static/rest-request-components.html#marketpl \" target=\"_blank \">HTTP request headers</a> for the marketplace ID values.",
+                    "key": "X-EBAY-C-MARKETPLACE-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This header is used to specify the <b>deviceId</b> for the device/user attempting to make the call.<br><br>It contains an alphanumeric string that allows a payment gateway to track an API call attempt and confirm that it is a verified payment attempt by a device/user.",
+                    "key": "X-EBAY-C-ENDUSERCTX",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "89395dbb-934d-40ae-94a8-e49ff0368550",
+              "name": "Access Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guest_purchase_order",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{guest_purchase_order-purchaseOrderId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) This path parameter specifies the unique identifier of a purchase order made by a guest buyer, for which details are to be retrieved.<br><br><span class=\"tablenote\"><b>Note:</b> This value is returned in the response URL that is sent through the new eBay pay widget. For more information about eBay managed payments and the new Order API payment flow, see <a href=\"/api-docs/buy/static/api-order.html\">Order API</a> in the Buying Integration Guide.</span>"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This header identifies the eBay marketplace where the order will occur. <br><br><span class=\"tablenote\"><b>Note:</b>  For this method, this value must match the <b>X-EBAY-C-MARKETPLACE-ID</b> used when the associated checkout session was created.</span><br>See <a href=\"/api-docs/static/rest-request-components.html#marketpl \" target=\"_blank \">HTTP request headers</a> for the marketplace ID values.",
+                    "key": "X-EBAY-C-MARKETPLACE-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This header is used to specify the <b>deviceId</b> for the device/user attempting to make the call.<br><br>It contains an alphanumeric string that allows a payment gateway to track an API call attempt and confirm that it is a verified payment attempt by a device/user.",
+                    "key": "X-EBAY-C-ENDUSERCTX",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "22413c51-3193-4ff5-a299-8cc1c5ce534c",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guest_purchase_order",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{guest_purchase_order-purchaseOrderId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) This path parameter specifies the unique identifier of a purchase order made by a guest buyer, for which details are to be retrieved.<br><br><span class=\"tablenote\"><b>Note:</b> This value is returned in the response URL that is sent through the new eBay pay widget. For more information about eBay managed payments and the new Order API payment flow, see <a href=\"/api-docs/buy/static/api-order.html\">Order API</a> in the Buying Integration Guide.</span>"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This header identifies the eBay marketplace where the order will occur. <br><br><span class=\"tablenote\"><b>Note:</b>  For this method, this value must match the <b>X-EBAY-C-MARKETPLACE-ID</b> used when the associated checkout session was created.</span><br>See <a href=\"/api-docs/static/rest-request-components.html#marketpl \" target=\"_blank \">HTTP request headers</a> for the marketplace ID values.",
+                    "key": "X-EBAY-C-MARKETPLACE-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This header is used to specify the <b>deviceId</b> for the device/user attempting to make the call.<br><br>It contains an alphanumeric string that allows a payment gateway to track an API call attempt and confirm that it is a verified payment attempt by a device/user.",
+                    "key": "X-EBAY-C-ENDUSERCTX",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f10a949f-afc8-40f2-8e35-8ca612002a29",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "guest_purchase_order",
+                    ":purchaseOrderId"
+                  ],
+                  "host": [
+                    "{{guest_purchase_order-purchaseOrderId-Url}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "purchaseOrderId",
+                      "description": "(Required) This path parameter specifies the unique identifier of a purchase order made by a guest buyer, for which details are to be retrieved.<br><br><span class=\"tablenote\"><b>Note:</b> This value is returned in the response URL that is sent through the new eBay pay widget. For more information about eBay managed payments and the new Order API payment flow, see <a href=\"/api-docs/buy/static/api-order.html\">Order API</a> in the Buying Integration Guide.</span>"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This header identifies the eBay marketplace where the order will occur. <br><br><span class=\"tablenote\"><b>Note:</b>  For this method, this value must match the <b>X-EBAY-C-MARKETPLACE-ID</b> used when the associated checkout session was created.</span><br>See <a href=\"/api-docs/static/rest-request-components.html#marketpl \" target=\"_blank \">HTTP request headers</a> for the marketplace ID values.",
+                    "key": "X-EBAY-C-MARKETPLACE-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This header is used to specify the <b>deviceId</b> for the device/user attempting to make the call.<br><br>It contains an alphanumeric string that allows a payment gateway to track an API call attempt and confirm that it is a verified payment attempt by a device/user.",
+                    "key": "X-EBAY-C-ENDUSERCTX",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "/sell/account/v1",
+      "key": "basePath"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ebay.com{{basePath}}",
+      "key": "baseUrl"
+    },
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "/buy/order/v2",
+      "key": "basePath"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ebay.com{{basePath}}",
+      "key": "guest_purchase_order-purchaseOrderId-Url"
+    }
+  ],
+  "info": {
+    "_postman_id": "c5079ae0-5898-4fd5-96ce-bc0ea7cfb28e",
+    "name": "eBay Account Advertising_eligibility Guest_purchase_order API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href=\"/api-docs/sell/account/overview.html#requirements\">Account API requirements and restrictions</a>.\n\nContact Support:\n Name: eBay Inc,",
+      "type": "text/plain"
+    }
+  }
+}

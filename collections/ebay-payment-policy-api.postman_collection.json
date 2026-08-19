@@ -1,0 +1,1847 @@
+{
+  "item": [
+    {
+      "id": "38cda457-7fea-4b9c-ab4f-d501ba14af64",
+      "name": "Payment_policy",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "5efd0228-11f0-478c-823b-7ffcecd9cd03",
+          "name": "get Payment Policies",
+          "request": {
+            "name": "get Payment Policies",
+            "description": {
+              "content": "This method retrieves all the payment policies configured for the marketplace you specify using the <code>marketplace_id</code> query parameter.  <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policies for a marketplace that supports multiple locales using the <code>Content-Language</code> request header. For example, get the policies for the French locale of the Canadian marketplace by specifying <code>fr-CA</code> for the <code>Content-Language</code> header. Likewise, target the Dutch locale of the Belgium marketplace by setting <code>Content-Language: nl-BE</code>. For details on header values, see <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank\">HTTP request headers</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_policy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "marketplace_id",
+                  "value": "<string>",
+                  "description": "(Required) This query parameter specifies the eBay marketplace of the policies you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum"
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c4d06bbc-d84f-495d-ac72-ce8b4bc077d9",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"href\": \"string\",\n  \"limit\": 7842,\n  \"next\": \"string\",\n  \"offset\": 2828,\n  \"paymentPolicies\": [\n    {\n      \"categoryTypes\": [\n        {\n          \"default\": true,\n          \"name\": \"string\"\n        },\n        {\n          \"default\": false,\n          \"name\": \"string\"\n        }\n      ],\n      \"deposit\": {\n        \"amount\": {\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"dueIn\": {\n          \"unit\": \"string\",\n          \"value\": 767\n        },\n        \"paymentMethods\": [\n          {\n            \"brands\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"paymentMethodType\": \"string\",\n            \"recipientAccountReference\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"brands\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"paymentMethodType\": \"string\",\n            \"recipientAccountReference\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"description\": \"string\",\n      \"fullPaymentDueIn\": {\n        \"unit\": \"string\",\n        \"value\": 6908\n      },\n      \"immediatePay\": true,\n      \"marketplaceId\": \"string\",\n      \"name\": \"string\",\n      \"paymentInstructions\": \"string\",\n      \"paymentMethods\": [\n        {\n          \"brands\": [\n            \"string\",\n            \"string\"\n          ],\n          \"paymentMethodType\": \"string\",\n          \"recipientAccountReference\": {\n            \"referenceId\": \"string\",\n            \"referenceType\": \"string\"\n          }\n        },\n        {\n          \"brands\": [\n            \"string\",\n            \"string\"\n          ],\n          \"paymentMethodType\": \"string\",\n          \"recipientAccountReference\": {\n            \"referenceId\": \"string\",\n            \"referenceType\": \"string\"\n          }\n        }\n      ],\n      \"paymentPolicyId\": \"string\"\n    },\n    {\n      \"categoryTypes\": [\n        {\n          \"default\": false,\n          \"name\": \"string\"\n        },\n        {\n          \"default\": false,\n          \"name\": \"string\"\n        }\n      ],\n      \"deposit\": {\n        \"amount\": {\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"dueIn\": {\n          \"unit\": \"string\",\n          \"value\": 8539\n        },\n        \"paymentMethods\": [\n          {\n            \"brands\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"paymentMethodType\": \"string\",\n            \"recipientAccountReference\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          },\n          {\n            \"brands\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"paymentMethodType\": \"string\",\n            \"recipientAccountReference\": {\n              \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n            }\n          }\n        ]\n      },\n      \"description\": \"string\",\n      \"fullPaymentDueIn\": {\n        \"unit\": \"string\",\n        \"value\": 2202\n      },\n      \"immediatePay\": false,\n      \"marketplaceId\": \"string\",\n      \"name\": \"string\",\n      \"paymentInstructions\": \"string\",\n      \"paymentMethods\": [\n        {\n          \"brands\": [\n            \"string\",\n            \"string\"\n          ],\n          \"paymentMethodType\": \"string\",\n          \"recipientAccountReference\": {\n            \"referenceId\": \"string\",\n            \"referenceType\": \"string\"\n          }\n        },\n        {\n          \"brands\": [\n            \"string\",\n            \"string\"\n          ],\n          \"paymentMethodType\": \"string\",\n          \"recipientAccountReference\": {\n            \"referenceId\": \"string\",\n            \"referenceType\": \"string\"\n          }\n        }\n      ],\n      \"paymentPolicyId\": \"string\"\n    }\n  ],\n  \"prev\": \"string\",\n  \"total\": 4827\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7d92d2bb-da8d-4a90-b833-abee81215bbe",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c949696f-6741-451f-baf8-ab022fe72ef3",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "5fe389dc-f958-4dc4-b628-26cc067c3825",
+          "name": "create Payment Policy",
+          "request": {
+            "name": "create Payment Policy",
+            "description": {
+              "content": "This method creates a new payment policy where the policy encapsulates seller's terms for order payments.  <br><br>Each policy targets a specific eBay marketplace and category group, and you can create multiple policies for each combination.  <br><br>A successful request returns the <b>getPaymentPolicy</b> URI to the new policy in the <b>Location</b> response header and the ID for the new policy is returned in the response payload.  <p class=\"tablenote\"><b>Tip:</b> For details on creating and using the business policies supported by the Account API, see <a href=\"/api-docs/sell/static/seller-accounts/business-policies.html\">eBay business policies</a>.</p>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_policy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"deposit\": {\n    \"amount\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"dueIn\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"paymentMethods\": [\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      },\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      }\n    ]\n  },\n  \"description\": \"<string>\",\n  \"fullPaymentDueIn\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"immediatePay\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"paymentInstructions\": \"<string>\",\n  \"paymentMethods\": [\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    },\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "15ce20dc-c6b5-4c73-bbae-6e746c3cf427",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"deposit\": {\n    \"amount\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"dueIn\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"paymentMethods\": [\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      },\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      }\n    ]\n  },\n  \"description\": \"<string>\",\n  \"fullPaymentDueIn\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"immediatePay\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"paymentInstructions\": \"<string>\",\n  \"paymentMethods\": [\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    },\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"deposit\": {\n    \"amount\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"dueIn\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"paymentMethods\": [\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      },\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      }\n    ]\n  },\n  \"description\": \"string\",\n  \"fullPaymentDueIn\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"immediatePay\": false,\n  \"marketplaceId\": \"string\",\n  \"name\": \"string\",\n  \"paymentInstructions\": \"string\",\n  \"paymentMethods\": [\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    },\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    }\n  ],\n  \"paymentPolicyId\": \"string\",\n  \"warnings\": [\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 857,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    },\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 8089,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "fb5bcec7-0f5a-4892-989e-98b2f621d3e6",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"deposit\": {\n    \"amount\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"dueIn\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"paymentMethods\": [\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      },\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      }\n    ]\n  },\n  \"description\": \"<string>\",\n  \"fullPaymentDueIn\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"immediatePay\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"paymentInstructions\": \"<string>\",\n  \"paymentMethods\": [\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    },\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "4dc0be56-54a2-4c03-99fb-5dd8f1668637",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"deposit\": {\n    \"amount\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"dueIn\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"paymentMethods\": [\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      },\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      }\n    ]\n  },\n  \"description\": \"<string>\",\n  \"fullPaymentDueIn\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"immediatePay\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"paymentInstructions\": \"<string>\",\n  \"paymentMethods\": [\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    },\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "271805f6-8621-47bd-b105-c05698132dac",
+          "name": "get Payment Policy",
+          "request": {
+            "name": "get Payment Policy",
+            "description": {
+              "content": "This method retrieves the complete details of a payment policy. Supply the ID of the policy you want to retrieve using the <b>paymentPolicyId</b> path parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_policy",
+                ":payment_policy_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "payment_policy_id",
+                  "description": "(Required) This path parameter specifies the ID of the payment policy you want to retrieve. <br><br> This ID can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolices</a> method."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "cb8c38c9-e7ee-4f08-a6a0-3df9ea4a243b",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy",
+                    ":payment_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_policy_id",
+                      "description": "(Required) This path parameter specifies the ID of the payment policy you want to retrieve. <br><br> This ID can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolices</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"deposit\": {\n    \"amount\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"dueIn\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"paymentMethods\": [\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      },\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      }\n    ]\n  },\n  \"description\": \"string\",\n  \"fullPaymentDueIn\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"immediatePay\": true,\n  \"marketplaceId\": \"string\",\n  \"name\": \"string\",\n  \"paymentInstructions\": \"string\",\n  \"paymentMethods\": [\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    },\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    }\n  ],\n  \"paymentPolicyId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a5578b89-2dba-4e62-8844-bf42991a9864",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy",
+                    ":payment_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_policy_id",
+                      "description": "(Required) This path parameter specifies the ID of the payment policy you want to retrieve. <br><br> This ID can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolices</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ced31de2-bb96-4e80-a81c-a3f40c5c3180",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy",
+                    ":payment_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_policy_id",
+                      "description": "(Required) This path parameter specifies the ID of the payment policy you want to retrieve. <br><br> This ID can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolices</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "67e43f7c-0649-4022-9627-360df6451d9e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy",
+                    ":payment_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_policy_id",
+                      "description": "(Required) This path parameter specifies the ID of the payment policy you want to retrieve. <br><br> This ID can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolices</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "7dd04f3a-4f46-476f-81b0-4866b4c08538",
+          "name": "update Payment Policy",
+          "request": {
+            "name": "update Payment Policy",
+            "description": {
+              "content": "This method updates an existing payment policy. Specify the policy you want to update using the <b>payment_policy_id</b> path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing policy with the new details specified in the payload.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_policy",
+                ":payment_policy_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "payment_policy_id",
+                  "description": "(Required) This path parameter specifies the ID of the payment policy you want to update. <br><br> This ID can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolices</a> method."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"deposit\": {\n    \"amount\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"dueIn\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"paymentMethods\": [\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      },\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      }\n    ]\n  },\n  \"description\": \"<string>\",\n  \"fullPaymentDueIn\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"immediatePay\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"paymentInstructions\": \"<string>\",\n  \"paymentMethods\": [\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    },\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "63e9bd22-5a42-4ecc-8dce-655b88cede9b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy",
+                    ":payment_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_policy_id",
+                      "description": "(Required) This path parameter specifies the ID of the payment policy you want to update. <br><br> This ID can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolices</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"deposit\": {\n    \"amount\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"dueIn\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"paymentMethods\": [\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      },\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      }\n    ]\n  },\n  \"description\": \"<string>\",\n  \"fullPaymentDueIn\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"immediatePay\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"paymentInstructions\": \"<string>\",\n  \"paymentMethods\": [\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    },\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"deposit\": {\n    \"amount\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"dueIn\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"paymentMethods\": [\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      },\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      }\n    ]\n  },\n  \"description\": \"string\",\n  \"fullPaymentDueIn\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"immediatePay\": false,\n  \"marketplaceId\": \"string\",\n  \"name\": \"string\",\n  \"paymentInstructions\": \"string\",\n  \"paymentMethods\": [\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    },\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    }\n  ],\n  \"paymentPolicyId\": \"string\",\n  \"warnings\": [\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 3433,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    },\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 543,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "202dead0-f36a-49c8-bb07-8cb03fac3b3e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy",
+                    ":payment_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_policy_id",
+                      "description": "(Required) This path parameter specifies the ID of the payment policy you want to update. <br><br> This ID can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolices</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"deposit\": {\n    \"amount\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"dueIn\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"paymentMethods\": [\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      },\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      }\n    ]\n  },\n  \"description\": \"<string>\",\n  \"fullPaymentDueIn\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"immediatePay\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"paymentInstructions\": \"<string>\",\n  \"paymentMethods\": [\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    },\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "05797b25-703d-4a32-88f9-29818f382c1d",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy",
+                    ":payment_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_policy_id",
+                      "description": "(Required) This path parameter specifies the ID of the payment policy you want to update. <br><br> This ID can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolices</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"deposit\": {\n    \"amount\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"dueIn\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"paymentMethods\": [\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      },\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      }\n    ]\n  },\n  \"description\": \"<string>\",\n  \"fullPaymentDueIn\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"immediatePay\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"paymentInstructions\": \"<string>\",\n  \"paymentMethods\": [\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    },\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9ae97c89-fa50-42da-ba62-5ec42852d8aa",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy",
+                    ":payment_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_policy_id",
+                      "description": "(Required) This path parameter specifies the ID of the payment policy you want to update. <br><br> This ID can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolices</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"deposit\": {\n    \"amount\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"dueIn\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"paymentMethods\": [\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      },\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      }\n    ]\n  },\n  \"description\": \"<string>\",\n  \"fullPaymentDueIn\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"immediatePay\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"paymentInstructions\": \"<string>\",\n  \"paymentMethods\": [\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    },\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2abb1d01-df6a-4b3a-82de-78ac00777d5b",
+          "name": "delete Payment Policy",
+          "request": {
+            "name": "delete Payment Policy",
+            "description": {
+              "content": "This method deletes a payment policy. Supply the ID of the policy you want to delete in the <b>paymentPolicyId</b> path parameter. ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_policy",
+                ":payment_policy_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "payment_policy_id",
+                  "description": "(Required) This path parameter specifies the unique identifier of the payment policy you want to delete.<br><br> This ID can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolices</a> method."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b7c95c08-be86-40eb-804f-8d07eb94c32b",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy",
+                    ":payment_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_policy_id",
+                      "description": "(Required) This path parameter specifies the unique identifier of the payment policy you want to delete.<br><br> This ID can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolices</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2b819f8e-88e8-4009-a729-ea2c58531c2d",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy",
+                    ":payment_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_policy_id",
+                      "description": "(Required) This path parameter specifies the unique identifier of the payment policy you want to delete.<br><br> This ID can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolices</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f1427868-fa3b-4327-9bbc-22cc84390b2c",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy",
+                    ":payment_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_policy_id",
+                      "description": "(Required) This path parameter specifies the unique identifier of the payment policy you want to delete.<br><br> This ID can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolices</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "748d7de6-aef0-428f-a50d-a213710ceffa",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy",
+                    ":payment_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_policy_id",
+                      "description": "(Required) This path parameter specifies the unique identifier of the payment policy you want to delete.<br><br> This ID can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolices</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "432ec3c6-5267-490c-b61e-78e7a2fc86ea",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy",
+                    ":payment_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "payment_policy_id",
+                      "description": "(Required) This path parameter specifies the unique identifier of the payment policy you want to delete.<br><br> This ID can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolices</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "fd161bbd-fa0d-4f5a-b924-2e4f4beb97bd",
+          "name": "get Payment Policy By Name",
+          "request": {
+            "name": "get Payment Policy By Name",
+            "description": {
+              "content": "This method retrieves the details of a specific payment policy. Supply both the policy <code>name</code> and its associated <code>marketplace_id</code> in the request query parameters.   <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policy for a marketplace that supports multiple locales using the <code>Content-Language</code> request header. For example, get a policy for the French locale of the Canadian marketplace by specifying <code>fr-CA</code> for the <code>Content-Language</code> header. Likewise, target the Dutch locale of the Belgium marketplace by setting <code>Content-Language: nl-BE</code>. For details on header values, see <a href=\"/api-docs/static/rest-request-components.html#HTTP\">HTTP request headers</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "payment_policy",
+                "get_by_policy_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "marketplace_id",
+                  "value": "<string>",
+                  "description": "(Required) This query parameter specifies the eBay marketplace of the policy you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) This query parameter specifies the seller-defined name of the payment policy you want to retrieve.<br><br> This value can be retrieved for a payment policy by using the <a href=\"/api-docs/sell/account/resources/payment_policy/methods/getPaymentPolicies\" target=\"_blank \">getPaymentPolicies</a> method."
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "997fdaaf-3855-4848-b27d-603b73a2818a",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy",
+                    "get_by_policy_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"deposit\": {\n    \"amount\": {\n      \"currency\": \"<string>\",\n      \"value\": \"<string>\"\n    },\n    \"dueIn\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"paymentMethods\": [\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      },\n      {\n        \"brands\": [\n          \"<string>\",\n          \"<string>\"\n        ],\n        \"paymentMethodType\": \"<string>\",\n        \"recipientAccountReference\": {\n          \"referenceId\": \"<string>\",\n          \"referenceType\": \"<string>\"\n        }\n      }\n    ]\n  },\n  \"description\": \"string\",\n  \"fullPaymentDueIn\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"immediatePay\": true,\n  \"marketplaceId\": \"string\",\n  \"name\": \"string\",\n  \"paymentInstructions\": \"string\",\n  \"paymentMethods\": [\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    },\n    {\n      \"brands\": [\n        \"<string>\",\n        \"<string>\"\n      ],\n      \"paymentMethodType\": \"<string>\",\n      \"recipientAccountReference\": {\n        \"referenceId\": \"<string>\",\n        \"referenceType\": \"<string>\"\n      }\n    }\n  ],\n  \"paymentPolicyId\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "84c8a0a7-bede-473f-90cf-8e70c4510a07",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy",
+                    "get_by_policy_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "314a5927-910f-4c14-bb38-a002ded2ea25",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "payment_policy",
+                    "get_by_policy_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "/sell/account/v1",
+      "key": "basePath"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ebay.com{{basePath}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "a06121b3-5cc6-48f6-95fc-7ef6423c66d7",
+    "name": "eBay Account Advertising_eligibility Payment_policy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href=\"/api-docs/sell/account/overview.html#requirements\">Account API requirements and restrictions</a>.\n\nContact Support:\n Name: eBay Inc,",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,273 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "eBay Account Advertising_eligibility Item API",
+    "version": "v1.9.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Item",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getItem",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ebay.com{basePath}/item/:item_id",
+            "headers": [
+              {
+                "name": "X-EBAY-C-ENDUSERCTX",
+                "value": ""
+              },
+              {
+                "name": "X-EBAY-C-MARKETPLACE-ID",
+                "value": ""
+              },
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "fieldgroups",
+                "value": "",
+                "type": "query",
+                "description": "This parameter controls what is returned in the response. If this field is not set, the method returns all the details of the item.<br><br><span class=\"tablenote\"><b>Note:</b> Multiple <b>fieldgroups</b> can be set and applied simultaneously. However, <b>COMPACT</b> <b>must</b> be used alone. Otherwise, an error will occur.</span><br><b>Valid Values:</b><ul><li><b>PRODUCT</b><br>This field group adds the <a href=\"/api-docs/buy/browse/resources/item/methods/getItem#response.product\">product</a> container to the response.</li><li><b>COMPACT</b></br>This field group returns only the following fields which let you quickly check if the availability or price of the item has changed, if the item has been revised by the seller, or if an item's top-rated plus status has changed for items you have stored.<ul><li><b>itemId</b></li><li><b>bidCount</b></li><li><b>currentBidPrice</b></li><li><b>eligibleForInlineCheckout</b></li><li><b>estimatedAvailabilities</b></li><li><b>gtin</b></li><li><b>itemAffiliateWebURL</b></li><li><b>itemCreationDate</b></li><li><b>ItemWebURL</b></li><li><b>legacyItemId</b></li><li><b>minimumPriceToBid</b></li><li><b>price</b></li><li><b>priorityListing</b></li><li><b>reservePriceMet</b></li><li><b>sellerItemRevision</b></li><li><b>shippingOptions</b></li><li><b>taxes</b></li><li><b>topRatedBuyingExperience</b></li><li><b>uniqueBidderCount</b></li></ul>For Example:<br>To determine if a stored item's information is current, perform the following:<ol><li>Pass in the item ID and set <code>fieldgroups</code> to <code>COMPACT</code>.<pre>item/v1|4**********8|0?fieldgroups=COMPACT</pre></li><li>Do one of the following:<ul><li>If <b>sellerItemRevision</b> is returned and a revision number for this item <i>has not</i> been stored, record the number and pass in the item ID in the <b>getItem</b> method to retrieve the most recent information.</li><li>If the revision number is different from the value you have stored, update the value and pass in the item ID in the <b>getItem</b> method to retrieve the most recent information.</li><li>If <code>sellerItemRevision</code> is <i>not</i> returned or has not changed, where needed, update the item information with the information returned in the response.</li></ul></li></ol></li><li><b>ADDITIONAL_SELLER_DETAILS</b><br>This adds the <a href=\"/api-docs/buy/browse/resources/item/methods/getItem#response.seller.userId\">userId</a> field to the response.</li></ul>"
+              },
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "path",
+                "description": "This path parameter specifies the unique RESTful identifier of the item being retrieved. <br><br><b>RESTful Item ID Format: </b><code>v1</code>|<code><i>#</i></code>|<code><i>#</i></code><br><br>For a single SKU listing, pass in the item ID: <pre>v1|2**********2|0</pre>For a multi-SKU listing, pass in the identifier of the variation:<pre>v1|1**********2|4**********2</pre><br>For more information about item IDs for RESTful APIs, refer to <a href=\"/api-docs/buy/static/api-browse.html#Legacy\" target=\"_blank\">Item ID legacy API compatibility overview</a> in the <a href=\"/api-docs/buy/static/buying-ig-landing.html\" target=\"_blank\">Buying Integration Guide</a>."
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This method retrieves the details of a specific item, such as description, price, category, all item aspects, condition, return policies, seller feedback and score, shipping options, shipping costs, estimated delivery, and other information the buyer needs to make a purchasing decision.<br><br>The Buy APIs are designed to let you create an eBay shopping experience in your app or website. This means you will need to know when something, such as the availability, quantity, etc., has changed in any"
+        },
+        {
+          "info": {
+            "name": "getItemByLegacyId",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ebay.com{basePath}/item/get_item_by_legacy_id",
+            "headers": [
+              {
+                "name": "X-EBAY-C-ENDUSERCTX",
+                "value": ""
+              },
+              {
+                "name": "X-EBAY-C-MARKETPLACE-ID",
+                "value": ""
+              },
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "fieldgroups",
+                "value": "",
+                "type": "query",
+                "description": "This field controls what is returned in the response. If this field is not set, the method returns all details about the item. Multiple <code>fieldgroups</code> can be set.<br><br><b>Valid Values:</b><ul><li> <b>PRODUCT</b><br>This field group adds the <a href=\"/api-docs/buy/browse/resources/item/methods/getItemByLegacyId#response.product\">product</a> container to the response. </li><li><b>ADDITIONAL_SELLER_DETAILS</b><br>This field group adds the <a href=\"/api-docs/buy/browse/resources/item/methods/getItemByLegacyId#response.seller.userId\">userId</a> field to the response.</li></ul>"
+              },
+              {
+                "name": "legacy_item_id",
+                "value": "",
+                "type": "query",
+                "description": "This query parameter is the unique identifier that specifies the item being retrieved.<br><br><span class=\"tablenote\"><b> Note:</b> When passing in the ID for a multi-variation listing, you must also use the <code>legacy_variation_id</code> field and pass in the ID of the specific item variation. If not, all variation within the multi-SKU listing will be retrieved.</span></li></ul><br>The following is an example of using the value of the <b>ItemID</b> field for a specific item to get the RESTful <code>itemId</code> value.<pre><code>browse/v1/item/get_item_by_legacy_id?legacy_item_id=1**********9</code></pre>"
+              },
+              {
+                "name": "legacy_variation_id",
+                "value": "",
+                "type": "query",
+                "description": "This query parameter specifies the legacy item ID of a specific item in a multi-variation listing, such as that for the <i>red shirt size L</i> item.<br><br><div class=\"msgbox_important\"><p class=\"msgbox_importantInDiv\" data-mc-autonum=\"&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;\"><span class=\"autonumber\"><span><b><span style=\"color: #dd1e31;\" class=\"mcFormatColor\">Important!</span></b></span></span> A <code>legacy_item_id</code> value must always be passed in when specifying a <code>legacy_variation_id</code> value.</p></div>"
+              },
+              {
+                "name": "legacy_variation_sku",
+                "value": "",
+                "type": "query",
+                "description": "This query parameter specifies the legacy SKU of an item. SKUs are the unique identifiers of an item created by the seller.<br><br>The following is an example of using the value of the <code>ItemID</code> and <code>SKU</code> fields to get the RESTful <code>itemId</code> value.<pre><code>browse/v1/item/get_item_by_legacy_id?legacy_item_id=1**********9&amp;legacy_variation_sku=V**********M</code></pre><div class=\"msgbox_important\"><p class=\"msgbox_importantInDiv\" data-mc-autonum=\"&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;\"><span class=\"autonumber\"><span><b><span style=\"color: #dd1e31;\" class=\"mcFormatColor\">Important!</span></b></span></span> A <code>legacy_item_id</code> value must always be passed in when specifying a <code>legacy_variation_sku</code> value.</p></div>"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This method is a bridge between the eBay legacy APIs, such as <b>Shopping</b> and <b>Finding</b>, and the eBay Buy APIs. There are differences between how legacy APIs and RESTful APIs return the identifier of an \"item\" and what the item ID represents. This method lets you use the legacy item ids retrieve the details of a specific item, such as description, price, and other information the buyer needs to make a purchasing decision. It also returns the RESTful <b>item_id</b>, which you can use wit"
+        },
+        {
+          "info": {
+            "name": "getItems",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ebay.com{basePath}/item/",
+            "headers": [
+              {
+                "name": "X-EBAY-C-ENDUSERCTX",
+                "value": ""
+              },
+              {
+                "name": "X-EBAY-C-MARKETPLACE-ID",
+                "value": ""
+              },
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item_ids",
+                "value": "",
+                "type": "query",
+                "description": "A comma separated list of the unique identifiers of the items to retrieve (maximum 20).<br><br><span class=\"tablenote\"><b>Note:</b> In any given request, either <code>item_ids</code> <b>or</b> <code>item_group_ids</code> can be retrieved. Attempting to retrieve both will result in an error.</span><br><b>RESTful Item ID Format: </b><code>v1</code>|<code><i>#</i></code>|<code><i>#</i></code><br><br>For a single SKU listing, pass in the item ID: <pre>v1|2**********2|0</pre>For a multi-SKU listing, pass in the identifier of the variation:<pre>v1|1**********2|4**********2</pre><br>For more information about item IDs for RESTful APIs, refer to <a href=\"/api-docs/buy/static/api-browse.html#Legacy\" target=\"_blank\">Item ID legacy API compatibility overview</a> in the <a href=\"/api-docs/buy/static/buying-ig-landing.html\" target=\"_blank\">Buying Integration Guide</a>."
+              },
+              {
+                "name": "item_group_ids",
+                "value": "",
+                "type": "query",
+                "description": "A comma separated list of the unique identifiers of the item groups being retrieved (maximum 10).<br><br><span class=\"tablenote\"><b>Note:</b> In any given request, either <code>item_ids</code> <b>or</b> <code>item_group_ids</code> can be retrieved. Attempting to retrieve both will result in an error.</span><br><b>RESTful Group Item ID Format:</b> <code>############</code><br><br>For example:<pre>3**********9</pre>"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This method retrieves the details about specific items that buyers need to make a purchasing decision.<br><br><span class=\"tablenote\"><b>Note:</b> This is a <a href=\"/api-docs/static/versioning.html#limited \" target=\"_blank\"><img src=\"/cms/img/docs/partners-api.svg\" class=\"legend-icon partners-icon\" title=\"Limited Release\"  alt=\"Limited Release\" />(Limited Release)</a> available only to select Partners.<br><br>For this method, only the following fields are returned: <code>bidCount</code>, <code>"
+        },
+        {
+          "info": {
+            "name": "getItemsByItemGroup",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ebay.com{basePath}/item/get_items_by_item_group",
+            "headers": [
+              {
+                "name": "X-EBAY-C-ENDUSERCTX",
+                "value": ""
+              },
+              {
+                "name": "X-EBAY-C-MARKETPLACE-ID",
+                "value": ""
+              },
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "fieldgroups",
+                "value": "",
+                "type": "query",
+                "description": "This field controls what is returned in the response. If this field is not set, the method returns all details about the item.<br><br><b>Valid Values:</b><br><br><b>ADDITIONAL_SELLER_DETAILS</b> - This field group adds the <a href=\"/api-docs/buy/browse/resources/item/methods/getItemsByItemGroup#response.items.seller.userId\">userId</a> field to the response."
+              },
+              {
+                "name": "item_group_id",
+                "value": "",
+                "type": "query",
+                "description": "This query parameter specifies the unique identifier of an item group for which information is to be returned. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc.<br><br>This ID is returned in the <b>itemGroupHref</b> field of the <a href=\"/api-docs/buy/browse/resources/item_summary/methods/search\">search</a> and <a href=\"/api-docs/buy/browse/resources/item/methods/getItem\">getItem</a> methods.<br><br><b>For Example:</b><pre>https://api.ebay.com/buy/browse/v1/item/get_items_by_item_group?item_group_id=3**********6</pre>"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This method retrieves details about individual items in an item group. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc.<br><br>You pass in the <b>item_group_id</b> as a URI parameter.<br><br>This method returns two main containers:<ul><li><b>items</b><br>This container has an array of containers with the details about each item in the group.</li><li><b>commonDescriptions</b><br>This container has an array of containers for a description an"
+        },
+        {
+          "info": {
+            "name": "checkCompatibility",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ebay.com{basePath}/item/:item_id/check_compatibility",
+            "headers": [
+              {
+                "name": "X-EBAY-C-MARKETPLACE-ID",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              },
+              {
+                "name": "Accept-Language",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "path",
+                "description": "This path parameter specifies the unique RESTful identifier of an item (such as the park you want to check).<br><br><b>RESTful Item ID Format: </b><code>v1</code>|<code><i>#</i></code>|<code><i>#</i></code><br><br>For a single SKU listing, pass in the item ID: <pre>v1|2**********2|0</pre>For a multi-SKU listing, pass in the identifier of the variation:<pre>v1|1**********2|4**********2</pre><br>For more information about item IDs for RESTful APIs, refer to <a href=\"/api-docs/buy/static/api-browse.html#Legacy\" target=\"_blank\">Item ID legacy API compatibility overview</a> in the <a href=\"/api-docs/buy/static/buying-ig-landing.html\" target=\"_blank\">Buying Integration Guide</a>."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This method checks if a product is compatible with the specified item. You can use this method to check the compatibility of cars, trucks, and motorcycles with a specific part listed on eBay.<br><br>For example, to check the compatibility of a part, you pass in the <b>item_id</b> of the part as a URI parameter and specify all the attributes used to define a specific car within the <b>compatibilityProperties</b> container. If the call is successful, the response will be <code>COMPATIBLE</code>, <"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

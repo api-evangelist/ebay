@@ -1,0 +1,96 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "eBay Account Advertising_eligibility Bidding API",
+    "version": "v1.9.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Bidding",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getBidding",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ebay.com{basePath}/bidding/:item_id",
+            "headers": [
+              {
+                "name": "X-EBAY-C-MARKETPLACE-ID",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "path",
+                "description": "This path parameter specifies the unique eBay RESTful identifier of an item for which you want the buyer's bidding information.<br><br>This ID is returned by the <b> Browse</b> and <b> Feed</b> API methods.  <br><br> <b>RESTful Item ID example: </b><code>v1|2**********2|0</code> <br><br>For more information about item ID for RESTful APIs, see the <a href=\"/api-docs/buy/static/api-browse.html#Legacy\">Legacy API compatibility</a> section of the <i>Buy APIs Overview</i>.  <br><br><b>Restriction: </b> The buyer must have placed a bid for this item. "
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This method retrieves the bidding details that are specific to the buyer of the specified auction. This must be an auction where the buyer has already placed a bid. <br><br>To retrieve the bidding information you use a <a href=\"/api-docs/static/oauth-tokens.html\">user access token</a> and pass in the item ID of the auction. You can also retrieve general bidding details about the auction, such as minimum bid price and the count of unique bidders, using the <b>Browse API</b> <a href=\"/api-docs/buy"
+        },
+        {
+          "info": {
+            "name": "placeProxyBid",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ebay.com{basePath}/bidding/:item_id/place_proxy_bid",
+            "headers": [
+              {
+                "name": "X-EBAY-C-MARKETPLACE-ID",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "item_id",
+                "value": "",
+                "type": "path",
+                "description": "This path parameter specifies the unique eBay RESTful identifier of an item you want to bid on.<br><br>This ID is returned by the <a href=\"/api-docs/buy/browse/overview.html\" target=\"_blank \">Browse</a> and <a href=\"/api-docs/buy/feed/overview.html\" target=\"_blank \">Feed Beta</a> API methods.  <br><br> <b>RESTful Item ID Example: </b><code>v1|2**********2|0</code> <br><br>For more information about item ID for RESTful APIs, see the <a href=\"/api-docs/buy/static/api-browse.html#Legacy\">Legacy API compatibility</a> section of the <i>Buy APIs Overview</i>."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This method uses a <a href=\"/api-docs/static/oauth-qref-auth-code-grant.html\">user access token</a> to place a proxy bid for the buyer on a specific auction item. The item must offer <code>AUCTION</code> as one of the <b> buyingOptions</b>. <br><br>To place a bid, you pass in the item ID of the auction as a URI parameter and the buyer's maximum bid amount (<b>maxAmount </b>) in the payload.   By placing a proxy bid, the buyer is agreeing to purchase the item if they win the auction. <p>After thi"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

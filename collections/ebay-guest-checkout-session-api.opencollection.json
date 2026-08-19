@@ -1,0 +1,331 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "eBay Account Advertising_eligibility Guest_checkout_session API",
+    "version": "v1.9.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Guest_checkout_session",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "applyGuestCoupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ebay.com{basePath}/guest_checkout_session/:checkoutSessionId/apply_coupon",
+            "headers": [
+              {
+                "name": "X-EBAY-C-MARKETPLACE-ID",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              },
+              {
+                "name": "X-EBAY-C-ENDUSERCTX",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "checkoutSessionId",
+                "value": "",
+                "type": "path",
+                "description": "This path parameter specifies the unique eBay-assigned session identifier for a specific eBay marketplace.<br><br>This value is returned by the <a href=\"/api-docs/buy/order/resources/guest_checkout_session/methods/initiateGuestCheckoutSession\" target=\"_blank \">initiateGuestCheckoutSession</a> method.<br><br><span class=\"tablenote\"><b>Note:</b> When using this ID, the X-EBAY-C-MARKETPLACE-ID value and developer App ID must be the same as that used when this guest checkout session was created. See <a href=\"/api-docs/buy/order/overview.html#checkout-restriction\">Checkout session restrictions</a> in the Buy Integration Guide for details.</span>"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "<span class=\"tablenote\"><b>Note:</b> The Order API (v2) currently only supports the guest payment/checkout flow. If you need to support member payment/checkout flow, use the <a href=\"/api-docs/buy/order_v1/resources/methods\">v1_beta version</a> of the Order API.</span><br><div class=\"msgbox_important\"><p class=\"msgbox_importantInDiv\" data-mc-autonum=\"&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;\"><span class=\"autonumber\""
+        },
+        {
+          "info": {
+            "name": "getGuestCheckoutSession",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ebay.com{basePath}/guest_checkout_session/:checkoutSessionId",
+            "headers": [
+              {
+                "name": "X-EBAY-C-MARKETPLACE-ID",
+                "value": ""
+              },
+              {
+                "name": "X-EBAY-C-ENDUSERCTX",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "checkoutSessionId",
+                "value": "",
+                "type": "path",
+                "description": "This path parameter specifies the unique eBay-assigned session identifier for a specific eBay marketplace.<br><br>This value is returned by the <a href=\"/api-docs/buy/order/resources/guest_checkout_session/methods/initiateGuestCheckoutSession\" target=\"_blank \">initiateGuestCheckoutSession</a> method.<br><br><span class=\"tablenote\"><b>Note:</b> When using this ID, the X-EBAY-C-MARKETPLACE-ID value and developer App ID must be the same as that used when this guest checkout session was created. See <a href=\"/api-docs/buy/order/overview.html#checkout-restriction\">Checkout session restrictions</a> in the Buy Integration Guide for details.</span>"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "<span class=\"tablenote\"><b>Note:</b> The Order API (v2) currently only supports the guest payment/checkout flow. If you need to support member payment/checkout flow, use the <a href=\"/api-docs/buy/order_v1/resources/methods\">v1_beta version</a> of the Order API.</span><br><div class=\"msgbox_important\"><p class=\"msgbox_importantInDiv\" data-mc-autonum=\"&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;\"><span class=\"autonumber\""
+        },
+        {
+          "info": {
+            "name": "initiateGuestCheckoutSession",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ebay.com{basePath}/guest_checkout_session/initiate",
+            "headers": [
+              {
+                "name": "X-EBAY-C-ENDUSERCTX",
+                "value": ""
+              },
+              {
+                "name": "X-EBAY-C-MARKETPLACE-ID",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "<span class=\"tablenote\"><b>Note:</b> The Order API (v2) currently only supports the guest payment/checkout flow. If you need to support member payment/checkout flow, use the <a href=\"/api-docs/buy/order_v1/resources/methods\">v1_beta version</a> of the Order API.</span><br><div class=\"msgbox_important\"><p class=\"msgbox_importantInDiv\" data-mc-autonum=\"&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;\"><span class=\"autonumber\""
+        },
+        {
+          "info": {
+            "name": "removeGuestCoupon",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ebay.com{basePath}/guest_checkout_session/:checkoutSessionId/remove_coupon",
+            "headers": [
+              {
+                "name": "X-EBAY-C-MARKETPLACE-ID",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              },
+              {
+                "name": "X-EBAY-C-ENDUSERCTX",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "checkoutSessionId",
+                "value": "",
+                "type": "path",
+                "description": "This path parameter specifies the unique eBay-assigned session identifier for a specific eBay marketplace.<br><br>This value is returned by the <a href=\"/api-docs/buy/order/resources/guest_checkout_session/methods/initiateGuestCheckoutSession\" target=\"_blank \">initiateGuestCheckoutSession</a> method.<br><br><span class=\"tablenote\"><b>Note:</b> When using this ID, the X-EBAY-C-MARKETPLACE-ID value and developer App ID must be the same as that used when this guest checkout session was created. See <a href=\"/api-docs/buy/order/overview.html#checkout-restriction\">Checkout session restrictions</a> in the Buy Integration Guide for details.</span>"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "<span class=\"tablenote\"><b>Note:</b> The Order API (v2) currently only supports the guest payment/checkout flow. If you need to support member payment/checkout flow, use the <a href=\"/api-docs/buy/order_v1/resources/methods\">v1_beta version</a> of the Order API.</span><br><div class=\"msgbox_important\"><p class=\"msgbox_importantInDiv\" data-mc-autonum=\"&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;\"><span class=\"autonumber\""
+        },
+        {
+          "info": {
+            "name": "updateGuestQuantity",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ebay.com{basePath}/guest_checkout_session/:checkoutSessionId/update_quantity",
+            "headers": [
+              {
+                "name": "X-EBAY-C-MARKETPLACE-ID",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              },
+              {
+                "name": "X-EBAY-C-ENDUSERCTX",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "checkoutSessionId",
+                "value": "",
+                "type": "path",
+                "description": "This path parameter specifies the unique eBay-assigned session identifier for a specific eBay marketplace.<br><br>This value is returned by the <a href=\"/api-docs/buy/order/resources/guest_checkout_session/methods/initiateGuestCheckoutSession\" target=\"_blank \">initiateGuestCheckoutSession</a> method.<br><br><span class=\"tablenote\"><b>Note:</b> When using this ID, the X-EBAY-C-MARKETPLACE-ID value and developer App ID must be the same as that used when this guest checkout session was created. See <a href=\"/api-docs/buy/order/overview.html#checkout-restriction\">Checkout session restrictions</a> in the Buy Integration Guide for details.</span>"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "<span class=\"tablenote\"><b>Note:</b> The Order API (v2) currently only supports the guest payment/checkout flow. If you need to support member payment/checkout flow, use the <a href=\"/api-docs/buy/order_v1/resources/methods\">v1_beta version</a> of the Order API.</span><br><div class=\"msgbox_important\"><p class=\"msgbox_importantInDiv\" data-mc-autonum=\"&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;\"><span class=\"autonumber\""
+        },
+        {
+          "info": {
+            "name": "updateGuestShippingAddress",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ebay.com{basePath}/guest_checkout_session/:checkoutSessionId/update_shipping_address",
+            "headers": [
+              {
+                "name": "X-EBAY-C-MARKETPLACE-ID",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              },
+              {
+                "name": "X-EBAY-C-ENDUSERCTX",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "checkoutSessionId",
+                "value": "",
+                "type": "path",
+                "description": "This path parameter specifies the unique eBay-assigned session identifier for a specific eBay marketplace.<br><br>This value is returned by the <a href=\"/api-docs/buy/order/resources/guest_checkout_session/methods/initiateGuestCheckoutSession\" target=\"_blank \">initiateGuestCheckoutSession</a> method.<br><br><span class=\"tablenote\"><b>Note:</b> When using this ID, the X-EBAY-C-MARKETPLACE-ID value and developer App ID must be the same as that used when this guest checkout session was created. See <a href=\"/api-docs/buy/order/overview.html#checkout-restriction\">Checkout session restrictions</a> in the Buy Integration Guide for details.</span>"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "<span class=\"tablenote\"><b>Note:</b> The Order API (v2) currently only supports the guest payment/checkout flow. If you need to support member payment/checkout flow, use the <a href=\"/api-docs/buy/order_v1/resources/methods\">v1_beta version</a> of the Order API.</span><br><div class=\"msgbox_important\"><p class=\"msgbox_importantInDiv\" data-mc-autonum=\"&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;\"><span class=\"autonumber\""
+        },
+        {
+          "info": {
+            "name": "updateGuestShippingOption",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.ebay.com{basePath}/guest_checkout_session/:checkoutSessionId/update_shipping_option",
+            "headers": [
+              {
+                "name": "X-EBAY-C-MARKETPLACE-ID",
+                "value": ""
+              },
+              {
+                "name": "Content-Type",
+                "value": ""
+              },
+              {
+                "name": "X-EBAY-C-ENDUSERCTX",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "checkoutSessionId",
+                "value": "",
+                "type": "path",
+                "description": "This path parameter specifies the unique eBay-assigned session identifier for a specific eBay marketplace.<br><br>This value is returned by the <a href=\"/api-docs/buy/order/resources/guest_checkout_session/methods/initiateGuestCheckoutSession\" target=\"_blank \">initiateGuestCheckoutSession</a> method.<br><br><span class=\"tablenote\"><b>Note:</b> When using this ID, the X-EBAY-C-MARKETPLACE-ID value and developer App ID must be the same as that used when this guest checkout session was created. See <a href=\"/api-docs/buy/order/overview.html#checkout-restriction\">Checkout session restrictions</a> in the Buy Integration Guide for details.</span>"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "<span class=\"tablenote\"><b>Note:</b> The Order API (v2) currently only supports the guest payment/checkout flow. If you need to support member payment/checkout flow, use the <a href=\"/api-docs/buy/order_v1/resources/methods\">v1_beta version</a> of the Order API.</span><br><div class=\"msgbox_important\"><p class=\"msgbox_importantInDiv\" data-mc-autonum=\"&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;\"><span class=\"autonumber\""
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

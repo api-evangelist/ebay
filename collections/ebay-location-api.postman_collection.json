@@ -1,0 +1,2254 @@
+{
+  "item": [
+    {
+      "id": "93d1f048-e5f0-48cc-9eec-eec278dde1f7",
+      "name": "Location",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "01dd098d-be27-4afa-9440-2bcaad4f25af",
+          "name": "get Inventory Location",
+          "request": {
+            "name": "get Inventory Location",
+            "description": {
+              "content": "This call retrieves all defined details of the inventory location that is specified by the <b>merchantLocationKey</b> path parameter. <p>The <code>authorization</code> HTTP header is the only required request header for this call. </p><p>A successful call will return an HTTP status value of <i>200 OK</i>.</p>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "location",
+                ":merchantLocationKey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "merchantLocationKey",
+                  "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is being retrieved. <br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys. <br><br><b>Max length</b>: 36"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "05f76100-c674-45a4-84b7-04de1d1b3b39",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is being retrieved. <br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys. <br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"location\": {\n    \"address\": {\n      \"addressLine1\": \"string\",\n      \"addressLine2\": \"string\",\n      \"city\": \"string\",\n      \"country\": \"string\",\n      \"county\": \"string\",\n      \"postalCode\": \"string\",\n      \"stateOrProvince\": \"string\"\n    },\n    \"geoCoordinates\": {\n      \"latitude\": 803.6969946752159,\n      \"longitude\": 9361.720919317519\n    },\n    \"locationId\": \"string\"\n  },\n  \"locationAdditionalInformation\": \"string\",\n  \"locationInstructions\": \"string\",\n  \"locationTypes\": [\n    \"string\",\n    \"string\"\n  ],\n  \"locationWebUrl\": \"string\",\n  \"merchantLocationKey\": \"string\",\n  \"merchantLocationStatus\": \"string\",\n  \"name\": \"string\",\n  \"operatingHours\": [\n    {\n      \"dayOfWeekEnum\": \"string\",\n      \"intervals\": [\n        {\n          \"close\": \"string\",\n          \"open\": \"string\"\n        },\n        {\n          \"close\": \"string\",\n          \"open\": \"string\"\n        }\n      ]\n    },\n    {\n      \"dayOfWeekEnum\": \"string\",\n      \"intervals\": [\n        {\n          \"close\": \"string\",\n          \"open\": \"string\"\n        },\n        {\n          \"close\": \"string\",\n          \"open\": \"string\"\n        }\n      ]\n    }\n  ],\n  \"phone\": \"string\",\n  \"specialHours\": [\n    {\n      \"date\": \"string\",\n      \"intervals\": [\n        {\n          \"close\": \"string\",\n          \"open\": \"string\"\n        },\n        {\n          \"close\": \"string\",\n          \"open\": \"string\"\n        }\n      ]\n    },\n    {\n      \"date\": \"string\",\n      \"intervals\": [\n        {\n          \"close\": \"string\",\n          \"open\": \"string\"\n        },\n        {\n          \"close\": \"string\",\n          \"open\": \"string\"\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "eb6c7ed5-06a2-4719-9c0d-0df6e2fb0066",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is being retrieved. <br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys. <br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "415a5b76-3dcb-4c73-802a-634d8e365551",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is being retrieved. <br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys. <br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6db0a7e3-1f47-40f1-8552-ae3ed496d106",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is being retrieved. <br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys. <br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "e80daac2-e48e-4a5b-a2af-d4562bdd8d88",
+          "name": "create Inventory Location",
+          "request": {
+            "name": "create Inventory Location",
+            "description": {
+              "content": "<p>Use this call to create a new inventory location. In order to create and publish an offer (and create an eBay listing), a seller must have at least one inventory location, as every offer must be associated with a location.</p><p>Upon first creating an inventory location, only a seller-defined location identifier and a physical location is required, and once set, these values can not be changed. The unique identifier value (<i>merchantLocationKey</i>) is passed in at the end of the call URI. This <i>merchantLocationKey</i> value will be used in other Inventory Location calls to identify the inventory location to perform an action against.</p><p>At this time, location types are either warehouse or store. Warehouse locations are used for traditional shipping, and store locations are generally used by US merchants selling products through the In-Store Pickup program, or used by UK, Australian, and German merchants selling products through the Click and Collect program. A full address is required for store inventory locations. However, for warehouse inventory locations, a full street address is not needed, but the city, state/province, and country of the location must be provided. </p><p>Note that all inventory locations are \"enabled\" by default when they are created, and you must specifically disable them (by passing in a value of <code>DISABLED</code> in the <strong>merchantLocationStatus</strong> field) if you want them to be set to the disabled state. The seller's inventory cannot be loaded to inventory locations in the disabled state.</p><p>Unless one or more errors and/or warnings occur with the call, there is no response payload for this call. A successful call will return an HTTP status value of <i>204 No Content</i>.</p>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "location",
+                ":merchantLocationKey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "merchantLocationKey",
+                  "description": "(Required) This path parameter specifies the unique, seller-defined key (ID) for an inventory location.<br><br><b>Max length</b>: 36"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"location\": {\n    \"address\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"country\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"geoCoordinates\": {\n      \"latitude\": \"<number>\",\n      \"longitude\": \"<number>\"\n    }\n  },\n  \"locationAdditionalInformation\": \"<string>\",\n  \"locationInstructions\": \"<string>\",\n  \"locationTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"locationWebUrl\": \"<string>\",\n  \"merchantLocationStatus\": \"<string>\",\n  \"name\": \"<string>\",\n  \"operatingHours\": [\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"phone\": \"<string>\",\n  \"specialHours\": [\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4f3e6503-9fa7-4950-acca-e826ff22205e",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique, seller-defined key (ID) for an inventory location.<br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"location\": {\n    \"address\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"country\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"geoCoordinates\": {\n      \"latitude\": \"<number>\",\n      \"longitude\": \"<number>\"\n    }\n  },\n  \"locationAdditionalInformation\": \"<string>\",\n  \"locationInstructions\": \"<string>\",\n  \"locationTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"locationWebUrl\": \"<string>\",\n  \"merchantLocationStatus\": \"<string>\",\n  \"name\": \"<string>\",\n  \"operatingHours\": [\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"phone\": \"<string>\",\n  \"specialHours\": [\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "913fe59a-c6d0-4c57-b98a-e4a4a35aeb2b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique, seller-defined key (ID) for an inventory location.<br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"location\": {\n    \"address\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"country\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"geoCoordinates\": {\n      \"latitude\": \"<number>\",\n      \"longitude\": \"<number>\"\n    }\n  },\n  \"locationAdditionalInformation\": \"<string>\",\n  \"locationInstructions\": \"<string>\",\n  \"locationTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"locationWebUrl\": \"<string>\",\n  \"merchantLocationStatus\": \"<string>\",\n  \"name\": \"<string>\",\n  \"operatingHours\": [\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"phone\": \"<string>\",\n  \"specialHours\": [\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c50efc7b-02be-4f1b-b410-3807001e0f95",
+              "name": "Location Already Exists",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique, seller-defined key (ID) for an inventory location.<br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"location\": {\n    \"address\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"country\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"geoCoordinates\": {\n      \"latitude\": \"<number>\",\n      \"longitude\": \"<number>\"\n    }\n  },\n  \"locationAdditionalInformation\": \"<string>\",\n  \"locationInstructions\": \"<string>\",\n  \"locationTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"locationWebUrl\": \"<string>\",\n  \"merchantLocationStatus\": \"<string>\",\n  \"name\": \"<string>\",\n  \"operatingHours\": [\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"phone\": \"<string>\",\n  \"specialHours\": [\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ed21f6d4-6bb1-4389-8304-136444ab9e18",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique, seller-defined key (ID) for an inventory location.<br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"location\": {\n    \"address\": {\n      \"addressLine1\": \"<string>\",\n      \"addressLine2\": \"<string>\",\n      \"city\": \"<string>\",\n      \"country\": \"<string>\",\n      \"county\": \"<string>\",\n      \"postalCode\": \"<string>\",\n      \"stateOrProvince\": \"<string>\"\n    },\n    \"geoCoordinates\": {\n      \"latitude\": \"<number>\",\n      \"longitude\": \"<number>\"\n    }\n  },\n  \"locationAdditionalInformation\": \"<string>\",\n  \"locationInstructions\": \"<string>\",\n  \"locationTypes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"locationWebUrl\": \"<string>\",\n  \"merchantLocationStatus\": \"<string>\",\n  \"name\": \"<string>\",\n  \"operatingHours\": [\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"phone\": \"<string>\",\n  \"specialHours\": [\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "81e60ed8-3279-488b-b5cc-2291df44d830",
+          "name": "delete Inventory Location",
+          "request": {
+            "name": "delete Inventory Location",
+            "description": {
+              "content": "<p>This call deletes the inventory location that is specified in the <code>merchantLocationKey</code> path parameter. Note that deleting a location will not affect any active eBay listings associated with the deleted location, but the seller will not be able modify the offers associated with the inventory location once it is deleted.</p><p>The <code>authorization</code> HTTP header is the only required request header for this call. </p><p>Unless one or more errors and/or warnings occur with the call, there is no response payload for this call. A successful call will return an HTTP status value of <i>200 OK</i>.</p>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "location",
+                ":merchantLocationKey"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "merchantLocationKey",
+                  "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for the inventory location that is to be deleted.<br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "4486de38-aa93-4fa7-92c2-171ef0577aaf",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for the inventory location that is to be deleted.<br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "471bfa64-27d1-4ced-9d52-7402dbcda084",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for the inventory location that is to be deleted.<br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "eee0e84c-fb36-4a56-86f0-bacba9af2223",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for the inventory location that is to be deleted.<br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "51ebfcca-8193-4a79-a033-a35deeb27b05",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for the inventory location that is to be deleted.<br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1d9d63d9-d1c7-442c-92ef-19e268018add",
+          "name": "disable Inventory Location",
+          "request": {
+            "name": "disable Inventory Location",
+            "description": {
+              "content": "<p>This call disables the inventory location that is specified in the <code>merchantLocationKey</code> path parameter. Sellers can not load/modify inventory to disabled inventory locations. Note that disabling an inventory location will not affect any active eBay listings associated with the disabled location, but the seller will not be able modify the offers associated with a disabled inventory location.</p><p>A successful call will return an HTTP status value of <i>200 OK</i>.</p>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "location",
+                ":merchantLocationKey",
+                "disable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "merchantLocationKey",
+                  "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is to be disabled. <br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "3cb4d5e9-5a63-4551-9aac-6f6a7600565d",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey",
+                    "disable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is to be disabled. <br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8b90a3d7-47c8-4c76-bc92-34677d101f78",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey",
+                    "disable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is to be disabled. <br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7f98ae5a-58be-4ed0-a9d3-4a2868b5d1bb",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey",
+                    "disable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is to be disabled. <br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f5e3462f-b055-48d8-bdbc-a2e5c1c1ab09",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey",
+                    "disable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is to be disabled. <br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "c3b14468-46fc-44ae-b835-2f16be317615",
+          "name": "enable Inventory Location",
+          "request": {
+            "name": "enable Inventory Location",
+            "description": {
+              "content": "<p>This call enables a disabled inventory location that is specified in the <code>merchantLocationKey</code> path parameter. Once a disabled inventory location is enabled, sellers can start loading/modifying inventory to that inventory location. </p><p>A successful call will return an HTTP status value of <i>200 OK</i>.</p>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "location",
+                ":merchantLocationKey",
+                "enable"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "merchantLocationKey",
+                  "description": "(Required) This path parameter specifies unique merchant-defined key (ID) for a <code>disabled</code> inventory location that is to be enabled.<br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "33091939-074f-417a-b652-d65396065c21",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey",
+                    "enable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies unique merchant-defined key (ID) for a <code>disabled</code> inventory location that is to be enabled.<br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8f460059-7b17-410f-979a-ca275f4ad67e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey",
+                    "enable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies unique merchant-defined key (ID) for a <code>disabled</code> inventory location that is to be enabled.<br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "af5414c1-dfc4-4e3b-9aa3-79cadff47b2e",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey",
+                    "enable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies unique merchant-defined key (ID) for a <code>disabled</code> inventory location that is to be enabled.<br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "68f93221-a53a-4783-98ab-fa8cbc2a95f2",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey",
+                    "enable"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies unique merchant-defined key (ID) for a <code>disabled</code> inventory location that is to be enabled.<br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys.<br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "POST",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "2ae3053d-9757-4e95-95f7-d8c2cad5eccb",
+          "name": "get Inventory Locations",
+          "request": {
+            "name": "get Inventory Locations",
+            "description": {
+              "content": "This call retrieves all defined details for every inventory location associated with the seller's account. There are no required parameters for this call and no request payload. However, there are two optional query parameters, <strong>limit</strong> and <strong>offset</strong>. The <strong>limit</strong> query parameter sets the maximum number of inventory locations returned on one page of data, and the <strong>offset</strong> query parameter specifies the page of data to return. These query parameters are discussed more in the <strong>URI parameters</strong> table below. <p>The <code>authorization</code> HTTP header is the only required request header for this call. </p><p>A successful call will return an HTTP status value of <i>200 OK</i>.</p>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "location"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>",
+                  "description": "The value passed in this query parameter sets the maximum number of records to return per page of data. Although this field is a string, the value passed in this field should be a positive integer value. If this query parameter is not set, up to 100 records will be returned on each page of results. <br><br> <strong>Min</strong>: 1"
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<string>",
+                  "description": "Specifies the number of locations to skip in the result set before returning the first location in the paginated response.  <p>Combine <b>offset</b> with the <b>limit</b> query parameter to control the items returned in the response. For example, if you supply an <b>offset</b> of <code>0</code> and a <b>limit</b> of <code>10</code>, the first page of the response contains the first 10 items from the complete list of items retrieved by the call. If <b>offset</b> is <code>10</code> and <b>limit</b> is <code>20</code>, the first page of the response contains items 11-30 from the complete result set.</p> <p><b>Default:</b> 0</p>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "1f05a7be-d57b-46be-8f0b-cb3a967bcfd1",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"href\": \"string\",\n  \"limit\": 8920,\n  \"next\": \"string\",\n  \"offset\": 6972,\n  \"prev\": \"string\",\n  \"total\": 4436,\n  \"locations\": [\n    {\n      \"location\": {\n        \"address\": {\n          \"addressLine1\": \"<string>\",\n          \"addressLine2\": \"<string>\",\n          \"city\": \"<string>\",\n          \"country\": \"<string>\",\n          \"county\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"stateOrProvince\": \"<string>\"\n        },\n        \"geoCoordinates\": {\n          \"latitude\": \"<number>\",\n          \"longitude\": \"<number>\"\n        },\n        \"locationId\": \"string\"\n      },\n      \"locationAdditionalInformation\": \"string\",\n      \"locationInstructions\": \"string\",\n      \"locationTypes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"locationWebUrl\": \"string\",\n      \"merchantLocationKey\": \"string\",\n      \"merchantLocationStatus\": \"string\",\n      \"name\": \"string\",\n      \"operatingHours\": [\n        {\n          \"dayOfWeekEnum\": \"<string>\",\n          \"intervals\": [\n            {\n              \"close\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"open\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"close\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"open\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"dayOfWeekEnum\": \"<string>\",\n          \"intervals\": [\n            {\n              \"close\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"open\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"close\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"open\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"phone\": \"string\",\n      \"specialHours\": [\n        {\n          \"date\": \"<string>\",\n          \"intervals\": [\n            {\n              \"close\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"open\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"close\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"open\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"date\": \"<string>\",\n          \"intervals\": [\n            {\n              \"close\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"open\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"close\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"open\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    },\n    {\n      \"location\": {\n        \"address\": {\n          \"addressLine1\": \"<string>\",\n          \"addressLine2\": \"<string>\",\n          \"city\": \"<string>\",\n          \"country\": \"<string>\",\n          \"county\": \"<string>\",\n          \"postalCode\": \"<string>\",\n          \"stateOrProvince\": \"<string>\"\n        },\n        \"geoCoordinates\": {\n          \"latitude\": \"<number>\",\n          \"longitude\": \"<number>\"\n        },\n        \"locationId\": \"string\"\n      },\n      \"locationAdditionalInformation\": \"string\",\n      \"locationInstructions\": \"string\",\n      \"locationTypes\": [\n        \"string\",\n        \"string\"\n      ],\n      \"locationWebUrl\": \"string\",\n      \"merchantLocationKey\": \"string\",\n      \"merchantLocationStatus\": \"string\",\n      \"name\": \"string\",\n      \"operatingHours\": [\n        {\n          \"dayOfWeekEnum\": \"<string>\",\n          \"intervals\": [\n            {\n              \"close\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"open\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"close\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"open\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"dayOfWeekEnum\": \"<string>\",\n          \"intervals\": [\n            {\n              \"close\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"open\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"close\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"open\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"phone\": \"string\",\n      \"specialHours\": [\n        {\n          \"date\": \"<string>\",\n          \"intervals\": [\n            {\n              \"close\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"open\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"close\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"open\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"date\": \"<string>\",\n          \"intervals\": [\n            {\n              \"close\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"open\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"close\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"open\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ]\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4251861d-6f77-4d2f-a9b3-5e812c0118a0",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d84a2c2e-14bd-4a40-a659-d151f0ed8e3b",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "12cfb156-3c44-4eb1-972c-3b201a095b2d",
+          "name": "update Inventory Location",
+          "request": {
+            "name": "update Inventory Location",
+            "description": {
+              "content": "<p>Use this call to update non-physical location details for an existing inventory location. Specify the inventory location you want to update using the <b>merchantLocationKey</b> path parameter. <br><br>You can update the following text-based fields: <strong>name</strong>, <strong>phone</strong>, <strong>locationWebUrl</strong>, <strong>locationInstructions</strong> and <strong>locationAdditionalInformation</strong>. Whatever text is passed in for these fields in an <strong>updateInventoryLocation</strong> call will replace the current text strings defined for these fields. For store inventory locations, the operating hours and/or the special hours can also be updated. <br><br> The merchant location key, the physical location of the store, and its geo-location coordinates can not be updated with an <strong>updateInventoryLocation</strong> call </p><p>Unless one or more errors and/or warnings occurs with the call, there is no response payload for this call. A successful call will return an HTTP status value of <i>204 No Content</i>.</p>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "location",
+                ":merchantLocationKey",
+                "update_location_details"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "merchantLocationKey",
+                  "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is to be updated. <br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys. <br><br><b>Max length</b>: 36"
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"locationAdditionalInformation\": \"<string>\",\n  \"locationInstructions\": \"<string>\",\n  \"locationWebUrl\": \"<string>\",\n  \"name\": \"<string>\",\n  \"operatingHours\": [\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"phone\": \"<string>\",\n  \"specialHours\": [\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "4197190e-9623-4818-81dd-6fabe04b1d37",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey",
+                    "update_location_details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is to be updated. <br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys. <br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"locationAdditionalInformation\": \"<string>\",\n  \"locationInstructions\": \"<string>\",\n  \"locationWebUrl\": \"<string>\",\n  \"name\": \"<string>\",\n  \"operatingHours\": [\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"phone\": \"<string>\",\n  \"specialHours\": [\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1c6ee1ee-838e-4a42-955d-a98bed28b810",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey",
+                    "update_location_details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is to be updated. <br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys. <br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"locationAdditionalInformation\": \"<string>\",\n  \"locationInstructions\": \"<string>\",\n  \"locationWebUrl\": \"<string>\",\n  \"name\": \"<string>\",\n  \"operatingHours\": [\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"phone\": \"<string>\",\n  \"specialHours\": [\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fee5b4a2-93c8-46f8-a8c6-4dbbe9061d08",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey",
+                    "update_location_details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is to be updated. <br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys. <br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"locationAdditionalInformation\": \"<string>\",\n  \"locationInstructions\": \"<string>\",\n  \"locationWebUrl\": \"<string>\",\n  \"name\": \"<string>\",\n  \"operatingHours\": [\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"phone\": \"<string>\",\n  \"specialHours\": [\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "7afcba22-0f3f-4705-a64b-335e33a32417",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "location",
+                    ":merchantLocationKey",
+                    "update_location_details"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "merchantLocationKey",
+                      "description": "(Required) This path parameter specifies the unique merchant-defined key (ID) for an inventory location that is to be updated. <br><br>Use the <a href=\"/api-docs/sell/inventory/resources/location/methods/getInventoryLocations\">getInventoryLocations</a> method to retrieve merchant location keys. <br><br><b>Max length</b>: 36"
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"locationAdditionalInformation\": \"<string>\",\n  \"locationInstructions\": \"<string>\",\n  \"locationWebUrl\": \"<string>\",\n  \"name\": \"<string>\",\n  \"operatingHours\": [\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"dayOfWeekEnum\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ],\n  \"phone\": \"<string>\",\n  \"specialHours\": [\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    },\n    {\n      \"date\": \"<string>\",\n      \"intervals\": [\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        },\n        {\n          \"close\": \"<string>\",\n          \"open\": \"<string>\"\n        }\n      ]\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "/sell/account/v1",
+      "key": "basePath"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ebay.com{{basePath}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "e9f227c8-0507-486f-b644-d767e08068b3",
+    "name": "eBay Account Advertising_eligibility Location API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href=\"/api-docs/sell/account/overview.html#requirements\">Account API requirements and restrictions</a>.\n\nContact Support:\n Name: eBay Inc,",
+      "type": "text/plain"
+    }
+  }
+}

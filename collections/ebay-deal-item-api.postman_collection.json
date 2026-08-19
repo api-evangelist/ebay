@@ -1,0 +1,481 @@
+{
+  "item": [
+    {
+      "id": "328397f5-6a7b-4c3e-9058-812e415d6aa9",
+      "name": "Deal_item",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "01e7abd2-9a93-4fd1-b3c8-c9dd0ec7c9a4",
+          "name": "get Deal Items",
+          "request": {
+            "name": "get Deal Items",
+            "description": {
+              "content": "This method retrieves a paginated set of deal items. The result set contains all deal items associated with the specified search criteria and marketplace ID.<h3>Restrictions</h3>This method can return a maximum of 10,000 items. For a list of supported sites and other restrictions, see <a href=\"/api-docs/buy/browse/overview.html#API\" target=\"_blank\">API Restrictions</a>.<br><br><span class=\"tablenote\"><b>eBay Partner Network: </b> In order to receive a commission for your sales, you must use the URL returned in the <code>itemAffiliateWebUrl</code> field to forward your buyer to the ebay.com site.</span>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "deal_item"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "category_ids",
+                  "value": "<string>",
+                  "description": "This query parameter specifies the unique identifier of the eBay category for the search.<br><br>For details see <a href=\"/api-docs/buy/buy-categories.html\" target=\"_blank\">Get Categories for Buy APIs</a>."
+                },
+                {
+                  "disabled": false,
+                  "key": "commissionable",
+                  "value": "<string>",
+                  "description": "This query parameter allows the response to filter by commissionable items.<br><br>If set to <code>true</code>, only commissionable items will be returned in the response. If set to <code>false</code>, commissionable items will <b>not</b> be returned in the response.<br><br><span class=\"tablenote\"><b>Note:</b> This filter is currently only supported for the US marketplace.</span>"
+                },
+                {
+                  "disabled": false,
+                  "key": "delivery_country",
+                  "value": "<string>",
+                  "description": "This query parameter allows the response to only return items that can be shipped to the specified country (2-digit ISO code)."
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "<string>",
+                  "description": "The maximum number of items, from the current result set, returned on a single page."
+                },
+                {
+                  "disabled": false,
+                  "key": "offset",
+                  "value": "<string>",
+                  "description": "The number of items that will be skipped in the result set. This is used with the <b>limit</b> field to control the pagination of the output.<br /><br />For example, if the <b>offset</b> is set to <code>0</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 1 through 10 from the list of items returned. If the <b>offset</b> is set to <code>10</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 11 through 20 from the list of items returned.<br /><br /><b>Default:</b> <code>0</code>"
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "disabled": false,
+                "description": "(Required) This header identifies the eBay marketplace.<br><br>See <a href=\"/api-docs/static/rest-request-components.html#marketpl \" target=\"_blank \">HTTP request headers</a> for supported marketplace ID values.",
+                "key": "X-EBAY-C-MARKETPLACE-ID",
+                "value": "<string>"
+              },
+              {
+                "disabled": false,
+                "description": "This header is required to support revenue sharing for eBay Partner Network and to improve the accuracy of shipping and delivery time estimations.<br><br>For additional information, refer to <a href=\"/api-docs/buy/static/api-browse.html#Headers\" target=\"_blank \">Use request headers</a> section of the Buying Integration Guide.",
+                "key": "X-EBAY-C-ENDUSERCTX",
+                "value": "<string>"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "b46854c1-5181-41d3-b354-94fa7172813c",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deal_item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "category_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "commissionable",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "delivery_country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header identifies the eBay marketplace.<br><br>See <a href=\"/api-docs/static/rest-request-components.html#marketpl \" target=\"_blank \">HTTP request headers</a> for supported marketplace ID values.",
+                    "key": "X-EBAY-C-MARKETPLACE-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This header is required to support revenue sharing for eBay Partner Network and to improve the accuracy of shipping and delivery time estimations.<br><br>For additional information, refer to <a href=\"/api-docs/buy/static/api-browse.html#Headers\" target=\"_blank \">Use request headers</a> section of the Buying Integration Guide.",
+                    "key": "X-EBAY-C-ENDUSERCTX",
+                    "value": "<string>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"dealItems\": [\n    {\n      \"additionalImages\": [\n        {\n          \"height\": \"string\",\n          \"imageUrl\": \"string\",\n          \"text\": \"string\",\n          \"width\": \"string\"\n        },\n        {\n          \"height\": \"string\",\n          \"imageUrl\": \"string\",\n          \"text\": \"string\",\n          \"width\": \"string\"\n        }\n      ],\n      \"categoryAncestorIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"categoryId\": \"string\",\n      \"commissionable\": true,\n      \"dealAffiliateWebUrl\": \"string\",\n      \"dealEndDate\": \"string\",\n      \"dealStartDate\": \"string\",\n      \"dealWebUrl\": \"string\",\n      \"energyEfficiencyClass\": \"string\",\n      \"image\": {\n        \"height\": \"string\",\n        \"imageUrl\": \"string\",\n        \"text\": \"string\",\n        \"width\": \"string\"\n      },\n      \"itemAffiliateWebUrl\": \"string\",\n      \"itemGroupId\": \"string\",\n      \"itemGroupType\": \"string\",\n      \"itemId\": \"string\",\n      \"itemWebUrl\": \"string\",\n      \"legacyItemId\": \"string\",\n      \"marketingPrice\": {\n        \"discountAmount\": {\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"discountPercentage\": \"string\",\n        \"originalPrice\": {\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"priceTreatment\": \"string\"\n      },\n      \"price\": {\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"qualifiedPrograms\": [\n        \"string\",\n        \"string\"\n      ],\n      \"shippingOptions\": [\n        {\n          \"shippingCost\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"shippingCostType\": \"string\"\n        },\n        {\n          \"shippingCost\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"shippingCostType\": \"string\"\n        }\n      ],\n      \"title\": \"string\",\n      \"unitPrice\": {\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"unitPricingMeasure\": \"string\"\n    },\n    {\n      \"additionalImages\": [\n        {\n          \"height\": \"string\",\n          \"imageUrl\": \"string\",\n          \"text\": \"string\",\n          \"width\": \"string\"\n        },\n        {\n          \"height\": \"string\",\n          \"imageUrl\": \"string\",\n          \"text\": \"string\",\n          \"width\": \"string\"\n        }\n      ],\n      \"categoryAncestorIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"categoryId\": \"string\",\n      \"commissionable\": true,\n      \"dealAffiliateWebUrl\": \"string\",\n      \"dealEndDate\": \"string\",\n      \"dealStartDate\": \"string\",\n      \"dealWebUrl\": \"string\",\n      \"energyEfficiencyClass\": \"string\",\n      \"image\": {\n        \"height\": \"string\",\n        \"imageUrl\": \"string\",\n        \"text\": \"string\",\n        \"width\": \"string\"\n      },\n      \"itemAffiliateWebUrl\": \"string\",\n      \"itemGroupId\": \"string\",\n      \"itemGroupType\": \"string\",\n      \"itemId\": \"string\",\n      \"itemWebUrl\": \"string\",\n      \"legacyItemId\": \"string\",\n      \"marketingPrice\": {\n        \"discountAmount\": {\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"discountPercentage\": \"string\",\n        \"originalPrice\": {\n          \"currency\": \"string\",\n          \"value\": \"string\"\n        },\n        \"priceTreatment\": \"string\"\n      },\n      \"price\": {\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"qualifiedPrograms\": [\n        \"string\",\n        \"string\"\n      ],\n      \"shippingOptions\": [\n        {\n          \"shippingCost\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"shippingCostType\": \"string\"\n        },\n        {\n          \"shippingCost\": {\n            \"currency\": \"string\",\n            \"value\": \"string\"\n          },\n          \"shippingCostType\": \"string\"\n        }\n      ],\n      \"title\": \"string\",\n      \"unitPrice\": {\n        \"currency\": \"string\",\n        \"value\": \"string\"\n      },\n      \"unitPricingMeasure\": \"string\"\n    }\n  ],\n  \"href\": \"string\",\n  \"limit\": 4928,\n  \"next\": \"string\",\n  \"offset\": 306,\n  \"prev\": \"string\",\n  \"total\": 9144\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "c9986083-bfa2-42b4-9dcf-482dcfc6ce3e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deal_item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "category_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "commissionable",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "delivery_country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header identifies the eBay marketplace.<br><br>See <a href=\"/api-docs/static/rest-request-components.html#marketpl \" target=\"_blank \">HTTP request headers</a> for supported marketplace ID values.",
+                    "key": "X-EBAY-C-MARKETPLACE-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This header is required to support revenue sharing for eBay Partner Network and to improve the accuracy of shipping and delivery time estimations.<br><br>For additional information, refer to <a href=\"/api-docs/buy/static/api-browse.html#Headers\" target=\"_blank \">Use request headers</a> section of the Buying Integration Guide.",
+                    "key": "X-EBAY-C-ENDUSERCTX",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d4db0bd5-e188-425b-8bb4-933451301e17",
+              "name": "Forbidden",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deal_item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "category_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "commissionable",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "delivery_country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header identifies the eBay marketplace.<br><br>See <a href=\"/api-docs/static/rest-request-components.html#marketpl \" target=\"_blank \">HTTP request headers</a> for supported marketplace ID values.",
+                    "key": "X-EBAY-C-MARKETPLACE-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This header is required to support revenue sharing for eBay Partner Network and to improve the accuracy of shipping and delivery time estimations.<br><br>For additional information, refer to <a href=\"/api-docs/buy/static/api-browse.html#Headers\" target=\"_blank \">Use request headers</a> section of the Buying Integration Guide.",
+                    "key": "X-EBAY-C-ENDUSERCTX",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Forbidden",
+              "code": 403,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "30aebea9-671f-4ce6-a373-68acfa31fb12",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "deal_item"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "category_ids",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "commissionable",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "delivery_country",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "offset",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header identifies the eBay marketplace.<br><br>See <a href=\"/api-docs/static/rest-request-components.html#marketpl \" target=\"_blank \">HTTP request headers</a> for supported marketplace ID values.",
+                    "key": "X-EBAY-C-MARKETPLACE-ID",
+                    "value": "<string>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "This header is required to support revenue sharing for eBay Partner Network and to improve the accuracy of shipping and delivery time estimations.<br><br>For additional information, refer to <a href=\"/api-docs/buy/static/api-browse.html#Headers\" target=\"_blank \">Use request headers</a> section of the Buying Integration Guide.",
+                    "key": "X-EBAY-C-ENDUSERCTX",
+                    "value": "<string>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "/sell/account/v1",
+      "key": "basePath"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ebay.com{{basePath}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "317df66c-62d2-40f2-b40f-00303e56862c",
+    "name": "eBay Account Advertising_eligibility Deal_item API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href=\"/api-docs/sell/account/overview.html#requirements\">Account API requirements and restrictions</a>.\n\nContact Support:\n Name: eBay Inc,",
+      "type": "text/plain"
+    }
+  }
+}

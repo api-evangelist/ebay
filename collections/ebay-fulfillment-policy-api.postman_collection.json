@@ -1,0 +1,1851 @@
+{
+  "item": [
+    {
+      "id": "e6dad6be-a140-4814-adaa-bb54475be12e",
+      "name": "Fulfillment_policy",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "0a14a6a4-4734-466d-8cf7-98cff47def41",
+          "name": "create Fulfillment Policy",
+          "request": {
+            "name": "create Fulfillment Policy",
+            "description": {
+              "content": "This method creates a new fulfillment policy where the policy encapsulates seller's terms for fulfilling item purchases. Fulfillment policies include the shipment options that the seller offers to buyers.  <br><br>Each policy targets a specific eBay marketplace and a category group type, and you can create multiple policies for each combination. <br><br>A successful request returns the <b>getFulfillmentPolicy</b> URI to the new policy in the <b>Location</b> response header and the ID for the new policy is returned in the response payload.  <p class=\"tablenote\"><b>Tip:</b> For details on creating and using the business policies supported by the Account API, see <a href=\"/api-docs/sell/static/seller-accounts/business-policies.html\">eBay business policies</a>.</p>  <p><b>Using the eBay standard envelope service (eSE)</b></p><p>The eBay standard envelope service (eSE) is a domestic envelope service with tracking through eBay. This service applies to specific sub-categories of <b>Trading Cards</b>, and to coins & paper money, postcards, stamps, patches, and similar <a href=\"https://www.ebay.com/sellercenter/shipping/choosing-a-carrier-and-service/ebay-standard-envelope#eligible-categories\" target=\"_blank \">eligible categories</a>, and is only available on the US marketplace. To use this service, send envelopes using the USPS mail and set the <b>shippingServiceCode</b> field to <code>US_eBayStandardEnvelope</code>. See <a href=\"/api-docs/sell/static/seller-accounts/using-the-ebay-standard-envelope-service.html\" target=\"_blank\">Using eBay standard envelope (eSE) service</a> for details. See <a href=\"https://pages.ebay.com/seller-center/shipping/ebay-standard-envelope.html#lower-cost-way\" target=\"_blank \">eBay standard envelope</a> for additional details, restrictions, and an <a href=\"https://ir.ebaystatic.com/pictures/sc/Shipping/ebay_standard_envelope_template.pdf\" target=\"_blank \">envelope size template</a>. ",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fulfillment_policy",
+                ""
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"freightShipping\": \"<boolean>\",\n  \"globalShipping\": \"<boolean>\",\n  \"handlingTime\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"localPickup\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"pickupDropOff\": \"<boolean>\",\n  \"shippingOptions\": [\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"shipToLocations\": {\n    \"regionExcluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ],\n    \"regionIncluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "298890ef-0cc9-4820-9c86-22421c054a8a",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"freightShipping\": \"<boolean>\",\n  \"globalShipping\": \"<boolean>\",\n  \"handlingTime\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"localPickup\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"pickupDropOff\": \"<boolean>\",\n  \"shippingOptions\": [\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"shipToLocations\": {\n    \"regionExcluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ],\n    \"regionIncluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"string\",\n  \"freightShipping\": true,\n  \"fulfillmentPolicyId\": \"string\",\n  \"globalShipping\": false,\n  \"handlingTime\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"localPickup\": false,\n  \"marketplaceId\": \"string\",\n  \"name\": \"string\",\n  \"pickupDropOff\": true,\n  \"shippingOptions\": [\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"shipToLocations\": {\n    \"regionExcluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ],\n    \"regionIncluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ]\n  },\n  \"warnings\": [\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 6266,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    },\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 9662,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "b4a27956-93be-4b9e-9cd5-6a6380641ebc",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"freightShipping\": \"<boolean>\",\n  \"globalShipping\": \"<boolean>\",\n  \"handlingTime\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"localPickup\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"pickupDropOff\": \"<boolean>\",\n  \"shippingOptions\": [\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"shipToLocations\": {\n    \"regionExcluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ],\n    \"regionIncluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1e358049-f3cb-4d71-9612-49c3be50a7d0",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    ""
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"freightShipping\": \"<boolean>\",\n  \"globalShipping\": \"<boolean>\",\n  \"handlingTime\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"localPickup\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"pickupDropOff\": \"<boolean>\",\n  \"shippingOptions\": [\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"shipToLocations\": {\n    \"regionExcluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ],\n    \"regionIncluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "01e50bd6-cebe-4482-b610-37f135509abd",
+          "name": "get Fulfillment Policy",
+          "request": {
+            "name": "get Fulfillment Policy",
+            "description": {
+              "content": "This method retrieves the complete details of a fulfillment policy. Supply the ID of the policy you want to retrieve using the <b>fulfillmentPolicyId</b> path parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fulfillment_policy",
+                ":fulfillmentPolicyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fulfillmentPolicyId",
+                  "description": "(Required) This path parameter specifies the ID of the fulfillment policy you want to retrieve.<br><br> This ID can be retrieved for a fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9058c9c7-e1c4-42d4-b620-93e6ace6a413",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    ":fulfillmentPolicyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fulfillmentPolicyId",
+                      "description": "(Required) This path parameter specifies the ID of the fulfillment policy you want to retrieve.<br><br> This ID can be retrieved for a fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"string\",\n  \"freightShipping\": false,\n  \"fulfillmentPolicyId\": \"string\",\n  \"globalShipping\": false,\n  \"handlingTime\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"localPickup\": true,\n  \"marketplaceId\": \"string\",\n  \"name\": \"string\",\n  \"pickupDropOff\": false,\n  \"shippingOptions\": [\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"shipToLocations\": {\n    \"regionExcluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ],\n    \"regionIncluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "7e98f3df-9adf-4b4d-8226-8edc43c22a5b",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    ":fulfillmentPolicyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fulfillmentPolicyId",
+                      "description": "(Required) This path parameter specifies the ID of the fulfillment policy you want to retrieve.<br><br> This ID can be retrieved for a fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "c3f30455-652b-4d9c-9eb0-4656fb2d46cb",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    ":fulfillmentPolicyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fulfillmentPolicyId",
+                      "description": "(Required) This path parameter specifies the ID of the fulfillment policy you want to retrieve.<br><br> This ID can be retrieved for a fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d30240cd-8146-403d-87cc-687d2b2e42fa",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    ":fulfillmentPolicyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fulfillmentPolicyId",
+                      "description": "(Required) This path parameter specifies the ID of the fulfillment policy you want to retrieve.<br><br> This ID can be retrieved for a fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3125ba8d-35ad-4401-a5f2-58419a5713e2",
+          "name": "update Fulfillment Policy",
+          "request": {
+            "name": "update Fulfillment Policy",
+            "description": {
+              "content": "This method updates an existing fulfillment policy. Specify the policy you want to update using the <b>fulfillment_policy_id</b> path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing policy with the new details specified in the payload.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fulfillment_policy",
+                ":fulfillmentPolicyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fulfillmentPolicyId",
+                  "description": "(Required) This path parameter specifies the ID of the fulfillment policy you want to update.<br><br>This ID can be retrieved for a specific fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"freightShipping\": \"<boolean>\",\n  \"globalShipping\": \"<boolean>\",\n  \"handlingTime\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"localPickup\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"pickupDropOff\": \"<boolean>\",\n  \"shippingOptions\": [\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"shipToLocations\": {\n    \"regionExcluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ],\n    \"regionIncluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "7395ab5e-042f-4d84-8e3b-1f4c13d6d0eb",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    ":fulfillmentPolicyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fulfillmentPolicyId",
+                      "description": "(Required) This path parameter specifies the ID of the fulfillment policy you want to update.<br><br>This ID can be retrieved for a specific fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"freightShipping\": \"<boolean>\",\n  \"globalShipping\": \"<boolean>\",\n  \"handlingTime\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"localPickup\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"pickupDropOff\": \"<boolean>\",\n  \"shippingOptions\": [\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"shipToLocations\": {\n    \"regionExcluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ],\n    \"regionIncluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"string\",\n  \"freightShipping\": true,\n  \"fulfillmentPolicyId\": \"string\",\n  \"globalShipping\": false,\n  \"handlingTime\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"localPickup\": true,\n  \"marketplaceId\": \"string\",\n  \"name\": \"string\",\n  \"pickupDropOff\": true,\n  \"shippingOptions\": [\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"shipToLocations\": {\n    \"regionExcluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ],\n    \"regionIncluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ]\n  },\n  \"warnings\": [\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 2683,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    },\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 7493,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2076b550-4dcf-49b0-8505-4f5128a6efdf",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    ":fulfillmentPolicyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fulfillmentPolicyId",
+                      "description": "(Required) This path parameter specifies the ID of the fulfillment policy you want to update.<br><br>This ID can be retrieved for a specific fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"freightShipping\": \"<boolean>\",\n  \"globalShipping\": \"<boolean>\",\n  \"handlingTime\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"localPickup\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"pickupDropOff\": \"<boolean>\",\n  \"shippingOptions\": [\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"shipToLocations\": {\n    \"regionExcluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ],\n    \"regionIncluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "3ad5b147-6252-4b35-b60b-aabed4786c84",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    ":fulfillmentPolicyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fulfillmentPolicyId",
+                      "description": "(Required) This path parameter specifies the ID of the fulfillment policy you want to update.<br><br>This ID can be retrieved for a specific fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"freightShipping\": \"<boolean>\",\n  \"globalShipping\": \"<boolean>\",\n  \"handlingTime\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"localPickup\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"pickupDropOff\": \"<boolean>\",\n  \"shippingOptions\": [\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"shipToLocations\": {\n    \"regionExcluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ],\n    \"regionIncluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2e50d9f6-c23a-4b77-84f0-65b522667383",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    ":fulfillmentPolicyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fulfillmentPolicyId",
+                      "description": "(Required) This path parameter specifies the ID of the fulfillment policy you want to update.<br><br>This ID can be retrieved for a specific fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"freightShipping\": \"<boolean>\",\n  \"globalShipping\": \"<boolean>\",\n  \"handlingTime\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"localPickup\": \"<boolean>\",\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"pickupDropOff\": \"<boolean>\",\n  \"shippingOptions\": [\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"shipToLocations\": {\n    \"regionExcluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ],\n    \"regionIncluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ]\n  }\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b36cd823-9b1e-470b-b901-d9fbaf325da8",
+          "name": "delete Fulfillment Policy",
+          "request": {
+            "name": "delete Fulfillment Policy",
+            "description": {
+              "content": "This method deletes a fulfillment policy. Supply the ID of the policy you want to delete in the <b>fulfillmentPolicyId</b> path parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fulfillment_policy",
+                ":fulfillmentPolicyId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "fulfillmentPolicyId",
+                  "description": "(Required) This path parameter specifies the ID of the fulfillment policy to delete.<br><br> This ID can be retrieved for a fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "5229f4ff-9fbb-4f55-b9dc-04d88673b2fa",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    ":fulfillmentPolicyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fulfillmentPolicyId",
+                      "description": "(Required) This path parameter specifies the ID of the fulfillment policy to delete.<br><br> This ID can be retrieved for a fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "bdac25f2-c318-41be-be1c-b0f41ba5d673",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    ":fulfillmentPolicyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fulfillmentPolicyId",
+                      "description": "(Required) This path parameter specifies the ID of the fulfillment policy to delete.<br><br> This ID can be retrieved for a fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "aabbed02-bf67-40e7-b983-9067dfc272e9",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    ":fulfillmentPolicyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fulfillmentPolicyId",
+                      "description": "(Required) This path parameter specifies the ID of the fulfillment policy to delete.<br><br> This ID can be retrieved for a fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "72b7cad3-ef0a-4ed9-bf4f-94498d7d73fe",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    ":fulfillmentPolicyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fulfillmentPolicyId",
+                      "description": "(Required) This path parameter specifies the ID of the fulfillment policy to delete.<br><br> This ID can be retrieved for a fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "19479b95-8475-4fa0-86e5-69891c2eb2ee",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    ":fulfillmentPolicyId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "fulfillmentPolicyId",
+                      "description": "(Required) This path parameter specifies the ID of the fulfillment policy to delete.<br><br> This ID can be retrieved for a fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "ab56e047-dcf0-48fc-b4aa-d324c066c0ec",
+          "name": "get Fulfillment Policies",
+          "request": {
+            "name": "get Fulfillment Policies",
+            "description": {
+              "content": "This method retrieves all the fulfillment policies configured for the marketplace you specify using the <code>marketplace_id</code> query parameter.  <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policies for a marketplace that supports multiple locales using the <code>Content-Language</code> request header. For example, get the policies for the French locale of the Canadian marketplace by specifying <code>fr-CA</code> for the <code>Content-Language</code> header. Likewise, target the Dutch locale of the Belgium marketplace by setting <code>Content-Language: nl-BE</code>. For details on header values, see <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank\">HTTP request headers</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fulfillment_policy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "marketplace_id",
+                  "value": "<string>",
+                  "description": "(Required) This query parameter specifies the eBay marketplace of the policies you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum"
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "c7482dd2-c622-477e-848e-7530eabc7a6c",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"fulfillmentPolicies\": [\n    {\n      \"categoryTypes\": [\n        {\n          \"default\": \"<boolean>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"default\": \"<boolean>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"description\": \"string\",\n      \"freightShipping\": true,\n      \"fulfillmentPolicyId\": \"string\",\n      \"globalShipping\": true,\n      \"handlingTime\": {\n        \"unit\": \"<string>\",\n        \"value\": \"<integer>\"\n      },\n      \"localPickup\": false,\n      \"marketplaceId\": \"string\",\n      \"name\": \"string\",\n      \"pickupDropOff\": false,\n      \"shippingOptions\": [\n        {\n          \"costType\": \"<string>\",\n          \"insuranceFee\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"insuranceOffered\": \"<boolean>\",\n          \"optionType\": \"<string>\",\n          \"packageHandlingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"rateTableId\": \"<string>\",\n          \"shippingDiscountProfileId\": \"<string>\",\n          \"shippingPromotionOffered\": \"<boolean>\",\n          \"shippingServices\": [\n            {\n              \"additionalShippingCost\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"buyerResponsibleForPickup\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"buyerResponsibleForShipping\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"freeShipping\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCarrierCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCost\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingServiceCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shipToLocations\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sortOrder\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"surcharge\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"additionalShippingCost\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"buyerResponsibleForPickup\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"buyerResponsibleForShipping\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"freeShipping\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCarrierCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCost\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingServiceCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shipToLocations\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sortOrder\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"surcharge\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"costType\": \"<string>\",\n          \"insuranceFee\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"insuranceOffered\": \"<boolean>\",\n          \"optionType\": \"<string>\",\n          \"packageHandlingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"rateTableId\": \"<string>\",\n          \"shippingDiscountProfileId\": \"<string>\",\n          \"shippingPromotionOffered\": \"<boolean>\",\n          \"shippingServices\": [\n            {\n              \"additionalShippingCost\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"buyerResponsibleForPickup\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"buyerResponsibleForShipping\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"freeShipping\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCarrierCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCost\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingServiceCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shipToLocations\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sortOrder\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"surcharge\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"additionalShippingCost\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"buyerResponsibleForPickup\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"buyerResponsibleForShipping\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"freeShipping\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCarrierCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCost\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingServiceCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shipToLocations\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sortOrder\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"surcharge\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"shipToLocations\": {\n        \"regionExcluded\": [\n          {\n            \"regionName\": \"<string>\",\n            \"regionType\": \"<string>\"\n          },\n          {\n            \"regionName\": \"<string>\",\n            \"regionType\": \"<string>\"\n          }\n        ],\n        \"regionIncluded\": [\n          {\n            \"regionName\": \"<string>\",\n            \"regionType\": \"<string>\"\n          },\n          {\n            \"regionName\": \"<string>\",\n            \"regionType\": \"<string>\"\n          }\n        ]\n      }\n    },\n    {\n      \"categoryTypes\": [\n        {\n          \"default\": \"<boolean>\",\n          \"name\": \"<string>\"\n        },\n        {\n          \"default\": \"<boolean>\",\n          \"name\": \"<string>\"\n        }\n      ],\n      \"description\": \"string\",\n      \"freightShipping\": true,\n      \"fulfillmentPolicyId\": \"string\",\n      \"globalShipping\": false,\n      \"handlingTime\": {\n        \"unit\": \"<string>\",\n        \"value\": \"<integer>\"\n      },\n      \"localPickup\": false,\n      \"marketplaceId\": \"string\",\n      \"name\": \"string\",\n      \"pickupDropOff\": true,\n      \"shippingOptions\": [\n        {\n          \"costType\": \"<string>\",\n          \"insuranceFee\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"insuranceOffered\": \"<boolean>\",\n          \"optionType\": \"<string>\",\n          \"packageHandlingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"rateTableId\": \"<string>\",\n          \"shippingDiscountProfileId\": \"<string>\",\n          \"shippingPromotionOffered\": \"<boolean>\",\n          \"shippingServices\": [\n            {\n              \"additionalShippingCost\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"buyerResponsibleForPickup\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"buyerResponsibleForShipping\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"freeShipping\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCarrierCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCost\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingServiceCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shipToLocations\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sortOrder\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"surcharge\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"additionalShippingCost\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"buyerResponsibleForPickup\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"buyerResponsibleForShipping\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"freeShipping\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCarrierCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCost\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingServiceCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shipToLocations\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sortOrder\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"surcharge\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        },\n        {\n          \"costType\": \"<string>\",\n          \"insuranceFee\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"insuranceOffered\": \"<boolean>\",\n          \"optionType\": \"<string>\",\n          \"packageHandlingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"rateTableId\": \"<string>\",\n          \"shippingDiscountProfileId\": \"<string>\",\n          \"shippingPromotionOffered\": \"<boolean>\",\n          \"shippingServices\": [\n            {\n              \"additionalShippingCost\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"buyerResponsibleForPickup\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"buyerResponsibleForShipping\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"freeShipping\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCarrierCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCost\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingServiceCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shipToLocations\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sortOrder\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"surcharge\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            },\n            {\n              \"additionalShippingCost\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"buyerResponsibleForPickup\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"buyerResponsibleForShipping\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"freeShipping\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCarrierCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingCost\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shippingServiceCode\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"shipToLocations\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"sortOrder\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              \"surcharge\": {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            }\n          ]\n        }\n      ],\n      \"shipToLocations\": {\n        \"regionExcluded\": [\n          {\n            \"regionName\": \"<string>\",\n            \"regionType\": \"<string>\"\n          },\n          {\n            \"regionName\": \"<string>\",\n            \"regionType\": \"<string>\"\n          }\n        ],\n        \"regionIncluded\": [\n          {\n            \"regionName\": \"<string>\",\n            \"regionType\": \"<string>\"\n          },\n          {\n            \"regionName\": \"<string>\",\n            \"regionType\": \"<string>\"\n          }\n        ]\n      }\n    }\n  ],\n  \"href\": \"string\",\n  \"limit\": 5565,\n  \"next\": \"string\",\n  \"offset\": 525,\n  \"prev\": \"string\",\n  \"total\": 8817\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "8c1ee0b4-8120-49e1-8676-81063a8c140f",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "fa017881-8c3f-49a0-b0de-2c9732bc7b73",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3a638b6d-b88e-42e6-a3c8-a147bfaa0f61",
+          "name": "get Fulfillment Policy By Name",
+          "request": {
+            "name": "get Fulfillment Policy By Name",
+            "description": {
+              "content": "This method retrieves the details for a specific fulfillment policy. In the request, supply both the policy <code>name</code> and its associated <code>marketplace_id</code> as query parameters.   <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policy for a marketplace that supports multiple locales using the <code>Content-Language</code> request header. For example, get a policy for the French locale of the Canadian marketplace by specifying <code>fr-CA</code> for the <code>Content-Language</code> header. Likewise, target the Dutch locale of the Belgium marketplace by setting <code>Content-Language: nl-BE</code>. For details on header values, see <a href=\"/api-docs/static/rest-request-components.html#HTTP\">HTTP request headers</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "fulfillment_policy",
+                "get_by_policy_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "marketplace_id",
+                  "value": "<string>",
+                  "description": "(Required) This query parameter specifies the eBay marketplace of the policy you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) This query parameter specifies the seller-defined name of the fulfillment policy you want to retrieve.<br><br>This value can be retrieved for a fulfillment policy by using the <a href=\"/api-docs/sell/account/resources/fulfillment_policy/methods/getFulfillmentPolicies\" target=\"_blank \">getFulfillmentPolicies</a> method."
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "ee081385-0128-42af-b7f0-10ff91964bb8",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    "get_by_policy_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"string\",\n  \"freightShipping\": true,\n  \"fulfillmentPolicyId\": \"string\",\n  \"globalShipping\": false,\n  \"handlingTime\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"localPickup\": false,\n  \"marketplaceId\": \"string\",\n  \"name\": \"string\",\n  \"pickupDropOff\": false,\n  \"shippingOptions\": [\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    },\n    {\n      \"costType\": \"<string>\",\n      \"insuranceFee\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"insuranceOffered\": \"<boolean>\",\n      \"optionType\": \"<string>\",\n      \"packageHandlingCost\": {\n        \"currency\": \"<string>\",\n        \"value\": \"<string>\"\n      },\n      \"rateTableId\": \"<string>\",\n      \"shippingDiscountProfileId\": \"<string>\",\n      \"shippingPromotionOffered\": \"<boolean>\",\n      \"shippingServices\": [\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        },\n        {\n          \"additionalShippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"buyerResponsibleForPickup\": \"<boolean>\",\n          \"buyerResponsibleForShipping\": \"<boolean>\",\n          \"freeShipping\": \"<boolean>\",\n          \"shippingCarrierCode\": \"<string>\",\n          \"shippingCost\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          },\n          \"shippingServiceCode\": \"<string>\",\n          \"shipToLocations\": {\n            \"regionExcluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ],\n            \"regionIncluded\": [\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              },\n              {\n                \"value\": \"<Error: Too many levels of nesting to fake this schema>\"\n              }\n            ]\n          },\n          \"sortOrder\": \"<integer>\",\n          \"surcharge\": {\n            \"currency\": \"<string>\",\n            \"value\": \"<string>\"\n          }\n        }\n      ]\n    }\n  ],\n  \"shipToLocations\": {\n    \"regionExcluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ],\n    \"regionIncluded\": [\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      },\n      {\n        \"regionName\": \"<string>\",\n        \"regionType\": \"<string>\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "76628493-ac85-47a2-a69b-2329cd969df7",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    "get_by_policy_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "700b79e3-ad4e-4760-a713-1a2d9eb99c2e",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "fulfillment_policy",
+                    "get_by_policy_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "/sell/account/v1",
+      "key": "basePath"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ebay.com{{basePath}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "c4950b38-2127-4690-a685-4b9bd1468f5c",
+    "name": "eBay Account Advertising_eligibility Fulfillment_policy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href=\"/api-docs/sell/account/overview.html#requirements\">Account API requirements and restrictions</a>.\n\nContact Support:\n Name: eBay Inc,",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "eBay Account Advertising_eligibility Event_item API",
+    "version": "v1.9.2"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Event_item",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "getEventItems",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.ebay.com{basePath}/event_item",
+            "headers": [
+              {
+                "name": "X-EBAY-C-MARKETPLACE-ID",
+                "value": ""
+              },
+              {
+                "name": "X-EBAY-C-ENDUSERCTX",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "category_ids",
+                "value": "",
+                "type": "query",
+                "description": "This query parameter specifies the unique identifiers of the eBay categories for the search.<br><br>For details see <a href=\"/api-docs/buy/buy-categories.html\" target=\"_blank\">Get Categories for Buy APIs</a>.<br /><br /><b>Maximum Value:</b> <code>1</code>"
+              },
+              {
+                "name": "delivery_country",
+                "value": "",
+                "type": "query",
+                "description": "This query parameter allows the response to only return items that can be shipped to the specified country (2-digit ISO code)."
+              },
+              {
+                "name": "event_ids",
+                "value": "",
+                "type": "query",
+                "description": "This query parameter specifies the unique identifiers for the eBay event items being retrieved.<br><br>Use the <a href=\"/api-docs/buy/deal/resources/event/methods/getEvents\" target=\"_blank\">getEvents</a> method to retrieve event IDs.<br /><br /><b>Maximum Value:</b> <code>1</code>"
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "The maximum number of items, from the current result set, returned on a single page.<br /><br /><b>Default:</b> <code>20</code>"
+              },
+              {
+                "name": "offset",
+                "value": "",
+                "type": "query",
+                "description": "The number of items that will be skipped in the result set. This is used with the <b>limit</b> field to control the pagination of the output.<br /><br />For example, if the <b>offset</b> is set to <code>0</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 1 through 10 from the list of items returned. If the <b>offset</b> is set to <code>10</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 11 through 20 from the list of items returned.<br /><br /><b>Default:</b> <code>0</code>"
+              }
+            ],
+            "auth": {
+              "type": "oauth2",
+              "flow": "authorization_code",
+              "authorizationUrl": "https://auth.ebay.com/oauth2/authorize",
+              "accessTokenUrl": "https://api.ebay.com/identity/v1/oauth2/token",
+              "credentials": {
+                "clientId": "{{clientId}}",
+                "clientSecret": "{{clientSecret}}"
+              }
+            }
+          },
+          "docs": "This method returns a paginated set of event items. The result set contains all event items associated with the specified search criteria and marketplace ID.<h3><b>Restrictions </b></h3>This method can return a maximum of 10,000 items. For a list of supported sites and other restrictions, see <a href=\"/api-docs/buy/browse/overview.html#API\" target=\"_blank \">API Restrictions</a>.<br><br><span class=\"tablenote\"><b>eBay Partner Network: </b> In order to receive a commission for your sales, you must"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

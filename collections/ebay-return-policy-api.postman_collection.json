@@ -1,0 +1,1847 @@
+{
+  "item": [
+    {
+      "id": "baee387d-c478-46db-b72b-a2d05adae1a5",
+      "name": "Return_policy",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d7ea8edf-a57e-4805-afbd-1c72f2d57cd2",
+          "name": "get Return Policies",
+          "request": {
+            "name": "get Return Policies",
+            "description": {
+              "content": "This method retrieves all the return policies configured for the marketplace you specify using the <code>marketplace_id</code> query parameter.  <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policies for a marketplace that supports multiple locales using the <code>Content-Language</code> request header. For example, get the policies for the French locale of the Canadian marketplace by specifying <code>fr-CA</code> for the <code>Content-Language</code> header. Likewise, target the Dutch locale of the Belgium marketplace by setting <code>Content-Language: nl-BE</code>. For details on header values, see <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank\">HTTP request headers</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "return_policy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "marketplace_id",
+                  "value": "<string>",
+                  "description": "(Required) This query parameter specifies the ID of the eBay marketplace of the policy you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum"
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "a9c8468c-0fe1-44d3-9909-11120fd14640",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"href\": \"string\",\n  \"limit\": 7622,\n  \"next\": \"string\",\n  \"offset\": 8999,\n  \"prev\": \"string\",\n  \"returnPolicies\": [\n    {\n      \"categoryTypes\": [\n        {\n          \"default\": true,\n          \"name\": \"string\"\n        },\n        {\n          \"default\": false,\n          \"name\": \"string\"\n        }\n      ],\n      \"description\": \"string\",\n      \"extendedHolidayReturnsOffered\": true,\n      \"internationalOverride\": {\n        \"returnMethod\": \"string\",\n        \"returnPeriod\": {\n          \"unit\": \"string\",\n          \"value\": 40\n        },\n        \"returnsAccepted\": true,\n        \"returnShippingCostPayer\": \"string\"\n      },\n      \"marketplaceId\": \"string\",\n      \"name\": \"string\",\n      \"refundMethod\": \"string\",\n      \"restockingFeePercentage\": \"string\",\n      \"returnInstructions\": \"string\",\n      \"returnMethod\": \"string\",\n      \"returnPeriod\": {\n        \"unit\": \"string\",\n        \"value\": 9569\n      },\n      \"returnPolicyId\": \"string\",\n      \"returnsAccepted\": true,\n      \"returnShippingCostPayer\": \"string\"\n    },\n    {\n      \"categoryTypes\": [\n        {\n          \"default\": true,\n          \"name\": \"string\"\n        },\n        {\n          \"default\": false,\n          \"name\": \"string\"\n        }\n      ],\n      \"description\": \"string\",\n      \"extendedHolidayReturnsOffered\": true,\n      \"internationalOverride\": {\n        \"returnMethod\": \"string\",\n        \"returnPeriod\": {\n          \"unit\": \"string\",\n          \"value\": 760\n        },\n        \"returnsAccepted\": false,\n        \"returnShippingCostPayer\": \"string\"\n      },\n      \"marketplaceId\": \"string\",\n      \"name\": \"string\",\n      \"refundMethod\": \"string\",\n      \"restockingFeePercentage\": \"string\",\n      \"returnInstructions\": \"string\",\n      \"returnMethod\": \"string\",\n      \"returnPeriod\": {\n        \"unit\": \"string\",\n        \"value\": 3077\n      },\n      \"returnPolicyId\": \"string\",\n      \"returnsAccepted\": true,\n      \"returnShippingCostPayer\": \"string\"\n    }\n  ],\n  \"total\": 5721\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "d4eab71d-87a4-41b1-9672-3d8a8e4b859e",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "6602ffdc-9042-490d-83eb-fd00db62d4f5",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "b3ec0f55-e303-4cd3-a8a9-c7e520f18dd5",
+          "name": "create Return Policy",
+          "request": {
+            "name": "create Return Policy",
+            "description": {
+              "content": "This method creates a new return policy where the policy encapsulates seller's terms for returning items.  <br><br>Each policy targets a specific marketplace, and you can create multiple policies for each marketplace. Return policies are not applicable to motor-vehicle listings.<br><br>A successful request returns the <b>getReturnPolicy</b> URI to the new policy in the <b>Location</b> response header and the ID for the new policy is returned in the response payload.  <p class=\"tablenote\"><b>Tip:</b> For details on creating and using the business policies supported by the Account API, see <a href=\"/api-docs/sell/static/seller-accounts/business-policies.html\">eBay business policies</a>.</p>",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "return_policy"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"extendedHolidayReturnsOffered\": \"<boolean>\",\n  \"internationalOverride\": {\n    \"returnMethod\": \"<string>\",\n    \"returnPeriod\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"returnsAccepted\": \"<boolean>\",\n    \"returnShippingCostPayer\": \"<string>\"\n  },\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"refundMethod\": \"<string>\",\n  \"restockingFeePercentage\": \"<string>\",\n  \"returnInstructions\": \"<string>\",\n  \"returnMethod\": \"<string>\",\n  \"returnPeriod\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"returnsAccepted\": \"<boolean>\",\n  \"returnShippingCostPayer\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ccb6377e-c3ca-4a7c-8ac7-e85b0d49ddf9",
+              "name": "Created",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"extendedHolidayReturnsOffered\": \"<boolean>\",\n  \"internationalOverride\": {\n    \"returnMethod\": \"<string>\",\n    \"returnPeriod\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"returnsAccepted\": \"<boolean>\",\n    \"returnShippingCostPayer\": \"<string>\"\n  },\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"refundMethod\": \"<string>\",\n  \"restockingFeePercentage\": \"<string>\",\n  \"returnInstructions\": \"<string>\",\n  \"returnMethod\": \"<string>\",\n  \"returnPeriod\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"returnsAccepted\": \"<boolean>\",\n  \"returnShippingCostPayer\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Created",
+              "code": 201,
+              "header": [
+                {
+                  "disabled": false,
+                  "key": "Location",
+                  "value": "string",
+                  "description": ""
+                },
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"string\",\n  \"extendedHolidayReturnsOffered\": true,\n  \"internationalOverride\": {\n    \"returnMethod\": \"<string>\",\n    \"returnPeriod\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"returnsAccepted\": \"<boolean>\",\n    \"returnShippingCostPayer\": \"<string>\"\n  },\n  \"marketplaceId\": \"string\",\n  \"name\": \"string\",\n  \"refundMethod\": \"string\",\n  \"restockingFeePercentage\": \"string\",\n  \"returnInstructions\": \"string\",\n  \"returnMethod\": \"string\",\n  \"returnPeriod\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"returnPolicyId\": \"string\",\n  \"returnsAccepted\": false,\n  \"returnShippingCostPayer\": \"string\",\n  \"warnings\": [\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 781,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    },\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 5333,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "35a61544-95d6-4eba-a20e-b80cc6c79483",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"extendedHolidayReturnsOffered\": \"<boolean>\",\n  \"internationalOverride\": {\n    \"returnMethod\": \"<string>\",\n    \"returnPeriod\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"returnsAccepted\": \"<boolean>\",\n    \"returnShippingCostPayer\": \"<string>\"\n  },\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"refundMethod\": \"<string>\",\n  \"restockingFeePercentage\": \"<string>\",\n  \"returnInstructions\": \"<string>\",\n  \"returnMethod\": \"<string>\",\n  \"returnPeriod\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"returnsAccepted\": \"<boolean>\",\n  \"returnShippingCostPayer\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "1d3adfdd-a165-4ff7-97a2-ef5c9ae583d5",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"extendedHolidayReturnsOffered\": \"<boolean>\",\n  \"internationalOverride\": {\n    \"returnMethod\": \"<string>\",\n    \"returnPeriod\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"returnsAccepted\": \"<boolean>\",\n    \"returnShippingCostPayer\": \"<string>\"\n  },\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"refundMethod\": \"<string>\",\n  \"restockingFeePercentage\": \"<string>\",\n  \"returnInstructions\": \"<string>\",\n  \"returnMethod\": \"<string>\",\n  \"returnPeriod\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"returnsAccepted\": \"<boolean>\",\n  \"returnShippingCostPayer\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "dddc55a5-958a-4635-aad4-888ebcb9ddd0",
+          "name": "get Return Policy",
+          "request": {
+            "name": "get Return Policy",
+            "description": {
+              "content": "This method retrieves the complete details of the return policy specified by the <b>returnPolicyId</b> path parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "return_policy",
+                ":return_policy_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "return_policy_id",
+                  "description": "(Required) This path parameter specifies the unique identifier of the return policy you want to retrieve. <br><br> This ID can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "e947cff9-c4b6-4cb7-bc86-c4a743ae40ba",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy",
+                    ":return_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "return_policy_id",
+                      "description": "(Required) This path parameter specifies the unique identifier of the return policy you want to retrieve. <br><br> This ID can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"string\",\n  \"extendedHolidayReturnsOffered\": false,\n  \"internationalOverride\": {\n    \"returnMethod\": \"<string>\",\n    \"returnPeriod\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"returnsAccepted\": \"<boolean>\",\n    \"returnShippingCostPayer\": \"<string>\"\n  },\n  \"marketplaceId\": \"string\",\n  \"name\": \"string\",\n  \"refundMethod\": \"string\",\n  \"restockingFeePercentage\": \"string\",\n  \"returnInstructions\": \"string\",\n  \"returnMethod\": \"string\",\n  \"returnPeriod\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"returnPolicyId\": \"string\",\n  \"returnsAccepted\": false,\n  \"returnShippingCostPayer\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4748cdec-dc5c-4ddb-af6a-6b82696d88fd",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy",
+                    ":return_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "return_policy_id",
+                      "description": "(Required) This path parameter specifies the unique identifier of the return policy you want to retrieve. <br><br> This ID can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "263be769-9e90-4b6e-a8d7-ad7d632462f5",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy",
+                    ":return_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "return_policy_id",
+                      "description": "(Required) This path parameter specifies the unique identifier of the return policy you want to retrieve. <br><br> This ID can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "d23a9e4d-4569-4fe9-a591-0efd2cb28f22",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy",
+                    ":return_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "return_policy_id",
+                      "description": "(Required) This path parameter specifies the unique identifier of the return policy you want to retrieve. <br><br> This ID can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "22e11608-4f69-4e70-ad6a-f503c1736411",
+          "name": "update Return Policy",
+          "request": {
+            "name": "update Return Policy",
+            "description": {
+              "content": "This method updates an existing return policy. Specify the policy you want to update using the <b>return_policy_id</b> path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing policy with the new details specified in the payload.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "return_policy",
+                ":return_policy_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "return_policy_id",
+                  "description": "(Required) This path parameter specifies the ID of the return policy you want to update. <br><br> This ID can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "PUT",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"extendedHolidayReturnsOffered\": \"<boolean>\",\n  \"internationalOverride\": {\n    \"returnMethod\": \"<string>\",\n    \"returnPeriod\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"returnsAccepted\": \"<boolean>\",\n    \"returnShippingCostPayer\": \"<string>\"\n  },\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"refundMethod\": \"<string>\",\n  \"restockingFeePercentage\": \"<string>\",\n  \"returnInstructions\": \"<string>\",\n  \"returnMethod\": \"<string>\",\n  \"returnPeriod\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"returnsAccepted\": \"<boolean>\",\n  \"returnShippingCostPayer\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "60725fad-c3c1-4cc6-83a6-b8ee8238f09b",
+              "name": "OK",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy",
+                    ":return_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "return_policy_id",
+                      "description": "(Required) This path parameter specifies the ID of the return policy you want to update. <br><br> This ID can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"extendedHolidayReturnsOffered\": \"<boolean>\",\n  \"internationalOverride\": {\n    \"returnMethod\": \"<string>\",\n    \"returnPeriod\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"returnsAccepted\": \"<boolean>\",\n    \"returnShippingCostPayer\": \"<string>\"\n  },\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"refundMethod\": \"<string>\",\n  \"restockingFeePercentage\": \"<string>\",\n  \"returnInstructions\": \"<string>\",\n  \"returnMethod\": \"<string>\",\n  \"returnPeriod\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"returnsAccepted\": \"<boolean>\",\n  \"returnShippingCostPayer\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"string\",\n  \"extendedHolidayReturnsOffered\": false,\n  \"internationalOverride\": {\n    \"returnMethod\": \"<string>\",\n    \"returnPeriod\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"returnsAccepted\": \"<boolean>\",\n    \"returnShippingCostPayer\": \"<string>\"\n  },\n  \"marketplaceId\": \"string\",\n  \"name\": \"string\",\n  \"refundMethod\": \"string\",\n  \"restockingFeePercentage\": \"string\",\n  \"returnInstructions\": \"string\",\n  \"returnMethod\": \"string\",\n  \"returnPeriod\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"returnPolicyId\": \"string\",\n  \"returnsAccepted\": true,\n  \"returnShippingCostPayer\": \"string\",\n  \"warnings\": [\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 2163,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    },\n    {\n      \"category\": \"string\",\n      \"domain\": \"string\",\n      \"errorId\": 9421,\n      \"inputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"longMessage\": \"string\",\n      \"message\": \"string\",\n      \"outputRefIds\": [\n        \"string\",\n        \"string\"\n      ],\n      \"parameters\": [\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        },\n        {\n          \"name\": \"string\",\n          \"value\": \"string\"\n        }\n      ],\n      \"subdomain\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "a3e0d7b2-75f1-4c9e-b8f9-2dfefe602841",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy",
+                    ":return_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "return_policy_id",
+                      "description": "(Required) This path parameter specifies the ID of the return policy you want to update. <br><br> This ID can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"extendedHolidayReturnsOffered\": \"<boolean>\",\n  \"internationalOverride\": {\n    \"returnMethod\": \"<string>\",\n    \"returnPeriod\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"returnsAccepted\": \"<boolean>\",\n    \"returnShippingCostPayer\": \"<string>\"\n  },\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"refundMethod\": \"<string>\",\n  \"restockingFeePercentage\": \"<string>\",\n  \"returnInstructions\": \"<string>\",\n  \"returnMethod\": \"<string>\",\n  \"returnPeriod\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"returnsAccepted\": \"<boolean>\",\n  \"returnShippingCostPayer\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "2195e1f4-3564-4a12-973b-959a3ec3257b",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy",
+                    ":return_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "return_policy_id",
+                      "description": "(Required) This path parameter specifies the ID of the return policy you want to update. <br><br> This ID can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"extendedHolidayReturnsOffered\": \"<boolean>\",\n  \"internationalOverride\": {\n    \"returnMethod\": \"<string>\",\n    \"returnPeriod\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"returnsAccepted\": \"<boolean>\",\n    \"returnShippingCostPayer\": \"<string>\"\n  },\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"refundMethod\": \"<string>\",\n  \"restockingFeePercentage\": \"<string>\",\n  \"returnInstructions\": \"<string>\",\n  \"returnMethod\": \"<string>\",\n  \"returnPeriod\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"returnsAccepted\": \"<boolean>\",\n  \"returnShippingCostPayer\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "64532102-c5db-4355-8828-544d1c705cb4",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy",
+                    ":return_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "return_policy_id",
+                      "description": "(Required) This path parameter specifies the ID of the return policy you want to update. <br><br> This ID can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) This header indicates the format of the request body provided by the client. Its value should be set to <b>application/json</b>. <br><br> For more information, refer to <a href=\"/api-docs/static/rest-request-components.html#HTTP\" target=\"_blank \">HTTP request headers</a>.",
+                    "key": "Content-Type",
+                    "value": "string"
+                  }
+                ],
+                "method": "PUT",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"<string>\",\n  \"extendedHolidayReturnsOffered\": \"<boolean>\",\n  \"internationalOverride\": {\n    \"returnMethod\": \"<string>\",\n    \"returnPeriod\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"returnsAccepted\": \"<boolean>\",\n    \"returnShippingCostPayer\": \"<string>\"\n  },\n  \"marketplaceId\": \"<string>\",\n  \"name\": \"<string>\",\n  \"refundMethod\": \"<string>\",\n  \"restockingFeePercentage\": \"<string>\",\n  \"returnInstructions\": \"<string>\",\n  \"returnMethod\": \"<string>\",\n  \"returnPeriod\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"returnsAccepted\": \"<boolean>\",\n  \"returnShippingCostPayer\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "853dcbc1-7b9f-4ace-be81-9c61b390ae2b",
+          "name": "delete Return Policy",
+          "request": {
+            "name": "delete Return Policy",
+            "description": {
+              "content": "This method deletes a return policy. Supply the ID of the policy you want to delete in the <b>returnPolicyId</b> path parameter.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "return_policy",
+                ":return_policy_id"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "return_policy_id",
+                  "description": "(Required) This path parameter specifies the unique identifier of the return policy you want to delete.<br><br> This ID can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                },
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "method": "DELETE",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "bac5e6ef-471f-4eb8-b6a2-650eb260e5b5",
+              "name": "No Content",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy",
+                    ":return_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "return_policy_id",
+                      "description": "(Required) This path parameter specifies the unique identifier of the return policy you want to delete.<br><br> This ID can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "No Content",
+              "code": 204,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "ab73fb6d-0806-4b73-9770-e55bae866ddb",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy",
+                    ":return_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "return_policy_id",
+                      "description": "(Required) This path parameter specifies the unique identifier of the return policy you want to delete.<br><br> This ID can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "14d47640-3f53-4503-bb34-9b6d03c0e0a7",
+              "name": "Not Found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy",
+                    ":return_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "return_policy_id",
+                      "description": "(Required) This path parameter specifies the unique identifier of the return policy you want to delete.<br><br> This ID can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "70c4276d-1555-4162-a969-d610b4d6c383",
+              "name": "Conflict",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy",
+                    ":return_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "return_policy_id",
+                      "description": "(Required) This path parameter specifies the unique identifier of the return policy you want to delete.<br><br> This ID can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Conflict",
+              "code": 409,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "9ca97791-4a98-4518-a089-f234d088e426",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy",
+                    ":return_policy_id"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "return_policy_id",
+                      "description": "(Required) This path parameter specifies the unique identifier of the return policy you want to delete.<br><br> This ID can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                    },
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "DELETE",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "eb0ac188-787e-4df5-8c48-e5d5d5e8f94e",
+          "name": "get Return Policy By Name",
+          "request": {
+            "name": "get Return Policy By Name",
+            "description": {
+              "content": "This method retrieves the details of a specific return policy. Supply both the policy <code>name</code> and its associated <code>marketplace_id</code> in the request query parameters.   <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policy for a marketplace that supports multiple locales using the <code>Content-Language</code> request header. For example, get a policy for the French locale of the Canadian marketplace by specifying <code>fr-CA</code> for the <code>Content-Language</code> header. Likewise, target the Dutch locale of the Belgium marketplace by setting <code>Content-Language: nl-BE</code>. For details on header values, see <a href=\"/api-docs/static/rest-request-components.html#HTTP\">HTTP request headers</a>.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "return_policy",
+                "get_by_policy_name"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "marketplace_id",
+                  "value": "<string>",
+                  "description": "(Required) This query parameter specifies the ID of the eBay marketplace of the policy you want to retrieve. For implementation help, refer to eBay API documentation at https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum"
+                },
+                {
+                  "disabled": false,
+                  "key": "name",
+                  "value": "<string>",
+                  "description": "(Required) This query parameter specifies the seller-defined name of the return policy you want to retrieve.<br><br> This value can be retrieved for a return policy by using the <a href=\"/api-docs/sell/account/resources/return_policy/methods/getReturnPolicies\" target=\"_blank \">getReturnPolicies</a> method."
+                }
+              ],
+              "variable": [
+                {
+                  "description": {
+                    "content": "",
+                    "type": "text/plain"
+                  },
+                  "type": "any",
+                  "value": "{{basePath}}",
+                  "key": "basePath"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "oauth2",
+              "oauth2": [
+                {
+                  "key": "scope",
+                  "value": "https://api.ebay.com/oauth/api_scope/sell.account.readonly https://api.ebay.com/oauth/api_scope/sell.account"
+                },
+                {
+                  "key": "accessTokenUrl",
+                  "value": "https://api.ebay.com/identity/v1/oauth2/token"
+                },
+                {
+                  "key": "authUrl",
+                  "value": "https://auth.ebay.com/oauth2/authorize"
+                },
+                {
+                  "key": "grant_type",
+                  "value": "authorization_code"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "84a59fc4-b5d9-40e7-9521-bc8a75438475",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy",
+                    "get_by_policy_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"categoryTypes\": [\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    },\n    {\n      \"default\": \"<boolean>\",\n      \"name\": \"<string>\"\n    }\n  ],\n  \"description\": \"string\",\n  \"extendedHolidayReturnsOffered\": false,\n  \"internationalOverride\": {\n    \"returnMethod\": \"<string>\",\n    \"returnPeriod\": {\n      \"unit\": \"<string>\",\n      \"value\": \"<integer>\"\n    },\n    \"returnsAccepted\": \"<boolean>\",\n    \"returnShippingCostPayer\": \"<string>\"\n  },\n  \"marketplaceId\": \"string\",\n  \"name\": \"string\",\n  \"refundMethod\": \"string\",\n  \"restockingFeePercentage\": \"string\",\n  \"returnInstructions\": \"string\",\n  \"returnMethod\": \"string\",\n  \"returnPeriod\": {\n    \"unit\": \"<string>\",\n    \"value\": \"<integer>\"\n  },\n  \"returnPolicyId\": \"string\",\n  \"returnsAccepted\": false,\n  \"returnShippingCostPayer\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1ddefb1a-2a7b-462a-be4b-4daf7d383de0",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy",
+                    "get_by_policy_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "dc15dc73-c6e5-4bc1-89b4-1b90dd61f9a8",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "return_policy",
+                    "get_by_policy_name"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "marketplace_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "name",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": {
+                        "content": "",
+                        "type": "text/plain"
+                      },
+                      "type": "any",
+                      "value": "{{basePath}}",
+                      "key": "basePath"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "/sell/account/v1",
+      "key": "basePath"
+    },
+    {
+      "type": "string",
+      "value": "https://api.ebay.com{{basePath}}",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "b8cdfa31-2736-4efa-aa7d-27c87c63efd1",
+    "name": "eBay Account Advertising_eligibility Return_policy API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href=\"/api-docs/sell/account/overview.html#requirements\">Account API requirements and restrictions</a>.\n\nContact Support:\n Name: eBay Inc,",
+      "type": "text/plain"
+    }
+  }
+}
