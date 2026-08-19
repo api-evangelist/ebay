@@ -30,7 +30,7 @@ tags:
   - Fortune 500
 created: '2023-11-09'
 modified: '2026-05-30'
-specificationVersion: '0.20'
+specificationVersion: '0.23'
 apis:
 - aid: ebay:ebay-advertising-eligibility-api
   name: eBay Advertising_eligibility API
