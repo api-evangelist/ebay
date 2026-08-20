@@ -25,6 +25,12 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ebay.png
 tags:
   - Auctions
   - Commerce
+  - Product
+  - Marketplace
+  - Fortune 500
+tags_raw:
+  - Auctions
+  - Commerce
   - Products
   - Marketplace
   - Fortune 500
@@ -2767,6 +2773,8 @@ apis:
   humanURL: https://developer.ebay.com/api-docs/sell/account/static/overview.html
   baseURL: https://api.ebay.com
   tags:
+  - KYC
+  tags_raw:
   - Kyc
   properties:
   - type: OpenAPI
@@ -5496,6 +5504,8 @@ apis:
   humanURL: https://developer.ebay.com/api-docs/sell/account/static/overview.html
   baseURL: https://api.ebay.com
   tags:
+  - Public Key
+  tags_raw:
   - Public_key
   properties:
   - type: OpenAPI
@@ -5992,6 +6002,8 @@ apis:
   humanURL: https://developer.ebay.com/api-docs/sell/account/static/overview.html
   baseURL: https://api.ebay.com
   tags:
+  - Sales Tax
+  tags_raw:
   - Sales_tax
   properties:
   - type: OpenAPI
