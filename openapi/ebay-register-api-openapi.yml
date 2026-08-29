@@ -1,19 +1,19 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: eBay Account Advertising_eligibility Register API
-  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  title: eBay Developer Registration Register API
+  description: <span class="tablenote"><b>Note:</b> The Client Registration API is not intended for use by developers who have previously registered for a Developer Account on the eBay platform.</span><br/>The Client Registration API provides Dynamic Client Registration for regulated Third Party Providers (TPPs) who are, or will be, engaged in financial transactions on behalf of individuals domiciled in the EU/UK. This is required by the EU's Second Payment Services Directive (PSD2) which requires all regulated Account Servicing Payment Service Providers (ASPSPs) to provide secure APIs to access account and payment services on behalf of account holders.<br/><br/>A successful registration response returns a <b>HTTP 201 Created</b> status code with a JSON payload [RFC7519] that includes registration information.
   contact:
     name: eBay Inc,
   license:
     name: eBay API License Agreement
     url: https://go.developer.ebay.com/api-license-agreement
-  version: v1.9.2
+  version: v1.0.0
 servers:
-- url: https://api.ebay.com{basePath}
+- url: https://tppz.ebay.com{basePath}
   description: Production
   variables:
     basePath:
-      default: /sell/account/v1
+      default: /developer/registration/v1
 tags:
 - name: Register
 paths:
@@ -53,32 +53,6 @@ paths:
           description: Internal Server Error
 components:
   schemas:
-    ClientSettings:
-      type: object
-      properties:
-        client_name:
-          type: string
-          description: User-friendly name for the third party financial application.<br/><br/><span class="tablenote"><b>Note:</b> Language tags are not supported. Therefore, <code>client_name</code> must be specified in English.</span>
-        contacts:
-          type: array
-          description: This container stores an array of email addresses that can be used to contact the registrant.<br/><br/><span class="tablenote"><b>Note:</b> When more than one email address is provided, the first email in the array will be used as the developer account's email address. All other email addresses will be used as general contact information.</span>
-          items:
-            type: string
-        policy_uri:
-          type: string
-          description: The URL string pointing to a human-readable privacy policy document that describes how the third party provider collects, uses, retains, and discloses personal data.<br/><br/><span class="tablenote"><b>Note:</b> Only HTTPS URLs are supported for <code>policy_uri</code> strings.</span><br/><span class="tablenote"><b>Note:</b> This URL <b>must not</b> point to the eBay Privacy Policy.</span><br/>The value of this field <b>must</b> point to a valid and secure web page.<br/><br/><span class="tablenote"><b>Note:</b> Language tags are not supported. Therefore, <code>policy_uri</code> will be displayed in English.</span>
-        redirect_uris:
-          type: array
-          description: An array of redirection URI strings for use in redirect-based flows such as the authorization code and implicit flows.<br/><br/><span class="tablenote"><b>Note:</b> Only the first URI string from the list will be used.</span><span class="tablenote"><b>Note:</b> Each redirection URI <b>must</b> be an absolute URI as defined by [RFC3986] Section 4.3.</span>
-          items:
-            type: string
-        software_id:
-          type: string
-          description: A unique identifier string assigned by the client developer or software publisher to identify the client software being registered.<br/><br/>Unlike <code>client_id</code> which should change between instances, the <CODE>software_id</code> should be the same value for all instances of the client software. That is, the <code>software_id</code> should remain unchanged across multiple updates or versions of the same piece of software. The value of this field is not intended to be human readable and is usually opaque to the client and authorization server.
-        software_statement:
-          type: string
-          description: The Software Statement Assertion (SSA) that has been issued by the OpenBanking identifier.<br/><br/><span class="tablenote"><b>Note:</b> This value <i>must be</i> <b>Base64</b> encoded and not plain JSON.</span>Refer to <a href="https://datatracker.ietf.org/doc/html/rfc7591#section-2.3 " target= "_blank ">RFC 7591 - OAuth 2.0 Dynamic Client Registration Protocol</a> for complete information.
-      description: This container stores application-specific information that is provided at the time of registration.
     ClientDetails:
       type: object
       properties:
@@ -127,14 +101,38 @@ components:
           type: string
           description: The Software Statement Assertion (SSA), a JSON Web Token (JWT), that has been issued by the OpenBanking identifier. Refer to <a href="https://datatracker.ietf.org/doc/html/rfc7591#section-2.3 " target= "_blank ">RFC 7591 - OAuth 2.0 Dynamic Client Registration Protocol</a> for complete information.
       description: This container stores information about the third party provider's financial application that has been registered with eBay.
+    ClientSettings:
+      type: object
+      properties:
+        client_name:
+          type: string
+          description: User-friendly name for the third party financial application.<br/><br/><span class="tablenote"><b>Note:</b> Language tags are not supported. Therefore, <code>client_name</code> must be specified in English.</span>
+        contacts:
+          type: array
+          description: This container stores an array of email addresses that can be used to contact the registrant.<br/><br/><span class="tablenote"><b>Note:</b> When more than one email address is provided, the first email in the array will be used as the developer account's email address. All other email addresses will be used as general contact information.</span>
+          items:
+            type: string
+        policy_uri:
+          type: string
+          description: The URL string pointing to a human-readable privacy policy document that describes how the third party provider collects, uses, retains, and discloses personal data.<br/><br/><span class="tablenote"><b>Note:</b> Only HTTPS URLs are supported for <code>policy_uri</code> strings.</span><br/><span class="tablenote"><b>Note:</b> This URL <b>must not</b> point to the eBay Privacy Policy.</span><br/>The value of this field <b>must</b> point to a valid and secure web page.<br/><br/><span class="tablenote"><b>Note:</b> Language tags are not supported. Therefore, <code>policy_uri</code> will be displayed in English.</span>
+        redirect_uris:
+          type: array
+          description: An array of redirection URI strings for use in redirect-based flows such as the authorization code and implicit flows.<br/><br/><span class="tablenote"><b>Note:</b> Only the first URI string from the list will be used.</span><span class="tablenote"><b>Note:</b> Each redirection URI <b>must</b> be an absolute URI as defined by [RFC3986] Section 4.3.</span>
+          items:
+            type: string
+        software_id:
+          type: string
+          description: A unique identifier string assigned by the client developer or software publisher to identify the client software being registered.<br/><br/>Unlike <code>client_id</code> which should change between instances, the <CODE>software_id</code> should be the same value for all instances of the client software. That is, the <code>software_id</code> should remain unchanged across multiple updates or versions of the same piece of software. The value of this field is not intended to be human readable and is usually opaque to the client and authorization server.
+        software_statement:
+          type: string
+          description: The Software Statement Assertion (SSA) that has been issued by the OpenBanking identifier.<br/><br/><span class="tablenote"><b>Note:</b> This value <i>must be</i> <b>Base64</b> encoded and not plain JSON.</span>Refer to <a href="https://datatracker.ietf.org/doc/html/rfc7591#section-2.3 " target= "_blank ">RFC 7591 - OAuth 2.0 Dynamic Client Registration Protocol</a> for complete information.
+      description: This container stores application-specific information that is provided at the time of registration.
   securitySchemes:
     api_auth:
       type: oauth2
       description: The security definitions for this API. Please check individual operations for applicable scopes.
       flows:
-        authorizationCode:
-          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+        clientCredentials:
           tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
           scopes:
-            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
-            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings
+            https://api.ebay.com/oauth/api_scope: View public data from eBay

@@ -7995,6 +7995,9 @@ apis:
   - type: ReleaseNotes
     url: https://developer.ebay.com/api-docs/developer/key-management/release-notes.html
 common:
+  - type: CapabilityMap
+    url: capabilities/ebay-capability-edges.yml
+    name: eBay Business Capability Map
   - type: AgenticAccess
     url: agentic-access/ebay-agentic-access.yml
   - type: DomainSecurity

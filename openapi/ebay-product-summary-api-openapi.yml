@@ -1,19 +1,19 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: eBay Account Advertising_eligibility Product_summary API
-  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  title: eBay Catalog Product Summary API
+  description: The Catalog API allows users to search for and locate an eBay catalog product that is a direct match for the product that they wish to sell. Listing against an eBay catalog product helps insure that all listings (based off of that catalog product) have complete and accurate information. In addition to helping to create high-quality listings, another benefit to the seller of using catalog information to create listings is that much of the details of the listing will be prefilled, including the listing title, the listing description, the item specifics, and a stock image for the product (if available). Sellers will not have to enter item specifics themselves, and the overall listing process is a lot faster and easier.
   contact:
     name: eBay Inc,
   license:
     name: eBay API License Agreement
     url: https://go.developer.ebay.com/api-license-agreement
-  version: v1.9.2
+  version: v1_beta.5.0
 servers:
 - url: https://api.ebay.com{basePath}
   description: Production
   variables:
     basePath:
-      default: /sell/account/v1
+      default: /commerce/catalog/v1_beta
 tags:
 - name: Product_summary
 paths:
@@ -155,18 +155,6 @@ paths:
         - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
 components:
   schemas:
-    AspectDistribution:
-      type: object
-      properties:
-        aspectValueDistributions:
-          type: array
-          description: 'Contains information about one or more values of the category aspect identified by <b>localizedAspectName</b>. '
-          items:
-            $ref: '#/components/schemas/AspectValueDistribution'
-        localizedAspectName:
-          type: string
-          description: The localized name of an aspect that is associated with the category identified by <b>dominantCategoryId</b>.
-      description: This type contains information about one category aspect that is associated with a specified category.
     ProductSearchResponse:
       type: object
       properties:
@@ -215,30 +203,6 @@ components:
           description: The width of the image in pixels.
           format: int32
       description: This type contains information about a product image stored in eBay Picture Services (EPS).
-    Refinement:
-      type: object
-      properties:
-        aspectDistributions:
-          type: array
-          description: Contains information about one or more aspects that are associated with the category identified by <b>dominantCategoryId</b>.
-          items:
-            $ref: '#/components/schemas/AspectDistribution'
-        dominantCategoryId:
-          type: string
-          description: The ID of the category that eBay determines is most likely to cover the products matching the search criteria.
-      description: This type identifies a product category and the aspects associated with that category. Each aspect distribution container returns the distribution of values that have been used for the aspect.
-    Aspect:
-      type: object
-      properties:
-        localizedName:
-          type: string
-          description: The localized name of this category aspect.
-        localizedValues:
-          type: array
-          description: A list of the localized values of this category aspect.
-          items:
-            type: string
-      description: This type contains the name and values of a category aspect.
     ProductSummary:
       type: object
       properties:
@@ -310,6 +274,42 @@ components:
           type: string
           description: A HATEOAS reference that further refines the search with this particular <b>localizedAspectValue</b>.
       description: This type contains information about one value of a specified aspect. This value serves as a product refinement.
+    Aspect:
+      type: object
+      properties:
+        localizedName:
+          type: string
+          description: The localized name of this category aspect.
+        localizedValues:
+          type: array
+          description: A list of the localized values of this category aspect.
+          items:
+            type: string
+      description: This type contains the name and values of a category aspect.
+    AspectDistribution:
+      type: object
+      properties:
+        aspectValueDistributions:
+          type: array
+          description: 'Contains information about one or more values of the category aspect identified by <b>localizedAspectName</b>. '
+          items:
+            $ref: '#/components/schemas/AspectValueDistribution'
+        localizedAspectName:
+          type: string
+          description: The localized name of an aspect that is associated with the category identified by <b>dominantCategoryId</b>.
+      description: This type contains information about one category aspect that is associated with a specified category.
+    Refinement:
+      type: object
+      properties:
+        aspectDistributions:
+          type: array
+          description: Contains information about one or more aspects that are associated with the category identified by <b>dominantCategoryId</b>.
+          items:
+            $ref: '#/components/schemas/AspectDistribution'
+        dominantCategoryId:
+          type: string
+          description: The ID of the category that eBay determines is most likely to cover the products matching the search criteria.
+      description: This type identifies a product category and the aspects associated with that category. Each aspect distribution container returns the distribution of values that have been used for the aspect.
   securitySchemes:
     api_auth:
       type: oauth2
@@ -319,5 +319,5 @@ components:
           authorizationUrl: https://auth.ebay.com/oauth2/authorize
           tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
           scopes:
-            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
-            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings
+            https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly: ' This scope would allow signed in user to read catalog data.'
+            https://api.ebay.com/oauth/api_scope/sell.inventory: View and manage your inventory and offers

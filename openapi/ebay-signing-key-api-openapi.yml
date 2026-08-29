@@ -1,19 +1,19 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: eBay Account Advertising_eligibility Signing_key API
-  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  title: eBay Key Management Signing Key API
+  description: Due to regulatory requirements applicable to our EU/UK sellers, for certain APIs, developers need to add digital signatures to the respective HTTP call. The Key Management API creates keypairs that are required when creating digital signatures for the following APIs:<ul><li>All methods in the <a href="/api-docs/sell/finances/resources/methods " target="_blank ">Finances API</a></li><li><a href="/api-docs/sell/fulfillment/resources/order/methods/issueRefund " target="_blank ">issueRefund</a> in the Fulfillment API</li><li><a href="/Devzone/XML/docs/Reference/eBay/GetAccount.html " target="_blank ">GetAccount</a> in the Trading API</li><li>The following methods in the Post-Order API:<ul><li><a href="/Devzone/post-order/post-order_v2_inquiry-inquiryid_issue_refund__post.html " target="_blank ">Issue Inquiry Refund</a></li><li><a href="/Devzone/post-order/post-order_v2_casemanagement-caseid_issue_refund__post.html " target="_blank ">Issue case refund</a></li><li><a href="/Devzone/post-order/post-order_v2_return-returnid_issue_refund__post.html " target="_blank ">Issue return refund</a></li><li><a href="/Devzone/post-order/post-order_v2_return-returnid_decide__post.html " target="_blank ">Process Return Request</a></li><li><a href="/devzone/post-order/post-order_v2_cancellation-cancelid_approve__post.html " target="_blank ">Approve Cancellation Request</a></li><li><a href="/devzone/post-order/post-order_v2_cancellation__post.html " target="_blank ">Create Cancellation Request</a></li></ul></li></ul><span class="tablenote"><b>Note:</b> For additional information about keypairs and creating Message Signatures, refer to <a href= "/develop/guides/digital-signatures-for-apis " target= "_blank ">Digital Signatures for APIs</a>.</span>
   contact:
     name: eBay Inc,
   license:
     name: eBay API License Agreement
     url: https://go.developer.ebay.com/api-license-agreement
-  version: v1.9.2
+  version: v1.0.0
 servers:
-- url: https://api.ebay.com{basePath}
+- url: https://apiz.ebay.com{basePath}
   description: Production
   variables:
     basePath:
-      default: /sell/account/v1
+      default: /developer/key_management/v1
 tags:
 - name: Signing_key
 paths:
@@ -162,6 +162,22 @@ paths:
         - https://api.ebay.com/oauth/api_scope
 components:
   schemas:
+    QuerySigningKeysResponse:
+      type: object
+      properties:
+        signingKeys:
+          type: array
+          description: An array of metadata information for keypairs owned by a user.
+          items:
+            $ref: '#/components/schemas/SigningKey'
+      description: This container stores metadata information for all keypairs that are owned by a user.
+    CreateSigningKeyRequest:
+      type: object
+      properties:
+        signingKeyCipher:
+          type: string
+          description: The enumerated value for the cipher to be used to create the signing key. Refer to <a href= "/api-docs/developer/key-management/types/api:SigningKeyCipher" target= "_blank">SigningKeyCiper</a> for the list of supported enum values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/developer/key_management/types/api:SigningKeyCipher'>eBay API documentation</a>
+      description: This request creates a new signing key.
     SigningKey:
       type: object
       properties:
@@ -189,30 +205,12 @@ components:
           type: string
           description: The system-generated eBay ID for the keypairs.
       description: This container stores metadata for a signing key.
-    QuerySigningKeysResponse:
-      type: object
-      properties:
-        signingKeys:
-          type: array
-          description: An array of metadata information for keypairs owned by a user.
-          items:
-            $ref: '#/components/schemas/SigningKey'
-      description: This container stores metadata information for all keypairs that are owned by a user.
-    CreateSigningKeyRequest:
-      type: object
-      properties:
-        signingKeyCipher:
-          type: string
-          description: The enumerated value for the cipher to be used to create the signing key. Refer to <a href= "/api-docs/developer/key-management/types/api:SigningKeyCipher" target= "_blank">SigningKeyCiper</a> for the list of supported enum values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/developer/key_management/types/api:SigningKeyCipher'>eBay API documentation</a>
-      description: This request creates a new signing key.
   securitySchemes:
     api_auth:
       type: oauth2
       description: The security definitions for this API. Please check individual operations for applicable scopes.
       flows:
-        authorizationCode:
-          authorizationUrl: https://auth.ebay.com/oauth2/authorize
+        clientCredentials:
           tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
           scopes:
-            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
-            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings
+            https://api.ebay.com/oauth/api_scope: View public data from eBay

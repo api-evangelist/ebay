@@ -1,19 +1,19 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: eBay Account Advertising_eligibility Payout API
-  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  title: eBay Finances Payout API
+  description: This API is used to retrieve seller payouts and monetary transaction details related to those payouts.
   contact:
     name: eBay Inc,
   license:
     name: eBay API License Agreement
     url: https://go.developer.ebay.com/api-license-agreement
-  version: v1.9.2
+  version: v1.17.2
 servers:
-- url: https://api.ebay.com{basePath}
+- url: https://apiz.ebay.com{basePath}
   description: Production
   variables:
     basePath:
-      default: /sell/account/v1
+      default: /sell/finances/v1
 tags:
 - name: Payout
 paths:
@@ -192,22 +192,6 @@ paths:
         - https://api.ebay.com/oauth/api_scope/sell.finances
 components:
   schemas:
-    PayoutInstrument:
-      type: object
-      properties:
-        accountLastFourDigits:
-          type: string
-          description: This value is the last four digits of the account that the seller uses to receive the payout. This may be the last four digits of a bank account, a debit card, or a payment processor account such as Payoneer.
-        instrumentType:
-          type: string
-          description: 'This value indicates the type of account that received the payout. The value returned in this field may be:<br><ul><li><code>BANK</code>: indicates that the payout was made to a seller''s bank account.</li><li><code>CARD</code>: indicates that the payout went to a seller''s debit card</li><li>The name of a digital wallet provider or payment processor (e.g., <code>PAYONEER</code>)</li></ul><br><br><span class="tablenote"><b>Note:</b> Only Payoneer is currently supported for sellers in mainland China. Card payouts are not currently available for sellers in mainland China.</span>'
-        nickname:
-          type: string
-          description: When <b>instrumentType</b> returns <code>BANK</code>, this value is the seller-provided nickname that the seller uses to represent the bank account that receives the payout.<br><br>When <b>instrumentType</b> returns <code>CARD</code>, this value is the debit card network for the debit card that receives the payout.<br><br>When <b>instrumentType</b> returns a provider of digital wallet or payment processing services, the value returned is the name of the service provider (e.g., <code>PAYONEER</code>).<br><br><span class="tablenote"><b>Note:</b> Card payouts are not currently available for sellers in mainland China.</span>
-        payoutPercentage:
-          type: string
-          description: This value indicates the current payout percentage allocated to a payout instrument. For example, <code>50</code> indicates that 50% of the payout goes to the instrument.<br><br>This field will be returned even when 100% of the payout funds are going to one payout instrument.<br><br>This field is only returned to sellers in mainland China.
-      description: This type is used to provide details about one or two of the seller's accounts that are enabled to receive payouts.
     Payouts:
       type: object
       properties:
@@ -238,46 +222,22 @@ components:
           description: This integer value is the total number of payouts in the results set based on the current input criteria. Based on the total number of payouts that match the criteria, and on the <strong>limit</strong> and <strong>offset</strong> values, there may be additional pages in the results set.
           format: int32
       description: This type is the base response type of the <strong>getPayouts</strong> method, and contains an array of one or more payouts (that match the input criteria), the total count of payouts in the response, and various pagination data for the results set.
-    Amount:
+    PayoutInstrument:
       type: object
       properties:
-        convertedFromCurrency:
+        accountLastFourDigits:
           type: string
-          description: The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " target="_blank">ISO 4217</a> code representing the currency of the amount in the <b> convertedFromValue</b> field. This value is the pre-conversion currency.<br><br>This field is only returned if/when currency conversion was applied by eBay. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
-        convertedFromValue:
+          description: This value is the last four digits of the account that the seller uses to receive the payout. This may be the last four digits of a bank account, a debit card, or a payment processor account such as Payoneer.
+        instrumentType:
           type: string
-          description: The monetary amount before any conversion is performed, in the currency specified by the <b> convertedFromCurrency</b> field. This value is the pre-conversion amount. The <b> value</b> field contains the converted amount of this value, in the currency specified by the <b> currency</b> field.<br><br>This field is only returned if/when currency conversion was applied by eBay.
-        convertedToCurrency:
+          description: 'This value indicates the type of account that received the payout. The value returned in this field may be:<br><ul><li><code>BANK</code>: indicates that the payout was made to a seller''s bank account.</li><li><code>CARD</code>: indicates that the payout went to a seller''s debit card</li><li>The name of a digital wallet provider or payment processor (e.g., <code>PAYONEER</code>)</li></ul><br><br><span class="tablenote"><b>Note:</b> Only Payoneer is currently supported for sellers in mainland China. Card payouts are not currently available for sellers in mainland China.</span>'
+        nickname:
           type: string
-          description: <span class="tablenote"><b>Note:</b> This field is only applicable for Mainland China sellers with an available CNY Bank payment instrument. This response can <b>only</b> have a value of <code>CNY</code>.</span>The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " target="_blank">ISO 4217</a> code representing the currency of the amount in the <b>convertedToValue</b> field. <br/><br/>This field is only returned for payouts to bank accounts when currency conversion was applied by eBay. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
-        convertedToValue:
+          description: When <b>instrumentType</b> returns <code>BANK</code>, this value is the seller-provided nickname that the seller uses to represent the bank account that receives the payout.<br><br>When <b>instrumentType</b> returns <code>CARD</code>, this value is the debit card network for the debit card that receives the payout.<br><br>When <b>instrumentType</b> returns a provider of digital wallet or payment processing services, the value returned is the name of the service provider (e.g., <code>PAYONEER</code>).<br><br><span class="tablenote"><b>Note:</b> Card payouts are not currently available for sellers in mainland China.</span>
+        payoutPercentage:
           type: string
-          description: <span class="tablenote"><b>Note:</b> This field is only applicable for Mainland China sellers with an available CNY Bank payment instrument. This response <b>only</b> returns value in CNY.</span>The monetary value after any conversion is performed, in the currency specified by the <b>convertedToCurrency</b> field. This value is the converted amount. <br/><br/>The field is only returned for payouts to bank accounts when currency conversion was applied by eBay.
-        currency:
-          type: string
-          description: 'A three-letter ISO 4217 code that indicates the currency of the amount in the <b>value</b> field. This field is always returned with any container using <b>Amount</b> type. <br><br><b>Default</b>: The currency of the authenticated user''s country. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/finances/types/ba:CurrencyCodeEnum''>eBay API documentation</a>'
-        exchangeRate:
-          type: string
-          description: The exchange rate used for the monetary conversion. This field shows the exchange rate used to convert the dollar value in the <b>value</b> field from the dollar value in the <b>convertedFromValue</b> field.<br><br> For sellers in mainland China, this field shows shows the exchange rate to convert the dollar value in the <b>value</b> field to the CNY value in the <b>convertedToValue</b> field.<br><br>This field is only returned when eBay does a currency version, and a currency conversion is generally needed if the buyer is viewing, or has purchased an item on an international site. <br><br>This field is only returned if/when currency conversion was applied by eBay.
-        value:
-          type: string
-          description: The monetary amount, in the currency specified by the <b>currency</b> field. This field is always returned with any container using <b>Amount</b> type.
-      description: This type is used to express the dollar value and currency used for any transaction retrieved with the <strong>Finances API</strong>, including an order total, a seller payout, a buyer refund, or a seller credit.
-    PayoutSummaryResponse:
-      type: object
-      properties:
-        amount:
-          description: This container shows the total value (and currency type used) of the seller payouts that match the input criteria. This field is not returned if there are no payouts that match the input criteria.
-          $ref: '#/components/schemas/Amount'
-        payoutCount:
-          type: integer
-          description: This integer value indicates the total count of payouts to the seller that match the input criteria. This field is always returned, even if there are no payouts that match the input criteria (its value will show <code>0</code>).
-          format: int32
-        transactionCount:
-          type: integer
-          description: This integer value indicates the total count of monetary transactions (order payments, buyer refunds, and seller credits) associated with the payouts that match the input criteria. This field is always returned, even if there are no payouts that match the input criteria (its value will show <code>0</code>). If there is at least one payout that matches the input criteria, the value in this field will be at least <code>1</code>.
-          format: int32
-      description: This type is the base response type of the <strong>getPayoutSummary</strong> method, and contains the total count of seller payouts (that match the input criteria), the total count of monetary transactions (order payment, buyer refunds, or seller credits) associated with those payouts, and the total value of those seller payouts.
+          description: This value indicates the current payout percentage allocated to a payout instrument. For example, <code>50</code> indicates that 50% of the payout goes to the instrument.<br><br>This field will be returned even when 100% of the payout funds are going to one payout instrument.<br><br>This field is only returned to sellers in mainland China.
+      description: This type is used to provide details about one or two of the seller's accounts that are enabled to receive payouts.
     Payout:
       type: object
       properties:
@@ -327,6 +287,46 @@ components:
           description: 'This integer value indicates the number of monetary transactions (all orders, refunds, and credits, etc.) that have occurred with the corresponding payout. Its value should always be at least <code>1</code>, since there is at least one order per seller payout.<br/><br/>For split payouts, each of the two sibling payouts would be considered its own transaction. Because of this, if a seller had a payout for one order, but split the order between two accounts, the value would be <code>2</code> instead of <code>1</code>.<br><br><span class="tablenote"><b>Note: </b>Split-payout functionality is <b>only</b> applicable to mainland China sellers. </span>'
           format: int32
       description: This type is used to express the details of one seller payout that is returned with the <strong>getPayout</strong> or <strong>getPayouts</strong> methods.
+    PayoutSummaryResponse:
+      type: object
+      properties:
+        amount:
+          description: This container shows the total value (and currency type used) of the seller payouts that match the input criteria. This field is not returned if there are no payouts that match the input criteria.
+          $ref: '#/components/schemas/Amount'
+        payoutCount:
+          type: integer
+          description: This integer value indicates the total count of payouts to the seller that match the input criteria. This field is always returned, even if there are no payouts that match the input criteria (its value will show <code>0</code>).
+          format: int32
+        transactionCount:
+          type: integer
+          description: This integer value indicates the total count of monetary transactions (order payments, buyer refunds, and seller credits) associated with the payouts that match the input criteria. This field is always returned, even if there are no payouts that match the input criteria (its value will show <code>0</code>). If there is at least one payout that matches the input criteria, the value in this field will be at least <code>1</code>.
+          format: int32
+      description: This type is the base response type of the <strong>getPayoutSummary</strong> method, and contains the total count of seller payouts (that match the input criteria), the total count of monetary transactions (order payment, buyer refunds, or seller credits) associated with those payouts, and the total value of those seller payouts.
+    Amount:
+      type: object
+      properties:
+        convertedFromCurrency:
+          type: string
+          description: The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " target="_blank">ISO 4217</a> code representing the currency of the amount in the <b> convertedFromValue</b> field. This value is the pre-conversion currency.<br><br>This field is only returned if/when currency conversion was applied by eBay. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
+        convertedFromValue:
+          type: string
+          description: The monetary amount before any conversion is performed, in the currency specified by the <b> convertedFromCurrency</b> field. This value is the pre-conversion amount. The <b> value</b> field contains the converted amount of this value, in the currency specified by the <b> currency</b> field.<br><br>This field is only returned if/when currency conversion was applied by eBay.
+        convertedToCurrency:
+          type: string
+          description: <span class="tablenote"><b>Note:</b> This field is only applicable for Mainland China sellers with an available CNY Bank payment instrument. This response can <b>only</b> have a value of <code>CNY</code>.</span>The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " target="_blank">ISO 4217</a> code representing the currency of the amount in the <b>convertedToValue</b> field. <br/><br/>This field is only returned for payouts to bank accounts when currency conversion was applied by eBay. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
+        convertedToValue:
+          type: string
+          description: <span class="tablenote"><b>Note:</b> This field is only applicable for Mainland China sellers with an available CNY Bank payment instrument. This response <b>only</b> returns value in CNY.</span>The monetary value after any conversion is performed, in the currency specified by the <b>convertedToCurrency</b> field. This value is the converted amount. <br/><br/>The field is only returned for payouts to bank accounts when currency conversion was applied by eBay.
+        currency:
+          type: string
+          description: 'A three-letter ISO 4217 code that indicates the currency of the amount in the <b>value</b> field. This field is always returned with any container using <b>Amount</b> type. <br><br><b>Default</b>: The currency of the authenticated user''s country. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/finances/types/ba:CurrencyCodeEnum''>eBay API documentation</a>'
+        exchangeRate:
+          type: string
+          description: The exchange rate used for the monetary conversion. This field shows the exchange rate used to convert the dollar value in the <b>value</b> field from the dollar value in the <b>convertedFromValue</b> field.<br><br> For sellers in mainland China, this field shows shows the exchange rate to convert the dollar value in the <b>value</b> field to the CNY value in the <b>convertedToValue</b> field.<br><br>This field is only returned when eBay does a currency version, and a currency conversion is generally needed if the buyer is viewing, or has purchased an item on an international site. <br><br>This field is only returned if/when currency conversion was applied by eBay.
+        value:
+          type: string
+          description: The monetary amount, in the currency specified by the <b>currency</b> field. This field is always returned with any container using <b>Amount</b> type.
+      description: This type is used to express the dollar value and currency used for any transaction retrieved with the <strong>Finances API</strong>, including an order total, a seller payout, a buyer refund, or a seller credit.
     Fee:
       type: object
       properties:
@@ -362,5 +362,4 @@ components:
           authorizationUrl: https://auth.ebay.com/oauth2/authorize
           tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
           scopes:
-            https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
-            https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings
+            https://api.ebay.com/oauth/api_scope/sell.finances: View and manage your payment and order information to display this information to you and allow you to initiate refunds using the third party application
