@@ -5515,7 +5515,7 @@ apis:
   humanURL: https://developer.ebay.com/api-docs/sell/account/static/overview.html
   baseURL: https://api.ebay.com
   tags:
-  - Public_key
+  - Public Key
   tags_raw:
   - Public_key
   properties:
@@ -6013,7 +6013,7 @@ apis:
   humanURL: https://developer.ebay.com/api-docs/sell/account/static/overview.html
   baseURL: https://api.ebay.com
   tags:
-  - Sales_tax
+  - Sales Tax
   tags_raw:
   - Sales_tax
   properties:
