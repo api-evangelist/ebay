@@ -1,9 +1,10 @@
 aid: ebay
 name: eBay
-description: eBay is a multinational e-commerce corporation that operates a website facilitating consumer-to-consumer and
-  business-to-consumer sales through its online platform. Users can buy and sell a wide range of products, including electronics,
-  fashion, collectibles, and more, in an auction-style or buy-it-now format. eBay provides a secure and user-friendly platform
-  for sellers to reach a global audience and for buyers to access a vast selection of items.
+description: eBay is a multinational e-commerce corporation that operates a website facilitating consumer-to-consumer
+  and business-to-consumer sales through its online platform. Users can buy and sell a wide range of products,
+  including electronics, fashion, collectibles, and more, in an auction-style or buy-it-now format. eBay
+  provides a secure and user-friendly platform for sellers to reach a global audience and for buyers to
+  access a vast selection of items.
 url: https://raw.githubusercontent.com/api-evangelist/ebay/refs/heads/main/apis.yml
 type: Index
 deliveryModel:
@@ -34,19 +35,19 @@ position: Consuming
 access: 3rd-Party
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/ebay.png
 tags:
-  - Auctions
-  - Commerce
-  - Product
-  - Marketplace
-  - Fortune 500
+- Auctions
+- Commerce
+- Product
+- Marketplace
+- Fortune 500
 tags_raw:
-  - Auctions
-  - Commerce
-  - Products
-  - Marketplace
-  - Fortune 500
+- Auctions
+- Commerce
+- Products
+- Marketplace
+- Fortune 500
 created: '2023-11-09'
-modified: '2026-05-30'
+modified: '2026-09-16'
 specificationVersion: '0.23'
 apis:
 - aid: ebay:ebay-advertising-eligibility-api
@@ -1043,8 +1044,7 @@ apis:
     url: https://developer.ebay.com/api-docs/developer/key-management/release-notes.html
 - aid: ebay:ebay-customer-service-metric-task-api
   name: eBay Customer_service_metric_task API
-  description: >-
-    The Customer_service_metric_task API from eBay — 2 operation(s) for customer_service_metric_task.
+  description: The Customer_service_metric_task API from eBay — 2 operation(s) for customer_service_metric_task.
   humanURL: https://developer.ebay.com/api-docs/sell/account/static/overview.html
   baseURL: https://api.ebay.com
   tags:
@@ -3402,8 +3402,7 @@ apis:
     url: https://developer.ebay.com/api-docs/developer/key-management/release-notes.html
 - aid: ebay:ebay-listing-violation-summary-api
   name: eBay Listing_violation_summary API
-  description: >-
-    The Listing_violation_summary API from eBay — 1 operation(s) for listing_violation_summary.
+  description: The Listing_violation_summary API from eBay — 1 operation(s) for listing_violation_summary.
   humanURL: https://developer.ebay.com/api-docs/sell/account/static/overview.html
   baseURL: https://api.ebay.com
   tags:
@@ -6383,8 +6382,7 @@ apis:
     url: https://developer.ebay.com/api-docs/developer/key-management/release-notes.html
 - aid: ebay:ebay-seller-standards-profile-api
   name: eBay Seller_standards_profile API
-  description: >-
-    The Seller_standards_profile API from eBay — 2 operation(s) for seller_standards_profile.
+  description: The Seller_standards_profile API from eBay — 2 operation(s) for seller_standards_profile.
   humanURL: https://developer.ebay.com/api-docs/sell/account/static/overview.html
   baseURL: https://api.ebay.com
   tags:
@@ -7995,52 +7993,54 @@ apis:
   - type: ReleaseNotes
     url: https://developer.ebay.com/api-docs/developer/key-management/release-notes.html
 common:
-  - type: CapabilityMap
-    url: capabilities/ebay-capability-edges.yml
-    name: eBay Business Capability Map
-  - type: AgenticAccess
-    url: agentic-access/ebay-agentic-access.yml
-  - type: DomainSecurity
-    url: security/ebay-domain-security.yml
-  - type: Authentication
-    url: authentication/ebay-authentication.yml
-  - type: OAuthScopes
-    url: scopes/ebay-scopes.yml
-  - type: GitHubOrganization
-    url: https://github.com/ebay
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/ebay
-  - type: DeveloperPortal
-    url: https://developer.ebay.com/
-  - type: GettingStarted
-    url: https://developer.ebay.com/develop/get-started
-  - type: Guides
-    url: https://developer.ebay.com/develop/guides
-  - type: Tools
-    url: https://developer.ebay.com/develop/tools
-  - type: SDKs
-    url: https://developer.ebay.com/develop/ebay-sdks
-  - type: Widgets
-    url: https://developer.ebay.com/develop/widgets
-  - type: Support
-    url: https://developer.ebay.com/my/support/tickets
-  - type: RateLimits
-    url: https://developer.ebay.com/develop/apis/api-call-limits
-  - type: StatusPage
-    url: https://developer.ebay.com/support/api-status
-  - type: Forums
-    url: https://community.ebay.com/t5/Developer-Groups/ct-p/developergroup
-  - type: License
-    url: https://developer.ebay.com/join/api-license-agreement
-  - type: FAQ
-    url: https://developer.ebay.com/support/faq
-  - type: Blog
-    url: https://developer.ebay.com/updates/blog
-  - type: Newsletter
-    url: https://developer.ebay.com/updates/newsletter
-  - type: Events
-    url: https://developer.ebay.com/grow/events
+- type: Website
+  url: https://ebay.com
+- type: CapabilityMap
+  url: capabilities/ebay-capability-edges.yml
+  name: eBay Business Capability Map
+- type: AgenticAccess
+  url: agentic-access/ebay-agentic-access.yml
+- type: DomainSecurity
+  url: security/ebay-domain-security.yml
+- type: Authentication
+  url: authentication/ebay-authentication.yml
+- type: OAuthScopes
+  url: scopes/ebay-scopes.yml
+- type: GitHubOrganization
+  url: https://github.com/ebay
+- type: LinkedIn
+  url: https://www.linkedin.com/company/ebay
+- type: DeveloperPortal
+  url: https://developer.ebay.com/
+- type: GettingStarted
+  url: https://developer.ebay.com/develop/get-started
+- type: Guides
+  url: https://developer.ebay.com/develop/guides
+- type: Tools
+  url: https://developer.ebay.com/develop/tools
+- type: SDKs
+  url: https://developer.ebay.com/develop/ebay-sdks
+- type: Widgets
+  url: https://developer.ebay.com/develop/widgets
+- type: Support
+  url: https://developer.ebay.com/my/support/tickets
+- type: RateLimits
+  url: https://developer.ebay.com/develop/apis/api-call-limits
+- type: StatusPage
+  url: https://developer.ebay.com/support/api-status
+- type: Forums
+  url: https://community.ebay.com/t5/Developer-Groups/ct-p/developergroup
+- type: License
+  url: https://developer.ebay.com/join/api-license-agreement
+- type: FAQ
+  url: https://developer.ebay.com/support/faq
+- type: Blog
+  url: https://developer.ebay.com/updates/blog
+- type: Newsletter
+  url: https://developer.ebay.com/updates/newsletter
+- type: Events
+  url: https://developer.ebay.com/grow/events
 maintainers:
-  - FN: API Evangelist
-    url: http://apievangelist.com
-    email: info@apievangelist.com
+- FN: API Evangelist
+  url: http://apievangelist.com
+  email: info@apievangelist.com
