@@ -3034,6 +3034,8 @@ apis:
   humanURL: https://developer.ebay.com/api-docs/sell/account/static/overview.html
   baseURL: https://api.ebay.com
   tags:
+  - Listings
+  tags_raw:
   - Listing
   properties:
   - type: OpenAPI
