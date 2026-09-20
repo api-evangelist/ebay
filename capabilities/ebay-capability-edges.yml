@@ -11,7 +11,7 @@ capability_model:
   attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
     CC BY 4.0
   notice: NOTICE
-edge_count: 12
+edge_count: 15
 edges:
 - tag: Sales_tax
   spec_file: ebay-sales-tax-api-openapi.yml
@@ -86,6 +86,40 @@ edges:
     (attributes) used to describe listed items — item master taxonomy and attribute metadata, i.e. Item
     Master Data Management. Not a marketing-content or syndication surface, so the narrower 2370.10 fits;
     some chance a grader would treat it as generic master data (BC-610.20).
+- tag: Country
+  spec_file: ebay-country-api-openapi.yml
+  capability_id: BC-220.20
+  capability_id_l1: BC-220
+  capability_name: Indirect Tax Management
+  confidence: 0.7
+  evidence: 'GET /country/{countryCode}/sales_tax_jurisdiction  getSalesTaxJurisdictions; schemas: SalesTaxJurisdictions,
+    SalesTaxJurisdiction'
+  reason: Despite the 'Country' tag, the single operation retrieves sales tax jurisdictions, supporting
+    indirect (sales) tax determination for seller accounts. Thin surface (read-only reference data), so
+    moderate confidence.
+  recovered_from: sweep-20260828T235257Z-edges.json
+- tag: Deal_item
+  spec_file: ebay-deal-item-api-openapi.yml
+  capability_id: BC-440.30
+  capability_id_l1: BC-440
+  capability_name: Discount & Promotion Management
+  confidence: 0.7
+  evidence: 'GET /deal_item  getDealItems; schemas: DealItem, MarketingPrice, DealItemSearchResponse'
+  reason: Retrieves items that are part of eBay deals with marketing/discount pricing — promotional offer
+    surfacing. Read-only and thin, so moderate confidence on Discount & Promotion Management.
+  recovered_from: sweep-20260828T235257Z-edges.json
+- tag: Fulfillment_policy
+  spec_file: ebay-fulfillment-policy-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.7
+  evidence: 'POST /fulfillment_policy/ createFulfillmentPolicy; schemas: ShippingService, ShippingOption,
+    RegionSet, TimeDuration'
+  reason: CRUD over seller fulfilment policies defining shipping services, regions and handling times
+    — rules governing how orders are fulfilled and shipped. Policy configuration rather than execution,
+    so moderate confidence.
+  recovered_from: sweep-20260828T235257Z-edges.json
 - tag: Listing_recommendation
   spec_file: ebay-listing-recommendation-api-openapi.yml
   capability_id: BC-400.60
