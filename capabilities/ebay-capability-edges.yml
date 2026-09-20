@@ -1,0 +1,139 @@
+slug: ebay
+provider: eBay
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Retail & Consumer Goods
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 12
+edges:
+- tag: Sales_tax
+  spec_file: ebay-sales-tax-api-openapi.yml
+  capability_id: BC-220.20
+  capability_id_l1: BC-220
+  capability_name: Indirect Tax Management
+  confidence: 0.8
+  evidence: PUT /sales_tax/{countryCode}/{jurisdictionId} createOrReplaceSalesTax; "configure sales tax
+    tables"; schemas SalesTax, SalesTaxes
+  reason: Maintenance of sales tax rates by country and jurisdiction is indirect tax determination/configuration.
+- tag: Shipment
+  spec_file: ebay-shipment-api-openapi.yml
+  capability_id: BC-520.50
+  capability_id_l1: BC-520
+  capability_name: Logistics Operations Management
+  confidence: 0.8
+  evidence: createFromShippingQuote, downloadLabelFile, cancelShipment; "shipment – Creates a \"shipment\"
+    for the selected shipping rate"; schemas PackageSpecification, Weight, Dimensions
+  reason: Creating shipments, buying carrier rates and printing labels is transport/logistics execution.
+- tag: Shipping_fulfillment
+  spec_file: ebay-shipping-fulfillment-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.8
+  evidence: createShippingFulfillment on /order/{orderId}/shipping_fulfillment; "Use the Fulfillment API
+    to complete the process of packaging, addressing, handling, and shipping each order on behalf of the
+    seller"
+  reason: Records fulfilment of consumer orders (line items shipped, tracking) against an order — order
+    fulfilment orchestration.
+- tag: Shipping_quote
+  spec_file: ebay-shipping-quote-api-openapi.yml
+  capability_id: BC-520.50
+  capability_id_l1: BC-520
+  capability_name: Logistics Operations Management
+  confidence: 0.78
+  evidence: createShippingQuote; "Consolidates into a list a set of live shipping rates, or quotes, from
+    which you can select a rate to ship a package"; schemas Rate, PickupSlot, PackageSpecification
+  reason: Carrier rate shopping and pickup slot selection for outbound packages is transport/logistics
+    operations.
+- tag: Destination
+  spec_file: ebay-destination-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.72
+  evidence: '"Create, configure, and manage notification destination endpoints"; createDestination / updateDestination
+    / deleteDestination, schema DeliveryConfig'
+  reason: Lifecycle management of outbound notification (webhook) delivery endpoints for the eBay event
+    notification platform — Webhook & Event Subscription Management. It is platform plumbing, but the
+    candidate set contains an explicit capability for exactly this.
+- tag: Offer
+  spec_file: ebay-offer-api-openapi.yml
+  capability_id: BC-2330.40
+  capability_id_l1: BC-2330
+  capability_name: Marketplace Seller Operations Management
+  confidence: 0.72
+  evidence: createOffer, publishOffer, withdrawOffer, getListingFees; "publish and manage this inventory
+    on an eBay marketplace"
+  reason: Operations create, publish and withdraw seller offers (listings) on the eBay marketplace — operating
+    seller listings on a marketplace.
+- tag: Category_tree
+  spec_file: ebay-category-tree-api-openapi.yml
+  capability_id: BC-2370.10
+  capability_id_l1: BC-2370
+  capability_name: Item Master Data Management
+  confidence: 0.7
+  evidence: '"Get a Category Tree", "Get Suggested Categories", "Get Aspects for All Leaf Categories in
+    a Marketplace"; schemas CategoryTreeNode, AspectMetadata — "discover the most appropriate eBay categories
+    under which sellers can offer inventory items"'
+  reason: The operations expose the product category taxonomy and the required/recommended item aspects
+    (attributes) used to describe listed items — item master taxonomy and attribute metadata, i.e. Item
+    Master Data Management. Not a marketing-content or syndication surface, so the narrower 2370.10 fits;
+    some chance a grader would treat it as generic master data (BC-610.20).
+- tag: Listing_recommendation
+  spec_file: ebay-listing-recommendation-api-openapi.yml
+  capability_id: BC-400.60
+  capability_id_l1: BC-400
+  capability_name: Digital Marketing Management
+  confidence: 0.7
+  evidence: '"information that sellers can use to configure Promoted Listings ad campaigns to maximize
+    the visibility of their items"; schemas Ad, BidPercentages, MarketingRecommendation'
+  reason: Returns recommended ad bid percentages for Promoted Listings campaigns — paid-media/advertising
+    optimisation, i.e. digital marketing. Advisory-only (single find method), so not top confidence.
+- tag: Order
+  spec_file: ebay-order-api-openapi.yml
+  capability_id: BC-520.40
+  capability_id_l1: BC-520
+  capability_name: Order Fulfilment Management
+  confidence: 0.7
+  evidence: '"Use the Fulfillment API to complete the process of packaging, addressing, handling, and
+    shipping each order"; getOrders, issueRefund'
+  reason: Retrieval and post-sale handling of orders for fulfilment execution maps to order fulfilment
+    orchestration; some overlap with cross-channel order orchestration keeps confidence at 0.7.
+- tag: Product
+  spec_file: ebay-product-api-openapi.yml
+  capability_id: BC-2370.10
+  capability_id_l1: BC-2370
+  capability_name: Item Master Data Management
+  confidence: 0.7
+  evidence: '"allows users to search for and locate an eBay catalog product" ... "much of the details
+    of the listing will be prefilled, including the listing title, the listing description, the item specifics";
+    GET /product/{epid}'
+  reason: Retrieval of canonical catalogue product records and their aspects/images is product item master
+    data usage, not merchandising or selling.
+- tag: Register
+  spec_file: ebay-register-api-openapi.yml
+  capability_id: BC-4270.40
+  capability_id_l1: BC-4270
+  capability_name: Developer Identity & Credential Management
+  confidence: 0.7
+  evidence: POST /client/register registerClient; "The Client Registration API provides Dynamic Client
+    Registration for regulated Third Party Providers (TPPs)"; schemas ClientDetails, ClientSettings
+  reason: Registration of API client credentials for third-party developers/providers is developer identity
+    and credential issuance on the platform, not a financial capability despite the PSD2 framing.
+- tag: Subscription
+  spec_file: ebay-subscription-api-openapi.yml
+  capability_id: BC-4270.80
+  capability_id_l1: BC-4270
+  capability_name: Webhook & Event Subscription Management
+  confidence: 0.7
+  evidence: createSubscription, createSubscriptionFilter, enableSubscription, testSubscription; "Configure,
+    manage, and test notification subscriptions"
+  reason: Lifecycle of outbound event/notification subscriptions consumed by integrators — webhook and
+    event subscription management. Some ambiguity as one source spec is the Account API.
