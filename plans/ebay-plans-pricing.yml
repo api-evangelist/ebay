@@ -1,243 +1,124 @@
-specification: API Commons Plans
-specificationVersion: '0.1'
-schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
-provider: eBay
-providerId: ebay
-created: '2026-05-04'
-# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
-# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
-method: generated
-modified: '2026-05-05'
-reconciled: true
-tags:
-  - Marketplace
-  - Commerce
-  - Auctions
-  - Products
-description: eBay's developer APIs are free to use (registration required); commercial value flows from
-  the underlying marketplace, which charges insertion fees, final-value fees (FVF), and optional eBay
-  Store subscriptions. Plans below capture the developer-program access plus the seller-fee surface that
-  most API integrations interact with.
+# Pricing transcribed from the provider's own page — see provenance. Numbers are quoted, not derived.
+generated: '2026-09-20'
+method: searched
+source: https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822
 sources:
-  - https://developer.ebay.com/develop/get-started
-  - https://developer.ebay.com/join/api-license-agreement
-  - https://www.ebay.com/sellercenter/selling/seller-fees
-  - https://www.ebay.com/help/selling/fees-credits-invoices/store-selling-fees?id=4809
+- https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822
+provenance:
+  tool: planning/api-economics/harvest_pricing.py
+  run: 20260920T124425
+  grounding: every price_text was found verbatim in the fetched page text
+audience: business-product
+pricing_basis: ad-valorem
+published: true
+note: 'eBay seller fee schedule: insertion fees plus percentage final value fees per order fee ($0.30
+  for orders $10.00 or less, $0.40 over $10.00). Also lists Real Estate listing fees ($35/$50/$100/$150/$300)
+  and optional listing upgrade fees; not all captured as plans.'
+plan_count: 15
+currency: USD
 plans:
-  - id: ebay-developer-program
-    name: Developer Program
-    type: freemium
-    description: Free access to eBay's REST and Trading APIs (Buy, Sell, Commerce, Developer namespaces)
-      after creating an eBay developer account and obtaining App ID, Cert ID, Dev ID. Production access
-      requires Application Growth Check.
-    entries:
-      - label: Developer registration
-        name: developer_registration
-        type: subscription
-        metric: account
-        limit: -1
-        timeFrame: month
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-      - label: Default daily API call quota (per app, per API)
-        name: api_daily_default
-        type: quota
-        metric: requests
-        limit: 5000
-        timeFrame: day
-        geo: global
-        unit: 1
-        price: '0.00'
-        userMultiplied: false
-    elements:
-      - name: Sandbox + production environments
-      - name: OAuth user tokens and application tokens
-      - name: All Buy / Sell / Commerce / Developer APIs
-      - name: Higher quotas via Application Growth Check
-  - id: ebay-marketplace-fees
-    name: Marketplace Seller Fees
-    type: usage-based
-    description: Per-listing and per-sale fees applied by eBay to sellers. Pricing varies by category;
-      standard FVF for most categories is 13.25% + $0.30 per order under $7,500 (with reduced 2.35% on
-      portion above $7,500).
-    entries:
-      - label: Standard final-value fee (most categories)
-        name: fvf_standard
-        type: metered
-        metric: order
-        limit: -1
-        timeFrame: usage
-        geo: US
-        unit: 1
-        price: 13.25% + $0.30
-        userMultiplied: false
-      - label: Final-value fee on portion above $7,500
-        name: fvf_above_threshold
-        type: metered
-        metric: order
-        limit: -1
-        timeFrame: usage
-        geo: US
-        unit: 1
-        price: 2.35%
-        userMultiplied: false
-      - label: International fee
-        name: fvf_international
-        type: metered
-        metric: order
-        limit: -1
-        timeFrame: usage
-        geo: non-US
-        unit: 1
-        price: +1.65%
-        userMultiplied: false
-      - label: Insertion fee (after free monthly allowance)
-        name: insertion_fee
-        type: metered
-        metric: listing
-        limit: -1
-        timeFrame: usage
-        geo: US
-        unit: 1
-        price: '0.35'
-        userMultiplied: false
-    elements:
-      - name: Free zero-insertion listings (250/month no-store; varies by Store tier)
-      - name: Promoted Listings (optional ad fees)
-      - name: Per-category fee schedule
-  - id: ebay-store-starter
-    name: eBay Store - Starter
-    type: subscription
-    description: Entry-tier eBay Store subscription with 250 free listings/month.
-    entries:
-      - label: Store subscription (monthly)
-        name: store_starter_monthly
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: US
-        unit: 1
-        price: '7.95'
-        userMultiplied: true
-      - label: Store subscription (annual)
-        name: store_starter_annual
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: US
-        unit: 1
-        price: '4.95'
-        userMultiplied: true
-    elements:
-      - name: 250 free fixed-price listings/month
-      - name: Storefront page
-  - id: ebay-store-basic
-    name: eBay Store - Basic
-    type: subscription
-    description: Mid-tier Store subscription with reduced FVF and higher free-listing allowance.
-    entries:
-      - label: Store subscription (monthly)
-        name: store_basic_monthly
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: US
-        unit: 1
-        price: '27.95'
-        userMultiplied: true
-      - label: Store subscription (annual)
-        name: store_basic_annual
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: US
-        unit: 1
-        price: '21.95'
-        userMultiplied: true
-    elements:
-      - name: 1,000 free fixed-price listings/month
-      - name: Reduced FVF on most categories
-  - id: ebay-store-premium
-    name: eBay Store - Premium
-    type: subscription
-    description: Higher-volume Store subscription.
-    entries:
-      - label: Store subscription (monthly)
-        name: store_premium_monthly
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: US
-        unit: 1
-        price: '74.95'
-        userMultiplied: true
-      - label: Store subscription (annual)
-        name: store_premium_annual
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: US
-        unit: 1
-        price: '59.95'
-        userMultiplied: true
-    elements:
-      - name: 10,000 free fixed-price listings/month
-      - name: Vacation hold and dedicated support
-  - id: ebay-store-anchor
-    name: eBay Store - Anchor
-    type: subscription
-    description: Top-tier Store subscription targeting heavy sellers.
-    entries:
-      - label: Store subscription (monthly)
-        name: store_anchor_monthly
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: US
-        unit: 1
-        price: '349.95'
-        userMultiplied: true
-      - label: Store subscription (annual)
-        name: store_anchor_annual
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: US
-        unit: 1
-        price: '299.95'
-        userMultiplied: true
-    elements:
-      - name: 25,000 free fixed-price listings/month
-      - name: Dedicated customer support
-  - id: ebay-store-enterprise
-    name: eBay Store - Enterprise
-    type: subscription
-    description: Enterprise-tier Store subscription with unlimited fixed-price listings.
-    entries:
-      - label: Store subscription (annual)
-        name: store_enterprise_annual
-        type: subscription
-        metric: month
-        limit: -1
-        timeFrame: month
-        geo: US
-        unit: 1
-        price: '2999.95'
-        userMultiplied: true
-    elements:
-      - name: 100,000 free fixed-price listings/month
-      - name: Dedicated team support
-maintainers:
-  - FN: API Evangelist
-    url: http://apievangelist.com
-    email: info@apievangelist.com
+- name: Most categories
+  price_text: 13.6% on total amount of the sale up to $7,500 calculated per item
+  price: 13.6
+  currency: USD
+  period: per-use
+  unit: per item sold
+  included_quota: First 250 listings free per month, then $0.35 per listing
+  overage: 2.35% on the portion of the sale over $7,500
+- name: Books & Magazines / Movies & TV / Music
+  price_text: 15.3% on total amount of the sale up to $7,500 calculated per item
+  price: 15.3
+  currency: USD
+  period: per-use
+  unit: per item sold
+  overage: 2.35% on the portion of the sale over $7,500
+- name: Coins & Paper Money (except Bullion)
+  price_text: 13.25% on total amount of the sale up to $7,500 calculated per item
+  price: 13.25
+  currency: USD
+  period: per-use
+  unit: per item sold
+  overage: 2.35% on the portion of the sale over $7,500
+- name: Coins & Paper Money > Bullion
+  price_text: 13.6% if total amount of the sale is $7,500 or less, calculated per item
+  currency: USD
+  period: per-use
+  unit: per item sold
+  overage: 7% if total amount of the sale is over $7,500, calculated per item
+- name: Women's Bags & Handbags
+  price_text: 15% if total amount of the sale is $2,000 or less, calculated per item
+  currency: USD
+  period: per-use
+  unit: per item sold
+  overage: 9% if total amount of the sale is over $2,000, calculated per item
+- name: Jewelry & Watches (except Watches, Parts & Accessories)
+  price_text: 15% if total amount of the sale is $5,000 or less, calculated per item
+  currency: USD
+  period: per-use
+  unit: per item sold
+  overage: 9% if total amount of the sale is over $5,000, calculated per item
+- name: Watches, Parts & Accessories
+  price_text: 15% on total amount of the sale up to $1,000 calculated per item
+  price: 15
+  currency: USD
+  period: per-use
+  unit: per item sold
+  overage: 6.5% on the portion of the sale over $1,000 up to $7,500 calculated per item; 3% on the portion
+    of the sale over $7,500
+- name: NFT categories
+  price_text: 5% on total amount of the sale
+  price: 5
+  currency: USD
+  period: per-use
+  unit: per sale
+- name: Select Business & Industrial categories
+  price_text: 3% on total amount of the sale up to $15,000 calculated per item
+  price: 3
+  currency: USD
+  period: per-use
+  unit: per item sold
+  included_quota: $20 insertion fee
+  overage: 0.5% on the portion of the sale over $15,000
+- name: Guitars & Basses
+  price_text: 6.7% on total amount of the sale up to $7,500 calculated per item
+  price: 6.7
+  currency: USD
+  period: per-use
+  unit: per item sold
+  included_quota: Free insertion fee
+  overage: 2.35% on the portion of the sale over $7,500
+- name: Athletic Shoes
+  price_text: 8% if total amount of the sale is $150 or more. The per order fee is not charged
+  price: 8
+  currency: USD
+  period: per-use
+  unit: per item sold
+  included_quota: Free if starting price is $150 or more
+  overage: 13.6% if total amount of the sale is less than $150
+- name: Classified Ad listing format
+  price_text: $9.95 for a 30-day listing
+  price: 9.95
+  currency: USD
+  period: one-time
+  unit: per 30-day listing
+  overage: no final value fees
+- name: Dispute fee
+  price_text: $20.00 dispute fee
+  price: 20
+  currency: USD
+  period: per-use
+  unit: per dispute
+- name: International fee
+  price_text: 1.65% of the total amount of the sale
+  price: 1.65
+  currency: USD
+  period: per-use
+  unit: per sale
+- name: Seller currency conversion charge
+  price_text: the seller currency conversion charge applied and retained by eBay is 3%
+  price: 3
+  currency: USD
+  period: per-use
+  unit: per conversion
+rate_limit_statements:
+- Every month, you get up to 250 zero insertion fee listings, or more if you have an eBay Store

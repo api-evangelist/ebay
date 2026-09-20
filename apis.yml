@@ -7995,6 +7995,10 @@ apis:
   - type: ReleaseNotes
     url: https://developer.ebay.com/api-docs/developer/key-management/release-notes.html
 common:
+- type: Pricing
+  url: https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822
+- type: Plans
+  url: plans/ebay-plans-pricing.yml
 - type: Website
   url: https://ebay.com
 - type: CapabilityMap
