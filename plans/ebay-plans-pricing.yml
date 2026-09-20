@@ -10,6 +10,10 @@ provenance:
   grounding: every price_text was found verbatim in the fetched page text
 audience: business-product
 pricing_basis: ad-valorem
+delivery:
+  delivery: managed
+  method: keyword-prefilter
+  read: '2026-09-20'
 published: true
 note: 'eBay seller fee schedule: insertion fees plus percentage final value fees per order fee ($0.30
   for orders $10.00 or less, $0.40 over $10.00). Also lists Real Estate listing fees ($35/$50/$100/$150/$300)
