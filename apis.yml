@@ -4524,6 +4524,8 @@ apis:
   humanURL: https://developer.ebay.com/api-docs/sell/account/static/overview.html
   baseURL: https://api.ebay.com
   tags:
+  - Payment Policy
+  tags_raw:
   - Payment_policy
   properties:
   - type: OpenAPI
