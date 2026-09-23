@@ -21,7 +21,7 @@ paths:
     get:
       tags:
       - Inventory_item_group
-      description: This call retrieves the inventory item group for a given <strong>inventoryItemGroupKey</strong> value. The <strong>inventoryItemGroupKey</strong> value is passed in at the end of the call URI.
+      description: This call retrieves the inventory item group for a given inventoryItemGroupKey value. The inventoryItemGroupKey value is passed in at the end of the call URI.
       operationId: getInventoryItemGroup
       parameters:
       - name: inventoryItemGroupKey
@@ -67,10 +67,34 @@ paths:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.inventory.readonly
         - https://api.ebay.com/oauth/api_scope/sell.inventory
+      summary: Get inventory item group
+      x-summary-source: derived
     put:
       tags:
       - Inventory_item_group
-      description: '<span class="tablenote"><strong>Note:</strong> Each listing can be revised up to 250 times in one calendar day. If this revision threshold is reached, the seller will be blocked from revising the item until the next calendar day.</span><br>This call creates a new inventory item group or updates an existing inventory item group. It is up to sellers whether they want to create a complete inventory item group record right from the start, or sellers can provide only some information with the initial <strong>createOrReplaceInventoryItemGroup</strong> call, and then make one or more additional <strong>createOrReplaceInventoryItemGroup</strong> calls to complete the inventory item group record. Upon first creating an inventory item group record, the only required elements are  the <strong>inventoryItemGroupKey</strong> identifier in the call URI, and the members of the inventory item group specified through the <strong>variantSKUs</strong> array in the request payload.<br><br><span class="tablenote"><b>Note:</b> In addition to the <code>authorization</code> header, which is required for all Inventory API calls, this call also requires the <code>Content-Type</code> and <code>Content-Language</code> headers. See the <a href="/api-docs/sell/inventory/resources/inventory_item_group/methods/createOrReplaceInventoryItemGroup#h3-request-headers">HTTP request headers</a> for more information.</span><br>In the case of updating/replacing an existing inventory item group, this call does a complete replacement of the existing inventory item group record, so all fields (including the member SKUs) that make up the inventory item group are required, regardless of whether their values changed. So, when replacing/updating an inventory item group record, it is advised that the seller run a <strong>getInventoryItemGroup</strong> call for that inventory item group to see all of its current values/settings/members before attempting to update the record. And if changes are made to an inventory item group that is part of a live, multiple-variation eBay listing, these changes automatically update the eBay listing. For example, if a SKU value is removed from the inventory item group, the corresponding product variation will be removed from the eBay listing as well.<br><br> In addition to the required inventory item group identifier and member SKUs, other key information that is set with this call include: <ul> <li>Title and description of the inventory item group. The string values provided in these fields will actually become the listing title and listing description of the listing once the first SKU of the inventory item group is published successfully</li> <li>Common aspects that inventory items in the group share</li> <li>Product aspects that vary within each product variation</li> <li>Links to images demonstrating the variations of the product, and these images should correspond to the product aspect that is set with the <strong>variesBy.aspectsImageVariesBy</strong> field</li> </ul>'
+      description: 'Note: Each listing can be revised up to 250 times in one calendar day. If this revision threshold is reached, the seller will be blocked from revising the item until the next calendar day.
+
+        This call creates a new inventory item group or updates an existing inventory item group. It is up to sellers whether they want to create a complete inventory item group record right from the start, or sellers can provide only some information with the initial createOrReplaceInventoryItemGroup call, and then make one or more additional createOrReplaceInventoryItemGroup calls to complete the inventory item group record. Upon first creating an inventory item group record, the only required elements are the inventoryItemGroupKey identifier in the call URI, and the members of the inventory item group specified through the variantSKUs array in the request payload.
+
+
+        Note: In addition to the authorization header, which is required for all Inventory API calls, this call also requires the Content-Type and Content-Language headers. See the HTTP request headers for more information.
+
+        In the case of updating/replacing an existing inventory item group, this call does a complete replacement of the existing inventory item group record, so all fields (including the member SKUs) that make up the inventory item group are required, regardless of whether their values changed. So, when replacing/updating an inventory item group record, it is advised that the seller run a getInventoryItemGroup call for that inventory item group to see all of its current values/settings/members before attempting to update the record. And if changes are made to an inventory item group that is part of a live, multiple-variation eBay listing, these changes automatically update the eBay listing. For example, if a SKU value is removed from the inventory item group, the corresponding product variation will be removed from the eBay listing as well.
+
+
+        In addition to the required inventory item group identifier and member SKUs, other key information that is set with this call include:
+
+
+        Title and description of the inventory item group. The string values provided in these fields will actually become the listing title and listing description of the listing once the first SKU of the inventory item group is published successfully
+
+
+        Common aspects that inventory items in the group share
+
+
+        Product aspects that vary within each product variation
+
+
+        Links to images demonstrating the variations of the product, and these images should correspond to the product aspect that is set with the variesBy.aspectsImageVariesBy field'
       operationId: createOrReplaceInventoryItemGroup
       parameters:
       - name: Content-Language
@@ -331,10 +355,12 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.inventory
+      summary: Create or replace inventory item group
+      x-summary-source: derived
     delete:
       tags:
       - Inventory_item_group
-      description: This call deletes the inventory item group for a given <strong>inventoryItemGroupKey</strong> value.
+      description: This call deletes the inventory item group for a given inventoryItemGroupKey value.
       operationId: deleteInventoryItemGroup
       parameters:
       - name: inventoryItemGroupKey
@@ -375,6 +401,8 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.inventory
+      summary: Delete inventory item group
+      x-summary-source: derived
 components:
   schemas:
     Error:
@@ -415,20 +443,6 @@ components:
           type: string
           description: The name of the subdomain in which the error or warning occurred.
       description: This type is used to express detailed information on errors and warnings that may occur with a call request.
-    VariesBy:
-      type: object
-      properties:
-        aspectsImageVariesBy:
-          type: array
-          description: This container is used if the seller wants to include multiple images to demonstrate how variations within a multiple-variation listing differ. In this string field, the seller will specify the product aspect where the variations of the inventory item group vary, such as color. If <code>Color</code> is specified in this field, <code>Color</code> must also be one of the <strong>specifications.name</strong> values, and all available colors must appear in the corresponding <strong>specifications.values</strong> array.<br><br>If the <strong>aspectsImageVariesBy</strong> container is used, links to images of each variation should be specified through the <strong>imageUrls</strong> container of the inventory item group, or the seller can choose to include those links to images in each inventory item record for the inventory items in the group.
-          items:
-            type: string
-        specifications:
-          type: array
-          description: This container consists of an array of one or more product aspects where each variation differs, and values for each of those product aspects. This container is not immediately required, but will be required before the first offer of the inventory item group is published. <br><br>If a product aspect is specified in the <strong>aspectsImageVariesBy</strong> container, this product aspect (along with all variations of that product aspect) must be included in the <strong>specifications</strong> container. Before offers related to the inventory item group are published, the product aspects and values specified through the <strong>specifications</strong> container should be in synch with the name-value pairs specified through the <strong>product.aspects</strong> containers of the inventory items contained in the group. For example, if <code>Color</code> and <code>Size</code> are in this <strong>specifications</strong> container, each inventory item of the group should also have <code>Color</code> and <code>Size</code> as aspect names in their inventory item records.<br><br>This container is always returned if one or more offers associated with the inventory item group have been published. For inventory item groups that have yet to have any published offers, this container is only returned if set.
-          items:
-            $ref: '#/components/schemas/Specification'
-      description: This type is used to specify the product aspect(s) where individual items of the group vary, as well as a list of the available variations of those aspects.
     InventoryItemGroup:
       type: object
       properties:
@@ -466,16 +480,6 @@ components:
           items:
             type: string
       description: This type is used by the base request payload of the <strong>createOrReplaceInventoryItemGroup</strong> call and the base response payload of the <strong>getInventoryItemGroup</strong> call.
-    ErrorParameter:
-      type: object
-      properties:
-        name:
-          type: string
-          description: This type contains the name and value of an input parameter that contributed to a specific error or warning condition.
-        value:
-          type: string
-          description: This is the actual value that was passed in for the element specified in the <strong>name</strong> field.
-      description: This type is used to indicate the parameter field/value that caused an issue with the call request.
     BaseResponse:
       type: object
       properties:
@@ -497,6 +501,30 @@ components:
           items:
             type: string
       description: This type is used to specify product aspects for which variations within an inventory item group vary, and the order in which they appear in the listing. For example, t-shirts in an inventory item group may be available in multiple sizes and colors.
+    ErrorParameter:
+      type: object
+      properties:
+        name:
+          type: string
+          description: This type contains the name and value of an input parameter that contributed to a specific error or warning condition.
+        value:
+          type: string
+          description: This is the actual value that was passed in for the element specified in the <strong>name</strong> field.
+      description: This type is used to indicate the parameter field/value that caused an issue with the call request.
+    VariesBy:
+      type: object
+      properties:
+        aspectsImageVariesBy:
+          type: array
+          description: This container is used if the seller wants to include multiple images to demonstrate how variations within a multiple-variation listing differ. In this string field, the seller will specify the product aspect where the variations of the inventory item group vary, such as color. If <code>Color</code> is specified in this field, <code>Color</code> must also be one of the <strong>specifications.name</strong> values, and all available colors must appear in the corresponding <strong>specifications.values</strong> array.<br><br>If the <strong>aspectsImageVariesBy</strong> container is used, links to images of each variation should be specified through the <strong>imageUrls</strong> container of the inventory item group, or the seller can choose to include those links to images in each inventory item record for the inventory items in the group.
+          items:
+            type: string
+        specifications:
+          type: array
+          description: This container consists of an array of one or more product aspects where each variation differs, and values for each of those product aspects. This container is not immediately required, but will be required before the first offer of the inventory item group is published. <br><br>If a product aspect is specified in the <strong>aspectsImageVariesBy</strong> container, this product aspect (along with all variations of that product aspect) must be included in the <strong>specifications</strong> container. Before offers related to the inventory item group are published, the product aspects and values specified through the <strong>specifications</strong> container should be in synch with the name-value pairs specified through the <strong>product.aspects</strong> containers of the inventory items contained in the group. For example, if <code>Color</code> and <code>Size</code> are in this <strong>specifications</strong> container, each inventory item of the group should also have <code>Color</code> and <code>Size</code> as aspect names in their inventory item records.<br><br>This container is always returned if one or more offers associated with the inventory item group have been published. For inventory item groups that have yet to have any published offers, this container is only returned if set.
+          items:
+            $ref: '#/components/schemas/Specification'
+      description: This type is used to specify the product aspect(s) where individual items of the group vary, as well as a list of the available variations of those aspects.
   securitySchemes:
     api_auth:
       type: oauth2

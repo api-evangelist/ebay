@@ -21,7 +21,16 @@ paths:
     get:
       tags:
       - Seller_funds_summary
-      description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> Due to EU &amp; UK Payments regulatory requirements, an additional security verification via Digital Signatures is required for certain API calls that are made on behalf of EU/UK sellers, including all <b>Finances API</b> methods. Please refer to <a href="/develop/guides/digital-signatures-for-apis " target="_blank">Digital Signatures for APIs</a> to learn more on the impacted APIs and the process to create signatures to be included in the HTTP payload.</p></div><br>This method retrieves all pending funds that have not yet been distibuted through a seller payout.<br><br>There are no input parameters for this method. The response payload includes available funds, funds being processed, funds on hold, and also an aggregate count of all three of these categories.<br><br>If there are no funds that are pending, on hold, or being processed for the seller''s account, no response payload is returned, and an http status code of <code>204 - No Content</code> is returned instead.'
+      description: 'Important! Due to EU & UK Payments regulatory requirements, an additional security verification via Digital Signatures is required for certain API calls that are made on behalf of EU/UK sellers, including all Finances API methods. Please refer to Digital Signatures for APIs to learn more on the impacted APIs and the process to create signatures to be included in the HTTP payload.
+
+
+        This method retrieves all pending funds that have not yet been distibuted through a seller payout.
+
+
+        There are no input parameters for this method. The response payload includes available funds, funds being processed, funds on hold, and also an aggregate count of all three of these categories.
+
+
+        If there are no funds that are pending, on hold, or being processed for the seller''s account, no response payload is returned, and an http status code of 204 - No Content is returned instead.'
       operationId: getSellerFundsSummary
       parameters:
       - name: X-EBAY-C-MARKETPLACE-ID
@@ -50,8 +59,26 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.finances
+      summary: Get seller funds summary
+      x-summary-source: derived
 components:
   schemas:
+    SellerFundsSummaryResponse:
+      type: object
+      properties:
+        availableFunds:
+          description: This field represents the total amount of order funds that are available for a payout, but processing for a seller payout has not yet begun. If a seller wants to get more details on sales transactions that have yet to be processed, the seller can use the <strong>getTransactions</strong> method, and use the <strong>transactionStatus</strong> filter with its value set to <code>FUNDS_AVAILABLE_FOR_PAYOUT</code>.<br><br>This container will return 0.0 with the appropriate payout currency if there are no funds available to be processed for a payout.
+          $ref: '#/components/schemas/Amount'
+        fundsOnHold:
+          description: This field represents the total amount of order funds on hold. Seller payment holds can occur for different reasons. If a seller wants to get more details on sales transactions where funds are currently on hold, the seller can use the <strong>getTransactions</strong> method, and use the <strong>transactionStatus</strong> filter with its value set to <code>FUNDS_ON_HOLD</code>.<br><br>This container will return 0.0 with the appropriate payout currency if there are no seller payment holds that will eventually be processed for a payout.
+          $ref: '#/components/schemas/Amount'
+        processingFunds:
+          description: This field represents the total amount of order funds being prepared and processed for a seller payout. If a seller wants to get more details on sales transactions that are being processed, the seller can use the <strong>getTransactions</strong> method, and use the <strong>transactionStatus</strong> filter with its value set to <code>FUNDS_PROCESSING</code>.<br><br>This container will return 0.0 with the appropriate payout currency if there are no funds available to be processed for a payout.
+          $ref: '#/components/schemas/Amount'
+        totalFunds:
+          description: This field represents the total amount of order funds still due to be distributed to the seller through a seller payout. This field should equal the sum of the amounts returned in the following fields:<br><ul><li><b>processingFunds</b></li><li><b>availableFunds</b></li><li><b>fundsOnHold</b></li></ul><br>If no payout funds are due to the seller, a <code>204 - No Content</code>  status code will be returned along with an empty payload.
+          $ref: '#/components/schemas/Amount'
+      description: This type is used by the response payload of the <strong>getSellerFundsSummary</strong> method. All of the funds returned in  <strong>getSellerFundsSummary</strong> are funds that have not yet been paid to the seller through a seller payout. If there are no funds that are pending, on hold, or being processed for the seller's account, no response payload is returned, and an http status code of <code>204 - No Content</code> is returned instead.
     Amount:
       type: object
       properties:
@@ -77,22 +104,6 @@ components:
           type: string
           description: The monetary amount, in the currency specified by the <b>currency</b> field. This field is always returned with any container using <b>Amount</b> type.
       description: This type is used to express the dollar value and currency used for any transaction retrieved with the <strong>Finances API</strong>, including an order total, a seller payout, a buyer refund, or a seller credit.
-    SellerFundsSummaryResponse:
-      type: object
-      properties:
-        availableFunds:
-          description: This field represents the total amount of order funds that are available for a payout, but processing for a seller payout has not yet begun. If a seller wants to get more details on sales transactions that have yet to be processed, the seller can use the <strong>getTransactions</strong> method, and use the <strong>transactionStatus</strong> filter with its value set to <code>FUNDS_AVAILABLE_FOR_PAYOUT</code>.<br><br>This container will return 0.0 with the appropriate payout currency if there are no funds available to be processed for a payout.
-          $ref: '#/components/schemas/Amount'
-        fundsOnHold:
-          description: This field represents the total amount of order funds on hold. Seller payment holds can occur for different reasons. If a seller wants to get more details on sales transactions where funds are currently on hold, the seller can use the <strong>getTransactions</strong> method, and use the <strong>transactionStatus</strong> filter with its value set to <code>FUNDS_ON_HOLD</code>.<br><br>This container will return 0.0 with the appropriate payout currency if there are no seller payment holds that will eventually be processed for a payout.
-          $ref: '#/components/schemas/Amount'
-        processingFunds:
-          description: This field represents the total amount of order funds being prepared and processed for a seller payout. If a seller wants to get more details on sales transactions that are being processed, the seller can use the <strong>getTransactions</strong> method, and use the <strong>transactionStatus</strong> filter with its value set to <code>FUNDS_PROCESSING</code>.<br><br>This container will return 0.0 with the appropriate payout currency if there are no funds available to be processed for a payout.
-          $ref: '#/components/schemas/Amount'
-        totalFunds:
-          description: This field represents the total amount of order funds still due to be distributed to the seller through a seller payout. This field should equal the sum of the amounts returned in the following fields:<br><ul><li><b>processingFunds</b></li><li><b>availableFunds</b></li><li><b>fundsOnHold</b></li></ul><br>If no payout funds are due to the seller, a <code>204 - No Content</code>  status code will be returned along with an empty payload.
-          $ref: '#/components/schemas/Amount'
-      description: This type is used by the response payload of the <strong>getSellerFundsSummary</strong> method. All of the funds returned in  <strong>getSellerFundsSummary</strong> are funds that have not yet been paid to the seller through a seller payout. If there are no funds that are pending, on hold, or being processed for the seller's account, no response payload is returned, and an http status code of <code>204 - No Content</code> is returned instead.
   securitySchemes:
     api_auth:
       type: oauth2

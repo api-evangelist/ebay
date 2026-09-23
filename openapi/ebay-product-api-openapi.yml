@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: eBay Catalog Product API
-  description: The Catalog API allows users to search for and locate an eBay catalog product that is a direct match for the product that they wish to sell. Listing against an eBay catalog product helps insure that all listings (based off of that catalog product) have complete and accurate information. In addition to helping to create high-quality listings, another benefit to the seller of using catalog information to create listings is that much of the details of the listing will be prefilled, including the listing title, the listing description, the item specifics, and a stock image for the product (if available). Sellers will not have to enter item specifics themselves, and the overall listing process is a lot faster and easier.
+  description: The Catalog API allows users to search for and locate an eBay catalog product that is a direct match for the product that they wish to sell.
   contact:
     name: eBay Inc,
   license:
@@ -21,7 +21,10 @@ paths:
     get:
       tags:
       - Product
-      description: This method retrieves details of the catalog product identified by the eBay product identifier (ePID) specified in the request. These details include the product's title and description, aspects and their values, associated images, applicable category IDs, and any recognized identifiers that apply to the product. <br /><br /> For a new listing, you can use the <b>search</b> method to identify candidate products on which to base the listing, then use the <b>getProduct</b> method to present the full details of those candidate products to the seller to make a a final selection.
+      description: 'This method retrieves details of the catalog product identified by the eBay product identifier (ePID) specified in the request. These details include the product''s title and description, aspects and their values, associated images, applicable category IDs, and any recognized identifiers that apply to the product.
+
+
+        For a new listing, you can use the search method to identify candidate products on which to base the listing, then use the getProduct method to present the full details of those candidate products to the seller to make a a final selection.'
       operationId: getProduct
       parameters:
       - name: X-EBAY-C-MARKETPLACE-ID
@@ -83,23 +86,10 @@ paths:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.inventory
         - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
+      summary: Get product
+      x-summary-source: derived
 components:
   schemas:
-    Image:
-      type: object
-      properties:
-        height:
-          type: integer
-          description: The height of the image in pixels.
-          format: int32
-        imageUrl:
-          type: string
-          description: The eBay Picture Services (EPS) URL of the image.
-        width:
-          type: integer
-          description: The width of the image in pixels.
-          format: int32
-      description: This type contains information about a product image stored in eBay Picture Services (EPS).
     Aspect:
       type: object
       properties:
@@ -180,6 +170,21 @@ components:
           type: string
           description: The current version number of this product record in the catalog.
       description: This type contains the full details of a specified product, including information about the product's identifiers, product images, aspects, and categories.
+    Image:
+      type: object
+      properties:
+        height:
+          type: integer
+          description: The height of the image in pixels.
+          format: int32
+        imageUrl:
+          type: string
+          description: The eBay Picture Services (EPS) URL of the image.
+        width:
+          type: integer
+          description: The width of the image in pixels.
+          format: int32
+      description: This type contains information about a product image stored in eBay Picture Services (EPS).
   securitySchemes:
     api_auth:
       type: oauth2

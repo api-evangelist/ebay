@@ -1,7 +1,19 @@
 openapi: 3.2.0
 info:
   title: eBay Notification Topic API
-  description: The eBay Notification API enables management of the entire end-to-end eBay notification experience by allowing users to:<ul><li>Browse for supported notification topics and retrieve topic details</li><li>Create, configure, and manage notification destination endpoints</li><li>Configure, manage, and test notification subscriptions</li><li>Process eBay notifications and verify the integrity of the message payload</li></ul>
+  description: 'The eBay Notification API enables management of the entire end-to-end eBay notification experience by allowing users to:
+
+
+    Browse for supported notification topics and retrieve topic details
+
+
+    Create, configure, and manage notification destination endpoints
+
+
+    Configure, manage, and test notification subscriptions
+
+
+    Process eBay notifications and verify the integrity of the message payload'
   contact:
     name: eBay Inc,
   license:
@@ -21,7 +33,19 @@ paths:
     get:
       tags:
       - Topic
-      description: This method allows applications to retrieve details for the specified topic. This information includes supported schema versions, formats, and other metadata for the topic.<br><br>Applications can subscribe to any of the topics for a supported schema version and format, limited by the authorization scopes required to subscribe to the topic.<br><br>A topic specifies the type of information to be received and the data types associated with an event. An event occurs in the eBay system, such as when a user requests deletion or revokes access for an application. An event is an instance of an event type (topic).<br><br>Specify the topic to retrieve using the <b>topic_id</b> URI parameter.<br><br><span class="tablenote"><b>Note:</b> Use the <a href="/api-docs/commerce/notification/resources/topic/methods/getTopics">getTopics</a> method to find a topic if you do not know the topic ID.</span>
+      description: 'This method allows applications to retrieve details for the specified topic. This information includes supported schema versions, formats, and other metadata for the topic.
+
+
+        Applications can subscribe to any of the topics for a supported schema version and format, limited by the authorization scopes required to subscribe to the topic.
+
+
+        A topic specifies the type of information to be received and the data types associated with an event. An event occurs in the eBay system, such as when a user requests deletion or revokes access for an application. An event is an instance of an event type (topic).
+
+
+        Specify the topic to retrieve using the topic_id URI parameter.
+
+
+        Note: Use the getTopics method to find a topic if you do not know the topic ID.'
       operationId: getTopic
       parameters:
       - name: topic_id
@@ -58,11 +82,19 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope
+      summary: Get topic
+      x-summary-source: derived
   /topic:
     get:
       tags:
       - Topic
-      description: This method returns a paginated collection of all supported topics, along with the details for the topics. This information includes supported schema versions, formats, and other metadata for the topics.<br><br>Applications can subscribe to any of the topics for a supported schema version and format, limited by the authorization scopes required to subscribe to the topic.<br><br>A topic specifies the type of information to be received and the data types associated with an event. An event occurs in the eBay system, such as when a user requests deletion or revokes access for an application. An event is an instance of an event type (topic).
+      description: 'This method returns a paginated collection of all supported topics, along with the details for the topics. This information includes supported schema versions, formats, and other metadata for the topics.
+
+
+        Applications can subscribe to any of the topics for a supported schema version and format, limited by the authorization scopes required to subscribe to the topic.
+
+
+        A topic specifies the type of information to be received and the data types associated with an event. An event occurs in the eBay system, such as when a user requests deletion or revokes access for an application. An event is an instance of an event type (topic).'
       operationId: getTopics
       parameters:
       - name: continuation_token
@@ -107,6 +139,8 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope
+      summary: Get topics
+      x-summary-source: derived
 components:
   schemas:
     PayloadDetail:
@@ -128,6 +162,29 @@ components:
           type: string
           description: The supported schema version.
       description: A type that describes the details about a topic's payload.
+    TopicSearchResponse:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The path to the call URI that produced the current page of results.
+        limit:
+          type: integer
+          description: The value of the limit parameter submitted in the request, which is the maximum number of items to return per page, from the result set. A result set is the complete set of results returned by the method.<br><br><span class="tablenote"><b>Note:</b> Though this parameter is not required to be submitted in the request, the parameter defaults to <code>20</code> if omitted.</span>
+          format: int32
+        next:
+          type: string
+          description: The URL to access the next set of results. This field includes a <strong>continuation_token</strong>. No <b>prev</b> field is returned, but this value is persistent during the session so that you can use it to return to the next page.<br><br>This field is not returned if fewer records than specified by the <strong>limit</strong> field are returned.
+        topics:
+          type: array
+          description: An array of topics that match the specified criteria.
+          items:
+            $ref: '#/components/schemas/Topic'
+        total:
+          type: integer
+          description: The total number of matches for the search criteria.
+          format: int32
+      description: A type that describes the details of the topic search response.
     Topic:
       type: object
       properties:
@@ -160,29 +217,6 @@ components:
           type: string
           description: The unique identifier for the topic.
       description: A type that describes the details of the topic.
-    TopicSearchResponse:
-      type: object
-      properties:
-        href:
-          type: string
-          description: The path to the call URI that produced the current page of results.
-        limit:
-          type: integer
-          description: The value of the limit parameter submitted in the request, which is the maximum number of items to return per page, from the result set. A result set is the complete set of results returned by the method.<br><br><span class="tablenote"><b>Note:</b> Though this parameter is not required to be submitted in the request, the parameter defaults to <code>20</code> if omitted.</span>
-          format: int32
-        next:
-          type: string
-          description: The URL to access the next set of results. This field includes a <strong>continuation_token</strong>. No <b>prev</b> field is returned, but this value is persistent during the session so that you can use it to return to the next page.<br><br>This field is not returned if fewer records than specified by the <strong>limit</strong> field are returned.
-        topics:
-          type: array
-          description: An array of topics that match the specified criteria.
-          items:
-            $ref: '#/components/schemas/Topic'
-        total:
-          type: integer
-          description: The total number of matches for the search criteria.
-          format: int32
-      description: A type that describes the details of the topic search response.
   securitySchemes:
     api_auth:
       type: oauth2

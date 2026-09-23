@@ -1,7 +1,10 @@
 openapi: 3.2.0
 info:
   title: eBay Account Payments Program API
-  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  description: 'The Account API gives sellers the ability to configure their eBay seller accounts, including the seller''s policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.
+
+
+    For details on the availability of the methods in this API, see Account API requirements and restrictions.'
   contact:
     name: eBay Inc,
   license:
@@ -21,7 +24,9 @@ paths:
     get:
       tags:
       - Payments_program
-      description: <span class="tablenote"><b>Note:</b> This method is no longer applicable, as all seller accounts globally have been enabled for the new eBay payment and checkout flow.</span><br>This method returns whether or not the user is opted-in to the specified payments program. Sellers opt-in to payments programs by marketplace and you use the <b>marketplace_id</b> path parameter to specify the marketplace of the status flag you want returned.
+      description: 'Note: This method is no longer applicable, as all seller accounts globally have been enabled for the new eBay payment and checkout flow.
+
+        This method returns whether or not the user is opted-in to the specified payments program. Sellers opt-in to payments programs by marketplace and you use the marketplace_id path parameter to specify the marketplace of the status flag you want returned.'
       operationId: getPaymentsProgram
       parameters:
       - name: marketplace_id
@@ -65,6 +70,8 @@ paths:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.account
         - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+      summary: Get payments program
+      x-summary-source: derived
 components:
   schemas:
     PaymentsProgramResponse:

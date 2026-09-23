@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: eBay Feed Order Task API
-  description: <p>The <strong>Feed API</strong> lets sellers upload input files, download reports and files including their status, filter reports using URI parameters, and retrieve customer service metrics task details.</p>
+  description: The Feed API lets sellers upload input files, download reports and files including their status, filter reports using URI parameters, and retrieve customer service metrics task details.
   contact:
     name: eBay Inc,
   license:
@@ -21,7 +21,13 @@ paths:
     get:
       tags:
       - Order_task
-      description: This method returns the details and status for an array of order tasks based on a specified <strong>feed_type</strong> or <strong>schedule_id</strong>. Specifying both <strong>feed_type</strong> and <strong>schedule_id</strong> results in an error. Since schedules are based on feed types, you can specify a schedule (<strong>schedule_id</strong>) that returns the needed <strong>feed_type</strong>.<br /><br />If specifying the <strong>feed_type</strong>, limit which order tasks are returned by specifying filters such as the creation date range or period of time using <strong>look_back_days</strong>. <br /><br />If specifying a <strong>schedule_id</strong>, the schedule template (that the <strong>schedule_id</strong> is based on) determines which order tasks are returned (see <strong>schedule_id</strong> for additional information). Each <strong>schedule_id</strong> applies to one <strong>feed_type</strong>.
+      description: 'This method returns the details and status for an array of order tasks based on a specified feed_type or schedule_id. Specifying both feed_type and schedule_id results in an error. Since schedules are based on feed types, you can specify a schedule (schedule_id) that returns the needed feed_type.
+
+
+        If specifying the feed_type, limit which order tasks are returned by specifying filters such as the creation date range or period of time using look_back_days.
+
+
+        If specifying a schedule_id, the schedule template (that the schedule_id is based on) determines which order tasks are returned (see schedule_id for additional information). Each schedule_id applies to one feed_type.'
       operationId: getOrderTasks
       parameters:
       - name: date_range
@@ -134,10 +140,28 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.fulfillment
+      summary: Get order tasks
+      x-summary-source: derived
     post:
       tags:
       - Order_task
-      description: 'This method creates an order download task with filter criteria for the order report. When using this method, specify the <b> feedType</b>, <b> schemaVersion</b>, and <b> filterCriteria</b> for the report. The method returns the <b> location</b> response header containing the getOrderTask call URI to retrieve the order task you just created. The URL includes the eBay-assigned task ID, which you can use to reference the order task. <br /><br />To retrieve the status of the task, use the <b>getOrderTask</b> method to retrieve a single task ID or the <b>getOrderTasks</b> method to retrieve multiple order task IDs.<p> <span class="tablenote"><strong>Note:</strong> The scope depends on the feed type. An error message results when an unsupported scope or feed type is specified.</span></p><p>The following list contains this method''s authorization scope and its corresponding feed type:<ul><li>https://api.ebay.com/oauth/api_scope/sell.fulfillment: LMS_ORDER_REPORT</li></ul> </p><p>For details about how this method is used, see <a href="/api-docs/sell/static/feed/general-feed-tasks.html" target="_blank">General feed types</a> in the Selling Integration Guide. <p> <span class="tablenote"><strong>Note:</strong> At this time, the <strong>createOrderTask</strong> method only supports order creation date filters and not modified order date filters. Do not include the <strong>modifiedDateRange</strong> filter in your request payload.</span></p>'
+      description: 'This method creates an order download task with filter criteria for the order report. When using this method, specify the feedType, schemaVersion, and filterCriteria for the report. The method returns the location response header containing the getOrderTask call URI to retrieve the order task you just created. The URL includes the eBay-assigned task ID, which you can use to reference the order task.
+
+
+        To retrieve the status of the task, use the getOrderTask method to retrieve a single task ID or the getOrderTasks method to retrieve multiple order task IDs.
+
+        Note: The scope depends on the feed type. An error message results when an unsupported scope or feed type is specified.
+
+
+        The following list contains this method''s authorization scope and its corresponding feed type:
+
+
+        https://api.ebay.com/oauth/api_scope/sell.fulfillment: LMS_ORDER_REPORT
+
+
+        For details about how this method is used, see General feed types in the Selling Integration Guide.
+
+        Note: At this time, the createOrderTask method only supports order creation date filters and not modified order date filters. Do not include the modifiedDateRange filter in your request payload.'
       operationId: createOrderTask
       parameters:
       - name: Content-Type
@@ -216,11 +240,15 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.fulfillment
+      summary: Create order task
+      x-summary-source: derived
   /order_task/{task_id}:
     get:
       tags:
       - Order_task
-      description: This method retrieves the task details and status of the specified task. The input is <strong>task_id</strong>. <p>For details about how this method is used, see <a href="/api-docs/sell/static/orders/generating-and-retrieving-order-reports.html">Working with Order Feeds</a> in the Selling Integration Guide.  </p>
+      description: 'This method retrieves the task details and status of the specified task. The input is task_id.
+
+        For details about how this method is used, see Working with Order Feeds in the Selling Integration Guide.'
       operationId: getOrderTask
       parameters:
       - name: task_id
@@ -265,21 +293,20 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.fulfillment
+      summary: Get order task
+      x-summary-source: derived
 components:
   schemas:
-    CreateOrderTaskRequest:
+    DateRange:
       type: object
       properties:
-        feedType:
+        from:
           type: string
-          description: The feed type associated with the task. The only presently supported value is <code>LMS_ORDER_REPORT</code>.<br><br>See <a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#merchant-data-reports-download-feed-types" target="_blank">Report download feed types</a> for more information.
-        filterCriteria:
-          description: The container for the filter fields. This container is used to set the filter criteria for the order report. A seller can set date range filters and/or can retrieve orders in a specific state.
-          $ref: '#/components/schemas/OrderFilterCriteria'
-        schemaVersion:
+          description: 'The beginning date in the range. If the parent type is included, both the <strong>from</strong> and/or the <strong>to</strong> fields become conditionally required.<br /><br /><b>Format: </b>UTC <code>yyyy-MM-ddThh:mm:ss.SSSZ </code> <br /><br /> <b> For example: </b> Tasks within a range  <br /> <code>yyyy-MM-ddThh:mm:ss.SSSZ..yyyy-MM-ddThh:mm:ss.SSSZ </code> <br /><br /> Tasks created on March 31, 2021  <br /><code>2021-03-31T00:00:00.000Z..2021-03-31T00:00:00.000Z</code>    '
+        to:
           type: string
-          description: 'The schema version of the LMS OrderReport. For the <code>LMS_ORDER_REPORT</code> feed type, see the <a href="/devzone/merchant-data/CallRef/OrderReport.html#OrderReport">OrderReport</a> reference page to see the present schema version. The <b> schemaVersion</b> value is the version number shown at the top of the <b> OrderReport</b> page. <br /><br /><b>Restriction: </b> This value must be 1113 or higher. The OrderReport schema version is updated about every two weeks. All version numbers are odd numbers (even numbers are skipped). For example, the next release version after ''1113'' is ''1115''.'
-      description: The type that defines the fields for the <b> createOrderTask</b> request.
+          description: 'The end date for the date range, which is inclusive. If the parent type is included, both the <strong>from</strong> and/or the <strong>to</strong> fields become conditionally required.  <br /><br /> <b> For example: </b> <br /><br />Tasks within a range  <br /> <code>yyyy-MM-ddThh:mm:ss.SSSZ..yyyy-MM-ddThh:mm:ss.SSSZ </code> <br /><br /> Tasks created on March 31, 2021 <br /> <code>2021-03-31T00:00:00.000Z..2021-03-31T00:00:00.000Z</code>  '
+      description: The type that defines the fields for a date range.
     OrderTask:
       type: object
       properties:
@@ -311,16 +338,44 @@ components:
           description: This container provides summary information on an upload feed (not applicable for download feed types).
           $ref: '#/components/schemas/UploadSummary'
       description: The type that defines the fields for the <b> getOrderTask</b> response.
-    DateRange:
+    CreateOrderTaskRequest:
       type: object
       properties:
-        from:
+        feedType:
           type: string
-          description: 'The beginning date in the range. If the parent type is included, both the <strong>from</strong> and/or the <strong>to</strong> fields become conditionally required.<br /><br /><b>Format: </b>UTC <code>yyyy-MM-ddThh:mm:ss.SSSZ </code> <br /><br /> <b> For example: </b> Tasks within a range  <br /> <code>yyyy-MM-ddThh:mm:ss.SSSZ..yyyy-MM-ddThh:mm:ss.SSSZ </code> <br /><br /> Tasks created on March 31, 2021  <br /><code>2021-03-31T00:00:00.000Z..2021-03-31T00:00:00.000Z</code>    '
-        to:
+          description: The feed type associated with the task. The only presently supported value is <code>LMS_ORDER_REPORT</code>.<br><br>See <a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#merchant-data-reports-download-feed-types" target="_blank">Report download feed types</a> for more information.
+        filterCriteria:
+          description: The container for the filter fields. This container is used to set the filter criteria for the order report. A seller can set date range filters and/or can retrieve orders in a specific state.
+          $ref: '#/components/schemas/OrderFilterCriteria'
+        schemaVersion:
           type: string
-          description: 'The end date for the date range, which is inclusive. If the parent type is included, both the <strong>from</strong> and/or the <strong>to</strong> fields become conditionally required.  <br /><br /> <b> For example: </b> <br /><br />Tasks within a range  <br /> <code>yyyy-MM-ddThh:mm:ss.SSSZ..yyyy-MM-ddThh:mm:ss.SSSZ </code> <br /><br /> Tasks created on March 31, 2021 <br /> <code>2021-03-31T00:00:00.000Z..2021-03-31T00:00:00.000Z</code>  '
-      description: The type that defines the fields for a date range.
+          description: 'The schema version of the LMS OrderReport. For the <code>LMS_ORDER_REPORT</code> feed type, see the <a href="/devzone/merchant-data/CallRef/OrderReport.html#OrderReport">OrderReport</a> reference page to see the present schema version. The <b> schemaVersion</b> value is the version number shown at the top of the <b> OrderReport</b> page. <br /><br /><b>Restriction: </b> This value must be 1113 or higher. The OrderReport schema version is updated about every two weeks. All version numbers are odd numbers (even numbers are skipped). For example, the next release version after ''1113'' is ''1115''.'
+      description: The type that defines the fields for the <b> createOrderTask</b> request.
+    OrderFilterCriteria:
+      type: object
+      properties:
+        creationDateRange:
+          description: The creation date range of the orders you want returned. Set the date range so it contains less than 10 days (maximum). If you do not specify a <strong>DateRange</strong>, results from the last 10 days will be returned by default.
+          $ref: '#/components/schemas/DateRange'
+        modifiedDateRange:
+          description: The modified date range of the orders you want returned. <p> <span class="tablenote"><strong>Note:</strong> This container is for future use. At this time, the <strong>createOrderTask</strong> method only supports order creation date filters and not modified order date filters.</span></p>
+          $ref: '#/components/schemas/DateRange'
+        orderStatus:
+          type: string
+          description: The order status of the orders returned. If the filter is omitted from createOrderTask call, orders that are in both <code>ACTIVE </code>and<code> COMPLETED</code> states are returned. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:OrderStatusEnum'>eBay API documentation</a>
+      description: The type that defines the fields for the order filters.
+    UploadSummary:
+      type: object
+      properties:
+        failureCount:
+          type: integer
+          description: The number of records, such as the number of listings created or the number of pictures uploaded to a listing, that failed to process during the upload feed. Check the response file and correct any issues mentioned. If the feed fails before processing, no response file is provided. In this case check the REST output response.
+          format: int32
+        successCount:
+          type: integer
+          description: The number of records that were successfully processed during the upload feed.
+          format: int32
+      description: This container provides summary information on an upload feed (not applicable for download feed types).
     OrderTaskCollection:
       type: object
       properties:
@@ -351,31 +406,6 @@ components:
           description: The total number of order tasks that match the input criteria.
           format: int32
       description: The type that defines the fields for a paginated result set of orders. The response consists of 0 or more sequenced <em> pages</em> where each page has 0 or more items.
-    UploadSummary:
-      type: object
-      properties:
-        failureCount:
-          type: integer
-          description: The number of records, such as the number of listings created or the number of pictures uploaded to a listing, that failed to process during the upload feed. Check the response file and correct any issues mentioned. If the feed fails before processing, no response file is provided. In this case check the REST output response.
-          format: int32
-        successCount:
-          type: integer
-          description: The number of records that were successfully processed during the upload feed.
-          format: int32
-      description: This container provides summary information on an upload feed (not applicable for download feed types).
-    OrderFilterCriteria:
-      type: object
-      properties:
-        creationDateRange:
-          description: The creation date range of the orders you want returned. Set the date range so it contains less than 10 days (maximum). If you do not specify a <strong>DateRange</strong>, results from the last 10 days will be returned by default.
-          $ref: '#/components/schemas/DateRange'
-        modifiedDateRange:
-          description: The modified date range of the orders you want returned. <p> <span class="tablenote"><strong>Note:</strong> This container is for future use. At this time, the <strong>createOrderTask</strong> method only supports order creation date filters and not modified order date filters.</span></p>
-          $ref: '#/components/schemas/DateRange'
-        orderStatus:
-          type: string
-          description: The order status of the orders returned. If the filter is omitted from createOrderTask call, orders that are in both <code>ACTIVE </code>and<code> COMPLETED</code> states are returned. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:OrderStatusEnum'>eBay API documentation</a>
-      description: The type that defines the fields for the order filters.
   securitySchemes:
     api_auth:
       type: oauth2

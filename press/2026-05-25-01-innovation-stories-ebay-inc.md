@@ -1,7 +1,9 @@
 ---
 title: Innovation Stories - eBay Inc.
 url: https://innovation.ebayinc.com/stories/
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"eBay" press release artificial intelligence'
 position: 1
 source: serpapi-google

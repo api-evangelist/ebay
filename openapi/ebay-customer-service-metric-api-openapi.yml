@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: eBay Seller Service Metrics Customer Service Metric API
-  description: 'The <i>Analytics API</i> provides data and information about a seller and their eBay business.  <br><br>The resources and methods in this API let sellers review information on their listing performance, metrics on their customer service performance, and details on their eBay seller performance rating.  <br><br>The three resources in the Analytics API provide the following data and information: <ul><li><b>Customer Service Metric</b> &ndash; Returns benchmark data and a metric rating pertaining to a seller''s customer service performance as compared to other seller''s in the same peer group.</li> <li><b>Traffic Report</b> &ndash; Returns data and information that shows how buyers are engaging with a seller''s listings.</li> <li><b>Seller Standards Profile</b> &ndash; Returns information pertaining to a seller''s profile rating.</li></ul> Sellers can use the data and information returned by the various Analytics API methods to determine where they can make improvements to increase sales and how they might improve their seller status as viewed by eBay buyers.  <br><br>For details on using this API, see <a href="/api-docs/sell/static/performance/analyzing-performance.html" title="Selling Integration Guide">Analyzing seller performance</a>.'
+  description: The Analytics API provides data and information about a seller and their eBay business.
   contact:
     name: eBay Inc,
   license:
@@ -21,7 +21,25 @@ paths:
     get:
       tags:
       - Customer_service_metric
-      description: 'Use this method to retrieve a seller''s performance and rating for the customer service metric.  <br><br>Control the response from the <b>getCustomerServiceMetric</b> method using the following path and query parameters: <ul><li><b>customer_service_metric_type</b> controls the type of customer service transactions evaluated for the metric rating.</li> <li><b>evaluation_type</b> controls the period you want to review.</li> <li><b>evaluation_marketplace_id</b> specifies the target marketplace for the evaluation.</li></ul> Currently, metric data is returned for only peer benchmarking. For details on the workings of peer benchmarking, see <a href="https://www.ebay.com/help/policies/selling-policies/seller-performance-policy/service-metrics-policy?id=4769" title="eBay Help pages" target="_blank">Service metrics policy</a>.  <br><br>For details on using and understanding the response from this method, see <a href="/api-docs/sell/static/performance/customer-service-metric.html" title="Selling Integration Guide">Interpreting customer service metric ratings</a>.'
+      description: 'Use this method to retrieve a seller''s performance and rating for the customer service metric.
+
+
+        Control the response from the getCustomerServiceMetric method using the following path and query parameters:
+
+
+        customer_service_metric_type controls the type of customer service transactions evaluated for the metric rating.
+
+
+        evaluation_type controls the period you want to review.
+
+
+        evaluation_marketplace_id specifies the target marketplace for the evaluation.
+
+
+        Currently, metric data is returned for only peer benchmarking. For details on the workings of peer benchmarking, see Service metrics policy.
+
+
+        For details on using and understanding the response from this method, see Interpreting customer service metric ratings.'
       operationId: getCustomerServiceMetric
       parameters:
       - name: customer_service_metric_type
@@ -88,20 +106,29 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+      summary: Get customer service metric
+      x-summary-source: derived
 components:
   schemas:
-    MetricDistribution:
+    BenchmarkMetadata:
       type: object
       properties:
-        basis:
+        average:
           type: string
-          description: This field returns the basis, or the method, by which the metric rating is calculated.
-        data:
+          description: This field returns the average value for the group, as defined by the specified <b>basis</b>.  <br><br>When the benchmark <b>basis</b> is set to <code>PEER_BENCHMARK</code>, the value returned in this field is the benchmark value to which the seller's metric <b>value</b> is compared to determine the seller's rating for the customer service metric.
+      description: This complex type defines the fields that comprise the benchmark against which the seller's performance is compared. The comparison determines the seller's rating for the metric.
+    DimensionMetric:
+      type: object
+      properties:
+        dimension:
+          description: This type defines the "dimension," or attributes, against which the associated customer service metric values and benchmark ratings are based.  <br><br>The <b>dimensionKey</b> value is set according to the <b>customer_service_metric_type</b> request parameter and the values in the associated <b>name</b>/<b>value</b> pairs relate to the <b>dimensionKey</b> that's being used to calculate the benchmark rating.
+          $ref: '#/components/schemas/Dimension'
+        metrics:
           type: array
-          description: This field returns a list of name/value pairs, where the <b>name</b> indicates the distribution being rated and the <b>value</b> indicates the count of seller transactions that meet the distribution criteria.
+          description: This is a list of <b>Metric</b> elements where each element contains data and information related to the transactions grouped by the associated <b>dimension</b>.
           items:
-            $ref: '#/components/schemas/Distribution'
-      description: This complex data type describes the metric distribution by basis.
+            $ref: '#/components/schemas/Metric'
+      description: This complex type defines a the customer service metrics and seller benchmark performance related to a given dimension.
     Metric:
       type: object
       properties:
@@ -120,6 +147,16 @@ components:
           type: string
           description: This field is set to the seller's numeric rating for the associated <b>metricKey</b> for the given <b>dimension</b> during the <b>evaluationCycle</b>.  <br><br>To determine the seller's rating for this metric, the value of this field is compared to the average metric value of the group.
       description: This complex data type defines the details of the customer service metric and benchmark data related to the associated <b>dimension</b>.
+    Distribution:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of a distribution in which the seller is active.
+        value:
+          type: string
+          description: This field contains the number of transactions the seller had in the distribution (identified by the associated <b>name</b> field) during the metric <b>evaluationCycle</b>.
+      description: This complex type defines of a piece of data that is grouped by the associated <b>basis</b>. It contains the <b>name</b> for the data set and its associated <b>value</b>.
     Dimension:
       type: object
       properties:
@@ -133,54 +170,18 @@ components:
           type: string
           description: 'The value returned in this field depends on the <b>dimensionKey</b>.  <br><br>If <b>dimensionKey</b> equals <code>LISTING_CATEGORY</code>, the value returned in this field is the category ID of the primary (L1) category in which the items being rated were listed.  <br><br>If <b>dimensionKey</b> equals <code>SHIPPING_REGION</code>, one of the following values is returned:  <ul><li><code>DOMESTIC</code></li> <li><code>INTERNATIONAL_MATURED_REGION</code></li> <li><code>INTERNATIONAL_EMERGING_REGION</code></li></ul>'
       description: The fields in this complex type define the dimension, or attributes, by which the associated customer service metric and benchmark data is measured.  <br><br>The value of <b>dimensionKey</b> gets set according to the configuration of the input request. The <b>name</b> and <b>value</b> pair further define dimension under the key.
-    EvaluationCycle:
+    MetricDistribution:
       type: object
       properties:
-        endDate:
+        basis:
           type: string
-          description: End date and time of the transaction lookback range. All timestamps are based on Mountain Standard Time (MST).  <br><br>The timestamp is formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html" title="https://www.iso.org" target="_blank">ISO 8601</a> string, which is based on the 24-hour Coordinated Universal Time (UTC) clock.
-        evaluationDate:
-          type: string
-          description: The ISO-8601 date and time at which the seller was evaluated for this customer service metric rating.
-        evaluationType:
-          type: string
-          description: 'This field specifies the transaction <i>lookback period</i> used for the evaluation. <br><br>The <b>evaluation_type</b> value specified in the request is returned in this field. There are two possible values:  <ul><li><code>CURRENT</code> &ndash; A monthly evaluation that occurs on the 20th of every month.</li> <li><code>PROJECTED</code> &ndash; A daily evaluation that provides a projection of how the seller is currently performing with regards to the upcoming evaluation period.</li></ul> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/analytics/types/api:EvaluationTypeEnum''>eBay API documentation</a>'
-        startDate:
-          type: string
-          description: The start date and time of the transaction lookback range. All timestamps are based on Mountain Standard Time (MST).  <br><br>The timestamp is formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html" title="https://www.iso.org" target="_blank">ISO 8601</a> string, which is based on the 24-hour Coordinated Universal Time (UTC) clock.  <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2018-08-04T07:09:00.000Z</code>
-      description: This complex type describes the start and end dates of the of the time period over which the associated benchmark is computed.  <br><br>All timestamps are based on Mountain Standard Time (MST).  <br><br>The timestamp is formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html" title="https://www.iso.org" target="_blank">ISO 8601</a> string, which is based on the 24-hour Coordinated Universal Time (UTC) clock.
-    Distribution:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of a distribution in which the seller is active.
-        value:
-          type: string
-          description: This field contains the number of transactions the seller had in the distribution (identified by the associated <b>name</b> field) during the metric <b>evaluationCycle</b>.
-      description: This complex type defines of a piece of data that is grouped by the associated <b>basis</b>. It contains the <b>name</b> for the data set and its associated <b>value</b>.
-    BenchmarkMetadata:
-      type: object
-      properties:
-        average:
-          type: string
-          description: This field returns the average value for the group, as defined by the specified <b>basis</b>.  <br><br>When the benchmark <b>basis</b> is set to <code>PEER_BENCHMARK</code>, the value returned in this field is the benchmark value to which the seller's metric <b>value</b> is compared to determine the seller's rating for the customer service metric.
-      description: This complex type defines the fields that comprise the benchmark against which the seller's performance is compared. The comparison determines the seller's rating for the metric.
-    GetCustomerServiceMetricResponse:
-      type: object
-      properties:
-        dimensionMetrics:
+          description: This field returns the basis, or the method, by which the metric rating is calculated.
+        data:
           type: array
-          description: 'This container provides a seller''s customer service <b>metric</b> performance for a given <b>dimension</b>.  <br><br>In the <b>getCustomerServiceMetric</b> request, specify values for the following request parameters to control the returned dimension and the associated metric values: <ul><li> <b>customer_service_metric_type</b></li> <li><b>evaluation_type</b></li> <li><b>evaluation_marketplace_id</b></li></ul>'
+          description: This field returns a list of name/value pairs, where the <b>name</b> indicates the distribution being rated and the <b>value</b> indicates the count of seller transactions that meet the distribution criteria.
           items:
-            $ref: '#/components/schemas/DimensionMetric'
-        evaluationCycle:
-          description: This complex type defines the evaluation type (<code>CURRENT</code> or <code>PROJECTED</code>) and the transaction lookback period used to calculate the seller's customer service metric.
-          $ref: '#/components/schemas/EvaluationCycle'
-        marketplaceId:
-          type: string
-          description: The eBay marketplace ID of the marketplace upon which the customer service metric evaluation is based.  <br><br>The <b>customer_service_metric</b> resource supports a limited set of marketplaces. For a complete list of the supported marketplaces, please see the <a href="https://www.ebay.com/help/policies/selling-policies/seller-performance-policy/service-metrics-policy?id=4769#section2" title="eBay Help pages">Service metrics policy</a> page. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/bas:MarketplaceIdEnum'>eBay API documentation</a>
-      description: This complex data type defines the response data that is returned from a request to <b>getCustomerServiceMetric</b>.  <br><br>The <b>dimensionMetrics</b> object contains the details of the dimension being measured and the calculated customer service metric values. <br><br>The <b>evaluationCycle</b> defines the period used to calculate the metric values.  <br><br>The <b>marketplaceId</b> is the eBay marketplace for which the metrics are being considered.
+            $ref: '#/components/schemas/Distribution'
+      description: This complex data type describes the metric distribution by basis.
     MetricBenchmark:
       type: object
       properties:
@@ -197,18 +198,37 @@ components:
           type: string
           description: This field returns seller's rating for the customer service metric.  <br><br>The rating is set to a value that equals the relative deviation between the seller's metric value and the benchmark value for the customer service metric.  <br><br>Deviation values range from <code>LOW</code> to <code>VERY HIGH</code>, and the lower the deviation, the better the seller rating. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/api:RatingTypeEnum'>eBay API documentation</a>
       description: This complex type defines the benchmark data, which includes the <b>average</b> value of the metric for the group (the benchmark) and the seller's overall <b>rating</b> when compared to the benchmark.
-    DimensionMetric:
+    GetCustomerServiceMetricResponse:
       type: object
       properties:
-        dimension:
-          description: This type defines the "dimension," or attributes, against which the associated customer service metric values and benchmark ratings are based.  <br><br>The <b>dimensionKey</b> value is set according to the <b>customer_service_metric_type</b> request parameter and the values in the associated <b>name</b>/<b>value</b> pairs relate to the <b>dimensionKey</b> that's being used to calculate the benchmark rating.
-          $ref: '#/components/schemas/Dimension'
-        metrics:
+        dimensionMetrics:
           type: array
-          description: This is a list of <b>Metric</b> elements where each element contains data and information related to the transactions grouped by the associated <b>dimension</b>.
+          description: 'This container provides a seller''s customer service <b>metric</b> performance for a given <b>dimension</b>.  <br><br>In the <b>getCustomerServiceMetric</b> request, specify values for the following request parameters to control the returned dimension and the associated metric values: <ul><li> <b>customer_service_metric_type</b></li> <li><b>evaluation_type</b></li> <li><b>evaluation_marketplace_id</b></li></ul>'
           items:
-            $ref: '#/components/schemas/Metric'
-      description: This complex type defines a the customer service metrics and seller benchmark performance related to a given dimension.
+            $ref: '#/components/schemas/DimensionMetric'
+        evaluationCycle:
+          description: This complex type defines the evaluation type (<code>CURRENT</code> or <code>PROJECTED</code>) and the transaction lookback period used to calculate the seller's customer service metric.
+          $ref: '#/components/schemas/EvaluationCycle'
+        marketplaceId:
+          type: string
+          description: The eBay marketplace ID of the marketplace upon which the customer service metric evaluation is based.  <br><br>The <b>customer_service_metric</b> resource supports a limited set of marketplaces. For a complete list of the supported marketplaces, please see the <a href="https://www.ebay.com/help/policies/selling-policies/seller-performance-policy/service-metrics-policy?id=4769#section2" title="eBay Help pages">Service metrics policy</a> page. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/bas:MarketplaceIdEnum'>eBay API documentation</a>
+      description: This complex data type defines the response data that is returned from a request to <b>getCustomerServiceMetric</b>.  <br><br>The <b>dimensionMetrics</b> object contains the details of the dimension being measured and the calculated customer service metric values. <br><br>The <b>evaluationCycle</b> defines the period used to calculate the metric values.  <br><br>The <b>marketplaceId</b> is the eBay marketplace for which the metrics are being considered.
+    EvaluationCycle:
+      type: object
+      properties:
+        endDate:
+          type: string
+          description: End date and time of the transaction lookback range. All timestamps are based on Mountain Standard Time (MST).  <br><br>The timestamp is formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html" title="https://www.iso.org" target="_blank">ISO 8601</a> string, which is based on the 24-hour Coordinated Universal Time (UTC) clock.
+        evaluationDate:
+          type: string
+          description: The ISO-8601 date and time at which the seller was evaluated for this customer service metric rating.
+        evaluationType:
+          type: string
+          description: 'This field specifies the transaction <i>lookback period</i> used for the evaluation. <br><br>The <b>evaluation_type</b> value specified in the request is returned in this field. There are two possible values:  <ul><li><code>CURRENT</code> &ndash; A monthly evaluation that occurs on the 20th of every month.</li> <li><code>PROJECTED</code> &ndash; A daily evaluation that provides a projection of how the seller is currently performing with regards to the upcoming evaluation period.</li></ul> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/analytics/types/api:EvaluationTypeEnum''>eBay API documentation</a>'
+        startDate:
+          type: string
+          description: The start date and time of the transaction lookback range. All timestamps are based on Mountain Standard Time (MST).  <br><br>The timestamp is formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html" title="https://www.iso.org" target="_blank">ISO 8601</a> string, which is based on the 24-hour Coordinated Universal Time (UTC) clock.  <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2018-08-04T07:09:00.000Z</code>
+      description: This complex type describes the start and end dates of the of the time period over which the associated benchmark is computed.  <br><br>All timestamps are based on Mountain Standard Time (MST).  <br><br>The timestamp is formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html" title="https://www.iso.org" target="_blank">ISO 8601</a> string, which is based on the 24-hour Coordinated Universal Time (UTC) clock.
   securitySchemes:
     api_auth:
       type: oauth2

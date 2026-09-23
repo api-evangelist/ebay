@@ -70,11 +70,16 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope
+      summary: Get charity org
+      x-summary-source: derived
   /charity_org:
     get:
       tags:
       - Charity_org
-      description: This call is used to search for supported charitable organizations. It allows users to search for a specific charitable organization, or for multiple charitable organizations, from a particular charitable domain and/or geographical region, or by using search criteria.<br /><br />The call returns paginated search results containing the charitable organizations that match the specified criteria.
+      description: 'This call is used to search for supported charitable organizations. It allows users to search for a specific charitable organization, or for multiple charitable organizations, from a particular charitable domain and/or geographical region, or by using search criteria.
+
+
+        The call returns paginated search results containing the charitable organizations that match the specified criteria.'
       operationId: getCharityOrgs
       parameters:
       - name: limit
@@ -145,34 +150,10 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope
+      summary: Get charity orgs
+      x-summary-source: derived
 components:
   schemas:
-    GeoCoordinates:
-      type: object
-      properties:
-        latitude:
-          type: number
-          description: The latitude component of the geographic coordinate.
-        longitude:
-          type: number
-          description: The longitude component of the geographic coordinate.
-      description: Defines the format of a geographic coordinate.
-    Address:
-      type: object
-      properties:
-        city:
-          type: string
-          description: The city of the charitable organization.
-        stateOrProvince:
-          type: string
-          description: The state or province of the charitable organization.
-        postalCode:
-          type: string
-          description: The postal code of the charitable organization.
-        country:
-          type: string
-          description: The two-letter <a href="https://www.iso.org/iso-3166-country-codes.html ">ISO 3166</a> standard of the country of the address. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/charity/types/bas:CountryCodeEnum'>eBay API documentation</a>
-      description: The physical location of the item.
     Image:
       type: object
       properties:
@@ -186,6 +167,25 @@ components:
           type: string
           description: The width of the logo image.
       description: The logo of the charitable organization.
+    Location:
+      type: object
+      properties:
+        address:
+          description: The address of the charitable organization.
+          $ref: '#/components/schemas/Address'
+        geoCoordinates:
+          description: The geo-coordinates of the charitable organization.
+          $ref: '#/components/schemas/GeoCoordinates'
+    GeoCoordinates:
+      type: object
+      properties:
+        latitude:
+          type: number
+          description: The latitude component of the geographic coordinate.
+        longitude:
+          type: number
+          description: The longitude component of the geographic coordinate.
+      description: Defines the format of a geographic coordinate.
     CharitySearchResponse:
       type: object
       properties:
@@ -216,15 +216,22 @@ components:
           description: The total number of matches for the search criteria.
           format: int32
       description: A single set of search results, with information for accessing other sets.
-    Location:
+    Address:
       type: object
       properties:
-        address:
-          description: The address of the charitable organization.
-          $ref: '#/components/schemas/Address'
-        geoCoordinates:
-          description: The geo-coordinates of the charitable organization.
-          $ref: '#/components/schemas/GeoCoordinates'
+        city:
+          type: string
+          description: The city of the charitable organization.
+        stateOrProvince:
+          type: string
+          description: The state or province of the charitable organization.
+        postalCode:
+          type: string
+          description: The postal code of the charitable organization.
+        country:
+          type: string
+          description: The two-letter <a href="https://www.iso.org/iso-3166-country-codes.html ">ISO 3166</a> standard of the country of the address. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/charity/types/bas:CountryCodeEnum'>eBay API documentation</a>
+      description: The physical location of the item.
     CharityOrg:
       type: object
       properties:

@@ -1,7 +1,19 @@
 openapi: 3.2.0
 info:
   title: eBay Notification Destination API
-  description: The eBay Notification API enables management of the entire end-to-end eBay notification experience by allowing users to:<ul><li>Browse for supported notification topics and retrieve topic details</li><li>Create, configure, and manage notification destination endpoints</li><li>Configure, manage, and test notification subscriptions</li><li>Process eBay notifications and verify the integrity of the message payload</li></ul>
+  description: 'The eBay Notification API enables management of the entire end-to-end eBay notification experience by allowing users to:
+
+
+    Browse for supported notification topics and retrieve topic details
+
+
+    Create, configure, and manage notification destination endpoints
+
+
+    Configure, manage, and test notification subscriptions
+
+
+    Process eBay notifications and verify the integrity of the message payload'
   contact:
     name: eBay Inc,
   license:
@@ -66,10 +78,24 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope
+      summary: Get destinations
+      x-summary-source: derived
     post:
       tags:
       - Destination
-      description: This method allows applications to create a destination. A destination is an endpoint that receives HTTP push notifications.<br><br>A single destination for all topics is valid, as is individual destinations for each topic.<br><br>To update a destination, use the <strong>updateDestination</strong> call.<br><br>The destination created will need to be referenced while creating or updating a subscription to a topic.<br><br><span class="tablenote"><b>Note:</b> The destination should be created and ready to respond with the expected <b>challengeResponse</b> for the endpoint to be registered successfully. Refer to the <a href="/api-docs/commerce/notification/overview.html">Notification API overview</a> for more information.</span>
+      description: 'This method allows applications to create a destination. A destination is an endpoint that receives HTTP push notifications.
+
+
+        A single destination for all topics is valid, as is individual destinations for each topic.
+
+
+        To update a destination, use the updateDestination call.
+
+
+        The destination created will need to be referenced while creating or updating a subscription to a topic.
+
+
+        Note: The destination should be created and ready to respond with the expected challengeResponse for the endpoint to be registered successfully. Refer to the Notification API overview for more information.'
       operationId: createDestination
       parameters:
       - name: Content-Type
@@ -145,6 +171,8 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope
+      summary: Create destination
+      x-summary-source: derived
   /destination/{destination_id}:
     get:
       tags:
@@ -186,10 +214,15 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope
+      summary: Get destination
+      x-summary-source: derived
     put:
       tags:
       - Destination
-      description: This method allows applications to update a destination.<br><br><span class="tablenote"><b>Note:</b> The destination should be created and ready to respond with the expected <b>challengeResponse</b> for the endpoint to be registered successfully. Refer to the <a href="/api-docs/commerce/notification/overview.html">Notification API overview</a> for more information.</span>
+      description: 'This method allows applications to update a destination.
+
+
+        Note: The destination should be created and ready to respond with the expected challengeResponse for the endpoint to be registered successfully. Refer to the Notification API overview for more information.'
       operationId: updateDestination
       parameters:
       - name: Content-Type
@@ -266,10 +299,18 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope
+      summary: Update destination
+      x-summary-source: derived
     delete:
       tags:
       - Destination
-      description: This method provides applications a way to delete a destination.<br><br>The same destination ID can be used by many destinations.<br><br>Trying to delete an active destination results in an error. You can disable a subscription, and when the destination is no longer in use, you can delete it.
+      description: 'This method provides applications a way to delete a destination.
+
+
+        The same destination ID can be used by many destinations.
+
+
+        Trying to delete an active destination results in an error. You can disable a subscription, and when the destination is no longer in use, you can delete it.'
       operationId: deleteDestination
       parameters:
       - name: destination_id
@@ -310,24 +351,10 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope
+      summary: Delete destination
+      x-summary-source: derived
 components:
   schemas:
-    Destination:
-      type: object
-      properties:
-        deliveryConfig:
-          description: The configuration associated with this destination.
-          $ref: '#/components/schemas/DeliveryConfig'
-        destinationId:
-          type: string
-          description: The unique identifier for the destination.
-        name:
-          type: string
-          description: The name associated with this destination.
-        status:
-          type: string
-          description: The status for this destination.<br><br><span class="tablenote"><b>Note:</b> The <b>MARKED_DOWN</b> value is set by eBay systems and cannot be used in a create or update call by applications.</span><br><br><b>Valid values:</b><ul><li><code>ENABLED</code></li><li><code>DISABLED</code></li><li><code>MARKED_DOWN</code></li></ul> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:DestinationStatusEnum'>eBay API documentation</a>
-      description: A type that contains information about the destination.
     DestinationRequest:
       type: object
       properties:
@@ -374,6 +401,22 @@ components:
           description: The total number of matches for the search criteria.
           format: int32
       description: A type that contains information about the destination search response.
+    Destination:
+      type: object
+      properties:
+        deliveryConfig:
+          description: The configuration associated with this destination.
+          $ref: '#/components/schemas/DeliveryConfig'
+        destinationId:
+          type: string
+          description: The unique identifier for the destination.
+        name:
+          type: string
+          description: The name associated with this destination.
+        status:
+          type: string
+          description: The status for this destination.<br><br><span class="tablenote"><b>Note:</b> The <b>MARKED_DOWN</b> value is set by eBay systems and cannot be used in a create or update call by applications.</span><br><br><b>Valid values:</b><ul><li><code>ENABLED</code></li><li><code>DISABLED</code></li><li><code>MARKED_DOWN</code></li></ul> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:DestinationStatusEnum'>eBay API documentation</a>
+      description: A type that contains information about the destination.
   securitySchemes:
     api_auth:
       type: oauth2

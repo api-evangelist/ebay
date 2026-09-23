@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: eBay Feed Task API
-  description: <p>The <strong>Feed API</strong> lets sellers upload input files, download reports and files including their status, filter reports using URI parameters, and retrieve customer service metrics task details.</p>
+  description: The Feed API lets sellers upload input files, download reports and files including their status, filter reports using URI parameters, and retrieve customer service metrics task details.
   contact:
     name: eBay Inc,
   license:
@@ -21,7 +21,13 @@ paths:
     get:
       tags:
       - Task
-      description: 'This method returns the details and status for an array of tasks based on a specified <strong>feed_type</strong> or <strong>schedule_id</strong>. Specifying both <strong>feed_type</strong> and <strong>schedule_id</strong> results in an error. Since schedules are based on feed types, you can specify a schedule (<strong>schedule_id</strong>) that returns the needed <strong>feed_type</strong>.<br /><br />If specifying the <strong>feed_type</strong>, limit which tasks are returned by specifying filters, such as the creation date range or period of time using <strong>look_back_days</strong>. Also, by specifying the <strong>feed_type</strong>, both on-demand and scheduled reports are returned.<br /><br />If specifying a <strong>schedule_id</strong>, the schedule template (that the schedule ID is based on) determines which tasks are returned (see <strong>schedule_id</strong> for additional information). Each <strong>scheduledId</strong> applies to one <strong>feed_type</strong>. '
+      description: 'This method returns the details and status for an array of tasks based on a specified feed_type or schedule_id. Specifying both feed_type and schedule_id results in an error. Since schedules are based on feed types, you can specify a schedule (schedule_id) that returns the needed feed_type.
+
+
+        If specifying the feed_type, limit which tasks are returned by specifying filters, such as the creation date range or period of time using look_back_days. Also, by specifying the feed_type, both on-demand and scheduled reports are returned.
+
+
+        If specifying a schedule_id, the schedule template (that the schedule ID is based on) determines which tasks are returned (see schedule_id for additional information). Each scheduledId applies to one feed_type.'
       operationId: getTasks
       parameters:
       - name: date_range
@@ -142,10 +148,35 @@ paths:
         - https://api.ebay.com/oauth/api_scope/sell.marketing
         - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
         - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+      summary: Get tasks
+      x-summary-source: derived
     post:
       tags:
       - Task
-      description: 'This method creates an upload task or a download task without filter criteria. When using this method, specify the <b> feedType</b> and the feed file <b> schemaVersion</b>. The feed type specified sets the task as a download or an upload task.  <p>For details about the upload and download flows, see <a href="/api-docs/sell/static/orders/generating-and-retrieving-order-reports.html">Working with Order Feeds</a> in the Selling Integration Guide.</p><p> <span class="tablenote"><strong>Note:</strong> The scope depends on the feed type. An error message results when an unsupported scope or feed type is specified.</span></p><p>The following list contains this method''s authorization scopes and their corresponding feed types:</p><ul><li>https://api.ebay.com/oauth/api_scope/sell.inventory: See <a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#Availabl" target="_blank">LMS FeedTypes</a></li><li>https://api.ebay.com/oauth/api_scope/sell.fulfillment: LMS_ORDER_ACK (specify for upload tasks). Also see <a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#Availabl" target="_blank">LMS FeedTypes</a></li><li>https://api.ebay.com/oauth/api_scope/sell.marketing: None*</li><li>https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly: None*</li></ul><p>* Reserved for future release</p>'
+      description: 'This method creates an upload task or a download task without filter criteria. When using this method, specify the feedType and the feed file schemaVersion. The feed type specified sets the task as a download or an upload task.
+
+        For details about the upload and download flows, see Working with Order Feeds in the Selling Integration Guide.
+
+
+        Note: The scope depends on the feed type. An error message results when an unsupported scope or feed type is specified.
+
+
+        The following list contains this method''s authorization scopes and their corresponding feed types:
+
+
+        https://api.ebay.com/oauth/api_scope/sell.inventory: See LMS FeedTypes
+
+
+        https://api.ebay.com/oauth/api_scope/sell.fulfillment: LMS_ORDER_ACK (specify for upload tasks). Also see LMS FeedTypes
+
+
+        https://api.ebay.com/oauth/api_scope/sell.marketing: None*
+
+
+        https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly: None*
+
+
+        * Reserved for future release'
       operationId: createTask
       parameters:
       - name: X-EBAY-C-MARKETPLACE-ID
@@ -230,11 +261,15 @@ paths:
         - https://api.ebay.com/oauth/api_scope/sell.marketing
         - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
         - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+      summary: Create task
+      x-summary-source: derived
   /task/{task_id}/download_input_file:
     get:
       tags:
       - Task
-      description: This method downloads the file previously uploaded using <strong>uploadFile</strong>. Specify the task_id from the <strong>uploadFile</strong> call. <p><span class="tablenote"><strong>Note:</strong> With respect to LMS, this method applies to all feed types except <code>LMS_ORDER_REPORT</code> and <code>LMS_ACTIVE_INVENTORY_REPORT</code>. See <a href="/api-docs/sell/static/feed/lms-feeds.html">LMS API Feeds</a> in the Selling Integration Guide.</span></p>
+      description: 'This method downloads the file previously uploaded using uploadFile. Specify the task_id from the uploadFile call.
+
+        Note: With respect to LMS, this method applies to all feed types except LMS_ORDER_REPORT and LMS_ACTIVE_INVENTORY_REPORT. See LMS API Feeds in the Selling Integration Guide.'
       operationId: getInputFile
       parameters:
       - name: task_id
@@ -296,11 +331,18 @@ paths:
         - https://api.ebay.com/oauth/api_scope/sell.marketing
         - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
         - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+      summary: Get input file
+      x-summary-source: derived
   /task/{task_id}/download_result_file:
     get:
       tags:
       - Task
-      description: 'This method retrieves the generated file that is associated with the specified task ID. The response of this call is a compressed or uncompressed CSV, XML, or JSON file, with the applicable file extension (for example: csv.gz). <p>For details about how this method is used, see <a href="/api-docs/sell/static/orders/generating-and-retrieving-order-reports.html">Working with Order Feeds</a> in the Selling Integration Guide. </p><p><span class="tablenote"><strong>Note:</strong> The status of the task to retrieve must be in the COMPLETED or COMPLETED_WITH_ERROR state before this method can retrieve the file. You can use the getTask or getTasks method to retrieve the status of the task.</span></p>'
+      description: 'This method retrieves the generated file that is associated with the specified task ID. The response of this call is a compressed or uncompressed CSV, XML, or JSON file, with the applicable file extension (for example: csv.gz).
+
+        For details about how this method is used, see Working with Order Feeds in the Selling Integration Guide.
+
+
+        Note: The status of the task to retrieve must be in the COMPLETED or COMPLETED_WITH_ERROR state before this method can retrieve the file. You can use the getTask or getTasks method to retrieve the status of the task.'
       operationId: getResultFile
       parameters:
       - name: task_id
@@ -358,11 +400,16 @@ paths:
         - https://api.ebay.com/oauth/api_scope/sell.marketing
         - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
         - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+      summary: Get result file
+      x-summary-source: derived
   /task/{task_id}:
     get:
       tags:
       - Task
-      description: 'This method retrieves the details and status of the specified task. The input is <strong>task_id</strong>. <br /><br />For details of how this method is used, see <a href="/api-docs/sell/static/orders/generating-and-retrieving-order-reports.html">Working with Order Feeds</a> in the Selling Integration Guide. '
+      description: 'This method retrieves the details and status of the specified task. The input is task_id.
+
+
+        For details of how this method is used, see Working with Order Feeds in the Selling Integration Guide.'
       operationId: getTask
       parameters:
       - name: task_id
@@ -411,11 +458,44 @@ paths:
         - https://api.ebay.com/oauth/api_scope/sell.marketing
         - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
         - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+      summary: Get task
+      x-summary-source: derived
   /task/{task_id}/upload_file:
     post:
       tags:
       - Task
-      description: 'This method associates the specified file with the specified task ID and uploads the input file. After the file has been uploaded, the processing of the file begins. <br><br>Reports often take time to generate and it''s common for this method to return an HTTP status of 202, which indicates the report is being generated. Use the <b> getTask</b> with the task ID or <b> getTasks</b> to determine the status of a report. <br><br>The status flow is <code>QUEUED</code> &gt; <code>IN_PROCESS</code> &gt; <code>COMPLETED</code> or <code>COMPLETED_WITH_ERROR</code>. When the status is <code>COMPLETED</code> or <code>COMPLETED_WITH_ERROR</code>, this indicates the file has been processed and the order report can be downloaded. If there are errors, they will be indicated in the report file. <br /><br />For details of how this method is used in the upload flow, see <a href="/api-docs/sell/static/orders/generating-and-retrieving-order-reports.html">Working with Order Feeds</a> in the Selling Integration Guide. <br><br>This call does not have a JSON Request payload but uploads the file as form-data. For example:<br /> <pre> fileName: &quot;AddFixedPriceItem_Macbook.xml&quot; <br /> name: &quot;file&quot; <br /> type: &quot;form-data&quot; <br /> file: @&quot;/C:/Users/.../AddFixedPriceItem_Macbook.7z&quot;</pre>See <a href="/api-docs/sell/feed/resources/task/methods/uploadFile#h2-samples">Samples</a> for information.<p><span class="tablenote"><strong>Note:</strong> This method applies to all <a href="/api-docs/sell/static/feed/fx-feeds-quick-reference.html#availabl" target="_blank">Seller Hub feed types</a>, and to all <a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#Availabl" target="_blank">LMS feed types</a> except <code>LMS_ORDER_REPORT</code> and <code>LMS_ACTIVE_INVENTORY_REPORT</code>.</span></p><p> <span class="tablenote"><b>Note:</b> You must use a <strong>Content-Type</strong> header with its value set to "<strong>multipart/form-data</strong>". See <a href="/api-docs/sell/feed/resources/task/methods/uploadFile#h2-samples">Samples</a> for information.</span></p><p><span class="tablenote"><b>Note:</b> For LMS feed types, upload a regular XML file or an XML file in zipped format (both formats are allowed).</span></p>'
+      description: 'This method associates the specified file with the specified task ID and uploads the input file. After the file has been uploaded, the processing of the file begins.
+
+
+        Reports often take time to generate and it''s common for this method to return an HTTP status of 202, which indicates the report is being generated. Use the getTask with the task ID or getTasks to determine the status of a report.
+
+
+        The status flow is QUEUED > IN_PROCESS > COMPLETED or COMPLETED_WITH_ERROR. When the status is COMPLETED or COMPLETED_WITH_ERROR, this indicates the file has been processed and the order report can be downloaded. If there are errors, they will be indicated in the report file.
+
+
+        For details of how this method is used in the upload flow, see Working with Order Feeds in the Selling Integration Guide.
+
+
+        This call does not have a JSON Request payload but uploads the file as form-data. For example:
+
+
+        fileName: "AddFixedPriceItem_Macbook.xml"
+
+        name: "file"
+
+        type: "form-data"
+
+        file: @"/C:/Users/.../AddFixedPriceItem_Macbook.7z"
+
+        See Samples for information.
+
+        Note: This method applies to all Seller Hub feed types, and to all LMS feed types except LMS_ORDER_REPORT and LMS_ACTIVE_INVENTORY_REPORT.
+
+
+        Note: You must use a Content-Type header with its value set to "multipart/form-data". See Samples for information.
+
+
+        Note: For LMS feed types, upload a regular XML file or an XML file in zipped format (both formats are allowed).'
       operationId: uploadFile
       parameters:
       - name: task_id
@@ -492,18 +572,41 @@ paths:
         - https://api.ebay.com/oauth/api_scope/sell.marketing
         - https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly
         - https://api.ebay.com/oauth/api_scope/sell.analytics.readonly
+      summary: Upload file
+      x-summary-source: derived
 components:
   schemas:
-    CreateTaskRequest:
+    StreamingOutput:
+      type: object
+      description: File stream
+    Task:
       type: object
       properties:
+        completionDate:
+          type: string
+          description: The timestamp when the task went into the <code>COMPLETED</code> or <code>COMPLETED_WITH_ERROR</code> state. This state means that eBay has compiled the report for the seller based on the seller’s filter criteria, and the seller can run a <strong>getResultFile</strong> call to download the report.
+        creationDate:
+          type: string
+          description: The date the task was created.
+        detailHref:
+          type: string
+          description: The path to the call URI used to retrieve the task. This field points to the GetOrderTask URI if the task is for <code>LMS_ORDER_REPORT</code> or will be null if this task is for <code>LMS_ORDER_ACK</code>.
         feedType:
           type: string
-          description: The feed type associated with the task. Available feed types:<br><ul><li><a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#trading-upload-feed-types" target="_blank">Inventory upload feed types</a></li><li><a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#merchant-data-upload-feed-types" target="_blank">Fulfillment upload feed types</a></li><li><a href="/api-docs/sell/static/feed/fx-feeds-quick-reference.html#availabl" target="_blank">Seller Hub feed types</a></li></ul>
+          description: The feed type associated with the task.
         schemaVersion:
           type: string
-          description: The schemaVersion/version number of the file format:<br><ul><li><a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#Version" target="_blank">Version Details / Schema Version</a></li><li><a href="/api-docs/sell/static/feed/fx-feeds-quick-reference.html#schema" target="_blank">Seller Hub feed schema version</a></li></ul>
-      description: The type that defines the fields for the <b> createTask</b> method.
+          description: The schema version number associated with the task.
+        status:
+          type: string
+          description: The enumeration value that indicates the state of the task that was submitted in the request. See <strong>FeedStatusEnum</strong> for information. <p>The values <code>COMPLETED </code>and<code> COMPLETED_WITH_ERROR</code> indicate the Order Report file is ready to download.</p> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:FeedStatusEnum'>eBay API documentation</a>
+        taskId:
+          type: string
+          description: The ID of the task that was submitted in the request.
+        uploadSummary:
+          description: This container provides summary information on an upload feed (not applicable for download feed types).
+          $ref: '#/components/schemas/UploadSummary'
+      description: The type that defines the fields for the task details.
     TaskCollection:
       type: object
       properties:
@@ -546,37 +649,16 @@ components:
           description: The number of records that were successfully processed during the upload feed.
           format: int32
       description: This container provides summary information on an upload feed (not applicable for download feed types).
-    Task:
+    CreateTaskRequest:
       type: object
       properties:
-        completionDate:
-          type: string
-          description: The timestamp when the task went into the <code>COMPLETED</code> or <code>COMPLETED_WITH_ERROR</code> state. This state means that eBay has compiled the report for the seller based on the seller’s filter criteria, and the seller can run a <strong>getResultFile</strong> call to download the report.
-        creationDate:
-          type: string
-          description: The date the task was created.
-        detailHref:
-          type: string
-          description: The path to the call URI used to retrieve the task. This field points to the GetOrderTask URI if the task is for <code>LMS_ORDER_REPORT</code> or will be null if this task is for <code>LMS_ORDER_ACK</code>.
         feedType:
           type: string
-          description: The feed type associated with the task.
+          description: The feed type associated with the task. Available feed types:<br><ul><li><a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#trading-upload-feed-types" target="_blank">Inventory upload feed types</a></li><li><a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#merchant-data-upload-feed-types" target="_blank">Fulfillment upload feed types</a></li><li><a href="/api-docs/sell/static/feed/fx-feeds-quick-reference.html#availabl" target="_blank">Seller Hub feed types</a></li></ul>
         schemaVersion:
           type: string
-          description: The schema version number associated with the task.
-        status:
-          type: string
-          description: The enumeration value that indicates the state of the task that was submitted in the request. See <strong>FeedStatusEnum</strong> for information. <p>The values <code>COMPLETED </code>and<code> COMPLETED_WITH_ERROR</code> indicate the Order Report file is ready to download.</p> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:FeedStatusEnum'>eBay API documentation</a>
-        taskId:
-          type: string
-          description: The ID of the task that was submitted in the request.
-        uploadSummary:
-          description: This container provides summary information on an upload feed (not applicable for download feed types).
-          $ref: '#/components/schemas/UploadSummary'
-      description: The type that defines the fields for the task details.
-    StreamingOutput:
-      type: object
-      description: File stream
+          description: The schemaVersion/version number of the file format:<br><ul><li><a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#Version" target="_blank">Version Details / Schema Version</a></li><li><a href="/api-docs/sell/static/feed/fx-feeds-quick-reference.html#schema" target="_blank">Seller Hub feed schema version</a></li></ul>
+      description: The type that defines the fields for the <b> createTask</b> method.
   securitySchemes:
     api_auth:
       type: oauth2

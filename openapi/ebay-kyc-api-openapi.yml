@@ -1,7 +1,10 @@
 openapi: 3.2.0
 info:
   title: eBay Account Kyc API
-  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  description: 'The Account API gives sellers the ability to configure their eBay seller accounts, including the seller''s policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.
+
+
+    For details on the availability of the methods in this API, see Account API requirements and restrictions.'
   contact:
     name: eBay Inc,
   license:
@@ -15,13 +18,13 @@ servers:
     basePath:
       default: /sell/account/v1
 tags:
-- name: Kyc
+- name: KYC
 paths:
   /kyc:
     get:
       tags:
-      - Kyc
-      description: <span class="tablenote"><b>Note:</b>This method was originally created to see which onboarding requirements were still pending for sellers being onboarded for eBay managed payments, but now that all seller accounts are onboarded globally, this method should now just returne an empty payload with a <code>204 No Content</code> HTTP status code. </span>
+      - KYC
+      description: Note:This method was originally created to see which onboarding requirements were still pending for sellers being onboarded for eBay managed payments, but now that all seller accounts are onboarded globally, this method should now just returne an empty payload with a 204 No Content HTTP status code.
       operationId: getKYC
       responses:
         '200':
@@ -52,6 +55,8 @@ paths:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.account
         - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+      summary: Get KYC
+      x-summary-source: derived
 components:
   schemas:
     KycResponse:

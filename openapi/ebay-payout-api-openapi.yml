@@ -21,7 +21,21 @@ paths:
     get:
       tags:
       - Payout
-      description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> Due to EU &amp; UK Payments regulatory requirements, an additional security verification via Digital Signatures is required for certain API calls that are made on behalf of EU/UK sellers, including all <b>Finances API</b> methods. Please refer to <a href="/develop/guides/digital-signatures-for-apis " target="_blank">Digital Signatures for APIs</a> to learn more on the impacted APIs and the process to create signatures to be included in the HTTP payload.</p></div><br>This method retrieves details on a specific seller payout. The unique identifier of the payout is passed in as a path parameter at the end of the call URI. <br><br>The <b>getPayouts</b> method can be used to retrieve the unique identifier of a payout, or the user can check Seller Hub.<br><br>For split-payout cases, which are <b>only</b> available to sellers in mainland China, this method will return the <b>payoutPercentage</b> for the specified payout. This value indicates the current payout percentage allocated to a payment instrument. This method will also return the <b>convertedToCurrency</b> and <b>convertedToValue</b> response fields in CNY value. <br><br><span class="tablenote"><b>Note:</b> In split-payout cases, this method will only return details on an individual payout, also known as a true(actual) payoutid. If a user inputs a <b>payoutReference</b> id as a path parameter, the call will fail and the <b>404 not found</b> status code will be returned.<br>For more information on split payouts, see <a href="/api-docs/split-payout/playbook.html" target="_blank">Mainland China Split Payout Playbook</a>.</span>'
+      description: 'Important! Due to EU & UK Payments regulatory requirements, an additional security verification via Digital Signatures is required for certain API calls that are made on behalf of EU/UK sellers, including all Finances API methods. Please refer to Digital Signatures for APIs to learn more on the impacted APIs and the process to create signatures to be included in the HTTP payload.
+
+
+        This method retrieves details on a specific seller payout. The unique identifier of the payout is passed in as a path parameter at the end of the call URI.
+
+
+        The getPayouts method can be used to retrieve the unique identifier of a payout, or the user can check Seller Hub.
+
+
+        For split-payout cases, which are only available to sellers in mainland China, this method will return the payoutPercentage for the specified payout. This value indicates the current payout percentage allocated to a payment instrument. This method will also return the convertedToCurrency and convertedToValue response fields in CNY value.
+
+
+        Note: In split-payout cases, this method will only return details on an individual payout, also known as a true(actual) payoutid. If a user inputs a payoutReference id as a path parameter, the call will fail and the 404 not found status code will be returned.
+
+        For more information on split payouts, see Mainland China Split Payout Playbook.'
       operationId: getPayout
       parameters:
       - name: X-EBAY-C-MARKETPLACE-ID
@@ -64,11 +78,31 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.finances
+      summary: Get payout
+      x-summary-source: derived
   /payout:
     get:
       tags:
       - Payout
-      description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> Due to EU &amp; UK Payments regulatory requirements, an additional security verification via Digital Signatures is required for certain API calls that are made on behalf of EU/UK sellers, including all <b>Finances API</b> methods. Please refer to <a href="/develop/guides/digital-signatures-for-apis " target="_blank">Digital Signatures for APIs</a> to learn more on the impacted APIs and the process to create signatures to be included in the HTTP payload.</p></div><br>This method is used to retrieve the details of one or more seller payouts. By using the <b>filter</b> query parameter, users can retrieve payouts processed within a specific date range, and/or they can retrieve payouts in a specific state.<br><br>There are also pagination and sort query parameters that allow users to control the payouts that are returned in the response.<br><br>If no payouts match the input criteria, an empty payload is returned.<br><br>For split-payout cases, which are <b>only</b> available to sellers in mainland China, this method will return the <b>payoutPercentage</b> for the specified payout. This value indicates the current payout percentage allocated to a payout instrument. This method will also return the <b>convertedToCurrency</b> and <b>convertedTo</b> response fields set to CNY value and the <b>payoutReference</b>, the unique identifier reference (not true payout). <br><br>By using the <b>filter</b> query parameter, users can retrieve the two true(actual) payouts associated with a <b>payoutReference</b>.<br><br><span class="tablenote"><b>Note:</b> For more information on split payouts, see <a href="/api-docs/split-payout/playbook.html" target="_blank">Mainland China Split Payout Playbook</a>.</span> '
+      description: 'Important! Due to EU & UK Payments regulatory requirements, an additional security verification via Digital Signatures is required for certain API calls that are made on behalf of EU/UK sellers, including all Finances API methods. Please refer to Digital Signatures for APIs to learn more on the impacted APIs and the process to create signatures to be included in the HTTP payload.
+
+
+        This method is used to retrieve the details of one or more seller payouts. By using the filter query parameter, users can retrieve payouts processed within a specific date range, and/or they can retrieve payouts in a specific state.
+
+
+        There are also pagination and sort query parameters that allow users to control the payouts that are returned in the response.
+
+
+        If no payouts match the input criteria, an empty payload is returned.
+
+
+        For split-payout cases, which are only available to sellers in mainland China, this method will return the payoutPercentage for the specified payout. This value indicates the current payout percentage allocated to a payout instrument. This method will also return the convertedToCurrency and convertedTo response fields set to CNY value and the payoutReference, the unique identifier reference (not true payout).
+
+
+        By using the filter query parameter, users can retrieve the two true(actual) payouts associated with a payoutReference.
+
+
+        Note: For more information on split payouts, see Mainland China Split Payout Playbook.'
       operationId: getPayouts
       parameters:
       - name: X-EBAY-C-MARKETPLACE-ID
@@ -141,11 +175,22 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.finances
+      summary: Get payouts
+      x-summary-source: derived
   /payout_summary:
     get:
       tags:
       - Payout
-      description: '<div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> Due to EU &amp; UK Payments regulatory requirements, an additional security verification via Digital Signatures is required for certain API calls that are made on behalf of EU/UK sellers, including all <b>Finances API</b> methods. Please refer to <a href="/develop/guides/digital-signatures-for-apis " target="_blank">Digital Signatures for APIs</a> to learn more on the impacted APIs and the process to create signatures to be included in the HTTP payload.</p></div><br>This method is used to retrieve cumulative values for payouts in a particular state, or all states. The metadata in the response includes total payouts, the total number of monetary transactions (sales, refunds, credits) associated with those payouts, and the total dollar value of all payouts.<br><br>If the <b>filter</b> query parameter is used to filter by payout status, only one payout status value may be used. If the <b>filter</b> query parameter is not used to filter by a specific payout status, cumulative values for payouts in all states are returned.<br><br>The user can also use the <b>filter</b> query parameter to specify a date range, and then only payouts that were processed within that date range are considered.'
+      description: 'Important! Due to EU & UK Payments regulatory requirements, an additional security verification via Digital Signatures is required for certain API calls that are made on behalf of EU/UK sellers, including all Finances API methods. Please refer to Digital Signatures for APIs to learn more on the impacted APIs and the process to create signatures to be included in the HTTP payload.
+
+
+        This method is used to retrieve cumulative values for payouts in a particular state, or all states. The metadata in the response includes total payouts, the total number of monetary transactions (sales, refunds, credits) associated with those payouts, and the total dollar value of all payouts.
+
+
+        If the filter query parameter is used to filter by payout status, only one payout status value may be used. If the filter query parameter is not used to filter by a specific payout status, cumulative values for payouts in all states are returned.
+
+
+        The user can also use the filter query parameter to specify a date range, and then only payouts that were processed within that date range are considered.'
       operationId: getPayoutSummary
       parameters:
       - name: X-EBAY-C-MARKETPLACE-ID
@@ -190,54 +235,10 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.finances
+      summary: Get payout summary
+      x-summary-source: derived
 components:
   schemas:
-    Payouts:
-      type: object
-      properties:
-        href:
-          type: string
-          description: The URI of the <b>getPayouts</b> call request that produced the current page of the result set.
-        limit:
-          type: integer
-          description: The maximum number of payouts that may be returned per page of the result set. The <strong>limit</strong> value can be passed in as a query parameter, or if omitted, its value defaults to <code>20</code>. <br><br><span class="tablenote"><strong>Note:</strong> If this is the last or only page of the result set, the page may contain fewer payouts than the <strong>limit</strong> value.  To determine the number of pages in a result set, divide the <b>total</b> value (total number of payouts matching input criteria) by this <strong>limit</strong> value, and then round up to the next integer. For example, if the <b>total</b> value was <code>120</code> (120 total payouts) and the <strong>limit</strong> value was <code>50</code> (show 50 payouts per page), the total number of pages in the result set is three, so the seller would have to make three separate <strong>getPayouts</strong> calls to view all payouts matching the input criteria. </span><br><br><b>Maximum:</b> <code>200</code> <br> <b>Default:</b> <code>20</code>
-          format: int32
-        next:
-          type: string
-          description: The <b>getPayouts</b> call URI to use if you wish to view the next page of the result set. <br><br>This field is only returned if there is a next page of results to view based on the current input criteria.
-        offset:
-          type: integer
-          description: This integer value indicates the actual position that the first payout returned on the current page has in the results set. So, if you wanted to view the 11th payout of the result set, you would set the <strong>offset</strong> value in the request to <code>10</code>. <br><br>In the request, you can use the <b>offset</b> parameter in conjunction with the <b>limit</b> parameter to control the pagination of the output. For example, if <b>offset</b> is set to <code>30</code> and <b>limit</b> is set to <code>10</code>, the call retrieves payouts 31 thru 40 from the resulting collection of payouts. <br><br> <span class="tablenote"><strong>Note:</strong> This feature employs a zero-based list, where the first item in the list has an offset of <code>0</code>.</span><br><br><b>Default:</b> <code>0</code> (zero)
-          format: int32
-        payouts:
-          type: array
-          description: An array of one or more payouts that match the input criteria. Details for each payout include the unique identifier of the payout, the status of the payout, the amount of the payout, and the number of monetary transactions associated with the payout.
-          items:
-            $ref: '#/components/schemas/Payout'
-        prev:
-          type: string
-          description: The <b>getPayouts</b> call URI to use if you wish to view the previous page of the result set. <br><br>This field is only returned if there is a previous page of results to view based on the current input criteria.
-        total:
-          type: integer
-          description: This integer value is the total number of payouts in the results set based on the current input criteria. Based on the total number of payouts that match the criteria, and on the <strong>limit</strong> and <strong>offset</strong> values, there may be additional pages in the results set.
-          format: int32
-      description: This type is the base response type of the <strong>getPayouts</strong> method, and contains an array of one or more payouts (that match the input criteria), the total count of payouts in the response, and various pagination data for the results set.
-    PayoutInstrument:
-      type: object
-      properties:
-        accountLastFourDigits:
-          type: string
-          description: This value is the last four digits of the account that the seller uses to receive the payout. This may be the last four digits of a bank account, a debit card, or a payment processor account such as Payoneer.
-        instrumentType:
-          type: string
-          description: 'This value indicates the type of account that received the payout. The value returned in this field may be:<br><ul><li><code>BANK</code>: indicates that the payout was made to a seller''s bank account.</li><li><code>CARD</code>: indicates that the payout went to a seller''s debit card</li><li>The name of a digital wallet provider or payment processor (e.g., <code>PAYONEER</code>)</li></ul><br><br><span class="tablenote"><b>Note:</b> Only Payoneer is currently supported for sellers in mainland China. Card payouts are not currently available for sellers in mainland China.</span>'
-        nickname:
-          type: string
-          description: When <b>instrumentType</b> returns <code>BANK</code>, this value is the seller-provided nickname that the seller uses to represent the bank account that receives the payout.<br><br>When <b>instrumentType</b> returns <code>CARD</code>, this value is the debit card network for the debit card that receives the payout.<br><br>When <b>instrumentType</b> returns a provider of digital wallet or payment processing services, the value returned is the name of the service provider (e.g., <code>PAYONEER</code>).<br><br><span class="tablenote"><b>Note:</b> Card payouts are not currently available for sellers in mainland China.</span>
-        payoutPercentage:
-          type: string
-          description: This value indicates the current payout percentage allocated to a payout instrument. For example, <code>50</code> indicates that 50% of the payout goes to the instrument.<br><br>This field will be returned even when 100% of the payout funds are going to one payout instrument.<br><br>This field is only returned to sellers in mainland China.
-      description: This type is used to provide details about one or two of the seller's accounts that are enabled to receive payouts.
     Payout:
       type: object
       properties:
@@ -287,6 +288,78 @@ components:
           description: 'This integer value indicates the number of monetary transactions (all orders, refunds, and credits, etc.) that have occurred with the corresponding payout. Its value should always be at least <code>1</code>, since there is at least one order per seller payout.<br/><br/>For split payouts, each of the two sibling payouts would be considered its own transaction. Because of this, if a seller had a payout for one order, but split the order between two accounts, the value would be <code>2</code> instead of <code>1</code>.<br><br><span class="tablenote"><b>Note: </b>Split-payout functionality is <b>only</b> applicable to mainland China sellers. </span>'
           format: int32
       description: This type is used to express the details of one seller payout that is returned with the <strong>getPayout</strong> or <strong>getPayouts</strong> methods.
+    Fee:
+      type: object
+      properties:
+        amount:
+          description: The amount of the fee.
+          $ref: '#/components/schemas/Amount'
+        feeJurisdiction:
+          description: Indicates the specific jurisdiction for the fee that has been deducted from the seller payout.
+          $ref: '#/components/schemas/FeeJurisdiction'
+        feeMemo:
+          type: string
+          description: A description of the fee that was deducted from the seller payout.
+        feeType:
+          type: string
+          description: The enumeration value returned here indicates the type of fee that was deducted from the seller payout. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/api:FeeTypeEnum'>eBay API documentation</a>
+      description: This type is used to display fees that are automatically deducted from seller payouts.
+    PayoutInstrument:
+      type: object
+      properties:
+        accountLastFourDigits:
+          type: string
+          description: This value is the last four digits of the account that the seller uses to receive the payout. This may be the last four digits of a bank account, a debit card, or a payment processor account such as Payoneer.
+        instrumentType:
+          type: string
+          description: 'This value indicates the type of account that received the payout. The value returned in this field may be:<br><ul><li><code>BANK</code>: indicates that the payout was made to a seller''s bank account.</li><li><code>CARD</code>: indicates that the payout went to a seller''s debit card</li><li>The name of a digital wallet provider or payment processor (e.g., <code>PAYONEER</code>)</li></ul><br><br><span class="tablenote"><b>Note:</b> Only Payoneer is currently supported for sellers in mainland China. Card payouts are not currently available for sellers in mainland China.</span>'
+        nickname:
+          type: string
+          description: When <b>instrumentType</b> returns <code>BANK</code>, this value is the seller-provided nickname that the seller uses to represent the bank account that receives the payout.<br><br>When <b>instrumentType</b> returns <code>CARD</code>, this value is the debit card network for the debit card that receives the payout.<br><br>When <b>instrumentType</b> returns a provider of digital wallet or payment processing services, the value returned is the name of the service provider (e.g., <code>PAYONEER</code>).<br><br><span class="tablenote"><b>Note:</b> Card payouts are not currently available for sellers in mainland China.</span>
+        payoutPercentage:
+          type: string
+          description: This value indicates the current payout percentage allocated to a payout instrument. For example, <code>50</code> indicates that 50% of the payout goes to the instrument.<br><br>This field will be returned even when 100% of the payout funds are going to one payout instrument.<br><br>This field is only returned to sellers in mainland China.
+      description: This type is used to provide details about one or two of the seller's accounts that are enabled to receive payouts.
+    Payouts:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The URI of the <b>getPayouts</b> call request that produced the current page of the result set.
+        limit:
+          type: integer
+          description: The maximum number of payouts that may be returned per page of the result set. The <strong>limit</strong> value can be passed in as a query parameter, or if omitted, its value defaults to <code>20</code>. <br><br><span class="tablenote"><strong>Note:</strong> If this is the last or only page of the result set, the page may contain fewer payouts than the <strong>limit</strong> value.  To determine the number of pages in a result set, divide the <b>total</b> value (total number of payouts matching input criteria) by this <strong>limit</strong> value, and then round up to the next integer. For example, if the <b>total</b> value was <code>120</code> (120 total payouts) and the <strong>limit</strong> value was <code>50</code> (show 50 payouts per page), the total number of pages in the result set is three, so the seller would have to make three separate <strong>getPayouts</strong> calls to view all payouts matching the input criteria. </span><br><br><b>Maximum:</b> <code>200</code> <br> <b>Default:</b> <code>20</code>
+          format: int32
+        next:
+          type: string
+          description: The <b>getPayouts</b> call URI to use if you wish to view the next page of the result set. <br><br>This field is only returned if there is a next page of results to view based on the current input criteria.
+        offset:
+          type: integer
+          description: This integer value indicates the actual position that the first payout returned on the current page has in the results set. So, if you wanted to view the 11th payout of the result set, you would set the <strong>offset</strong> value in the request to <code>10</code>. <br><br>In the request, you can use the <b>offset</b> parameter in conjunction with the <b>limit</b> parameter to control the pagination of the output. For example, if <b>offset</b> is set to <code>30</code> and <b>limit</b> is set to <code>10</code>, the call retrieves payouts 31 thru 40 from the resulting collection of payouts. <br><br> <span class="tablenote"><strong>Note:</strong> This feature employs a zero-based list, where the first item in the list has an offset of <code>0</code>.</span><br><br><b>Default:</b> <code>0</code> (zero)
+          format: int32
+        payouts:
+          type: array
+          description: An array of one or more payouts that match the input criteria. Details for each payout include the unique identifier of the payout, the status of the payout, the amount of the payout, and the number of monetary transactions associated with the payout.
+          items:
+            $ref: '#/components/schemas/Payout'
+        prev:
+          type: string
+          description: The <b>getPayouts</b> call URI to use if you wish to view the previous page of the result set. <br><br>This field is only returned if there is a previous page of results to view based on the current input criteria.
+        total:
+          type: integer
+          description: This integer value is the total number of payouts in the results set based on the current input criteria. Based on the total number of payouts that match the criteria, and on the <strong>limit</strong> and <strong>offset</strong> values, there may be additional pages in the results set.
+          format: int32
+      description: This type is the base response type of the <strong>getPayouts</strong> method, and contains an array of one or more payouts (that match the input criteria), the total count of payouts in the response, and various pagination data for the results set.
+    FeeJurisdiction:
+      type: object
+      properties:
+        regionName:
+          type: string
+          description: String value that indicates the name of the region to which a region-specific fee applies.<br><br>The set of valid <b>regionName</b> values that may be returned is determined by the <b>regionType</b> value.<br><br><span class="tablenote"><strong>Note:</strong> Currently, supported <b>regionName</b> values that may be returned are standard two-character country or state codes.<br><br>Typical examples include:<ul><li><b>MX</b> [Mexico]</li><li><b>IN</b> [India]</li><li><b>US</b> [United States]</li><li>CA [California]</li><li>VT [Vermont]</li><li>ME [Maine]</li></ul></span>
+        regionType:
+          type: string
+          description: The enumeration value returned here indicates the type of region that is collecting the corresponding fee. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:RegionTypeEnum'>eBay API documentation</a>
+      description: This container returns jurisdiction information about region-specific fees that are charged to sellers.
     PayoutSummaryResponse:
       type: object
       properties:
@@ -327,32 +400,6 @@ components:
           type: string
           description: The monetary amount, in the currency specified by the <b>currency</b> field. This field is always returned with any container using <b>Amount</b> type.
       description: This type is used to express the dollar value and currency used for any transaction retrieved with the <strong>Finances API</strong>, including an order total, a seller payout, a buyer refund, or a seller credit.
-    Fee:
-      type: object
-      properties:
-        amount:
-          description: The amount of the fee.
-          $ref: '#/components/schemas/Amount'
-        feeJurisdiction:
-          description: Indicates the specific jurisdiction for the fee that has been deducted from the seller payout.
-          $ref: '#/components/schemas/FeeJurisdiction'
-        feeMemo:
-          type: string
-          description: A description of the fee that was deducted from the seller payout.
-        feeType:
-          type: string
-          description: The enumeration value returned here indicates the type of fee that was deducted from the seller payout. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/api:FeeTypeEnum'>eBay API documentation</a>
-      description: This type is used to display fees that are automatically deducted from seller payouts.
-    FeeJurisdiction:
-      type: object
-      properties:
-        regionName:
-          type: string
-          description: String value that indicates the name of the region to which a region-specific fee applies.<br><br>The set of valid <b>regionName</b> values that may be returned is determined by the <b>regionType</b> value.<br><br><span class="tablenote"><strong>Note:</strong> Currently, supported <b>regionName</b> values that may be returned are standard two-character country or state codes.<br><br>Typical examples include:<ul><li><b>MX</b> [Mexico]</li><li><b>IN</b> [India]</li><li><b>US</b> [United States]</li><li>CA [California]</li><li>VT [Vermont]</li><li>ME [Maine]</li></ul></span>
-        regionType:
-          type: string
-          description: The enumeration value returned here indicates the type of region that is collecting the corresponding fee. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:RegionTypeEnum'>eBay API documentation</a>
-      description: This container returns jurisdiction information about region-specific fees that are charged to sellers.
   securitySchemes:
     api_auth:
       type: oauth2

@@ -1,7 +1,9 @@
 ---
 title: eBay Hires Jan Pedersen as Chief Scientist, Artificial ...
 url: https://www.prnewswire.com/news-releases/ebay-hires-jan-pedersen-as-chief-scientist-artificial-intelligence-300597618.html
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"eBay" press release artificial intelligence'
 position: 3
 source: serpapi-google

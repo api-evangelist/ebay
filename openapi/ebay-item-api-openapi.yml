@@ -1,7 +1,12 @@
 openapi: 3.2.0
 info:
   title: eBay Browse Item API
-  description: The Browse API has the following resources:<ul><li><b>item_summary:</b><br>Allows shoppers to search for specific items by keyword, GTIN, category, charity, product, image <a href="/api-docs/static/versioning.html#experimental" target="_blank"><img src="/cms/img/docs/experimental-icon.svg" class="legend-icon experimental-icon" alt="Experimental Method" title="Experimental Method" />(Experimental Method)</a>, or item aspects and refine the results by using filters, such as aspects, compatibility, and fields values, or UI parameters.</li><li><b>item:</b><br>Allows shoppers to retrieve the details of a specific item or all items in an item group, which is an item with variations such as color and size and check if a product is compatible with the specified item, such as if a specific car is compatible with a specific part.<br><br>This resource also provides a bridge between the eBay legacy APIs, such as the <a href="/api-docs/user-guides/static/finding-user-guide-landing.html" target="_blank">Finding</b>, and the RESTful APIs, which use different formats for the item IDs.</li></ul>The <b>item_summary</b>, <b>search_by_image</b>, and <b>item</b> resource calls require an <a href="/api-docs/static/oauth-client-credentials-grant.html" target="_blank">Application access token</a>.
+  description: 'The Browse API has the following resources:
+
+
+    item_summary:
+
+    Allows shoppers to search for specific items by keyword, GTIN, category, charity, product, image (Experimental Method), or item aspects and refine the results by using filters, such as aspects, compatibility, and fields values, or UI parameters.'
   contact:
     name: eBay Inc,
   license:
@@ -21,7 +26,35 @@ paths:
     get:
       tags:
       - Item
-      description: This method retrieves the details of a specific item, such as description, price, category, all item aspects, condition, return policies, seller feedback and score, shipping options, shipping costs, estimated delivery, and other information the buyer needs to make a purchasing decision.<br><br>The Buy APIs are designed to let you create an eBay shopping experience in your app or website. This means you will need to know when something, such as the availability, quantity, etc., has changed in any eBay item you are offering. This is easily achieved by setting the <b>fieldgroups</b> URI parameter to one of the following values:<ul><li><code>COMPACT</code><br>Reduces the response to only those fields necessary in order to determine if any item detail has changed. This field group <b>must</b> be used alone.</li><li><code>PRODUCT</code><br>Adds fields to the default response that return information about the product/item. This field group may also be used in conjunction with <code>ADDITIONAL_SELLER_DETAILS</code>.</li><li><code>ADDITIONAL_SELLER_DETAILS</code><br>Adds an additional field to the response that returns the seller's user ID. This field group may also be used in conjunction with <code>PRODUCT</code>.</li></ul>For additional information, refer to <a href="/api-docs/buy/browse/resources/item/methods/getItem#uri.fieldgroups">fieldgroups</a>.<h3>Restrictions</h3>For a list of supported sites and other restrictions, refer to <a href="/api-docs/buy/browse/overview.html#API">API Restrictions</a>.<br><br><span class="tablenote"><b>eBay Partner Network:</b> In order to be commissioned for your sales, you must use the URL returned in the <code>itemAffiliateWebUrl</code> field to forward your buyer to the ebay.com site.</span>
+      description: 'This method retrieves the details of a specific item, such as description, price, category, all item aspects, condition, return policies, seller feedback and score, shipping options, shipping costs, estimated delivery, and other information the buyer needs to make a purchasing decision.
+
+
+        The Buy APIs are designed to let you create an eBay shopping experience in your app or website. This means you will need to know when something, such as the availability, quantity, etc., has changed in any eBay item you are offering. This is easily achieved by setting the fieldgroups URI parameter to one of the following values:
+
+
+        COMPACT
+
+        Reduces the response to only those fields necessary in order to determine if any item detail has changed. This field group must be used alone.
+
+
+        PRODUCT
+
+        Adds fields to the default response that return information about the product/item. This field group may also be used in conjunction with ADDITIONAL_SELLER_DETAILS.
+
+
+        ADDITIONAL_SELLER_DETAILS
+
+        Adds an additional field to the response that returns the seller''s user ID. This field group may also be used in conjunction with PRODUCT.
+
+
+        For additional information, refer to fieldgroups.
+
+        Restrictions
+
+        For a list of supported sites and other restrictions, refer to API Restrictions.
+
+
+        eBay Partner Network: In order to be commissioned for your sales, you must use the URL returned in the itemAffiliateWebUrl field to forward your buyer to the ebay.com site.'
       operationId: getItem
       parameters:
       - name: fieldgroups
@@ -146,11 +179,43 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope
+      summary: Get item
+      x-summary-source: derived
   /item/get_item_by_legacy_id:
     get:
       tags:
       - Item
-      description: This method is a bridge between the eBay legacy APIs, such as <b>Shopping</b> and <b>Finding</b>, and the eBay Buy APIs. There are differences between how legacy APIs and RESTful APIs return the identifier of an "item" and what the item ID represents. This method lets you use the legacy item ids retrieve the details of a specific item, such as description, price, and other information the buyer needs to make a purchasing decision. It also returns the RESTful <b>item_id</b>, which you can use with all the Buy API  methods.<br><br>For additional information about how to use legacy ids with the Buy APIs, refer to <a href="/api-docs/buy/static/api-browse.html#Legacy" target="_blank">Item ID legacy API compatibility overview</a> in the Buying Integration guide.</br><br>This method returns the item details and requires you to pass in either the <b>item_id</b> of a non-variation item or the <b>item_id</b> values for both the parent and child of an item group.<br><br><span class="tablenote"><b>Note:</b> An item group is an item that has various aspect differences, such as color, size, storage capacity, etc.</span></br>When an item group is created, one of the item variations, such as the red shirt size L, is chosen as the "parent". All other items in the group are the children, such as the blue shirt size L, red shirt size M, etc.<br><br>The <b>fieldgroups</b> URI parameter lets you control what is returned in the response:<ul><li>Setting <b>fieldgroups</b> to <code>PRODUCT</code> adds additional fields to the default response that return information about the product of the item.</li><li>Setting the <b>fieldgroups</b> to <code>ADDITIONAL_SELLER_DETAILS</code> adds an additional field to the response that returns the seller's user ID.</li></ul>These <b>fieldgroups</b> can be used independently or at the same time. For additional information, refer to <a href="/api-docs/buy/browse/resources/item/methods/getItemByLegacyId#uri.fieldgroups">fieldgroups</a>.<h3>Restrictions</h3>For a list of supported sites and other restrictions, refer to <a href="/api-docs/buy/browse/overview.html#API">API Restrictions</a>.<br><br><span class="tablenote"><b>eBay Partner Network:</b> In order to be commissioned for your sales, you must use the URL returned in the <code>itemAffiliateWebUrl</code> field to forward your buyer to the ebay.com site.</span>
+      description: 'This method is a bridge between the eBay legacy APIs, such as Shopping and Finding, and the eBay Buy APIs. There are differences between how legacy APIs and RESTful APIs return the identifier of an "item" and what the item ID represents. This method lets you use the legacy item ids retrieve the details of a specific item, such as description, price, and other information the buyer needs to make a purchasing decision. It also returns the RESTful item_id, which you can use with all the Buy API methods.
+
+
+        For additional information about how to use legacy ids with the Buy APIs, refer to Item ID legacy API compatibility overview in the Buying Integration guide.
+
+
+        This method returns the item details and requires you to pass in either the item_id of a non-variation item or the item_id values for both the parent and child of an item group.
+
+
+        Note: An item group is an item that has various aspect differences, such as color, size, storage capacity, etc.
+
+        When an item group is created, one of the item variations, such as the red shirt size L, is chosen as the "parent". All other items in the group are the children, such as the blue shirt size L, red shirt size M, etc.
+
+
+        The fieldgroups URI parameter lets you control what is returned in the response:
+
+
+        Setting fieldgroups to PRODUCT adds additional fields to the default response that return information about the product of the item.
+
+
+        Setting the fieldgroups to ADDITIONAL_SELLER_DETAILS adds an additional field to the response that returns the seller''s user ID.
+
+
+        These fieldgroups can be used independently or at the same time. For additional information, refer to fieldgroups.
+
+        Restrictions
+
+        For a list of supported sites and other restrictions, refer to API Restrictions.
+
+
+        eBay Partner Network: In order to be commissioned for your sales, you must use the URL returned in the itemAffiliateWebUrl field to forward your buyer to the ebay.com site.'
       operationId: getItemByLegacyId
       parameters:
       - name: fieldgroups
@@ -263,11 +328,29 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope
+      summary: Get item by legacy id
+      x-summary-source: derived
   /item/:
     get:
       tags:
       - Item
-      description: 'This method retrieves the details about specific items that buyers need to make a purchasing decision.<br><br><span class="tablenote"><b>Note:</b> This is a <a href="/api-docs/static/versioning.html#limited " target="_blank"><img src="/cms/img/docs/partners-api.svg" class="legend-icon partners-icon" title="Limited Release"  alt="Limited Release" />(Limited Release)</a> available only to select Partners.<br><br>For this method, only the following fields are returned: <code>bidCount</code>, <code>currentBidPrice</code>, <code>eligibleForInlineCheckout</code>, <code>enabledForGuestCheckout</code>, <code>estimatedAvailabilities</code>, <code>gtin</code>, <code>itemAffiliateWebUrl</code>, <code>itemCreationDate</code>, <code>itemId</code>, <code>itemWebUrl</code>, <code>legacyItemId</code>, <code>minimumPriceToBid</code>, <code>price</code>, <code>priorityListing</code>, <code>reservePriceMet</code>, <code>sellerItemRevision</code>, <code>taxes</code>, <code>topRatedBuyingExperience</code>, and <code>uniqueBidderCount</code>.<br><br>The array <code>shippingOptions</code>, which comprises multiple fields, is also returned.</span><h3>Restrictions</h3>For a list of supported sites and other restrictions, refer to <a href="/api-docs/buy/browse/overview.html#API">API Restrictions</a>.<br><br><span class="tablenote"><b>eBay Partner Network:</b> In order to be commissioned for your sales, you must use the URL returned in the itemAffiliateWebUrl field to forward your buyer to the ebay.com site.'
+      description: 'This method retrieves the details about specific items that buyers need to make a purchasing decision.
+
+
+        Note: This is a (Limited Release) available only to select Partners.
+
+
+        For this method, only the following fields are returned: bidCount, currentBidPrice, eligibleForInlineCheckout, enabledForGuestCheckout, estimatedAvailabilities, gtin, itemAffiliateWebUrl, itemCreationDate, itemId, itemWebUrl, legacyItemId, minimumPriceToBid, price, priorityListing, reservePriceMet, sellerItemRevision, taxes, topRatedBuyingExperience, and uniqueBidderCount.
+
+
+        The array shippingOptions, which comprises multiple fields, is also returned.
+
+        Restrictions
+
+        For a list of supported sites and other restrictions, refer to API Restrictions.
+
+
+        eBay Partner Network: In order to be commissioned for your sales, you must use the URL returned in the itemAffiliateWebUrl field to forward your buyer to the ebay.com site.'
       operationId: getItems
       parameters:
       - name: item_ids
@@ -388,11 +471,39 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/buy.item.bulk
+      summary: Get items
+      x-summary-source: derived
   /item/get_items_by_item_group:
     get:
       tags:
       - Item
-      description: 'This method retrieves details about individual items in an item group. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc.<br><br>You pass in the <b>item_group_id</b> as a URI parameter.<br><br>This method returns two main containers:<ul><li><b>items</b><br>This container has an array of containers with the details about each item in the group.</li><li><b>commonDescriptions</b><br>This container has an array of containers for a description and the <code>item_ids</code> for all items that have this exact description. Because items within an item group often have the same description, this decreases the size of the response.</li></ul>Setting the <b>fieldgroup</b> to <code>ADDITIONAL_SELLER_DETAILS</code> adds an additional field to the response that returns the seller''s user ID. For more information, refer to <a href="/api-docs/buy/browse/resources/item/methods/getItemsByItemGroup#uri.fieldgroups">fieldgroups</a>.<h3>Restrictions</h3>For a list of supported sites and other restrictions, refer to <a href="/api-docs/buy/browse/overview.html#API">API Restrictions</a>.<br><br><span class="tablenote"><b>eBay Partner Network: </b> In order to be commissioned for your sales, you must use the URL returned in the <code>itemAffiliateWebUrl</code> field to forward your buyer to the ebay.com site.</span>'
+      description: 'This method retrieves details about individual items in an item group. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc.
+
+
+        You pass in the item_group_id as a URI parameter.
+
+
+        This method returns two main containers:
+
+
+        items
+
+        This container has an array of containers with the details about each item in the group.
+
+
+        commonDescriptions
+
+        This container has an array of containers for a description and the item_ids for all items that have this exact description. Because items within an item group often have the same description, this decreases the size of the response.
+
+
+        Setting the fieldgroup to ADDITIONAL_SELLER_DETAILS adds an additional field to the response that returns the seller''s user ID. For more information, refer to fieldgroups.
+
+        Restrictions
+
+        For a list of supported sites and other restrictions, refer to API Restrictions.
+
+
+        eBay Partner Network: In order to be commissioned for your sales, you must use the URL returned in the itemAffiliateWebUrl field to forward your buyer to the ebay.com site.'
       operationId: getItemsByItemGroup
       parameters:
       - name: fieldgroups
@@ -481,11 +592,34 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope
+      summary: Get items by item group
+      x-summary-source: derived
   /item/{item_id}/check_compatibility:
     post:
       tags:
       - Item
-      description: 'This method checks if a product is compatible with the specified item. You can use this method to check the compatibility of cars, trucks, and motorcycles with a specific part listed on eBay.<br><br>For example, to check the compatibility of a part, you pass in the <b>item_id</b> of the part as a URI parameter and specify all the attributes used to define a specific car within the <b>compatibilityProperties</b> container. If the call is successful, the response will be <code>COMPATIBLE</code>, <code>NOT_COMPATIBLE</code>, or <code>UNDETERMINED</code>. Refer to <a href="/api-docs/buy/browse/resources/item/methods/checkCompatibility#response.compatibilityStatus">compatibilityStatus</a> for details.   <br><br><span class="tablenote"><b>Note:</b> The only products supported are cars, trucks, and motorcycles.</span><br>To find the attributes and values for a specific marketplace, you can use the compatibility methods in the <a href="/api-docs/commerce/taxonomy/resources/methods" target="_blank">Taxonomy API</a>. You can use this data to create menus to help buyers specify the product, such as their car.<br><br>For more information and a list of required attributes for the US marketplace that describe motor vehicles, refer to <a href="/api-docs/buy/static/api-browse.html#Check" target="_blank">Check compatibility</a> in the <i>Buying Integration Guide</i>.<br><br>For an example, refer to the <a href="/api-docs/buy/browse/resources/item/methods/checkCompatibility#h2-samples">Samples</a> section.<br><br><span class="tablenote"><b>Note:</b> This method is supported in Sandbox but <i>only</i> when passing in the specified <code>item_id</code> and compatibility name-value pairs listed in <a href="/api-docs/buy/browse/resources/item/methods/checkCompatibility#s0-1-22-6-7-7-6-SandboxSample-1">Sample 2: Sandbox Sample</a>.</span><h3>Restrictions</h3>For a list of supported sites and other restrictions, refer to <a href="/api-docs/buy/browse/overview.html#API">API Restrictions</a>.'
+      description: 'This method checks if a product is compatible with the specified item. You can use this method to check the compatibility of cars, trucks, and motorcycles with a specific part listed on eBay.
+
+
+        For example, to check the compatibility of a part, you pass in the item_id of the part as a URI parameter and specify all the attributes used to define a specific car within the compatibilityProperties container. If the call is successful, the response will be COMPATIBLE, NOT_COMPATIBLE, or UNDETERMINED. Refer to compatibilityStatus for details.
+
+
+        Note: The only products supported are cars, trucks, and motorcycles.
+
+        To find the attributes and values for a specific marketplace, you can use the compatibility methods in the Taxonomy API. You can use this data to create menus to help buyers specify the product, such as their car.
+
+
+        For more information and a list of required attributes for the US marketplace that describe motor vehicles, refer to Check compatibility in the Buying Integration Guide.
+
+
+        For an example, refer to the Samples section.
+
+
+        Note: This method is supported in Sandbox but only when passing in the specified item_id and compatibility name-value pairs listed in Sample 2: Sandbox Sample.
+
+        Restrictions
+
+        For a list of supported sites and other restrictions, refer to API Restrictions.'
       operationId: checkCompatibility
       parameters:
       - name: item_id
@@ -574,45 +708,434 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope
+      summary: Check compatibility
+      x-summary-source: derived
 components:
   schemas:
-    Address:
+    Product:
       type: object
       properties:
-        addressLine1:
-          type: string
-          description: The first line of the street address.<br><br><span class="tablenote"><b>Note:</b> This is conditionally returned in the <code>itemLocation</code> field.</span>
-        addressLine2:
-          type: string
-          description: The second line of the street address. This field is not always used, but can be used for "Suite Number" or "Apt Number".
-        city:
-          type: string
-          description: The city of the address.
-        country:
-          type: string
-          description: The two-letter <a href="https://www.iso.org/iso-3166-country-codes.html " target="_blank">ISO 3166</a> standard code for the country of the address. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/ba:CountryCodeEnum'>eBay API documentation</a>
-        county:
-          type: string
-          description: The county of the address.
-        postalCode:
-          type: string
-          description: The postal code (or zip code in US) code of the address. Sellers set a postal code (or zip code in US) for items when they are listed. The postal code is used for calculating proximity searches. It is anonymized when returned in <code>itemLocation.postalCode</code> via the API.
-        stateOrProvince:
-          type: string
-          description: The state or province of the address.<br><br><span class="tablenote"><b>Note:</b> This is conditionally returned in the <code>itemLocation</code> field.</span>
-      description: The type that defines the fields for an address.
-    ConditionDescriptorValue:
-      type: object
-      properties:
-        additionalInfo:
+        additionalImages:
           type: array
-          description: Additional information about the condition of an item as it relates to a condition descriptor. This array elaborates on the value specified in the <b>content</b> field and provides additional details about the condition of an item.
+          description: 'An array of containers with the URLs for the product images that are in addition to the primary image. '
+          items:
+            $ref: '#/components/schemas/Image'
+        additionalProductIdentities:
+          type: array
+          description: An array of product identifiers associated with the item. This container is returned if the seller has associated the eBay Product Identifier (ePID) with the item and in the request <b> fieldgroups</b> is set to <code>PRODUCT</code>.
+          items:
+            $ref: '#/components/schemas/AdditionalProductIdentity'
+        aspectGroups:
+          type: array
+          description: An array of containers for the product aspects. Each group contains the aspect group name and the aspect name/value pairs.
+          items:
+            $ref: '#/components/schemas/AspectGroup'
+        brand:
+          type: string
+          description: The brand associated with product. To identify the product, this is always used along with MPN (manufacturer part number).
+        description:
+          type: string
+          description: The rich description of an eBay product, which might contain HTML.
+        gtins:
+          type: array
+          description: An array of all the possible GTINs values associated with the product. A GTIN is a unique Global Trade Item number of the item as defined by <a href="https://www.gtin.info " target="_blank">https://www.gtin.info</a>. This can be a UPC (Universal Product Code), EAN (European Article Number), or an ISBN (International Standard Book Number) value.
           items:
             type: string
-        content:
+        image:
+          description: The primary image of the product. This is often a stock photo.
+          $ref: '#/components/schemas/Image'
+        mpns:
+          type: array
+          description: An array of all possible MPN values associated with the product. A MPNs is manufacturer part number of the product. To identify the product, this is always used along with brand.
+          items:
+            type: string
+        title:
           type: string
-          description: The value for the condition descriptor indicated in the associated <b>name</b> field.
-      description: 'This type displays the value(s) associated with the specified condition descriptor name, as well as any additional information about a condition descriptor. '
+          description: The title of the product.
+      description: The type that defines the fields for the product information of the item.
+    SellerCustomPolicy:
+      type: object
+      properties:
+        description:
+          type: string
+          description: The seller-defined description of the policy.
+        label:
+          type: string
+          description: The seller-defined label for an individual custom policy.
+        type:
+          type: string
+          description: The type of custom policy, such as PRODUCT_COMPLIANCE or TAKE_BACK. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:SellerCustomPolicyTypeEnum'>eBay API documentation</a>
+      description: The container for custom policies that apply to a listed item.
+    HazardousMaterialsLabels:
+      type: object
+      properties:
+        additionalInformation:
+          type: string
+          description: Additional information about the hazardous materials labels.
+        pictograms:
+          type: array
+          description: An array of hazard pictograms that apply to the item.
+          items:
+            $ref: '#/components/schemas/HazardPictogram'
+        signalWord:
+          type: string
+          description: The signal word for the hazardous materials label (such as Danger or Warning).
+        signalWordId:
+          type: string
+          description: The ID of the signal word for the hazardous materials label.
+        statements:
+          type: array
+          description: An array of hazard statements for the item.
+          items:
+            $ref: '#/components/schemas/HazardStatement'
+      description: A type that defines the hazardous materials labels for an item.
+    ReviewRating:
+      type: object
+      properties:
+        averageRating:
+          type: string
+          description: The average rating given to a product based on customer reviews.
+        ratingHistograms:
+          type: array
+          description: An array of containers for the product rating histograms that shows the review counts and the product rating.
+          items:
+            $ref: '#/components/schemas/RatingHistogram'
+        reviewCount:
+          type: integer
+          description: The total number of reviews for the item.
+          format: int32
+      description: The type that defines the fields for the rating of a product review.
+    Image:
+      type: object
+      properties:
+        height:
+          type: integer
+          description: Reserved for future use.
+          format: int32
+        imageUrl:
+          type: string
+          description: The URL of the image.
+        width:
+          type: integer
+          description: Reserved for future use.
+          format: int32
+      description: Type that defines the details of an image, such as size and image URL. Currently, only <code>imageUrl</code> is populated. The <code>height</code> and <code>width</code> are reserved for future use.
+    Taxes:
+      type: object
+      properties:
+        ebayCollectAndRemitTax:
+          type: boolean
+          description: 'This field is only returned if <code>true</code>, and indicates that eBay will collect tax (sales tax, Goods and Services tax, or VAT) for at least one line item in the order, and remit the tax to the taxing authority of the buyer''s residence. '
+        includedInPrice:
+          type: boolean
+          description: This indicates if tax was applied for the cost of the item.
+        shippingAndHandlingTaxed:
+          type: boolean
+          description: This indicates if tax is applied for the shipping cost.
+        taxJurisdiction:
+          description: The container that returns the tax jurisdiction.
+          $ref: '#/components/schemas/TaxJurisdiction'
+        taxPercentage:
+          type: string
+          description: The percentage of tax.
+        taxType:
+          type: string
+          description: This field indicates the type of tax that may be collected for the item. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:TaxType'>eBay API documentation</a>
+      description: The type that defines the tax fields.
+    ShippingOption:
+      type: object
+      properties:
+        additionalShippingCostPerUnit:
+          description: Any per item additional shipping costs for a multi-item purchase. For example, let's say the shipping cost for a power cord is $3. But for an additional cord, the shipping cost is only $1. So if you bought 3 cords, the <b> shippingCost</b> would be $3 and this value would be $2 ($1 for each additional item).
+          $ref: '#/components/schemas/ConvertedAmount'
+        cutOffDateUsedForEstimate:
+          type: string
+          description: The deadline date that the item must be purchased by in order to be received by the buyer within the delivery window (<b> maxEstimatedDeliveryDate</b> and  <b> minEstimatedDeliveryDate</b> fields). This field is returned only for items that are eligible for 'Same Day Handling'. For these items, the value of this field is what is displayed in the <b> Delivery</b> line on the View Item page.  <br><br>This value is returned in UTC format (yyyy-MM-ddThh:mm:ss.sssZ), which you can convert into the local time of the buyer.
+        fulfilledThrough:
+          type: string
+          description: If the item is being shipped by the eBay <a href="https://pages.ebay.com/seller-center/shipping/global-shipping-program.html ">Global Shipping program</a>, this field returns <code>GLOBAL_SHIPPING</code>.<br><br>If the item is being shipped using the eBay International Shipping program, this field returns <code>INTERNATIONAL_SHIPPING</code>. <br><br>Otherwise, this field is null. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:FulfilledThroughEnum'>eBay API documentation</a>
+        guaranteedDelivery:
+          type: boolean
+          description: Although this field is still returned, it can be ignored since eBay Guaranteed Delivery is no longer a supported feature on any marketplace. This field may get removed from the schema in the future.
+        importCharges:
+          description: The <a href="https://pages.ebay.com/seller-center/shipping/global-shipping-program.html ">Global Shipping Program</a> import charges for this item.
+          $ref: '#/components/schemas/ConvertedAmount'
+        maxEstimatedDeliveryDate:
+          type: string
+          description: 'The end date of the delivery window (latest projected delivery date).  This value is returned in UTC format (yyyy-MM-ddThh:mm:ss.sssZ), which you can convert into the local time of the buyer. <br> <br> <span class="tablenote"> <b> Note: </b> For the best accuracy, always include the location of where the item is be shipped in the <code> contextualLocation</code> values of the <a href="/api-docs/buy/static/api-browse.html#Headers"> <code>X-EBAY-C-ENDUSERCTX</code></a> request header.</span> '
+        minEstimatedDeliveryDate:
+          type: string
+          description: 'The start date of the delivery window (earliest projected delivery date). This value is returned in UTC format (yyyy-MM-ddThh:mm:ss.sssZ), which you can convert into the local time of the buyer. <br> <br><span class="tablenote"> <b> Note: </b> For the best accuracy, always include the location of where the item is be shipped in the <code> contextualLocation</code> values of the <a href="/api-docs/buy/static/api-browse.html#Headers"> <code>X-EBAY-C-ENDUSERCTX</code></a> request header.</span>'
+        quantityUsedForEstimate:
+          type: integer
+          description: The number of items used when calculating the estimation information.
+          format: int32
+        shippingCarrierCode:
+          type: string
+          description: The name of the shipping provider, such as FedEx, or USPS.
+        shippingCost:
+          description: 'The final shipping cost for all the items after all discounts are applied.<br><br><span class="tablenote"><b> Note: </b>The cost does include the value-added tax (VAT) for applicable jurisdictions when requested from supported marketplaces. In this case, users must pass the <a href="/api-docs/static/rest-request-components.html#HTTP"><code>X-EBAY-C-MARKETPLACE-ID</code></a> request header specifying the supported marketplace (such as <code>EBAY_GB</code>) to see the VAT-inclusive cost. For more information on VAT, refer to <a href="https://www.ebay.co.uk/help/listings/default/vat-obligations-eu?id=4650&st=12&pos=1&query=Your%20VAT%20obligations%20in%20the%20EU&intent=VAT">VAT Obligations in the EU</a>.</span>'
+          $ref: '#/components/schemas/ConvertedAmount'
+        shippingCostType:
+          type: string
+          description: 'Indicates the class of the shipping cost. <br><br><b> Valid Values: </b> FIXED or CALCULATED <br><br>Code so that your app gracefully handles any future changes to this list. '
+        shippingServiceCode:
+          type: string
+          description: The type of shipping service. For example, USPS First Class.
+        shipToLocationUsedForEstimate:
+          description: The container that returns the country and postal code of where the item is to be shipped. These values come from the <code>contextualLocation</code> values in the  <a href="/api-docs/buy/static/api-browse.html#Headers"> <code>X-EBAY-C-ENDUSERCTX</code></a> request header. If the header is not submitted, marketplace is used.
+          $ref: '#/components/schemas/ShipToLocation'
+        trademarkSymbol:
+          type: string
+          description: Any trademark symbol, such as &#8482; or &reg;, that needs to be shown in superscript next to the shipping service name.
+        type:
+          type: string
+          description: The type of a shipping option, such as EXPEDITED, ONE_DAY, STANDARD, ECONOMY, PICKUP, etc.
+      description: The type that defines the fields for the details of a shipping provider.
+    CompatibilityPayload:
+      type: object
+      properties:
+        compatibilityProperties:
+          type: array
+          description: 'An array of attribute name/value pairs used to define a specific product. For example: If you wanted to specify a specific car, one of the name/value pairs would be<br><br><code>"name" : "Year", <br>"value" : "2019"</code><br><br>For a list of the attributes required for cars and trucks and motorcycles see <a href="/api-docs/buy/static/api-browse.html#Check">Check compatibility</a> in the Buy Integration Guide.'
+          items:
+            $ref: '#/components/schemas/AttributeNameValue'
+      description: 'An array of attribute name/value pairs used to define a specific product. For example: If you wanted to specify a specific car, one of the name/value pairs would be:<br><br><code>"name" : "Year",<br>"value" : "2019"</code><br><br>For a list of the attributes required for cars and trucks and motorcycles refer to <a href="/api-docs/buy/static/api-browse.html#Check" target="_blank">Check compatibility</a> in the <a href="/api-docs/buy/static/buying-ig-landing.html" target="_blank">Buying Integration Guide</a>.'
+    TimeDuration:
+      type: object
+      properties:
+        unit:
+          type: string
+          description: An enumeration value that indicates the units of the time span (e.g., <code>HOURS</code>). The enumeration value in this field defines the period of time being used to measure the duration.<br><br>Refer to <a href="/api-docs/buy/browse/types/ba:TimeDurationUnitEnum">TimeDurationUnitEnum</a> for the list of supported values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/ba:TimeDurationUnitEnum'>eBay API documentation</a>
+        value:
+          type: integer
+          description: Retrieves the duration of the time span (no units). The value in this field indicates the number of years, months, days, hours, or minutes in the defined period.
+          format: int32
+      description: The type that defines the fields for a period of time in the time-measurement units supplied.
+    AttributeNameValue:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of the product attribute, such as <i>Make</i>, <i>Model</i>, <i>Year</i>, etc.
+        value:
+          type: string
+          description: The value for the <code>name</code> attribute, such as <i>BMW</i>, <i>R1200GS</i>, <i>2011</i>, etc.
+      description: The type the defines attribute name/value pair fields that specify a product. The type of data depends on the context. For example, if you were using this to specify a specific vehicle, the attribute names would be <i>Make</i>, <i>Model</i>, <i>Year</i>, etc.
+    AspectGroup:
+      type: object
+      properties:
+        aspects:
+          type: array
+          description: 'An array of the name/value pairs for the aspects of the product. For example: BRAND/Apple'
+          items:
+            $ref: '#/components/schemas/Aspect'
+        localizedGroupName:
+          type: string
+          description: The name of a group of aspects.<br><br>In the following example, <b>Product Identifiers</b> and <b>Process</b> are product aspect group names. Under the group name are the product aspect name/value pairs.<br><br><b>Product Identifiers</b><br>&nbsp;&nbsp;&nbsp;Brand/Apple<br>&nbsp;&nbsp;&nbsp;Product Family/iMac<br><br><b>Processor</b><br>&nbsp;&nbsp;&nbsp;Processor Type/Intel<br>&nbsp;&nbsp;&nbsp;Processor Speed/3.10
+    ItemGroup:
+      type: object
+      properties:
+        commonDescriptions:
+          type: array
+          description: An array of containers for a description and the item IDs of all the items that have this exact description. Often the item variations within an item group all have the same description. Instead of repeating this description in the item details of each item, a description that is shared by at least one other item is returned in this container. If the description is unique, it is returned in the <b> items.description</b> field.
+          items:
+            $ref: '#/components/schemas/CommonDescriptions'
+        items:
+          type: array
+          description: An array of containers for all the item variation details, excluding the description.
+          items:
+            $ref: '#/components/schemas/Item'
+        warnings:
+          type: array
+          description: An array of warning messages. These types of errors do not prevent the method from executing but should be checked.
+          items:
+            $ref: '#/components/schemas/Error'
+      description: The type that defines the fields for the item details.
+    ErrorParameter:
+      type: object
+      properties:
+        name:
+          type: string
+          description: This is the name of input field that caused an issue with the call request.
+        value:
+          type: string
+          description: This is the actual value that was passed in for the element specified in the <code>name</code> field.
+      description: An array of name/value pairs that provide details regarding the error.
+    HazardPictogram:
+      type: object
+      properties:
+        pictogramDescription:
+          type: string
+          description: The description of the hazard pictogram, such as Flammable.
+        pictogramId:
+          type: string
+          description: The ID of the hazard pictogram.
+        pictogramUrl:
+          type: string
+          description: The URL of the hazard pictogram.
+      description: A type that defines the pictogram for the type of hazard that a hazardous material represents.
+    AuthenticityGuaranteeProgram:
+      type: object
+      properties:
+        description:
+          type: string
+          description: An indication that the item is qualified for the Authenticity Guarantee program.
+        termsWebUrl:
+          type: string
+          description: The URL to the Authenticity Guarantee program terms of use.
+      description: A type that identifies whether the item is qualified for the Authenticity Guarantee program.
+    Error:
+      type: object
+      properties:
+        category:
+          type: string
+          description: 'This string value indicates the error category. There are three categories of errors: <i>request errors</i>, <i>application errors</i>, and <i>system errors</i>.'
+        domain:
+          type: string
+          description: The name of the primary system where the error occurred. This is relevant for application errors.
+        errorId:
+          type: integer
+          description: A unique code that identifies the particular error or warning that occurred. Your application can use error codes as identifiers in your customized error-handling algorithms.
+          format: int32
+        inputRefIds:
+          type: array
+          description: An array of reference IDs that identify the specific request elements most closely associated to the error or warning, if any.
+          items:
+            type: string
+        longMessage:
+          type: string
+          description: A detailed description of the condition that caused the error or warning, and information on what to do to correct the problem.
+        message:
+          type: string
+          description: A description of the condition that caused the error or warning.
+        outputRefIds:
+          type: array
+          description: An array of reference IDs that identify the specific response elements most closely associated to the error or warning, if any.
+          items:
+            type: string
+        parameters:
+          type: array
+          description: An array of warning and error messages that return one or more variables contextual information about the error or warning. This is often the field or value that triggered the error or warning.
+          items:
+            $ref: '#/components/schemas/ErrorParameter'
+        subdomain:
+          type: string
+          description: The name of the subdomain in which the error or warning occurred.
+      description: The type that defines the fields that can be returned in an error.
+    ConvertedAmount:
+      type: object
+      properties:
+        convertedFromCurrency:
+          type: string
+          description: The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " target="_blank">ISO 4217</a> code representing the currency of the amount in the <code>convertedFromValue</code> field. This value is required or returned only if currency conversion/localization is required, and represents the pre-conversion currency. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
+        convertedFromValue:
+          type: string
+          description: The monetary amount before any conversion is performed, in the currency specified by the <code>convertedFromCurrency</code> field. This value is required or returned only if currency conversion/localization is required. The <code>value</code> field contains the converted amount of this value, in the currency specified by the <code>currency</code> field.
+        currency:
+          type: string
+          description: The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " target="_blank">ISO 4217</a> code representing the currency of the amount in the <code>value</code> field. If currency conversion/localization is required, this is the post-conversion currency of the amount in the <code>value</code> field.<br><br><b>Default:</b> The currency of the authenticated user's country. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
+        value:
+          type: string
+          description: The monetary amount in the currency specified by the <code>currency</code> field. If currency conversion/localization is required, this value is the converted amount, and the <code>convertedFromValue</code> field contains the amount in the original currency.
+      description: This type defines the monetary value of an amount. It can provide the amount in both the currency used on the eBay site where an item is being offered and the conversion of that value into another currency, if applicable.
+    EstimatedAvailability:
+      type: object
+      properties:
+        availabilityThreshold:
+          type: integer
+          description: This field is return only when the seller sets their '<a href="#display-item-quantity">display item quantity</a>' preference to <b> Display "More than 10 available" in your listing (if applicable)</b>. The value of this field will be "10", which is the threshold value. <br><br>Code so that your app gracefully handles any future changes to this value.
+          format: int32
+        availabilityThresholdType:
+          type: string
+          description: '<a name="display-item-quantity"></a> This field is return only when the seller sets their <b> Display Item Quantity</b> preference to <b> Display "More than 10 available" in your listing (if applicable)</b>. The value of this field will be <code> MORE_THAN</code>. This indicates that the seller has more than the ''quantity display preference'', which is 10, in stock for this item.    <br><br> The following are the display item quantity preferences the seller can set. <br><ul><li> <b> Display "More than 10 available" in your listing (if applicable) </b><ul> <li>If the seller enables this preference, this field is returned as long as there are more than 10 of this item in inventory.</li>  <li> If the quantity is equal to 10 or drops below 10, this field is not returned and the estimated quantity of the item is returned in the <b> estimatedAvailableQuantity</b> field.</li></ul> </li> <li> <b> Display the exact quantity in your items</b> <br>If the seller enables this preference, the <b> availabilityThresholdType</b> and <b> availabilityThreshold</b> fields are not returned and the estimated quantity of the item is returned in the <b> estimatedAvailableQuantity</b> field.<br><br><b> Note: </b> Because the quantity of an item can change several times within a second, it is impossible to return the exact quantity. </li></ul>   <br>Code so that your app gracefully handles any future changes to these preferences. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:AvailabilityThresholdEnum''>eBay API documentation</a>'
+        deliveryOptions:
+          type: array
+          description: 'An array of available delivery options. <br><br><b> Valid Values: </b> SHIP_TO_HOME, SELLER_ARRANGED_LOCAL_PICKUP, IN_STORE_PICKUP, PICKUP_DROP_OFF, or DIGITAL_DELIVERY <br><br>Code so that your app gracefully handles any future changes to this list. '
+          items:
+            type: string
+            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:DeliveryOptionsEnum''>eBay API documentation</a>'
+        estimatedAvailabilityStatus:
+          type: string
+          description: 'An enumeration value representing the inventory status of this item.<br><br><span class="tablenote"><b> Note: </b>Be sure to review the <b>itemEndDate</b> field to determine whether the item is available for purchase.</span><br><br><b> Valid Values: </b> IN_STOCK, LIMITED_STOCK, or OUT_OF_STOCK <br><br>Code so that your app gracefully handles any future changes to this list. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:AvailabilityStatusEnum''>eBay API documentation</a>'
+        estimatedAvailableQuantity:
+          type: integer
+          description: The estimated number of this item that are available for purchase. Because the quantity of an item can change several times within a second, it is impossible to return the exact quantity. So instead of returning quantity, the estimated availability of the item is returned.
+          format: int32
+        estimatedSoldQuantity:
+          type: integer
+          description: The estimated number of this item that have been sold.
+          format: int32
+      description: The type that defines the fields for the estimated item availability information.
+    AddonService:
+      type: object
+      properties:
+        selection:
+          type: string
+          description: This field indicates whether the add-on service must be selected for the item. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:AddonServiceSelectionEnum'>eBay API documentation</a>
+        serviceFee:
+          description: The amount charged for the add-on service.
+          $ref: '#/components/schemas/ConvertedAmount'
+        serviceId:
+          type: string
+          description: The ID number of the add-on service.
+        serviceType:
+          type: string
+          description: The type of add-on service, such as <code>AUTHENTICITY_GUARANTEE</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:AddonServiceTypeEnum'>eBay API documentation</a>
+      description: This container describes an add-on service that may be selected for an item or that may apply automatically. A charge may be associated with the add-on service.
+    ProductIdentity:
+      type: object
+      properties:
+        identifierType:
+          type: string
+          description: The type of product identifier, such as UPC and EAN.
+        identifierValue:
+          type: string
+          description: The product identifier value.
+      description: The type that defines the fields for the product identifier type/value pairs of product associated with an item.
+    AvailableCoupon:
+      type: object
+      properties:
+        constraint:
+          description: The limitations or restrictions of the coupon.
+          $ref: '#/components/schemas/CouponConstraint'
+        discountAmount:
+          description: The discount amount after the coupon is applied.
+          $ref: '#/components/schemas/Amount'
+        discountType:
+          type: string
+          description: The type of discount that the coupon applies. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:CouponDiscountType'>eBay API documentation</a>
+        message:
+          type: string
+          description: A description of the coupon.<br><br><span class="tablenote"><b>Note:</b> The value returned in the <code>termsWebUrl</code> field should appear for all experiences when displaying coupons. The value in the <code>availableCoupons.message</code> field must also be included if returned in the API response.</span>
+        redemptionCode:
+          type: string
+          description: The coupon code.
+        termsWebUrl:
+          type: string
+          description: The URL to the coupon terms of use.<br><br><span class="tablenote"><b>Note:</b> The value returned in the <code>termsWebUrl</code> field should appear for all experiences when displaying coupons. The value in the <code>availableCoupons.message</code> field must also be included if returned in the API response.</span>
+    CommonDescriptions:
+      type: object
+      properties:
+        description:
+          type: string
+          description: The item description that is used by more than one of the item variations.
+        itemIds:
+          type: array
+          description: A list of item ids that have this description.
+          items:
+            type: string
+      description: The type that defines the fields for the <code>item_id</code> values that all use a common description. Often the item variations within an item group all have the same description. Instead of repeating this description in the item details of each item, a description that is shared by at least one other item is returned in this container. If the description is unique, it is returned in the <code>items.description</code> field.
+    AuthenticityVerificationProgram:
+      type: object
+      properties:
+        description:
+          type: string
+          description: An indication that the item is from a verified seller.
+        termsWebUrl:
+          type: string
+          description: The URL to the Authenticity Verification program terms of use.
+      description: A type that identifies whether the item is from a verified seller.
     TypedNameValue:
       type: object
       properties:
@@ -626,6 +1149,222 @@ components:
           type: string
           description: The value of the aspect for the name/value pair, such as Red.
       description: The type that defines the fields for the name/value pairs for item aspects.
+    CompatibilityResponse:
+      type: object
+      properties:
+        compatibilityStatus:
+          type: string
+          description: 'An enumeration value that tells you if the item is compatible with the product. <br><br>The values are: <ul>   <li>   <b> COMPATIBLE</b> - Indicates the item is compatible with the product specified in the request.</li>   <li>   <b> NOT_COMPATIBLE</b> - Indicates the item is not compatible with the product specified in the request. Be sure to check all the <b> value</b> fields to ensure they are correct as errors in the value can also cause this response.</li>   <li> <b> UNDETERMINED</b> - Indicates one or more attributes for the specified product are missing so compatibility cannot be determined.  The response returns the attributes that are missing.</li>  </ul>  Code so that your app gracefully handles any future changes to this list. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:CompatibilityStatus''>eBay API documentation</a>'
+        warnings:
+          type: array
+          description: An array of warning messages. These types of errors do not prevent the method from executing but should be checked.
+          items:
+            $ref: '#/components/schemas/Error'
+      description: 'The type that defines the response fields for <b> checkCompatibility</b>.  '
+    ConditionDescriptorValue:
+      type: object
+      properties:
+        additionalInfo:
+          type: array
+          description: Additional information about the condition of an item as it relates to a condition descriptor. This array elaborates on the value specified in the <b>content</b> field and provides additional details about the condition of an item.
+          items:
+            type: string
+        content:
+          type: string
+          description: The value for the condition descriptor indicated in the associated <b>name</b> field.
+      description: 'This type displays the value(s) associated with the specified condition descriptor name, as well as any additional information about a condition descriptor. '
+    Items:
+      type: object
+      properties:
+        items:
+          type: array
+          description: An arraylist of all the items.
+          items:
+            $ref: '#/components/schemas/CoreItem'
+        total:
+          type: integer
+          description: The total number of items retrieved.
+          format: int32
+        warnings:
+          type: array
+          description: An array of warning messages. These types of errors do not prevent the method from executing but should be checked.
+          items:
+            $ref: '#/components/schemas/Error'
+      description: Container for a list of items.
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: 'The list of valid currencies. Each <a href="https://www.iso.org/iso-4217-currency-codes.html " target="_blank">ISO 4217</a> currency code includes the currency name followed by the numeric value.<br><br>For example, the Canadian Dollar code (CAD) would take the following form: <code>Canadian Dollar, 124</code>. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/ba:CurrencyCodeEnum''>eBay API documentation</a>'
+        value:
+          type: string
+          description: The value of the discounted amount.
+    PaymentMethodBrand:
+      type: object
+      properties:
+        paymentMethodBrandType:
+          type: string
+          description: The payment method brand, such as Visa or PayPal. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:PaymentMethodBrandEnum'>eBay API documentation</a>
+        logoImage:
+          description: 'The details of the logo image, such as the size and URL.<br><br><span class="tablenote"> <b> Note: </b> Currently, only the <b>imageUrl</b> is populated.</span>'
+          $ref: '#/components/schemas/Image'
+    Region:
+      type: object
+      properties:
+        regionName:
+          type: string
+          description: 'A localized text string that indicates the name of the region. Taxes are generally charged at the state/province level or at the country level in the case of VAT tax. '
+        regionType:
+          type: string
+          description: 'An enumeration value that indicates the type of region for the tax jurisdiction. <br><br><b> Valid Values: </b> <ul><li><b> STATE_OR_PROVINCE </b> - Indicates the region is a state or province within a country, such as California or New York in the US, or Ontario or Alberta in Canada.</li><li><b> COUNTRY </b> - Indicates the region is a single country.</li></ul>  Code so that your app gracefully handles any future changes to this list. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/ba:RegionTypeEnum''>eBay API documentation</a>'
+      description: This type is used to provide region details for a tax jurisdiction.
+    MarketingPrice:
+      type: object
+      properties:
+        discountAmount:
+          description: This container returns the monetary amount of the seller discount.
+          $ref: '#/components/schemas/ConvertedAmount'
+        discountPercentage:
+          type: string
+          description: This field expresses the percentage of the seller discount based on the value in the <code>originalPrice</code> container.
+        originalPrice:
+          description: This container returns the monetary amount of the item without the discount.
+          $ref: '#/components/schemas/ConvertedAmount'
+        priceTreatment:
+          type: string
+          description: Indicates the pricing treatment (discount) that was applied to the price of the item.<br><br><span class="tablenote"><b>Note:</b> The pricing treatment affects the way and where the discounted price can be displayed.</span> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:PriceTreatmentEnum'>eBay API documentation</a>
+      description: The type that defines the fields that describe a seller discount.
+    TaxJurisdiction:
+      type: object
+      properties:
+        region:
+          description: The region of the tax jurisdiction.
+          $ref: '#/components/schemas/Region'
+        taxJurisdictionId:
+          type: string
+          description: The identifier of the tax jurisdiction.
+      description: The type that defines the fields for the tax jurisdiction details.
+    ItemReturnTerms:
+      type: object
+      properties:
+        extendedHolidayReturnsOffered:
+          type: boolean
+          description: This indicates if the seller has enabled the Extended Holiday Returns feature on the item. Extended Holiday Returns are only applicable during the US holiday season, and gives buyers extra time to return an item. This 'extra time' will typically extend beyond what is set through the <b> returnPeriod</b> value.
+        refundMethod:
+          type: string
+          description: 'An enumeration value that indicates how a buyer is refunded when an item is returned. <br><br><b> Valid Values: </b> MONEY_BACK or MERCHANDISE_CREDIT  <br><br>Code so that your app gracefully handles any future changes to this list. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:RefundMethodEnum''>eBay API documentation</a>'
+        restockingFeePercentage:
+          type: string
+          description: This string field indicates the restocking fee percentage that the seller has set on the item. Sellers have the option of setting no restocking fee for an item, or they can set the percentage to 10, 15, or 20 percent. So, if the cost of the item was $100, and the restocking percentage was 20 percent, the buyer would be charged $20 to return that item, so instead of receiving a $100 refund, they would receive $80 due to the restocking fee.
+        returnInstructions:
+          type: string
+          description: Text written by the seller describing what the buyer needs to do in order to return the item.
+        returnMethod:
+          type: string
+          description: 'An enumeration value that indicates the alternative methods for a full refund when an item is returned. This field is returned if the seller offers the buyer an item replacement or exchange instead of a monetary refund. <br><br><b> Valid Values: </b>  <ul><li><b> REPLACEMENT</b> -  Indicates that the buyer has the option of receiving money back for the returned item, or they can choose to have the seller replace the item with an identical item.</li>  <li><b> EXCHANGE</b> - Indicates that the buyer has the option of receiving money back for the returned item, or they can exchange the item for another similar item.</li></ul>  Code so that your app gracefully handles any future changes to this list. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:ReturnMethodEnum''>eBay API documentation</a>'
+        returnPeriod:
+          description: The amount of time the buyer has to return the item after the purchase date.
+          $ref: '#/components/schemas/TimeDuration'
+        returnsAccepted:
+          type: boolean
+          description: Indicates whether the seller accepts returns for the item.
+        returnShippingCostPayer:
+          type: string
+          description: 'This enumeration value indicates whether the buyer or seller is responsible for return shipping costs when an item is returned. <br><br><b> Valid Values: </b> <ul><li><b> SELLER</b> - Indicates the seller will pay for the shipping costs to return the item.</li>  <li><b> BUYER</b> - Indicates the buyer will pay for the shipping costs to return the item.</li>  </ul>  Code so that your app gracefully handles any future changes to this list. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:ReturnShippingCostPayerEnum''>eBay API documentation</a>'
+      description: The type that defines the fields for the seller's return policy.
+    ItemGroupSummary:
+      type: object
+      properties:
+        itemGroupAdditionalImages:
+          type: array
+          description: An array of containers with the URLs for images that are in addition to the primary image of the item group.  The primary image is returned in the <b> itemGroupImage</b> field.
+          items:
+            $ref: '#/components/schemas/Image'
+        itemGroupHref:
+          type: string
+          description: 'The HATEOAS reference of the parent page of the item group. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. '
+        itemGroupId:
+          type: string
+          description: 'The unique identifier for the item group. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. '
+        itemGroupImage:
+          description: 'The URL of the primary image of the item group. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. '
+          $ref: '#/components/schemas/Image'
+        itemGroupTitle:
+          type: string
+          description: 'The title of the item that appears on the item group page. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. '
+        itemGroupType:
+          type: string
+          description: An enumeration value that indicates the type of the item group. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:ItemGroupTypeEnum'>eBay API documentation</a>
+      description: 'The type that defines the fields for the details of each item in an item group. An item group is  an item that has various aspect differences, such as color, size, storage capacity, etc. When an item group is created, one of the item variations, such as the red shirt size L, is chosen as the "parent". All the other items in the group are the children, such as the blue shirt size L, red shirt size M, etc. <br><br><span class="tablenote"><b> Note: </b> This container is returned only if the <b> item_id</b> in the request is an item group (parent ID of an item with variations).</span>'
+    ShipToLocations:
+      type: object
+      properties:
+        regionExcluded:
+          type: array
+          description: An array of containers that express the large geographical regions, countries, state/provinces, or special locations within a country where the seller is not willing to ship to.
+          items:
+            $ref: '#/components/schemas/ShipToRegion'
+        regionIncluded:
+          type: array
+          description: An array of containers that express the large geographical regions, countries, or state/provinces within a country where the seller is willing to ship to. Prospective buyers must look at the shipping regions under this container, as well as the shipping regions that are under the <b>regionExcluded</b> to see where the seller is willing to ship items. Sellers can specify that they ship 'Worldwide', but then add several large geographical regions (e.g. Asia, Oceania, Middle East) to the exclusion list, or sellers can specify that they ship to Europe and Africa, but then add several individual countries to the exclusion list.
+          items:
+            $ref: '#/components/schemas/ShipToRegion'
+      description: The type that defines the fields that include and exclude geographic regions affecting where the item can be shipped. The seller defines these regions when listing the item.
+    EconomicOperator:
+      type: object
+      properties:
+        companyName:
+          type: string
+          description: The company name of the registered Economic Operator.
+        addressLine1:
+          type: string
+          description: The first line of the registered Economic Operator's street address.
+        addressLine2:
+          type: string
+          description: The second line, if any, of the registered Economic Operator's street address. This field is not always used, but can be used for 'Suite Number' or 'Apt Number'.
+        city:
+          type: string
+          description: The city of the registered Economic Operator's street address.
+        stateOrProvince:
+          type: string
+          description: The state or province of the registered Economic Operator's street address.
+        postalCode:
+          type: string
+          description: The postal code of the registered Economic Operator's street address.
+        country:
+          type: string
+          description: The two-letter <a href="https://www.iso.org/iso-3166-country-codes.html " target="_blank">ISO 3166</a> standard abbreviation of the country of the registered Economic Operator's address.
+        phone:
+          type: string
+          description: The registered Economic Operator's business phone number.
+        email:
+          type: string
+          description: The registered Economic Operator's business email address.
+      description: The type that provides required Economic Operator information about the manufacturer and/or supplier of the item.
+    RatingHistogram:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The total number of user ratings that the product has received.
+          format: int32
+        rating:
+          type: string
+          description: This is the average rating for the product. As part of a product review, users rate the product. Products are rated from one star (terrible) to five stars (excellent), with each star having a corresponding point value - one star gets 1 point, two stars get 2 points, and so on. If a product had one four-star rating and one five-star rating, its average rating would be <code> 4.5</code>, and this is the value that would appear in this field.
+      description: The type that defines the fields for product ratings. Only products that are in the eBay product catalog can be reviewed and rated.
+    ConditionDescriptor:
+      type: object
+      properties:
+        name:
+          type: string
+          description: The name of a condition descriptor. The value(s) for this condition descriptor is returned in the associated <b>values</b> array.
+        values:
+          type: array
+          description: This array displays the value(s) for a condition descriptor (denoted by the associated <b>name</b> field), as well as any other additional information about the condition of the item.
+          items:
+            $ref: '#/components/schemas/ConditionDescriptorValue'
+      description: This type displays additional information about the condition of an item in a structured format.
     SellerLegalInfo:
       type: object
       properties:
@@ -671,86 +1410,15 @@ components:
           type: string
           description: The Waste Electrical and Electronic Equipment (WEEE) registration number required for any seller to place electrical and electronic equipment on the market in Germany. This manufacturer number is assigned to the first distributors of electrical and electronic equipment and comprises a country code and an 8-digit sequence of digits (e.g. “WEEE Reg. No. DE 12345678”).
       description: The type that defines the fields for the contact information for a seller.
-    ItemReturnTerms:
+    AdditionalProductIdentity:
       type: object
       properties:
-        extendedHolidayReturnsOffered:
-          type: boolean
-          description: This indicates if the seller has enabled the Extended Holiday Returns feature on the item. Extended Holiday Returns are only applicable during the US holiday season, and gives buyers extra time to return an item. This 'extra time' will typically extend beyond what is set through the <b> returnPeriod</b> value.
-        refundMethod:
-          type: string
-          description: 'An enumeration value that indicates how a buyer is refunded when an item is returned. <br><br><b> Valid Values: </b> MONEY_BACK or MERCHANDISE_CREDIT  <br><br>Code so that your app gracefully handles any future changes to this list. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:RefundMethodEnum''>eBay API documentation</a>'
-        restockingFeePercentage:
-          type: string
-          description: This string field indicates the restocking fee percentage that the seller has set on the item. Sellers have the option of setting no restocking fee for an item, or they can set the percentage to 10, 15, or 20 percent. So, if the cost of the item was $100, and the restocking percentage was 20 percent, the buyer would be charged $20 to return that item, so instead of receiving a $100 refund, they would receive $80 due to the restocking fee.
-        returnInstructions:
-          type: string
-          description: Text written by the seller describing what the buyer needs to do in order to return the item.
-        returnMethod:
-          type: string
-          description: 'An enumeration value that indicates the alternative methods for a full refund when an item is returned. This field is returned if the seller offers the buyer an item replacement or exchange instead of a monetary refund. <br><br><b> Valid Values: </b>  <ul><li><b> REPLACEMENT</b> -  Indicates that the buyer has the option of receiving money back for the returned item, or they can choose to have the seller replace the item with an identical item.</li>  <li><b> EXCHANGE</b> - Indicates that the buyer has the option of receiving money back for the returned item, or they can exchange the item for another similar item.</li></ul>  Code so that your app gracefully handles any future changes to this list. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:ReturnMethodEnum''>eBay API documentation</a>'
-        returnPeriod:
-          description: The amount of time the buyer has to return the item after the purchase date.
-          $ref: '#/components/schemas/TimeDuration'
-        returnsAccepted:
-          type: boolean
-          description: Indicates whether the seller accepts returns for the item.
-        returnShippingCostPayer:
-          type: string
-          description: 'This enumeration value indicates whether the buyer or seller is responsible for return shipping costs when an item is returned. <br><br><b> Valid Values: </b> <ul><li><b> SELLER</b> - Indicates the seller will pay for the shipping costs to return the item.</li>  <li><b> BUYER</b> - Indicates the buyer will pay for the shipping costs to return the item.</li>  </ul>  Code so that your app gracefully handles any future changes to this list. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:ReturnShippingCostPayerEnum''>eBay API documentation</a>'
-      description: The type that defines the fields for the seller's return policy.
-    EconomicOperator:
-      type: object
-      properties:
-        companyName:
-          type: string
-          description: The company name of the registered Economic Operator.
-        addressLine1:
-          type: string
-          description: The first line of the registered Economic Operator's street address.
-        addressLine2:
-          type: string
-          description: The second line, if any, of the registered Economic Operator's street address. This field is not always used, but can be used for 'Suite Number' or 'Apt Number'.
-        city:
-          type: string
-          description: The city of the registered Economic Operator's street address.
-        stateOrProvince:
-          type: string
-          description: The state or province of the registered Economic Operator's street address.
-        postalCode:
-          type: string
-          description: The postal code of the registered Economic Operator's street address.
-        country:
-          type: string
-          description: The two-letter <a href="https://www.iso.org/iso-3166-country-codes.html " target="_blank">ISO 3166</a> standard abbreviation of the country of the registered Economic Operator's address.
-        phone:
-          type: string
-          description: The registered Economic Operator's business phone number.
-        email:
-          type: string
-          description: The registered Economic Operator's business email address.
-      description: The type that provides required Economic Operator information about the manufacturer and/or supplier of the item.
-    TimeDuration:
-      type: object
-      properties:
-        unit:
-          type: string
-          description: An enumeration value that indicates the units of the time span (e.g., <code>HOURS</code>). The enumeration value in this field defines the period of time being used to measure the duration.<br><br>Refer to <a href="/api-docs/buy/browse/types/ba:TimeDurationUnitEnum">TimeDurationUnitEnum</a> for the list of supported values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/ba:TimeDurationUnitEnum'>eBay API documentation</a>
-        value:
-          type: integer
-          description: Retrieves the duration of the time span (no units). The value in this field indicates the number of years, months, days, hours, or minutes in the defined period.
-          format: int32
-      description: The type that defines the fields for a period of time in the time-measurement units supplied.
-    HazardStatement:
-      type: object
-      properties:
-        statementDescription:
-          type: string
-          description: A description of the nature of the hazard, such as whether the material is toxic if swallowed.
-        statementId:
-          type: string
-          description: The ID of the hazard statement.
-      description: A type that defines the hazard statement for a hazardous material.
+        productIdentity:
+          type: array
+          description: An array of product identifier/value pairs for the product associated with the item. This is returned if the seller has associated the eBay Product Identifier (ePID) with the item and the request has <code>fieldgroups</code> set to <code>PRODUCT</code>.<br><br>The following table shows what is returned, based on the item information provided by the seller, when <code>fieldgroups</code> is set to <code>PRODUCT</code>.<br><br><div style="overflow-x:auto;"><table border=1><tr><th>ePID Provided</th><th>Product ID(s) Provided</th><th>Response</th></tr><tr><td>No</td><td>No</td><td>The <code>AdditionalProductIdentity</code> container is <i>not</i> returned.</td></tr><tr><td>No</td><td>Yes</td><td>The <code>AdditionalProductIdentity</code> container is <i>not</i> returned but the product identifiers specified by the seller are returned in the <code>localizedAspects</code> container.</td></tr><tr><td>Yes</td><td>No</td><td>The <code>AdditionalProductIdentity</code> container is returned listing the product identifiers of the product.</td></tr><tr><td>Yes</td><td>Yes</td><td>The <code>AdditionalProductIdentity</code> container is returned listing all the product identifiers of the product and the product identifiers specified by the seller are returned in the <code>localizedAspects</code> container.</td></tr></table></div>
+          items:
+            $ref: '#/components/schemas/ProductIdentity'
+      description: The type that defines the array of product identifiers associated with the item. This container is returned if the seller has associated the eBay Product Identifier (ePID) with the item, and in the request <code>fieldgroups</code> is set to <code>PRODUCT</code>.
     Aspect:
       type: object
       properties:
@@ -763,49 +1431,6 @@ components:
           items:
             type: string
       description: 'The type that defines the fields for the name/value pairs for the aspects of the product. For example: BRAND/Apple'
-    AuthenticityGuaranteeProgram:
-      type: object
-      properties:
-        description:
-          type: string
-          description: An indication that the item is qualified for the Authenticity Guarantee program.
-        termsWebUrl:
-          type: string
-          description: The URL to the Authenticity Guarantee program terms of use.
-      description: A type that identifies whether the item is qualified for the Authenticity Guarantee program.
-    PaymentMethodBrand:
-      type: object
-      properties:
-        paymentMethodBrandType:
-          type: string
-          description: The payment method brand, such as Visa or PayPal. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:PaymentMethodBrandEnum'>eBay API documentation</a>
-        logoImage:
-          description: 'The details of the logo image, such as the size and URL.<br><br><span class="tablenote"> <b> Note: </b> Currently, only the <b>imageUrl</b> is populated.</span>'
-          $ref: '#/components/schemas/Image'
-    CompatibilityResponse:
-      type: object
-      properties:
-        compatibilityStatus:
-          type: string
-          description: 'An enumeration value that tells you if the item is compatible with the product. <br><br>The values are: <ul>   <li>   <b> COMPATIBLE</b> - Indicates the item is compatible with the product specified in the request.</li>   <li>   <b> NOT_COMPATIBLE</b> - Indicates the item is not compatible with the product specified in the request. Be sure to check all the <b> value</b> fields to ensure they are correct as errors in the value can also cause this response.</li>   <li> <b> UNDETERMINED</b> - Indicates one or more attributes for the specified product are missing so compatibility cannot be determined.  The response returns the attributes that are missing.</li>  </ul>  Code so that your app gracefully handles any future changes to this list. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:CompatibilityStatus''>eBay API documentation</a>'
-        warnings:
-          type: array
-          description: An array of warning messages. These types of errors do not prevent the method from executing but should be checked.
-          items:
-            $ref: '#/components/schemas/Error'
-      description: 'The type that defines the response fields for <b> checkCompatibility</b>.  '
-    CommonDescriptions:
-      type: object
-      properties:
-        description:
-          type: string
-          description: The item description that is used by more than one of the item variations.
-        itemIds:
-          type: array
-          description: A list of item ids that have this description.
-          items:
-            type: string
-      description: The type that defines the fields for the <code>item_id</code> values that all use a common description. Often the item variations within an item group all have the same description. Instead of repeating this description in the item details of each item, a description that is shared by at least one other item is returned in this container. If the description is unique, it is returned in the <code>items.description</code> field.
     ShipToLocation:
       type: object
       properties:
@@ -816,54 +1441,39 @@ components:
           type: string
           description: The zip code (postal code) for where the item is to be shipped.
       description: The type that defines the fields for the country and postal code of where an item is to be shipped.
-    Region:
+    HazardStatement:
       type: object
       properties:
-        regionName:
+        statementDescription:
           type: string
-          description: 'A localized text string that indicates the name of the region. Taxes are generally charged at the state/province level or at the country level in the case of VAT tax. '
-        regionType:
+          description: A description of the nature of the hazard, such as whether the material is toxic if swallowed.
+        statementId:
           type: string
-          description: 'An enumeration value that indicates the type of region for the tax jurisdiction. <br><br><b> Valid Values: </b> <ul><li><b> STATE_OR_PROVINCE </b> - Indicates the region is a state or province within a country, such as California or New York in the US, or Ontario or Alberta in Canada.</li><li><b> COUNTRY </b> - Indicates the region is a single country.</li></ul>  Code so that your app gracefully handles any future changes to this list. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/ba:RegionTypeEnum''>eBay API documentation</a>'
-      description: This type is used to provide region details for a tax jurisdiction.
-    Error:
+          description: The ID of the hazard statement.
+      description: A type that defines the hazard statement for a hazardous material.
+    PaymentMethod:
       type: object
       properties:
-        category:
+        paymentMethodType:
           type: string
-          description: 'This string value indicates the error category. There are three categories of errors: <i>request errors</i>, <i>application errors</i>, and <i>system errors</i>.'
-        domain:
-          type: string
-          description: The name of the primary system where the error occurred. This is relevant for application errors.
-        errorId:
-          type: integer
-          description: A unique code that identifies the particular error or warning that occurred. Your application can use error codes as identifiers in your customized error-handling algorithms.
-          format: int32
-        inputRefIds:
+          description: The payment method type, such as credit card or cash. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:PaymentMethodTypeEnum'>eBay API documentation</a>
+        paymentMethodBrands:
           type: array
-          description: An array of reference IDs that identify the specific request elements most closely associated to the error or warning, if any.
+          description: The payment method brands, including the payment method brand type and logo image.
+          items:
+            $ref: '#/components/schemas/PaymentMethodBrand'
+        paymentInstructions:
+          type: array
+          description: The payment instructions for the buyer, such as <i>cash in person</i> or <i>contact seller</i>.
           items:
             type: string
-        longMessage:
-          type: string
-          description: A detailed description of the condition that caused the error or warning, and information on what to do to correct the problem.
-        message:
-          type: string
-          description: A description of the condition that caused the error or warning.
-        outputRefIds:
+            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:PaymentInstructionEnum''>eBay API documentation</a>'
+        sellerInstructions:
           type: array
-          description: An array of reference IDs that identify the specific response elements most closely associated to the error or warning, if any.
+          description: The seller instructions to the buyer, such as <i>accepts credit cards</i> or <i>see description</i>.
           items:
             type: string
-        parameters:
-          type: array
-          description: An array of warning and error messages that return one or more variables contextual information about the error or warning. This is often the field or value that triggered the error or warning.
-          items:
-            $ref: '#/components/schemas/ErrorParameter'
-        subdomain:
-          type: string
-          description: The name of the subdomain in which the error or warning occurred.
-      description: The type that defines the fields that can be returned in an error.
+            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:SellerInstructionEnum''>eBay API documentation</a>'
     CoreItem:
       type: object
       properties:
@@ -1094,6 +1704,16 @@ components:
           type: string
           description: 'The designation, such as size, weight, volume, count, etc., that was used to specify the quantity of the item.  This helps buyers compare prices. <br><br>For example, the following tells the buyer that the item is 7.99 per 100 grams. <br><br><code>"unitPricingMeasure": "100g",<br> "unitPrice": {<br>&nbsp;&nbsp;"value": "7.99",<br>&nbsp;&nbsp;"currency": "GBP"</code>'
       description: An array of containers with the details for all of the items returned.
+    VatDetail:
+      type: object
+      properties:
+        issuingCountry:
+          type: string
+          description: The two-letter <a href="https://www.iso.org/iso-3166-country-codes.html " target="_blank">ISO 3166</a> standard of the country issuing the seller's VAT (value added tax) ID. VAT is a tax added by some European countries. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/ba:CountryCodeEnum'>eBay API documentation</a>
+        vatId:
+          type: string
+          description: The seller's VAT (value added tax) ID. VAT is a tax added by some European countries.
+      description: The type the defines the fields for the VAT (value add tax) information.
     SellerDetail:
       type: object
       properties:
@@ -1117,92 +1737,13 @@ components:
           type: string
           description: The user name created by the seller for use on eBay.
       description: The type that defines the fields for basic and detailed information about the seller of the item returned by the <b> item</b> resource.
-    AddonService:
+    CouponConstraint:
       type: object
       properties:
-        selection:
+        expirationDate:
           type: string
-          description: This field indicates whether the add-on service must be selected for the item. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:AddonServiceSelectionEnum'>eBay API documentation</a>
-        serviceFee:
-          description: The amount charged for the add-on service.
-          $ref: '#/components/schemas/ConvertedAmount'
-        serviceId:
-          type: string
-          description: The ID number of the add-on service.
-        serviceType:
-          type: string
-          description: The type of add-on service, such as <code>AUTHENTICITY_GUARANTEE</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:AddonServiceTypeEnum'>eBay API documentation</a>
-      description: This container describes an add-on service that may be selected for an item or that may apply automatically. A charge may be associated with the add-on service.
-    TaxJurisdiction:
-      type: object
-      properties:
-        region:
-          description: The region of the tax jurisdiction.
-          $ref: '#/components/schemas/Region'
-        taxJurisdictionId:
-          type: string
-          description: The identifier of the tax jurisdiction.
-      description: The type that defines the fields for the tax jurisdiction details.
-    VatDetail:
-      type: object
-      properties:
-        issuingCountry:
-          type: string
-          description: The two-letter <a href="https://www.iso.org/iso-3166-country-codes.html " target="_blank">ISO 3166</a> standard of the country issuing the seller's VAT (value added tax) ID. VAT is a tax added by some European countries. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/ba:CountryCodeEnum'>eBay API documentation</a>
-        vatId:
-          type: string
-          description: The seller's VAT (value added tax) ID. VAT is a tax added by some European countries.
-      description: The type the defines the fields for the VAT (value add tax) information.
-    ReviewRating:
-      type: object
-      properties:
-        averageRating:
-          type: string
-          description: The average rating given to a product based on customer reviews.
-        ratingHistograms:
-          type: array
-          description: An array of containers for the product rating histograms that shows the review counts and the product rating.
-          items:
-            $ref: '#/components/schemas/RatingHistogram'
-        reviewCount:
-          type: integer
-          description: The total number of reviews for the item.
-          format: int32
-      description: The type that defines the fields for the rating of a product review.
-    Taxes:
-      type: object
-      properties:
-        ebayCollectAndRemitTax:
-          type: boolean
-          description: 'This field is only returned if <code>true</code>, and indicates that eBay will collect tax (sales tax, Goods and Services tax, or VAT) for at least one line item in the order, and remit the tax to the taxing authority of the buyer''s residence. '
-        includedInPrice:
-          type: boolean
-          description: This indicates if tax was applied for the cost of the item.
-        shippingAndHandlingTaxed:
-          type: boolean
-          description: This indicates if tax is applied for the shipping cost.
-        taxJurisdiction:
-          description: The container that returns the tax jurisdiction.
-          $ref: '#/components/schemas/TaxJurisdiction'
-        taxPercentage:
-          type: string
-          description: The percentage of tax.
-        taxType:
-          type: string
-          description: This field indicates the type of tax that may be collected for the item. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:TaxType'>eBay API documentation</a>
-      description: The type that defines the tax fields.
-    ConditionDescriptor:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of a condition descriptor. The value(s) for this condition descriptor is returned in the associated <b>values</b> array.
-        values:
-          type: array
-          description: This array displays the value(s) for a condition descriptor (denoted by the associated <b>name</b> field), as well as any other additional information about the condition of the item.
-          items:
-            $ref: '#/components/schemas/ConditionDescriptorValue'
-      description: This type displays additional information about the condition of an item in a structured format.
+          description: This timestamp provides the expiration date of the coded coupon.
+      description: This type is used to provide the expiration date of a coded coupon.
     LegalAddress:
       type: object
       properties:
@@ -1231,22 +1772,19 @@ components:
           type: string
           description: The state or province of the address.
       description: Type that defines the fields for the seller's address.
-    AdditionalProductIdentity:
+    ShipToRegion:
       type: object
       properties:
-        productIdentity:
-          type: array
-          description: An array of product identifier/value pairs for the product associated with the item. This is returned if the seller has associated the eBay Product Identifier (ePID) with the item and the request has <code>fieldgroups</code> set to <code>PRODUCT</code>.<br><br>The following table shows what is returned, based on the item information provided by the seller, when <code>fieldgroups</code> is set to <code>PRODUCT</code>.<br><br><div style="overflow-x:auto;"><table border=1><tr><th>ePID Provided</th><th>Product ID(s) Provided</th><th>Response</th></tr><tr><td>No</td><td>No</td><td>The <code>AdditionalProductIdentity</code> container is <i>not</i> returned.</td></tr><tr><td>No</td><td>Yes</td><td>The <code>AdditionalProductIdentity</code> container is <i>not</i> returned but the product identifiers specified by the seller are returned in the <code>localizedAspects</code> container.</td></tr><tr><td>Yes</td><td>No</td><td>The <code>AdditionalProductIdentity</code> container is returned listing the product identifiers of the product.</td></tr><tr><td>Yes</td><td>Yes</td><td>The <code>AdditionalProductIdentity</code> container is returned listing all the product identifiers of the product and the product identifiers specified by the seller are returned in the <code>localizedAspects</code> container.</td></tr></table></div>
-          items:
-            $ref: '#/components/schemas/ProductIdentity'
-      description: The type that defines the array of product identifiers associated with the item. This container is returned if the seller has associated the eBay Product Identifier (ePID) with the item, and in the request <code>fieldgroups</code> is set to <code>PRODUCT</code>.
-    CouponConstraint:
-      type: object
-      properties:
-        expirationDate:
+        regionId:
           type: string
-          description: This timestamp provides the expiration date of the coded coupon.
-      description: This type is used to provide the expiration date of a coded coupon.
+          description: 'The unique identifier of the shipping region. The value returned here is dependent on the corresponding <b>regionType</b> value. The <b>regionId</b> value for a region does not vary based on the eBay marketplace. However, the corresponding <b>regionName</b> value for a region is a localized, text-based description of the shipping region. <br><br> If the <b>regionType</b> value is <code>WORLDWIDE</code>, the <b>regionId</b> value will also be <code>WORLDWIDE</code>.<br><br> If the <b>regionType</b> value is <code>WORLD_REGION</code>, the <b>regionId</b> value will be one of the following: <code>AFRICA</code>, <code>AMERICAS</code>, <code>ASIA</code>, <code>AUSTRALIA</code>, <code>CENTRAL_AMERICA_AND_CARIBBEAN</code>, <code>EUROPE</code>, <code>EUROPEAN_UNION</code>, <code>GREATER_CHINA</code>, <code>MIDDLE_EAST</code>, <code>NORTH_AMERICA</code>, <code>OCEANIA</code>, <code>SOUTH_AMERICA</code>, <code>SOUTHEAST_ASIA</code> or <code>CHANNEL_ISLANDS</code>.<br><br>If the <b>regionType</b> value is <code>COUNTRY</code>, the <b>regionId</b> value will be the two-letter code for the country, as defined in the <a href="https://www.iso.org/iso-3166-country-codes.html " target="_blank">ISO 3166</a> standard.<br><br>If the <b>regionType</b> value is <code>STATE_OR_PROVINCE</code>, the <b>regionId</b> value will either be the two-letter code for US states and DC (as defined on this <a href="https://www.ssa.gov/international/coc-docs/states.html " target="_blank">Social Security Administration</a> page), or the two-letter code for Canadian provinces (as defined by this <a href="https://www.canadapost.ca/tools/pg/manual/PGaddress-e.asp?ecid=murl10006450#1442131 " target="_blank">Canada Post</a> page).<br><br>If the <b>regionType</b> value is <code>COUNTRY_REGION</code>, the <b>regionId</b> value may be one of following: <code>_AH</code> (if a seller is not willing to ship to Alaska/Hawaii), <code>_PR</code> (if the seller is not willing to ship to US Protectorates), <code>_AP</code> (if seller is not willing to ship to a US Army or Fleet Post Office), and <code>PO_BOX</code> (if the seller is not willing to ship to a Post Office Box).'
+        regionName:
+          type: string
+          description: 'A localized text string that indicates the name of the shipping region. The value returned here is dependent on the corresponding <b>regionType</b> value. <br><br> If the <b>regionType</b> value is <code>WORLDWIDE</code>, the <b>regionName</b> value will show <code>Worldwide</code>.<br><br> If the <b>regionType</b> value is <code>WORLD_REGION</code>, the <b>regionName</b> value will be a localized text string for one of the following large geographical regions: Africa, Americas, Asia, Australia, Central America and Caribbean, Europe, European Union, Greater China, Middle East, North America, Oceania, South America, Southeast Asia, or Channel Islands.<br><br>If the <b>regionType</b> value is <code>COUNTRY</code>, the <b>regionName</b> value will be a localized text string for any country in the world.<br><br>If the <b>regionType</b> value is <code>STATE_OR_PROVINCE</code>, the <b>regionName</b> value will be a localized text string for any US state or Canadian province. <br><br>If the <b>regionType</b> value is <code>COUNTRY_REGION</code>, the <b>regionName</b> value may be a localized version of one of the following: Alaska/Hawaii, US Protectorates, APO/FPO (Army or Fleet Post Office), or PO BOX.'
+        regionType:
+          type: string
+          description: 'An enumeration value that indicates the level or type of shipping region. <br><br><b> Valid Values: </b> <ul><li><b> COUNTRY_REGION </b> - Indicates the region is a domestic region or special location within a country.</li><li><b> STATE_OR_PROVINCE </b> - Indicates the region is a state or province within a country, such as California or New York in the US, or Ontario or Alberta in Canada.</li><li><b> COUNTRY </b> - Indicates the region is a single country.</li><li><b> WORLD_REGION </b> - Indicates the region is a world region, such as Africa, the Middle East, or Southeast Asia.</li><li><b> WORLDWIDE </b> - Indicates the region is the entire world. This value is only applicable for included shiping regions, and not excluded shipping regions.</li></ul> For more detail on the actual <b>regionName</b>/<b>regionId</b> values that will be returned based on the <b>regionType</b> value, see the <a href="/api-docs/buy/browse/resources/item/methods/getItem#response.shipToLocations.regionExcluded.regionId">regionId</a> and/or <a href="/api-docs/buy/browse/resources/item/methods/getItem#response.shipToLocations.regionExcluded.regionName">regionName</a> field descriptions.<br><br> Code so that your app gracefully handles any future changes to this list. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/ba:RegionTypeEnum''>eBay API documentation</a>'
+      description: This type is used provide details about included and excluded shipping regions.
     Item:
       type: object
       properties:
@@ -1516,433 +2054,31 @@ components:
           description: The number of users that have added the item to their watch list.<br><br><span class="tablenote"> <strong>Note:</strong> This field is restricted to applications that have been granted permission to access this feature. You must submit an <a href="https://developer.ebay.com/my/support/tickets?tab=app-check ">App Check ticket</a> to request this access. In the App Check form, add a note to the <b>Application Title/Summary</b> and/or <b>Application Details</b> fields that you want access to Watch Count data in the Browse API.</span>
           format: int32
       description: The details of an item that can be purchased.
-    MarketingPrice:
+    Address:
       type: object
       properties:
-        discountAmount:
-          description: This container returns the monetary amount of the seller discount.
-          $ref: '#/components/schemas/ConvertedAmount'
-        discountPercentage:
+        addressLine1:
           type: string
-          description: This field expresses the percentage of the seller discount based on the value in the <code>originalPrice</code> container.
-        originalPrice:
-          description: This container returns the monetary amount of the item without the discount.
-          $ref: '#/components/schemas/ConvertedAmount'
-        priceTreatment:
+          description: The first line of the street address.<br><br><span class="tablenote"><b>Note:</b> This is conditionally returned in the <code>itemLocation</code> field.</span>
+        addressLine2:
           type: string
-          description: Indicates the pricing treatment (discount) that was applied to the price of the item.<br><br><span class="tablenote"><b>Note:</b> The pricing treatment affects the way and where the discounted price can be displayed.</span> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:PriceTreatmentEnum'>eBay API documentation</a>
-      description: The type that defines the fields that describe a seller discount.
-    HazardPictogram:
-      type: object
-      properties:
-        pictogramDescription:
+          description: The second line of the street address. This field is not always used, but can be used for "Suite Number" or "Apt Number".
+        city:
           type: string
-          description: The description of the hazard pictogram, such as Flammable.
-        pictogramId:
+          description: The city of the address.
+        country:
           type: string
-          description: The ID of the hazard pictogram.
-        pictogramUrl:
+          description: The two-letter <a href="https://www.iso.org/iso-3166-country-codes.html " target="_blank">ISO 3166</a> standard code for the country of the address. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/ba:CountryCodeEnum'>eBay API documentation</a>
+        county:
           type: string
-          description: The URL of the hazard pictogram.
-      description: A type that defines the pictogram for the type of hazard that a hazardous material represents.
-    AspectGroup:
-      type: object
-      properties:
-        aspects:
-          type: array
-          description: 'An array of the name/value pairs for the aspects of the product. For example: BRAND/Apple'
-          items:
-            $ref: '#/components/schemas/Aspect'
-        localizedGroupName:
+          description: The county of the address.
+        postalCode:
           type: string
-          description: The name of a group of aspects.<br><br>In the following example, <b>Product Identifiers</b> and <b>Process</b> are product aspect group names. Under the group name are the product aspect name/value pairs.<br><br><b>Product Identifiers</b><br>&nbsp;&nbsp;&nbsp;Brand/Apple<br>&nbsp;&nbsp;&nbsp;Product Family/iMac<br><br><b>Processor</b><br>&nbsp;&nbsp;&nbsp;Processor Type/Intel<br>&nbsp;&nbsp;&nbsp;Processor Speed/3.10
-    ItemGroupSummary:
-      type: object
-      properties:
-        itemGroupAdditionalImages:
-          type: array
-          description: An array of containers with the URLs for images that are in addition to the primary image of the item group.  The primary image is returned in the <b> itemGroupImage</b> field.
-          items:
-            $ref: '#/components/schemas/Image'
-        itemGroupHref:
+          description: The postal code (or zip code in US) code of the address. Sellers set a postal code (or zip code in US) for items when they are listed. The postal code is used for calculating proximity searches. It is anonymized when returned in <code>itemLocation.postalCode</code> via the API.
+        stateOrProvince:
           type: string
-          description: 'The HATEOAS reference of the parent page of the item group. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. '
-        itemGroupId:
-          type: string
-          description: 'The unique identifier for the item group. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. '
-        itemGroupImage:
-          description: 'The URL of the primary image of the item group. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. '
-          $ref: '#/components/schemas/Image'
-        itemGroupTitle:
-          type: string
-          description: 'The title of the item that appears on the item group page. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. '
-        itemGroupType:
-          type: string
-          description: An enumeration value that indicates the type of the item group. An item group is an item that has various aspect differences, such as color, size, storage capacity, etc. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:ItemGroupTypeEnum'>eBay API documentation</a>
-      description: 'The type that defines the fields for the details of each item in an item group. An item group is  an item that has various aspect differences, such as color, size, storage capacity, etc. When an item group is created, one of the item variations, such as the red shirt size L, is chosen as the "parent". All the other items in the group are the children, such as the blue shirt size L, red shirt size M, etc. <br><br><span class="tablenote"><b> Note: </b> This container is returned only if the <b> item_id</b> in the request is an item group (parent ID of an item with variations).</span>'
-    ConvertedAmount:
-      type: object
-      properties:
-        convertedFromCurrency:
-          type: string
-          description: The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " target="_blank">ISO 4217</a> code representing the currency of the amount in the <code>convertedFromValue</code> field. This value is required or returned only if currency conversion/localization is required, and represents the pre-conversion currency. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
-        convertedFromValue:
-          type: string
-          description: The monetary amount before any conversion is performed, in the currency specified by the <code>convertedFromCurrency</code> field. This value is required or returned only if currency conversion/localization is required. The <code>value</code> field contains the converted amount of this value, in the currency specified by the <code>currency</code> field.
-        currency:
-          type: string
-          description: The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " target="_blank">ISO 4217</a> code representing the currency of the amount in the <code>value</code> field. If currency conversion/localization is required, this is the post-conversion currency of the amount in the <code>value</code> field.<br><br><b>Default:</b> The currency of the authenticated user's country. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
-        value:
-          type: string
-          description: The monetary amount in the currency specified by the <code>currency</code> field. If currency conversion/localization is required, this value is the converted amount, and the <code>convertedFromValue</code> field contains the amount in the original currency.
-      description: This type defines the monetary value of an amount. It can provide the amount in both the currency used on the eBay site where an item is being offered and the conversion of that value into another currency, if applicable.
-    HazardousMaterialsLabels:
-      type: object
-      properties:
-        additionalInformation:
-          type: string
-          description: Additional information about the hazardous materials labels.
-        pictograms:
-          type: array
-          description: An array of hazard pictograms that apply to the item.
-          items:
-            $ref: '#/components/schemas/HazardPictogram'
-        signalWord:
-          type: string
-          description: The signal word for the hazardous materials label (such as Danger or Warning).
-        signalWordId:
-          type: string
-          description: The ID of the signal word for the hazardous materials label.
-        statements:
-          type: array
-          description: An array of hazard statements for the item.
-          items:
-            $ref: '#/components/schemas/HazardStatement'
-      description: A type that defines the hazardous materials labels for an item.
-    ProductIdentity:
-      type: object
-      properties:
-        identifierType:
-          type: string
-          description: The type of product identifier, such as UPC and EAN.
-        identifierValue:
-          type: string
-          description: The product identifier value.
-      description: The type that defines the fields for the product identifier type/value pairs of product associated with an item.
-    ShippingOption:
-      type: object
-      properties:
-        additionalShippingCostPerUnit:
-          description: Any per item additional shipping costs for a multi-item purchase. For example, let's say the shipping cost for a power cord is $3. But for an additional cord, the shipping cost is only $1. So if you bought 3 cords, the <b> shippingCost</b> would be $3 and this value would be $2 ($1 for each additional item).
-          $ref: '#/components/schemas/ConvertedAmount'
-        cutOffDateUsedForEstimate:
-          type: string
-          description: The deadline date that the item must be purchased by in order to be received by the buyer within the delivery window (<b> maxEstimatedDeliveryDate</b> and  <b> minEstimatedDeliveryDate</b> fields). This field is returned only for items that are eligible for 'Same Day Handling'. For these items, the value of this field is what is displayed in the <b> Delivery</b> line on the View Item page.  <br><br>This value is returned in UTC format (yyyy-MM-ddThh:mm:ss.sssZ), which you can convert into the local time of the buyer.
-        fulfilledThrough:
-          type: string
-          description: If the item is being shipped by the eBay <a href="https://pages.ebay.com/seller-center/shipping/global-shipping-program.html ">Global Shipping program</a>, this field returns <code>GLOBAL_SHIPPING</code>.<br><br>If the item is being shipped using the eBay International Shipping program, this field returns <code>INTERNATIONAL_SHIPPING</code>. <br><br>Otherwise, this field is null. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:FulfilledThroughEnum'>eBay API documentation</a>
-        guaranteedDelivery:
-          type: boolean
-          description: Although this field is still returned, it can be ignored since eBay Guaranteed Delivery is no longer a supported feature on any marketplace. This field may get removed from the schema in the future.
-        importCharges:
-          description: The <a href="https://pages.ebay.com/seller-center/shipping/global-shipping-program.html ">Global Shipping Program</a> import charges for this item.
-          $ref: '#/components/schemas/ConvertedAmount'
-        maxEstimatedDeliveryDate:
-          type: string
-          description: 'The end date of the delivery window (latest projected delivery date).  This value is returned in UTC format (yyyy-MM-ddThh:mm:ss.sssZ), which you can convert into the local time of the buyer. <br> <br> <span class="tablenote"> <b> Note: </b> For the best accuracy, always include the location of where the item is be shipped in the <code> contextualLocation</code> values of the <a href="/api-docs/buy/static/api-browse.html#Headers"> <code>X-EBAY-C-ENDUSERCTX</code></a> request header.</span> '
-        minEstimatedDeliveryDate:
-          type: string
-          description: 'The start date of the delivery window (earliest projected delivery date). This value is returned in UTC format (yyyy-MM-ddThh:mm:ss.sssZ), which you can convert into the local time of the buyer. <br> <br><span class="tablenote"> <b> Note: </b> For the best accuracy, always include the location of where the item is be shipped in the <code> contextualLocation</code> values of the <a href="/api-docs/buy/static/api-browse.html#Headers"> <code>X-EBAY-C-ENDUSERCTX</code></a> request header.</span>'
-        quantityUsedForEstimate:
-          type: integer
-          description: The number of items used when calculating the estimation information.
-          format: int32
-        shippingCarrierCode:
-          type: string
-          description: The name of the shipping provider, such as FedEx, or USPS.
-        shippingCost:
-          description: 'The final shipping cost for all the items after all discounts are applied.<br><br><span class="tablenote"><b> Note: </b>The cost does include the value-added tax (VAT) for applicable jurisdictions when requested from supported marketplaces. In this case, users must pass the <a href="/api-docs/static/rest-request-components.html#HTTP"><code>X-EBAY-C-MARKETPLACE-ID</code></a> request header specifying the supported marketplace (such as <code>EBAY_GB</code>) to see the VAT-inclusive cost. For more information on VAT, refer to <a href="https://www.ebay.co.uk/help/listings/default/vat-obligations-eu?id=4650&st=12&pos=1&query=Your%20VAT%20obligations%20in%20the%20EU&intent=VAT">VAT Obligations in the EU</a>.</span>'
-          $ref: '#/components/schemas/ConvertedAmount'
-        shippingCostType:
-          type: string
-          description: 'Indicates the class of the shipping cost. <br><br><b> Valid Values: </b> FIXED or CALCULATED <br><br>Code so that your app gracefully handles any future changes to this list. '
-        shippingServiceCode:
-          type: string
-          description: The type of shipping service. For example, USPS First Class.
-        shipToLocationUsedForEstimate:
-          description: The container that returns the country and postal code of where the item is to be shipped. These values come from the <code>contextualLocation</code> values in the  <a href="/api-docs/buy/static/api-browse.html#Headers"> <code>X-EBAY-C-ENDUSERCTX</code></a> request header. If the header is not submitted, marketplace is used.
-          $ref: '#/components/schemas/ShipToLocation'
-        trademarkSymbol:
-          type: string
-          description: Any trademark symbol, such as &#8482; or &reg;, that needs to be shown in superscript next to the shipping service name.
-        type:
-          type: string
-          description: The type of a shipping option, such as EXPEDITED, ONE_DAY, STANDARD, ECONOMY, PICKUP, etc.
-      description: The type that defines the fields for the details of a shipping provider.
-    RatingHistogram:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The total number of user ratings that the product has received.
-          format: int32
-        rating:
-          type: string
-          description: This is the average rating for the product. As part of a product review, users rate the product. Products are rated from one star (terrible) to five stars (excellent), with each star having a corresponding point value - one star gets 1 point, two stars get 2 points, and so on. If a product had one four-star rating and one five-star rating, its average rating would be <code> 4.5</code>, and this is the value that would appear in this field.
-      description: The type that defines the fields for product ratings. Only products that are in the eBay product catalog can be reviewed and rated.
-    Items:
-      type: object
-      properties:
-        items:
-          type: array
-          description: An arraylist of all the items.
-          items:
-            $ref: '#/components/schemas/CoreItem'
-        total:
-          type: integer
-          description: The total number of items retrieved.
-          format: int32
-        warnings:
-          type: array
-          description: An array of warning messages. These types of errors do not prevent the method from executing but should be checked.
-          items:
-            $ref: '#/components/schemas/Error'
-      description: Container for a list of items.
-    AvailableCoupon:
-      type: object
-      properties:
-        constraint:
-          description: The limitations or restrictions of the coupon.
-          $ref: '#/components/schemas/CouponConstraint'
-        discountAmount:
-          description: The discount amount after the coupon is applied.
-          $ref: '#/components/schemas/Amount'
-        discountType:
-          type: string
-          description: The type of discount that the coupon applies. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:CouponDiscountType'>eBay API documentation</a>
-        message:
-          type: string
-          description: A description of the coupon.<br><br><span class="tablenote"><b>Note:</b> The value returned in the <code>termsWebUrl</code> field should appear for all experiences when displaying coupons. The value in the <code>availableCoupons.message</code> field must also be included if returned in the API response.</span>
-        redemptionCode:
-          type: string
-          description: The coupon code.
-        termsWebUrl:
-          type: string
-          description: The URL to the coupon terms of use.<br><br><span class="tablenote"><b>Note:</b> The value returned in the <code>termsWebUrl</code> field should appear for all experiences when displaying coupons. The value in the <code>availableCoupons.message</code> field must also be included if returned in the API response.</span>
-    ShipToRegion:
-      type: object
-      properties:
-        regionId:
-          type: string
-          description: 'The unique identifier of the shipping region. The value returned here is dependent on the corresponding <b>regionType</b> value. The <b>regionId</b> value for a region does not vary based on the eBay marketplace. However, the corresponding <b>regionName</b> value for a region is a localized, text-based description of the shipping region. <br><br> If the <b>regionType</b> value is <code>WORLDWIDE</code>, the <b>regionId</b> value will also be <code>WORLDWIDE</code>.<br><br> If the <b>regionType</b> value is <code>WORLD_REGION</code>, the <b>regionId</b> value will be one of the following: <code>AFRICA</code>, <code>AMERICAS</code>, <code>ASIA</code>, <code>AUSTRALIA</code>, <code>CENTRAL_AMERICA_AND_CARIBBEAN</code>, <code>EUROPE</code>, <code>EUROPEAN_UNION</code>, <code>GREATER_CHINA</code>, <code>MIDDLE_EAST</code>, <code>NORTH_AMERICA</code>, <code>OCEANIA</code>, <code>SOUTH_AMERICA</code>, <code>SOUTHEAST_ASIA</code> or <code>CHANNEL_ISLANDS</code>.<br><br>If the <b>regionType</b> value is <code>COUNTRY</code>, the <b>regionId</b> value will be the two-letter code for the country, as defined in the <a href="https://www.iso.org/iso-3166-country-codes.html " target="_blank">ISO 3166</a> standard.<br><br>If the <b>regionType</b> value is <code>STATE_OR_PROVINCE</code>, the <b>regionId</b> value will either be the two-letter code for US states and DC (as defined on this <a href="https://www.ssa.gov/international/coc-docs/states.html " target="_blank">Social Security Administration</a> page), or the two-letter code for Canadian provinces (as defined by this <a href="https://www.canadapost.ca/tools/pg/manual/PGaddress-e.asp?ecid=murl10006450#1442131 " target="_blank">Canada Post</a> page).<br><br>If the <b>regionType</b> value is <code>COUNTRY_REGION</code>, the <b>regionId</b> value may be one of following: <code>_AH</code> (if a seller is not willing to ship to Alaska/Hawaii), <code>_PR</code> (if the seller is not willing to ship to US Protectorates), <code>_AP</code> (if seller is not willing to ship to a US Army or Fleet Post Office), and <code>PO_BOX</code> (if the seller is not willing to ship to a Post Office Box).'
-        regionName:
-          type: string
-          description: 'A localized text string that indicates the name of the shipping region. The value returned here is dependent on the corresponding <b>regionType</b> value. <br><br> If the <b>regionType</b> value is <code>WORLDWIDE</code>, the <b>regionName</b> value will show <code>Worldwide</code>.<br><br> If the <b>regionType</b> value is <code>WORLD_REGION</code>, the <b>regionName</b> value will be a localized text string for one of the following large geographical regions: Africa, Americas, Asia, Australia, Central America and Caribbean, Europe, European Union, Greater China, Middle East, North America, Oceania, South America, Southeast Asia, or Channel Islands.<br><br>If the <b>regionType</b> value is <code>COUNTRY</code>, the <b>regionName</b> value will be a localized text string for any country in the world.<br><br>If the <b>regionType</b> value is <code>STATE_OR_PROVINCE</code>, the <b>regionName</b> value will be a localized text string for any US state or Canadian province. <br><br>If the <b>regionType</b> value is <code>COUNTRY_REGION</code>, the <b>regionName</b> value may be a localized version of one of the following: Alaska/Hawaii, US Protectorates, APO/FPO (Army or Fleet Post Office), or PO BOX.'
-        regionType:
-          type: string
-          description: 'An enumeration value that indicates the level or type of shipping region. <br><br><b> Valid Values: </b> <ul><li><b> COUNTRY_REGION </b> - Indicates the region is a domestic region or special location within a country.</li><li><b> STATE_OR_PROVINCE </b> - Indicates the region is a state or province within a country, such as California or New York in the US, or Ontario or Alberta in Canada.</li><li><b> COUNTRY </b> - Indicates the region is a single country.</li><li><b> WORLD_REGION </b> - Indicates the region is a world region, such as Africa, the Middle East, or Southeast Asia.</li><li><b> WORLDWIDE </b> - Indicates the region is the entire world. This value is only applicable for included shiping regions, and not excluded shipping regions.</li></ul> For more detail on the actual <b>regionName</b>/<b>regionId</b> values that will be returned based on the <b>regionType</b> value, see the <a href="/api-docs/buy/browse/resources/item/methods/getItem#response.shipToLocations.regionExcluded.regionId">regionId</a> and/or <a href="/api-docs/buy/browse/resources/item/methods/getItem#response.shipToLocations.regionExcluded.regionName">regionName</a> field descriptions.<br><br> Code so that your app gracefully handles any future changes to this list. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/ba:RegionTypeEnum''>eBay API documentation</a>'
-      description: This type is used provide details about included and excluded shipping regions.
-    PaymentMethod:
-      type: object
-      properties:
-        paymentMethodType:
-          type: string
-          description: The payment method type, such as credit card or cash. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:PaymentMethodTypeEnum'>eBay API documentation</a>
-        paymentMethodBrands:
-          type: array
-          description: The payment method brands, including the payment method brand type and logo image.
-          items:
-            $ref: '#/components/schemas/PaymentMethodBrand'
-        paymentInstructions:
-          type: array
-          description: The payment instructions for the buyer, such as <i>cash in person</i> or <i>contact seller</i>.
-          items:
-            type: string
-            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:PaymentInstructionEnum''>eBay API documentation</a>'
-        sellerInstructions:
-          type: array
-          description: The seller instructions to the buyer, such as <i>accepts credit cards</i> or <i>see description</i>.
-          items:
-            type: string
-            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:SellerInstructionEnum''>eBay API documentation</a>'
-    AttributeNameValue:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of the product attribute, such as <i>Make</i>, <i>Model</i>, <i>Year</i>, etc.
-        value:
-          type: string
-          description: The value for the <code>name</code> attribute, such as <i>BMW</i>, <i>R1200GS</i>, <i>2011</i>, etc.
-      description: The type the defines attribute name/value pair fields that specify a product. The type of data depends on the context. For example, if you were using this to specify a specific vehicle, the attribute names would be <i>Make</i>, <i>Model</i>, <i>Year</i>, etc.
-    ShipToLocations:
-      type: object
-      properties:
-        regionExcluded:
-          type: array
-          description: An array of containers that express the large geographical regions, countries, state/provinces, or special locations within a country where the seller is not willing to ship to.
-          items:
-            $ref: '#/components/schemas/ShipToRegion'
-        regionIncluded:
-          type: array
-          description: An array of containers that express the large geographical regions, countries, or state/provinces within a country where the seller is willing to ship to. Prospective buyers must look at the shipping regions under this container, as well as the shipping regions that are under the <b>regionExcluded</b> to see where the seller is willing to ship items. Sellers can specify that they ship 'Worldwide', but then add several large geographical regions (e.g. Asia, Oceania, Middle East) to the exclusion list, or sellers can specify that they ship to Europe and Africa, but then add several individual countries to the exclusion list.
-          items:
-            $ref: '#/components/schemas/ShipToRegion'
-      description: The type that defines the fields that include and exclude geographic regions affecting where the item can be shipped. The seller defines these regions when listing the item.
-    ItemGroup:
-      type: object
-      properties:
-        commonDescriptions:
-          type: array
-          description: An array of containers for a description and the item IDs of all the items that have this exact description. Often the item variations within an item group all have the same description. Instead of repeating this description in the item details of each item, a description that is shared by at least one other item is returned in this container. If the description is unique, it is returned in the <b> items.description</b> field.
-          items:
-            $ref: '#/components/schemas/CommonDescriptions'
-        items:
-          type: array
-          description: An array of containers for all the item variation details, excluding the description.
-          items:
-            $ref: '#/components/schemas/Item'
-        warnings:
-          type: array
-          description: An array of warning messages. These types of errors do not prevent the method from executing but should be checked.
-          items:
-            $ref: '#/components/schemas/Error'
-      description: The type that defines the fields for the item details.
-    Image:
-      type: object
-      properties:
-        height:
-          type: integer
-          description: Reserved for future use.
-          format: int32
-        imageUrl:
-          type: string
-          description: The URL of the image.
-        width:
-          type: integer
-          description: Reserved for future use.
-          format: int32
-      description: Type that defines the details of an image, such as size and image URL. Currently, only <code>imageUrl</code> is populated. The <code>height</code> and <code>width</code> are reserved for future use.
-    AuthenticityVerificationProgram:
-      type: object
-      properties:
-        description:
-          type: string
-          description: An indication that the item is from a verified seller.
-        termsWebUrl:
-          type: string
-          description: The URL to the Authenticity Verification program terms of use.
-      description: A type that identifies whether the item is from a verified seller.
-    CompatibilityPayload:
-      type: object
-      properties:
-        compatibilityProperties:
-          type: array
-          description: 'An array of attribute name/value pairs used to define a specific product. For example: If you wanted to specify a specific car, one of the name/value pairs would be<br><br><code>"name" : "Year", <br>"value" : "2019"</code><br><br>For a list of the attributes required for cars and trucks and motorcycles see <a href="/api-docs/buy/static/api-browse.html#Check">Check compatibility</a> in the Buy Integration Guide.'
-          items:
-            $ref: '#/components/schemas/AttributeNameValue'
-      description: 'An array of attribute name/value pairs used to define a specific product. For example: If you wanted to specify a specific car, one of the name/value pairs would be:<br><br><code>"name" : "Year",<br>"value" : "2019"</code><br><br>For a list of the attributes required for cars and trucks and motorcycles refer to <a href="/api-docs/buy/static/api-browse.html#Check" target="_blank">Check compatibility</a> in the <a href="/api-docs/buy/static/buying-ig-landing.html" target="_blank">Buying Integration Guide</a>.'
-    ErrorParameter:
-      type: object
-      properties:
-        name:
-          type: string
-          description: This is the name of input field that caused an issue with the call request.
-        value:
-          type: string
-          description: This is the actual value that was passed in for the element specified in the <code>name</code> field.
-      description: An array of name/value pairs that provide details regarding the error.
-    SellerCustomPolicy:
-      type: object
-      properties:
-        description:
-          type: string
-          description: The seller-defined description of the policy.
-        label:
-          type: string
-          description: The seller-defined label for an individual custom policy.
-        type:
-          type: string
-          description: The type of custom policy, such as PRODUCT_COMPLIANCE or TAKE_BACK. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/browse/types/gct:SellerCustomPolicyTypeEnum'>eBay API documentation</a>
-      description: The container for custom policies that apply to a listed item.
-    EstimatedAvailability:
-      type: object
-      properties:
-        availabilityThreshold:
-          type: integer
-          description: This field is return only when the seller sets their '<a href="#display-item-quantity">display item quantity</a>' preference to <b> Display "More than 10 available" in your listing (if applicable)</b>. The value of this field will be "10", which is the threshold value. <br><br>Code so that your app gracefully handles any future changes to this value.
-          format: int32
-        availabilityThresholdType:
-          type: string
-          description: '<a name="display-item-quantity"></a> This field is return only when the seller sets their <b> Display Item Quantity</b> preference to <b> Display "More than 10 available" in your listing (if applicable)</b>. The value of this field will be <code> MORE_THAN</code>. This indicates that the seller has more than the ''quantity display preference'', which is 10, in stock for this item.    <br><br> The following are the display item quantity preferences the seller can set. <br><ul><li> <b> Display "More than 10 available" in your listing (if applicable) </b><ul> <li>If the seller enables this preference, this field is returned as long as there are more than 10 of this item in inventory.</li>  <li> If the quantity is equal to 10 or drops below 10, this field is not returned and the estimated quantity of the item is returned in the <b> estimatedAvailableQuantity</b> field.</li></ul> </li> <li> <b> Display the exact quantity in your items</b> <br>If the seller enables this preference, the <b> availabilityThresholdType</b> and <b> availabilityThreshold</b> fields are not returned and the estimated quantity of the item is returned in the <b> estimatedAvailableQuantity</b> field.<br><br><b> Note: </b> Because the quantity of an item can change several times within a second, it is impossible to return the exact quantity. </li></ul>   <br>Code so that your app gracefully handles any future changes to these preferences. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:AvailabilityThresholdEnum''>eBay API documentation</a>'
-        deliveryOptions:
-          type: array
-          description: 'An array of available delivery options. <br><br><b> Valid Values: </b> SHIP_TO_HOME, SELLER_ARRANGED_LOCAL_PICKUP, IN_STORE_PICKUP, PICKUP_DROP_OFF, or DIGITAL_DELIVERY <br><br>Code so that your app gracefully handles any future changes to this list. '
-          items:
-            type: string
-            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:DeliveryOptionsEnum''>eBay API documentation</a>'
-        estimatedAvailabilityStatus:
-          type: string
-          description: 'An enumeration value representing the inventory status of this item.<br><br><span class="tablenote"><b> Note: </b>Be sure to review the <b>itemEndDate</b> field to determine whether the item is available for purchase.</span><br><br><b> Valid Values: </b> IN_STOCK, LIMITED_STOCK, or OUT_OF_STOCK <br><br>Code so that your app gracefully handles any future changes to this list. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/gct:AvailabilityStatusEnum''>eBay API documentation</a>'
-        estimatedAvailableQuantity:
-          type: integer
-          description: The estimated number of this item that are available for purchase. Because the quantity of an item can change several times within a second, it is impossible to return the exact quantity. So instead of returning quantity, the estimated availability of the item is returned.
-          format: int32
-        estimatedSoldQuantity:
-          type: integer
-          description: The estimated number of this item that have been sold.
-          format: int32
-      description: The type that defines the fields for the estimated item availability information.
-    Amount:
-      type: object
-      properties:
-        currency:
-          type: string
-          description: 'The list of valid currencies. Each <a href="https://www.iso.org/iso-4217-currency-codes.html " target="_blank">ISO 4217</a> currency code includes the currency name followed by the numeric value.<br><br>For example, the Canadian Dollar code (CAD) would take the following form: <code>Canadian Dollar, 124</code>. For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/browse/types/ba:CurrencyCodeEnum''>eBay API documentation</a>'
-        value:
-          type: string
-          description: The value of the discounted amount.
-    Product:
-      type: object
-      properties:
-        additionalImages:
-          type: array
-          description: 'An array of containers with the URLs for the product images that are in addition to the primary image. '
-          items:
-            $ref: '#/components/schemas/Image'
-        additionalProductIdentities:
-          type: array
-          description: An array of product identifiers associated with the item. This container is returned if the seller has associated the eBay Product Identifier (ePID) with the item and in the request <b> fieldgroups</b> is set to <code>PRODUCT</code>.
-          items:
-            $ref: '#/components/schemas/AdditionalProductIdentity'
-        aspectGroups:
-          type: array
-          description: An array of containers for the product aspects. Each group contains the aspect group name and the aspect name/value pairs.
-          items:
-            $ref: '#/components/schemas/AspectGroup'
-        brand:
-          type: string
-          description: The brand associated with product. To identify the product, this is always used along with MPN (manufacturer part number).
-        description:
-          type: string
-          description: The rich description of an eBay product, which might contain HTML.
-        gtins:
-          type: array
-          description: An array of all the possible GTINs values associated with the product. A GTIN is a unique Global Trade Item number of the item as defined by <a href="https://www.gtin.info " target="_blank">https://www.gtin.info</a>. This can be a UPC (Universal Product Code), EAN (European Article Number), or an ISBN (International Standard Book Number) value.
-          items:
-            type: string
-        image:
-          description: The primary image of the product. This is often a stock photo.
-          $ref: '#/components/schemas/Image'
-        mpns:
-          type: array
-          description: An array of all possible MPN values associated with the product. A MPNs is manufacturer part number of the product. To identify the product, this is always used along with brand.
-          items:
-            type: string
-        title:
-          type: string
-          description: The title of the product.
-      description: The type that defines the fields for the product information of the item.
+          description: The state or province of the address.<br><br><span class="tablenote"><b>Note:</b> This is conditionally returned in the <code>itemLocation</code> field.</span>
+      description: The type that defines the fields for an address.
   securitySchemes:
     api_auth:
       type: oauth2

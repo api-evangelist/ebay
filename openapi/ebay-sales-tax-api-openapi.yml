@@ -1,7 +1,10 @@
 openapi: 3.2.0
 info:
   title: eBay Account Sales Tax API
-  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  description: 'The Account API gives sellers the ability to configure their eBay seller accounts, including the seller''s policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.
+
+
+    For details on the availability of the methods in this API, see Account API requirements and restrictions.'
   contact:
     name: eBay Inc,
   license:
@@ -15,13 +18,40 @@ servers:
     basePath:
       default: /sell/account/v1
 tags:
-- name: Sales_tax
+- name: Sales tax
 paths:
   /sales_tax/{countryCode}/{jurisdictionId}:
     get:
       tags:
-      - Sales_tax
-      description: 'This call retrieves the current sales-tax table entry for a specific tax jurisdiction. Specify the jurisdiction to retrieve using the <b>countryCode</b> and <b>jurisdictionId</b> path parameters. All four response fields will be returned if a sales-tax entry exists for the tax jurisdiction. Otherwise, the response will be returned as empty.<br><br><span class="tablenote"><b>Note:</b> Sales-tax tables are only available for the US (EBAY_US) and Canada (EBAY_CA) marketplaces.</span><br><div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> In the US, eBay now calculates, collects, and remits sales tax to the proper taxing authorities in all 50 states and Washington, DC. Sellers can no longer specify sales-tax rates for these jurisdictions using a tax table.<br><br>However, sellers may continue to use a sales-tax table to set rates for the following US territories:<ul><li>American Samoa (AS)</li><li>Guam (GU)</li><li>Northern Mariana Islands (MP)</li><li>Palau (PW)</li><li>US Virgin Islands (VI)</li></ul>For additional information, refer to <a href="https://www.ebay.com/help/selling/fees-credits-invoices/taxes-import-charges?id=4121 " target="_blank">Taxes and import charges</a>.</p></div>'
+      - Sales tax
+      description: 'This call retrieves the current sales-tax table entry for a specific tax jurisdiction. Specify the jurisdiction to retrieve using the countryCode and jurisdictionId path parameters. All four response fields will be returned if a sales-tax entry exists for the tax jurisdiction. Otherwise, the response will be returned as empty.
+
+
+        Note: Sales-tax tables are only available for the US (EBAY_US) and Canada (EBAY_CA) marketplaces.
+
+
+        Important! In the US, eBay now calculates, collects, and remits sales tax to the proper taxing authorities in all 50 states and Washington, DC. Sellers can no longer specify sales-tax rates for these jurisdictions using a tax table.
+
+
+        However, sellers may continue to use a sales-tax table to set rates for the following US territories:
+
+
+        American Samoa (AS)
+
+
+        Guam (GU)
+
+
+        Northern Mariana Islands (MP)
+
+
+        Palau (PW)
+
+
+        US Virgin Islands (VI)
+
+
+        For additional information, refer to Taxes and import charges.'
       operationId: getSalesTax
       parameters:
       - name: countryCode
@@ -79,10 +109,50 @@ paths:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.account
         - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+      summary: Get sales tax
+      x-summary-source: derived
     put:
       tags:
-      - Sales_tax
-      description: 'This method creates or updates a sales-tax table entry for a jurisdiction. Specify the tax table entry you want to configure using the two path parameters: <b>countryCode</b> and <b>jurisdictionId</b>.  <br><br>A tax table entry for a jurisdiction is comprised of two fields: one for the jurisdiction''s sales-tax rate and another that''s a boolean value indicating whether or not shipping and handling are taxed in the jurisdiction.<br><br>You can set up <i>sales-tax tables</i> for countries that support different <i>tax jurisdictions</i>.<br><br><span class="tablenote"><b>Note:</b> Sales-tax tables are only available for the US (EBAY_US) and Canada (EBAY_CA) marketplaces.</span><br>Retrieve valid jurisdiction IDs using <b>getSalesTaxJurisdictions</b> in the Metadata API.<br><br>For details about using this call, refer to <a href="/api-docs/sell/static/seller-accounts/tax-tables.html">Establishing sales-tax tables</a>.<br><br><div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> In the US, eBay now calculates, collects, and remits sales tax to the proper taxing authorities in all 50 states and Washington, DC. Sellers can no longer specify sales-tax rates for these jurisdictions using a tax table.<br><br>However, sellers may continue to use a sales-tax table to set rates for the following US territories:<ul><li>American Samoa (AS)</li><li>Guam (GU)</li><li>Northern Mariana Islands (MP)</li><li>Palau (PW)</li><li>US Virgin Islands (VI)</li></ul>For additional information, refer to <a href="https://www.ebay.com/help/selling/fees-credits-invoices/taxes-import-charges?id=4121 " target="_blank">Taxes and import charges</a>.</p></div>'
+      - Sales tax
+      description: 'This method creates or updates a sales-tax table entry for a jurisdiction. Specify the tax table entry you want to configure using the two path parameters: countryCode and jurisdictionId.
+
+
+        A tax table entry for a jurisdiction is comprised of two fields: one for the jurisdiction''s sales-tax rate and another that''s a boolean value indicating whether or not shipping and handling are taxed in the jurisdiction.
+
+
+        You can set up sales-tax tables for countries that support different tax jurisdictions.
+
+
+        Note: Sales-tax tables are only available for the US (EBAY_US) and Canada (EBAY_CA) marketplaces.
+
+        Retrieve valid jurisdiction IDs using getSalesTaxJurisdictions in the Metadata API.
+
+
+        For details about using this call, refer to Establishing sales-tax tables.
+
+
+        Important! In the US, eBay now calculates, collects, and remits sales tax to the proper taxing authorities in all 50 states and Washington, DC. Sellers can no longer specify sales-tax rates for these jurisdictions using a tax table.
+
+
+        However, sellers may continue to use a sales-tax table to set rates for the following US territories:
+
+
+        American Samoa (AS)
+
+
+        Guam (GU)
+
+
+        Northern Mariana Islands (MP)
+
+
+        Palau (PW)
+
+
+        US Virgin Islands (VI)
+
+
+        For additional information, refer to Taxes and import charges.'
       operationId: createOrReplaceSalesTax
       parameters:
       - name: countryCode
@@ -151,10 +221,15 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.account
+      summary: Create or replace sales tax
+      x-summary-source: derived
     delete:
       tags:
-      - Sales_tax
-      description: This call deletes a sales-tax table entry for a jurisdiction. Specify the jurisdiction to delete using the <b>countryCode</b> and <b>jurisdictionId</b> path parameters.<br><br><span class="tablenote"><b>Note:</b> Sales-tax tables are only available for the US (EBAY_US) and Canada (EBAY_CA) marketplaces.</span>
+      - Sales tax
+      description: 'This call deletes a sales-tax table entry for a jurisdiction. Specify the jurisdiction to delete using the countryCode and jurisdictionId path parameters.
+
+
+        Note: Sales-tax tables are only available for the US (EBAY_US) and Canada (EBAY_CA) marketplaces.'
       operationId: deleteSalesTax
       parameters:
       - name: countryCode
@@ -205,11 +280,40 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.account
+      summary: Delete sales tax
+      x-summary-source: derived
   /sales_tax:
     get:
       tags:
-      - Sales_tax
-      description: 'Use this call to retrieve all sales tax table entries that the seller has defined for a specific country. All four response fields will be returned for each tax jurisdiction that matches the search criteria. <br><br><span class="tablenote"><b>Note:</b> Sales-tax tables are only available for the US (EBAY_US) and Canada (EBAY_CA) marketplaces.</span><br><div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> In the US, eBay now calculates, collects, and remits sales tax to the proper taxing authorities in all 50 states and Washington, DC. Sellers can no longer specify sales-tax rates for these jurisdictions using a tax table.<br><br>However, sellers may continue to use a sales-tax table to set rates for the following US territories:<ul><li>American Samoa (AS)</li><li>Guam (GU)</li><li>Northern Mariana Islands (MP)</li><li>Palau (PW)</li><li>US Virgin Islands (VI)</li></ul>For additional information, refer to <a href="https://www.ebay.com/help/selling/fees-credits-invoices/taxes-import-charges?id=4121 " target="_blank">Taxes and import charges</a>.</p></div>'
+      - Sales tax
+      description: 'Use this call to retrieve all sales tax table entries that the seller has defined for a specific country. All four response fields will be returned for each tax jurisdiction that matches the search criteria.
+
+
+        Note: Sales-tax tables are only available for the US (EBAY_US) and Canada (EBAY_CA) marketplaces.
+
+
+        Important! In the US, eBay now calculates, collects, and remits sales tax to the proper taxing authorities in all 50 states and Washington, DC. Sellers can no longer specify sales-tax rates for these jurisdictions using a tax table.
+
+
+        However, sellers may continue to use a sales-tax table to set rates for the following US territories:
+
+
+        American Samoa (AS)
+
+
+        Guam (GU)
+
+
+        Northern Mariana Islands (MP)
+
+
+        Palau (PW)
+
+
+        US Virgin Islands (VI)
+
+
+        For additional information, refer to Taxes and import charges.'
       operationId: getSalesTaxes
       parameters:
       - name: country_code
@@ -253,27 +357,10 @@ paths:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.account
         - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+      summary: Get sales taxes
+      x-summary-source: derived
 components:
   schemas:
-    SalesTaxBase:
-      type: object
-      properties:
-        salesTaxPercentage:
-          type: string
-          description: This field is used to set the sales tax rate for the tax jurisdiction set in the call URI. When applicable to an order, this sales tax rate will be applied to sales price. The <b>shippingAndHandlingTaxed</b> value will indicate whether or not sales tax is also applied to shipping and handling charges<br><br>Although it is a string, a percentage value is set here, such as <code>7.75</code>.
-        shippingAndHandlingTaxed:
-          type: boolean
-          description: This field is set to <code>true</code> if the seller wishes to apply sales tax to shipping and handling charges, and not just the total sales price of the order. Otherwise, this field's value should be set to <code>false</code>.
-      description: 'This type is used by the base request of the <b>createOrReplaceSalesTax</b>. '
-    SalesTaxes:
-      type: object
-      properties:
-        salesTaxes:
-          type: array
-          description: An array of one or more sales-tax rate entries for a specific marketplace (or all applicable marketplaces if the <b>country_code</b> query parameter is not used.<br><br>If no sales-tax rate entries are set up, no response payload is returned, but an HTTP status code of <code>204 No Content</code> is returned.
-          items:
-            $ref: '#/components/schemas/SalesTax'
-      description: This type is used by the root response of the <b>getSalesTaxes</b> method.
     SalesTax:
       type: object
       properties:
@@ -290,6 +377,25 @@ components:
           type: boolean
           description: If returned as <code>true</code>, sales tax is also applied to shipping and handling charges, and not just the total sales price of the order.
       description: This type is used to provide sales tax settings for a specific tax jurisdiction.
+    SalesTaxes:
+      type: object
+      properties:
+        salesTaxes:
+          type: array
+          description: An array of one or more sales-tax rate entries for a specific marketplace (or all applicable marketplaces if the <b>country_code</b> query parameter is not used.<br><br>If no sales-tax rate entries are set up, no response payload is returned, but an HTTP status code of <code>204 No Content</code> is returned.
+          items:
+            $ref: '#/components/schemas/SalesTax'
+      description: This type is used by the root response of the <b>getSalesTaxes</b> method.
+    SalesTaxBase:
+      type: object
+      properties:
+        salesTaxPercentage:
+          type: string
+          description: This field is used to set the sales tax rate for the tax jurisdiction set in the call URI. When applicable to an order, this sales tax rate will be applied to sales price. The <b>shippingAndHandlingTaxed</b> value will indicate whether or not sales tax is also applied to shipping and handling charges<br><br>Although it is a string, a percentage value is set here, such as <code>7.75</code>.
+        shippingAndHandlingTaxed:
+          type: boolean
+          description: This field is set to <code>true</code> if the seller wishes to apply sales tax to shipping and handling charges, and not just the total sales price of the order. Otherwise, this field's value should be set to <code>false</code>.
+      description: 'This type is used by the base request of the <b>createOrReplaceSalesTax</b>. '
   securitySchemes:
     api_auth:
       type: oauth2

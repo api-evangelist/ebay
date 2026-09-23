@@ -1,7 +1,19 @@
 openapi: 3.2.0
 info:
   title: eBay Notification Config API
-  description: The eBay Notification API enables management of the entire end-to-end eBay notification experience by allowing users to:<ul><li>Browse for supported notification topics and retrieve topic details</li><li>Create, configure, and manage notification destination endpoints</li><li>Configure, manage, and test notification subscriptions</li><li>Process eBay notifications and verify the integrity of the message payload</li></ul>
+  description: 'The eBay Notification API enables management of the entire end-to-end eBay notification experience by allowing users to:
+
+
+    Browse for supported notification topics and retrieve topic details
+
+
+    Create, configure, and manage notification destination endpoints
+
+
+    Configure, manage, and test notification subscriptions
+
+
+    Process eBay notifications and verify the integrity of the message payload'
   contact:
     name: eBay Inc,
   license:
@@ -49,6 +61,8 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope
+      summary: Get config
+      x-summary-source: derived
     put:
       tags:
       - Config
@@ -91,6 +105,8 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope
+      summary: Update config
+      x-summary-source: derived
 components:
   schemas:
     Config:

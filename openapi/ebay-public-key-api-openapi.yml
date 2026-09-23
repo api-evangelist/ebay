@@ -1,7 +1,19 @@
 openapi: 3.2.0
 info:
   title: eBay Notification Public Key API
-  description: The eBay Notification API enables management of the entire end-to-end eBay notification experience by allowing users to:<ul><li>Browse for supported notification topics and retrieve topic details</li><li>Create, configure, and manage notification destination endpoints</li><li>Configure, manage, and test notification subscriptions</li><li>Process eBay notifications and verify the integrity of the message payload</li></ul>
+  description: 'The eBay Notification API enables management of the entire end-to-end eBay notification experience by allowing users to:
+
+
+    Browse for supported notification topics and retrieve topic details
+
+
+    Create, configure, and manage notification destination endpoints
+
+
+    Configure, manage, and test notification subscriptions
+
+
+    Process eBay notifications and verify the integrity of the message payload'
   contact:
     name: eBay Inc,
   license:
@@ -15,13 +27,22 @@ servers:
     basePath:
       default: /commerce/notification/v1
 tags:
-- name: Public_key
+- name: Public Key
 paths:
   /public_key/{public_key_id}:
     get:
       tags:
-      - Public_key
-      description: 'This method allows users to retrieve a public key using a specified key ID. The public key that is returned in the response payload is used to process and validate eBay notifications.<br><br>The public key ID, which is a required request parameter for this method, is retrieved from the Base64-encoded <b>X-EBAY-SIGNATURE</b> header that is included in the eBay notification.<br><br><div class="msgbox_important"><p class="msgbox_importantInDiv" data-mc-autonum="&lt;b&gt;&lt;span style=&quot;color: #dd1e31;&quot; class=&quot;mcFormatColor&quot;&gt;Important! &lt;/span&gt;&lt;/b&gt;"><span class="autonumber"><span><b><span style="color: #dd1e31;" class="mcFormatColor">Important!</span></b></span></span> The retrieved public key value should be cached for a temporary — but reasonable — amount of time (e.g., one-hour is recommended.) This key should not be requested for every notification since doing so can result in exceeding <a href="/develop/apis/api-call-limits" target="_blank">API call limits</a> if a large number of notification requests is received.</p></div><br><span class="tablenote"><b>Note:</b> For more details about how to process eBay push notifications and validate notification message payloads, see the <a href="/api-docs/commerce/notification/overview.html">Notification API overview</a>.</span>'
+      - Public Key
+      description: 'This method allows users to retrieve a public key using a specified key ID. The public key that is returned in the response payload is used to process and validate eBay notifications.
+
+
+        The public key ID, which is a required request parameter for this method, is retrieved from the Base64-encoded X-EBAY-SIGNATURE header that is included in the eBay notification.
+
+
+        Important! The retrieved public key value should be cached for a temporary — but reasonable — amount of time (e.g., one-hour is recommended.) This key should not be requested for every notification since doing so can result in exceeding API call limits if a large number of notification requests is received.
+
+
+        Note: For more details about how to process eBay push notifications and validate notification message payloads, see the Notification API overview.'
       operationId: getPublicKey
       parameters:
       - name: public_key_id
@@ -58,6 +79,8 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope
+      summary: Get public key
+      x-summary-source: derived
 components:
   schemas:
     PublicKey:

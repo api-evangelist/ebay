@@ -1,7 +1,10 @@
 openapi: 3.2.0
 info:
   title: eBay Buy Offer Bidding API
-  description: <span class="tablenote"><b>Note:</b> This is a <a href="https://developer.ebay.com/api-docs/static/versioning.html#limited" target="_blank"> <img src="/cms/img/docs/partners-api.svg" class="legend-icon partners-icon" title="Limited Release"  alt="Limited Release" />(Limited Release)</a> API available only to select developers approved by business units. For information on how to obtain access to this API in production, see the <a href="/../api-docs/buy/static/buy-requirements.html" target="_blank">Buy APIs Requirements</a>.</span><br><br>The Buy Offer API enables Partners to place proxy bids for a buyer and retrieve the auctions where the buyer is bidding.  By placing a proxy bid, the buyer is agreeing to purchase the item if they win the auction.
+  description: 'Note: This is a (Limited Release) API available only to select developers approved by business units. For information on how to obtain access to this API in production, see the Buy APIs Requirements.
+
+
+    The Buy Offer API enables Partners to place proxy bids for a buyer and retrieve the auctions where the buyer is bidding. By placing a proxy bid, the buyer is agreeing to purchase the item if they win the auction.'
   contact:
     name: eBay Inc,
   license:
@@ -21,7 +24,15 @@ paths:
     get:
       tags:
       - Bidding
-      description: This method retrieves the bidding details that are specific to the buyer of the specified auction. This must be an auction where the buyer has already placed a bid. <br><br>To retrieve the bidding information you use a <a href="/api-docs/static/oauth-tokens.html">user access token</a> and pass in the item ID of the auction. You can also retrieve general bidding details about the auction, such as minimum bid price and the count of unique bidders, using the <b>Browse API</b> <a href="/api-docs/buy/browse/resources/item/methods/getItems">getItems</a> method.    <h3><b>Restrictions </b></h3> <p> For a list of supported sites and other restrictions, see <a href="/api-docs/buy/offer/overview.html#API">API Restrictions</a>.</p>
+      description: 'This method retrieves the bidding details that are specific to the buyer of the specified auction. This must be an auction where the buyer has already placed a bid.
+
+
+        To retrieve the bidding information you use a user access token and pass in the item ID of the auction. You can also retrieve general bidding details about the auction, such as minimum bid price and the count of unique bidders, using the Browse API getItems method.
+
+        Restrictions
+
+
+        For a list of supported sites and other restrictions, see API Restrictions.'
       operationId: getBidding
       parameters:
       - name: item_id
@@ -78,11 +89,29 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/buy.offer.auction
+      summary: Get bidding
+      x-summary-source: derived
   /bidding/{item_id}/place_proxy_bid:
     post:
       tags:
       - Bidding
-      description: 'This method uses a <a href="/api-docs/static/oauth-qref-auth-code-grant.html">user access token</a> to place a proxy bid for the buyer on a specific auction item. The item must offer <code>AUCTION</code> as one of the <b> buyingOptions</b>. <br><br>To place a bid, you pass in the item ID of the auction as a URI parameter and the buyer''s maximum bid amount (<b>maxAmount </b>) in the payload.   By placing a proxy bid, the buyer is agreeing to purchase the item if they win the auction. <p>After this bid is placed, if someone else outbids the buyer a bid, eBay automatically bids again for the buyer up to the amount of their maximum bid. When the bid exceeds the buyer''s maximum bid, eBay will notify them that they have been outbid.<br><br>To find auctions, you can use the <a href="/api-docs/buy/browse/resources/item_summary/methods/search">Browse API to search</a> for items and use a filter to return only auction items. For example: <br><br>   <code>/buy/browse/v1/item_summary/search?q=iphone&filter=buyingOptions:{AUCTION}</code> </p><h3><b>Restrictions </b></h3>For a list of supported sites and other restrictions, see <a href="/api-docs/buy/offer/overview.html#API">API Restrictions</a>.'
+      description: 'This method uses a user access token to place a proxy bid for the buyer on a specific auction item. The item must offer AUCTION as one of the buyingOptions.
+
+
+        To place a bid, you pass in the item ID of the auction as a URI parameter and the buyer''s maximum bid amount (maxAmount ) in the payload. By placing a proxy bid, the buyer is agreeing to purchase the item if they win the auction.
+
+        After this bid is placed, if someone else outbids the buyer a bid, eBay automatically bids again for the buyer up to the amount of their maximum bid. When the bid exceeds the buyer''s maximum bid, eBay will notify them that they have been outbid.
+
+
+        To find auctions, you can use the Browse API to search for items and use a filter to return only auction items. For example:
+
+
+        /buy/browse/v1/item_summary/search?q=iphone&filter=buyingOptions:{AUCTION}
+
+
+        Restrictions
+
+        For a list of supported sites and other restrictions, see API Restrictions.'
       operationId: placeProxyBid
       parameters:
       - name: item_id
@@ -267,8 +296,17 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/buy.offer.auction
+      summary: Place proxy bid
+      x-summary-source: derived
 components:
   schemas:
+    PlaceProxyBidResponse:
+      type: object
+      properties:
+        proxyBidId:
+          type: string
+          description: Identifier of the proxy bid created by the request. This indicates that the bid was placed and is not used for anything else.
+      description: The type that defines the fields for the place proxy bid response.
     PlaceProxyBidRequest:
       type: object
       properties:
@@ -279,13 +317,6 @@ components:
           description: 'Specifies whether the buyer wants to give their consent to bid on adult-only items. For a buyer to bid on an adult-only item, you must collect their consent using this field, and they must agree to the Terms of Use. <p>For more information about adult-only items on eBay, see  <a href="https://www.ebay.com/help/terms-conditions/default/searching-adult-items?id=4661" target="_blank">Adult-Only items on eBay</a>.</p> <p><b>Default: </b>false </p>'
           $ref: '#/components/schemas/UserConsent'
       description: The type that defines the fields for placing a proxy bid.
-    UserConsent:
-      type: object
-      properties:
-        adultOnlyItem:
-          type: boolean
-          description: The type that defines the fields for buyer consent to bid on adult-only items.<br><br>This field must be included in the <b>placeProxyBid</b> request and set to <code>true</code> if the buyer is bidding on an <i>adult-only</i> item.<br><br>For more information about adult-only items on eBay, see  <a href="https://www.ebay.com/help/terms-conditions/default/searching-adult-items?id=4661" target="_blank">Adult-Only items on eBay</a>.
-      description: The type that defines the fields for collecting the buyers consent.
     ProxyBid:
       type: object
       properties:
@@ -296,6 +327,13 @@ components:
           type: string
           description: Identifier of a specific proxy bid.
       description: The type the defines the fields for the proxy bid information.
+    UserConsent:
+      type: object
+      properties:
+        adultOnlyItem:
+          type: boolean
+          description: The type that defines the fields for buyer consent to bid on adult-only items.<br><br>This field must be included in the <b>placeProxyBid</b> request and set to <code>true</code> if the buyer is bidding on an <i>adult-only</i> item.<br><br>For more information about adult-only items on eBay, see  <a href="https://www.ebay.com/help/terms-conditions/default/searching-adult-items?id=4661" target="_blank">Adult-Only items on eBay</a>.
+      description: The type that defines the fields for collecting the buyers consent.
     Bidding:
       type: object
       properties:
@@ -340,13 +378,6 @@ components:
           type: string
           description: The monetary amount.
       description: The type that defines the fields for a monetary value and its currency.
-    PlaceProxyBidResponse:
-      type: object
-      properties:
-        proxyBidId:
-          type: string
-          description: Identifier of the proxy bid created by the request. This indicates that the bid was placed and is not used for anything else.
-      description: The type that defines the fields for the place proxy bid response.
   securitySchemes:
     api_auth:
       type: oauth2

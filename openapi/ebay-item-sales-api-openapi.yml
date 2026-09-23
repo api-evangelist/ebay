@@ -1,7 +1,9 @@
 openapi: 3.2.0
 info:
   title: eBay Marketplace Insights Item Sales API
-  description: <span class="tablenote"><b>Note:</b> This is a <a href="/api-docs/static/versioning.html#limited " target="_blank"> <img src="/cms/img/docs/partners-api.svg" class="legend-icon partners-icon" title="Limited Release"  alt="Limited Release" />(Limited Release)</a> API available only to select developers approved by business units. For information on how to obtain access to this API in production, see the <a href="/../api-docs/buy/static/buy-requirements.html" target="_blank">Buy APIs Requirements</a>.</span>  <p>The Marketplace Insights API provides the ability to search for sold items on eBay by keyword, GTIN, category, and product and returns the of sales history of those items.</p>
+  description: 'Note: This is a (Limited Release) API available only to select developers approved by business units. For information on how to obtain access to this API in production, see the Buy APIs Requirements.
+
+    The Marketplace Insights API provides the ability to search for sold items on eBay by keyword, GTIN, category, and product and returns the of sales history of those items.'
   contact:
     name: eBay Inc,
   license:
@@ -21,7 +23,45 @@ paths:
     get:
       tags:
       - Item_sales
-      description: '<span class="tablenote"><b>Note:</b> This is a <a href="/api-docs/static/versioning.html#limited" target="_blank"> <img src="/cms/img/docs/partners-api.svg" class="legend-icon partners-icon" title="Limited Release"  alt="Limited Release" />(Limited Release)</a> API available only to select developers approved by business units. For information on how to obtain access to this API in production, see the <a href="/../api-docs/buy/static/buy-requirements.html" target="_blank">Buy APIs Requirements</a>.</span>  <p>This method searches for sold eBay items by various URI query parameters and retrieves the sales history of the items for the last 90 days. You can search by keyword, category, eBay product ID (ePID), or GTIN, or a combination of these.    </p>      <p>This method also supports the following:  <ul> <li>Filtering by the value of one or multiple fields, such as listing format, item condition, price range, location, and more.  For the fields supported by this method, see the <a href="#uri.filter">filter</a> parameter.</li> <li>Retrieving the refinements (metadata) of an item , such as item aspects (color, brand), condition, category, etc. using the <a href="#uri.fieldgroups">fieldgroups</a> parameter. </li>  <li>Filtering by item aspects and other refinements using the <a href="#uri.aspect_filter">aspect_filter</a> parameter. </li> <li>Creating aspects histograms, which enables shoppers to drill down in each refinement narrowing the search results.  </li>  </ul></p>  <p>For details and examples of these capabilities, see <a href="/api-docs/buy/static/api-browse.html">Browse API</a> in the Buying Integration Guide.</p>     <h3><b>Pagination and sort controls</b></h3><p>There are pagination controls (<b>limit</b> and <b>offset</b> fields) and <b> sort</b> query parameters that  control/sort the data that is returned. By default, the results are sorted by &quot;Best Match&quot;. For more information about  Best Match, see the eBay help page <a href="https://pages.ebay.com/help/sell/searchstanding.html" target="_blank">Best Match</a>.</p>   <h3><b>URL Encoding for Parameters</b></h3>            <p>Query parameter values need to be URL encoded. For details, see <a href="/api-docs/static/rest-request-components.html#parameters">URL encoding query parameter values</a>.</p>            <h3><b>Restrictions </b></h3> <p> This method can return a maximum of 10,000 items. For a list of supported sites and other restrictions, see <a href="/api-docs/buy/marketplace-insights/overview.html#API">API Restrictions</a>.</p> '
+      description: 'Note: This is a (Limited Release) API available only to select developers approved by business units. For information on how to obtain access to this API in production, see the Buy APIs Requirements.
+
+        This method searches for sold eBay items by various URI query parameters and retrieves the sales history of the items for the last 90 days. You can search by keyword, category, eBay product ID (ePID), or GTIN, or a combination of these.
+
+
+        This method also supports the following:
+
+
+        Filtering by the value of one or multiple fields, such as listing format, item condition, price range, location, and more. For the fields supported by this method, see the filter parameter.
+
+
+        Retrieving the refinements (metadata) of an item , such as item aspects (color, brand), condition, category, etc. using the fieldgroups parameter.
+
+
+        Filtering by item aspects and other refinements using the aspect_filter parameter.
+
+
+        Creating aspects histograms, which enables shoppers to drill down in each refinement narrowing the search results.
+
+
+        For details and examples of these capabilities, see Browse API in the Buying Integration Guide.
+
+
+        Pagination and sort controls
+
+
+        There are pagination controls (limit and offset fields) and sort query parameters that control/sort the data that is returned. By default, the results are sorted by "Best Match". For more information about Best Match, see the eBay help page Best Match.
+
+
+        URL Encoding for Parameters
+
+
+        Query parameter values need to be URL encoded. For details, see URL encoding query parameter values.
+
+
+        Restrictions
+
+
+        This method can return a maximum of 10,000 items. For a list of supported sites and other restrictions, see API Restrictions.'
       operationId: search
       parameters:
       - name: aspect_filter
@@ -206,87 +246,10 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/buy.marketplace.insights
+      summary: Search
+      x-summary-source: derived
 components:
   schemas:
-    ConvertedAmount:
-      type: object
-      properties:
-        convertedFromCurrency:
-          type: string
-          description: A three-letter <a href="https://en.wikipedia.org/wiki/ISO_4217 ">ISO 4217</a> code that indicates the currency of the amount in the <b> convertedFromValue</b> field. This value represents the pre-conversion currency. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/marketplace_insights/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
-        convertedFromValue:
-          type: string
-          description: The monetary amount before any conversion is performed, in the currency specified by the <b> convertedFromCurrency</b> field. The <b> value</b> field contains the converted amount of this value, in the currency specified by the <b> currency</b> field.
-        currency:
-          type: string
-          description: A three-letter <a href="https://en.wikipedia.org/wiki/ISO_4217 ">ISO 4217</a> code that indicates the currency of the amount in the <b> value</b> field. This value represents the post-conversion currency of the amount in the <b> value</b> field. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/marketplace_insights/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
-        value:
-          type: string
-          description: The monetary value in the currency specified in the <b> currency</b> field.
-    SalesHistoryPagedCollection:
-      type: object
-      properties:
-        href:
-          type: string
-          description: The URI of the current page of results from the result set.  <br><br><b> The following example returns items 1 thru 5 from the list of items found. </b><br><code>https://api.ebay.com/buy/marketplace_insights/v1_beta/item_sales/search?q=shirt&&limit=5&offset=0</code>
-        itemSales:
-          type: array
-          description: The type that defines the fields for a paginated result set of the sold items. The response consists of 0 or more sequenced <em> result sets</em> where each result sets has 0 or more items.<br><br><span class="tablenote"><b> Note:</b> For items with multiple quantities that might result in multiple transactions, and items with the <code>SELLER_DEFINED_VARIATIONS</code> group type that might result in multiple transactions, only one deduped transaction is returned in the search results.</span>
-          items:
-            $ref: '#/components/schemas/ItemSales'
-        limit:
-          type: integer
-          description: The number of items returned on a single page from the result set. This value can be set in the request with the <b>limit</b> query parameter.
-          format: int32
-        next:
-          type: string
-          description: 'The URI for the following page of results. This value is returned only if there is an additional page of results to display from the result set. <br><br><b>Max length</b>: 2048'
-        offset:
-          type: integer
-          description: The number of results skipped in the result set before listing the first returned result. This value can be set in the request with the <b>offset</b> query parameter.
-          format: int32
-        prev:
-          type: string
-          description: 'The URI for the preceding page of results. This value is returned only if there is a previous page of results to display from the result set. <br><br><b>Max length</b>: 2048'
-        refinement:
-          description: The container for all the search refinements.
-          $ref: '#/components/schemas/Refinement'
-        total:
-          type: integer
-          description: The total number of items retrieved in the result set.<br><br>If no items are found, this field is returned with a value of <code>0</code>.<br><br><span class="tablenote"><b>Note:</b> <code>total</code> is just an indicator of the number of listings for a given query. It could vary based on the number of listings with variations included in the result. It is strongly recommended that <code>total</code> not be used in pagination use cases. Instead, use <a href="/api-docs/buy/marketplace-insights/resources/item_sales/methods/search#response.next "> next</a> to determine the results on the next page.</span>
-          format: int32
-    Image:
-      type: object
-      properties:
-        height:
-          type: integer
-          description: '<b> Reserved for future use. </b> '
-          format: int32
-        imageUrl:
-          type: string
-          description: The URL of the image.
-        width:
-          type: integer
-          description: '<b> Reserved for future use. </b> '
-          format: int32
-      description: Type the defines the details of an image, such as size and image URL. Currently only <b> imageUrl</b> is  populated. The <b> height</b> and <b> width</b> were added for future use.
-    ConditionDistribution:
-      type: object
-      properties:
-        condition:
-          type: string
-          description: The text describing the condition of the item, such as New or Used. For a list of condition names, see <a href="/devzone/finding/callref/enums/conditionIdList.html " target="_blank">ConditionEnum</a>.  <br><br>Code so that your app gracefully handles any future changes to this list.
-        conditionId:
-          type: string
-          description: The identifier of the condition. For example, 1000 is the identifier for NEW.
-        matchCount:
-          type: integer
-          description: The number of items having the condition.
-          format: int32
-        refinementHref:
-          type: string
-          description: The HATEOAS reference of this condition.
-      description: The container that defines the fields for the conditions refinements. This container is returned when <b> fieldgroups</b> is set to <code>CONDITION_REFINEMENTS</code> or <code>FULL</code> in the request.
     ItemSales:
       type: object
       properties:
@@ -367,64 +330,21 @@ components:
           description: The total number of this item that have been sold.
           format: int32
       description: This type defines the fields for the sold items sales history information.
-    BuyingOptionDistribution:
+    ConvertedAmount:
       type: object
       properties:
-        buyingOption:
+        convertedFromCurrency:
           type: string
-        matchCount:
-          type: integer
-          description: The number of items having this buying option.
-          format: int32
-        refinementHref:
+          description: A three-letter <a href="https://en.wikipedia.org/wiki/ISO_4217 ">ISO 4217</a> code that indicates the currency of the amount in the <b> convertedFromValue</b> field. This value represents the pre-conversion currency. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/marketplace_insights/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
+        convertedFromValue:
           type: string
-          description: The HATEOAS reference for this buying option.
-      description: The container that defines the fields for the buying options refinements. This container is returned when <b> fieldgroups</b> is set to <code>BUYING_OPTION_REFINEMENTS</code> or <code>FULL</code> in the request.
-    CategoryDistribution:
-      type: object
-      properties:
-        categoryId:
+          description: The monetary amount before any conversion is performed, in the currency specified by the <b> convertedFromCurrency</b> field. The <b> value</b> field contains the converted amount of this value, in the currency specified by the <b> currency</b> field.
+        currency:
           type: string
-          description: The identifier of the category.
-        categoryName:
+          description: A three-letter <a href="https://en.wikipedia.org/wiki/ISO_4217 ">ISO 4217</a> code that indicates the currency of the amount in the <b> value</b> field. This value represents the post-conversion currency of the amount in the <b> value</b> field. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/marketplace_insights/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
+        value:
           type: string
-          description: The name of the category, such as Baby & Toddler Clothing.
-        matchCount:
-          type: integer
-          description: The number of items in this category.
-          format: int32
-        refinementHref:
-          type: string
-          description: The HATEOAS reference of this category.
-      description: The container that defines the fields for the category refinements. This container is returned when <b> fieldgroups</b> is set to <code>CATEGORY_REFINEMENTS</code> or <code>FULL</code> in the request.
-    AspectValueDistribution:
-      type: object
-      properties:
-        localizedAspectValue:
-          type: string
-          description: The value of an aspect. For example, Red is a value for the aspect Color.
-        matchCount:
-          type: integer
-          description: The number of items with this aspect.
-          format: int32
-        refinementHref:
-          type: string
-          description: A HATEOAS reference for this aspect.
-      description: The container that defines the fields for the conditions refinements. This container is returned when <b> fieldgroups</b> is set to <code>ASPECT_REFINEMENTS</code> or <code>FULL</code> in the request.
-    Seller:
-      type: object
-      properties:
-        feedbackPercentage:
-          type: string
-          description: The percentage of the total positive feedback.
-        feedbackScore:
-          type: integer
-          description: The feedback score of the seller. This value is based on the ratings from eBay members that bought items from this seller.
-          format: int32
-        username:
-          type: string
-          description: The username created by the seller for use on eBay.
-      description: The type that defines the fields for basic information about the seller of the item.
+          description: The monetary value in the currency specified in the <b> currency</b> field.
     Category:
       type: object
       properties:
@@ -432,18 +352,38 @@ components:
           type: string
           description: The unique identifier of the primary item category of the item, as well as the secondary item category if item was listed in two categories.
       description: This type is used by the <b> categories</b>  container in the response of the <b> search</b>  method, and contains the primary item category ID of the item, as well as the secondary item category if the item was listed in two categories.
-    AspectDistribution:
+    ConditionDistribution:
       type: object
       properties:
-        aspectValueDistributions:
-          type: array
-          description: An array of containers for the various values of the aspect and the match count and a HATEOAS reference (<b> refinementHref</b>) for this aspect.
-          items:
-            $ref: '#/components/schemas/AspectValueDistribution'
-        localizedAspectName:
+        condition:
           type: string
-          description: Name of an aspect, such as Brand, Color, etc.
-      description: The type that define the fields for the aspect information. Aspects are the variations of an item, such as color, size, etc.
+          description: The text describing the condition of the item, such as New or Used. For a list of condition names, see <a href="/devzone/finding/callref/enums/conditionIdList.html " target="_blank">ConditionEnum</a>.  <br><br>Code so that your app gracefully handles any future changes to this list.
+        conditionId:
+          type: string
+          description: The identifier of the condition. For example, 1000 is the identifier for NEW.
+        matchCount:
+          type: integer
+          description: The number of items having the condition.
+          format: int32
+        refinementHref:
+          type: string
+          description: The HATEOAS reference of this condition.
+      description: The container that defines the fields for the conditions refinements. This container is returned when <b> fieldgroups</b> is set to <code>CONDITION_REFINEMENTS</code> or <code>FULL</code> in the request.
+    Image:
+      type: object
+      properties:
+        height:
+          type: integer
+          description: '<b> Reserved for future use. </b> '
+          format: int32
+        imageUrl:
+          type: string
+          description: The URL of the image.
+        width:
+          type: integer
+          description: '<b> Reserved for future use. </b> '
+          format: int32
+      description: Type the defines the details of an image, such as size and image URL. Currently only <b> imageUrl</b> is  populated. The <b> height</b> and <b> width</b> were added for future use.
     Refinement:
       type: object
       properties:
@@ -471,6 +411,19 @@ components:
           type: string
           description: 'The identifier of the category that most of the items are part of. '
       description: This type defines the fields for the various refinements of an item. You can use the information in this container to create histograms, which help shoppers choose exactly what they want.
+    BuyingOptionDistribution:
+      type: object
+      properties:
+        buyingOption:
+          type: string
+        matchCount:
+          type: integer
+          description: The number of items having this buying option.
+          format: int32
+        refinementHref:
+          type: string
+          description: The HATEOAS reference for this buying option.
+      description: The container that defines the fields for the buying options refinements. This container is returned when <b> fieldgroups</b> is set to <code>BUYING_OPTION_REFINEMENTS</code> or <code>FULL</code> in the request.
     ItemLocation:
       type: object
       properties:
@@ -496,6 +449,95 @@ components:
           type: string
           description: The state or province in which the item is located.
       description: The type that defines the fields for the locaton of an item, including postal code, county, state/province, street address, city, and country (2-digit ISO code).
+    SalesHistoryPagedCollection:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The URI of the current page of results from the result set.  <br><br><b> The following example returns items 1 thru 5 from the list of items found. </b><br><code>https://api.ebay.com/buy/marketplace_insights/v1_beta/item_sales/search?q=shirt&&limit=5&offset=0</code>
+        itemSales:
+          type: array
+          description: The type that defines the fields for a paginated result set of the sold items. The response consists of 0 or more sequenced <em> result sets</em> where each result sets has 0 or more items.<br><br><span class="tablenote"><b> Note:</b> For items with multiple quantities that might result in multiple transactions, and items with the <code>SELLER_DEFINED_VARIATIONS</code> group type that might result in multiple transactions, only one deduped transaction is returned in the search results.</span>
+          items:
+            $ref: '#/components/schemas/ItemSales'
+        limit:
+          type: integer
+          description: The number of items returned on a single page from the result set. This value can be set in the request with the <b>limit</b> query parameter.
+          format: int32
+        next:
+          type: string
+          description: 'The URI for the following page of results. This value is returned only if there is an additional page of results to display from the result set. <br><br><b>Max length</b>: 2048'
+        offset:
+          type: integer
+          description: The number of results skipped in the result set before listing the first returned result. This value can be set in the request with the <b>offset</b> query parameter.
+          format: int32
+        prev:
+          type: string
+          description: 'The URI for the preceding page of results. This value is returned only if there is a previous page of results to display from the result set. <br><br><b>Max length</b>: 2048'
+        refinement:
+          description: The container for all the search refinements.
+          $ref: '#/components/schemas/Refinement'
+        total:
+          type: integer
+          description: The total number of items retrieved in the result set.<br><br>If no items are found, this field is returned with a value of <code>0</code>.<br><br><span class="tablenote"><b>Note:</b> <code>total</code> is just an indicator of the number of listings for a given query. It could vary based on the number of listings with variations included in the result. It is strongly recommended that <code>total</code> not be used in pagination use cases. Instead, use <a href="/api-docs/buy/marketplace-insights/resources/item_sales/methods/search#response.next "> next</a> to determine the results on the next page.</span>
+          format: int32
+    AspectDistribution:
+      type: object
+      properties:
+        aspectValueDistributions:
+          type: array
+          description: An array of containers for the various values of the aspect and the match count and a HATEOAS reference (<b> refinementHref</b>) for this aspect.
+          items:
+            $ref: '#/components/schemas/AspectValueDistribution'
+        localizedAspectName:
+          type: string
+          description: Name of an aspect, such as Brand, Color, etc.
+      description: The type that define the fields for the aspect information. Aspects are the variations of an item, such as color, size, etc.
+    Seller:
+      type: object
+      properties:
+        feedbackPercentage:
+          type: string
+          description: The percentage of the total positive feedback.
+        feedbackScore:
+          type: integer
+          description: The feedback score of the seller. This value is based on the ratings from eBay members that bought items from this seller.
+          format: int32
+        username:
+          type: string
+          description: The username created by the seller for use on eBay.
+      description: The type that defines the fields for basic information about the seller of the item.
+    AspectValueDistribution:
+      type: object
+      properties:
+        localizedAspectValue:
+          type: string
+          description: The value of an aspect. For example, Red is a value for the aspect Color.
+        matchCount:
+          type: integer
+          description: The number of items with this aspect.
+          format: int32
+        refinementHref:
+          type: string
+          description: A HATEOAS reference for this aspect.
+      description: The container that defines the fields for the conditions refinements. This container is returned when <b> fieldgroups</b> is set to <code>ASPECT_REFINEMENTS</code> or <code>FULL</code> in the request.
+    CategoryDistribution:
+      type: object
+      properties:
+        categoryId:
+          type: string
+          description: The identifier of the category.
+        categoryName:
+          type: string
+          description: The name of the category, such as Baby & Toddler Clothing.
+        matchCount:
+          type: integer
+          description: The number of items in this category.
+          format: int32
+        refinementHref:
+          type: string
+          description: The HATEOAS reference of this category.
+      description: The container that defines the fields for the category refinements. This container is returned when <b> fieldgroups</b> is set to <code>CATEGORY_REFINEMENTS</code> or <code>FULL</code> in the request.
   securitySchemes:
     api_auth:
       type: oauth2

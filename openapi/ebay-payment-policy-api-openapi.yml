@@ -1,7 +1,10 @@
 openapi: 3.2.0
 info:
   title: eBay Account Payment Policy API
-  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  description: 'The Account API gives sellers the ability to configure their eBay seller accounts, including the seller''s policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.
+
+
+    For details on the availability of the methods in this API, see Account API requirements and restrictions.'
   contact:
     name: eBay Inc,
   license:
@@ -21,7 +24,13 @@ paths:
     get:
       tags:
       - Payment_policy
-      description: 'This method retrieves all the payment policies configured for the marketplace you specify using the <code>marketplace_id</code> query parameter.  <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policies for a marketplace that supports multiple locales using the <code>Content-Language</code> request header. For example, get the policies for the French locale of the Canadian marketplace by specifying <code>fr-CA</code> for the <code>Content-Language</code> header. Likewise, target the Dutch locale of the Belgium marketplace by setting <code>Content-Language: nl-BE</code>. For details on header values, see <a href="/api-docs/static/rest-request-components.html#HTTP" target="_blank">HTTP request headers</a>.'
+      description: 'This method retrieves all the payment policies configured for the marketplace you specify using the marketplace_id query parameter.
+
+
+        Marketplaces and locales
+
+
+        Get the correct policies for a marketplace that supports multiple locales using the Content-Language request header. For example, get the policies for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: nl-BE. For details on header values, see HTTP request headers.'
       operationId: getPaymentPolicies
       parameters:
       - name: marketplace_id
@@ -65,10 +74,20 @@ paths:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.account
         - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+      summary: Get payment policies
+      x-summary-source: derived
     post:
       tags:
       - Payment_policy
-      description: This method creates a new payment policy where the policy encapsulates seller's terms for order payments.  <br><br>Each policy targets a specific eBay marketplace and category group, and you can create multiple policies for each combination.  <br><br>A successful request returns the <b>getPaymentPolicy</b> URI to the new policy in the <b>Location</b> response header and the ID for the new policy is returned in the response payload.  <p class="tablenote"><b>Tip:</b> For details on creating and using the business policies supported by the Account API, see <a href="/api-docs/sell/static/seller-accounts/business-policies.html">eBay business policies</a>.</p>
+      description: 'This method creates a new payment policy where the policy encapsulates seller''s terms for order payments.
+
+
+        Each policy targets a specific eBay marketplace and category group, and you can create multiple policies for each combination.
+
+
+        A successful request returns the getPaymentPolicy URI to the new policy in the Location response header and the ID for the new policy is returned in the response payload.
+
+        Tip: For details on creating and using the business policies supported by the Account API, see eBay business policies.'
       operationId: createPaymentPolicy
       parameters:
       - name: Content-Type
@@ -142,11 +161,13 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.account
+      summary: Create payment policy
+      x-summary-source: derived
   /payment_policy/{payment_policy_id}:
     get:
       tags:
       - Payment_policy
-      description: This method retrieves the complete details of a payment policy. Supply the ID of the policy you want to retrieve using the <b>paymentPolicyId</b> path parameter.
+      description: This method retrieves the complete details of a payment policy. Supply the ID of the policy you want to retrieve using the paymentPolicyId path parameter.
       operationId: getPaymentPolicy
       parameters:
       - name: payment_policy_id
@@ -192,10 +213,12 @@ paths:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.account
         - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+      summary: Get payment policy
+      x-summary-source: derived
     put:
       tags:
       - Payment_policy
-      description: This method updates an existing payment policy. Specify the policy you want to update using the <b>payment_policy_id</b> path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing policy with the new details specified in the payload.
+      description: This method updates an existing payment policy. Specify the policy you want to update using the payment_policy_id path parameter. Supply a complete policy payload with the updates you want to make; this call overwrites the existing policy with the new details specified in the payload.
       operationId: updatePaymentPolicy
       parameters:
       - name: payment_policy_id
@@ -276,10 +299,12 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.account
+      summary: Update payment policy
+      x-summary-source: derived
     delete:
       tags:
       - Payment_policy
-      description: 'This method deletes a payment policy. Supply the ID of the policy you want to delete in the <b>paymentPolicyId</b> path parameter. '
+      description: This method deletes a payment policy. Supply the ID of the policy you want to delete in the paymentPolicyId path parameter.
       operationId: deletePaymentPolicy
       parameters:
       - name: payment_policy_id
@@ -344,11 +369,19 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.account
+      summary: Delete payment policy
+      x-summary-source: derived
   /payment_policy/get_by_policy_name:
     get:
       tags:
       - Payment_policy
-      description: 'This method retrieves the details of a specific payment policy. Supply both the policy <code>name</code> and its associated <code>marketplace_id</code> in the request query parameters.   <br><br><b>Marketplaces and locales</b>  <br><br>Get the correct policy for a marketplace that supports multiple locales using the <code>Content-Language</code> request header. For example, get a policy for the French locale of the Canadian marketplace by specifying <code>fr-CA</code> for the <code>Content-Language</code> header. Likewise, target the Dutch locale of the Belgium marketplace by setting <code>Content-Language: nl-BE</code>. For details on header values, see <a href="/api-docs/static/rest-request-components.html#HTTP">HTTP request headers</a>.'
+      description: 'This method retrieves the details of a specific payment policy. Supply both the policy name and its associated marketplace_id in the request query parameters.
+
+
+        Marketplaces and locales
+
+
+        Get the correct policy for a marketplace that supports multiple locales using the Content-Language request header. For example, get a policy for the French locale of the Canadian marketplace by specifying fr-CA for the Content-Language header. Likewise, target the Dutch locale of the Belgium marketplace by setting Content-Language: nl-BE. For details on header values, see HTTP request headers.'
       operationId: getPaymentPolicyByName
       parameters:
       - name: marketplace_id
@@ -402,24 +435,10 @@ paths:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.account
         - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+      summary: Get payment policy by name
+      x-summary-source: derived
 components:
   schemas:
-    PaymentMethod:
-      type: object
-      properties:
-        brands:
-          type: array
-          description: '<span class="tablenote"><b>Note</b>: This array is no longer applicable and should not be used. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods, including any credit card brands accepted. </span>'
-          items:
-            type: string
-            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/account/types/api:PaymentInstrumentBrandEnum''>eBay API documentation</a>'
-        paymentMethodType:
-          type: string
-          description: eBay now controls all electronic payment methods available for a marketplace, so only offline payment method enum values may be used in this field, and offline payment methods will only be applicable to listings that require or support offline payments. See the <b>PaymentMethodTypeEnum</b> type for supported offline payment method enum values. </p> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:PaymentMethodTypeEnum'>eBay API documentation</a>
-        recipientAccountReference:
-          description: '<span class="tablenote"><b>Note</b>: This container is no longer applicable and should not be used. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods, including PayPal. </span>'
-          $ref: '#/components/schemas/RecipientAccountReference'
-      description: 'This type is used by the <b>paymentMethods</b> container, which is used by the seller to specify one or more offline payment methods. <br><br> <span class="tablenote"><b>Note</b>: eBay now controls all electronic payment methods available for a marketplace, so a seller will no longer use this type to specify any electronic payment methods.</span>'
     Error:
       type: object
       properties:
@@ -458,17 +477,32 @@ components:
           type: string
           description: If present, indicates the subsystem in which the error occurred.
       description: A container that defines the elements of error and warning messages.
-    TimeDuration:
+    PaymentMethod:
       type: object
       properties:
-        unit:
+        brands:
+          type: array
+          description: '<span class="tablenote"><b>Note</b>: This array is no longer applicable and should not be used. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods, including any credit card brands accepted. </span>'
+          items:
+            type: string
+            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/account/types/api:PaymentInstrumentBrandEnum''>eBay API documentation</a>'
+        paymentMethodType:
           type: string
-          description: These enum values represent the time measurement unit, such as <code>DAY</code>. A span of time is defined when you apply the value specified in the <b>value</b> field to the value specified for <b>unit</b>. <br><br>See <b>TimeDurationUnitEnum</b> for a complete list of possible time-measurement units. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:TimeDurationUnitEnum'>eBay API documentation</a>
-        value:
-          type: integer
-          description: An integer that represents an amount of time, as measured by the time-measurement unit specified in the <b>unit</b> field.
-          format: int32
-      description: A type used to specify a period of time using a specified time-measurement unit. Payment, return, and fulfillment business policies all use this type to specify time windows.<br><br>Whenever a container that uses this type is used in a request, both of these fields are required. Similarly, whenever a container that uses this type is returned in a response, both of these fields are always returned.
+          description: eBay now controls all electronic payment methods available for a marketplace, so only offline payment method enum values may be used in this field, and offline payment methods will only be applicable to listings that require or support offline payments. See the <b>PaymentMethodTypeEnum</b> type for supported offline payment method enum values. </p> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:PaymentMethodTypeEnum'>eBay API documentation</a>
+        recipientAccountReference:
+          description: '<span class="tablenote"><b>Note</b>: This container is no longer applicable and should not be used. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods, including PayPal. </span>'
+          $ref: '#/components/schemas/RecipientAccountReference'
+      description: 'This type is used by the <b>paymentMethods</b> container, which is used by the seller to specify one or more offline payment methods. <br><br> <span class="tablenote"><b>Note</b>: eBay now controls all electronic payment methods available for a marketplace, so a seller will no longer use this type to specify any electronic payment methods.</span>'
+    RecipientAccountReference:
+      type: object
+      properties:
+        referenceId:
+          type: string
+          description: '<span class="tablenote"><b>Note</b>: DO NOT USE THIS FIELD. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span>'
+        referenceType:
+          type: string
+          description: '<span class="tablenote"><b>Note</b>: DO NOT USE THIS FIELD. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/account/types/api:RecipientAccountReferenceTypeEnum''>eBay API documentation</a>'
+      description: '<span class="tablenote"><b>Note</b>: This type is no longer applicable. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span>'
     PaymentPolicyRequest:
       type: object
       properties:
@@ -504,16 +538,6 @@ components:
           items:
             $ref: '#/components/schemas/PaymentMethod'
       description: This root container defines a seller's payment business policy for a specific marketplace and category group. This type is used when creating or updating a payment business policy.
-    ErrorParameter:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the parameter that caused the error.
-        value:
-          type: string
-          description: The value of the parameter that caused the error.
-      description: A complex type that indicates a parameter that caused an error and the value of the parameter which caused the error.
     SetPaymentPolicyResponse:
       type: object
       properties:
@@ -557,26 +581,6 @@ components:
           items:
             $ref: '#/components/schemas/Error'
       description: Complex type that that gets populated with a response containing a payment policy.
-    CategoryType:
-      type: object
-      properties:
-        default:
-          type: boolean
-          description: <span class="tablenote"><strong>Note:</strong> This field has been deprecated and is no longer used.<ul><li>Do not include this field in any <b>create</b> or <b>update</b> method.</li><li>This field may be returned within the payload of a <b>get</b> method, but it can be ignored.</li></ul></span>
-        name:
-          type: string
-          description: The category type to which the policy applies (motor vehicles or non-motor vehicles). <br><br>The <code>MOTORS_VEHICLES</code> category type is not valid for return policies. eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:CategoryTypeEnum'>eBay API documentation</a>
-      description: The category type discerns whether the policy applies to motor vehicle listings, or to any other items except motor vehicle listings. <br><br>Each business policy can be associated with either or both categories ('MOTORS_VEHICLES' and 'ALL_EXCLUDING_MOTORS_VEHICLES'); however, return business policies are not applicable for motor vehicle listings.
-    RecipientAccountReference:
-      type: object
-      properties:
-        referenceId:
-          type: string
-          description: '<span class="tablenote"><b>Note</b>: DO NOT USE THIS FIELD. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span>'
-        referenceType:
-          type: string
-          description: '<span class="tablenote"><b>Note</b>: DO NOT USE THIS FIELD. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/account/types/api:RecipientAccountReferenceTypeEnum''>eBay API documentation</a>'
-      description: '<span class="tablenote"><b>Note</b>: This type is no longer applicable. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span>'
     Deposit:
       type: object
       properties:
@@ -592,16 +596,6 @@ components:
           items:
             $ref: '#/components/schemas/PaymentMethod'
       description: This type is used to specify/indicate that an initial deposit is required for a motor vehicle listing.
-    Amount:
-      type: object
-      properties:
-        currency:
-          type: string
-          description: The base currency applied to the <b>value</b> field to establish a monetary amount.  <br><br>The currency is represented as a 3-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " title="https://www.iso.org " target="_blank">ISO 4217</a> currency code. For example, the code for the Canadian Dollar is <code>CAD</code>.<br><br><b>Default:</b> The default currency of the eBay marketplace that hosts the listing. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
-        value:
-          type: string
-          description: The monetary amount in the specified <b>currency</b>.
-      description: A complex type that describes the value of a monetary amount as represented by a global currency. When passing in an amount in a request payload, both <b>currency</b> and <b>value</b> fields are required, and both fields are also always returned for an amount in a response field.
     PaymentPolicy:
       type: object
       properties:
@@ -670,6 +664,47 @@ components:
           description: The total number of payment business policies retrieved in the result set.  <br><br>If no payment business policies are defined for the specified marketplace, this field is returned with a value of <code>0</code>.
           format: int32
       description: 'The response payload for the <b>getPaymentPolicies</b> method. <br><br><span class="tablenote"><b>Note</b>: Pagination has not yet been enabled for <b>getPaymentPolicies</b>, so all of the pagination-related fields are for future use.</span>'
+    TimeDuration:
+      type: object
+      properties:
+        unit:
+          type: string
+          description: These enum values represent the time measurement unit, such as <code>DAY</code>. A span of time is defined when you apply the value specified in the <b>value</b> field to the value specified for <b>unit</b>. <br><br>See <b>TimeDurationUnitEnum</b> for a complete list of possible time-measurement units. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:TimeDurationUnitEnum'>eBay API documentation</a>
+        value:
+          type: integer
+          description: An integer that represents an amount of time, as measured by the time-measurement unit specified in the <b>unit</b> field.
+          format: int32
+      description: A type used to specify a period of time using a specified time-measurement unit. Payment, return, and fulfillment business policies all use this type to specify time windows.<br><br>Whenever a container that uses this type is used in a request, both of these fields are required. Similarly, whenever a container that uses this type is returned in a response, both of these fields are always returned.
+    CategoryType:
+      type: object
+      properties:
+        default:
+          type: boolean
+          description: <span class="tablenote"><strong>Note:</strong> This field has been deprecated and is no longer used.<ul><li>Do not include this field in any <b>create</b> or <b>update</b> method.</li><li>This field may be returned within the payload of a <b>get</b> method, but it can be ignored.</li></ul></span>
+        name:
+          type: string
+          description: The category type to which the policy applies (motor vehicles or non-motor vehicles). <br><br>The <code>MOTORS_VEHICLES</code> category type is not valid for return policies. eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:CategoryTypeEnum'>eBay API documentation</a>
+      description: The category type discerns whether the policy applies to motor vehicle listings, or to any other items except motor vehicle listings. <br><br>Each business policy can be associated with either or both categories ('MOTORS_VEHICLES' and 'ALL_EXCLUDING_MOTORS_VEHICLES'); however, return business policies are not applicable for motor vehicle listings.
+    ErrorParameter:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the parameter that caused the error.
+        value:
+          type: string
+          description: The value of the parameter that caused the error.
+      description: A complex type that indicates a parameter that caused an error and the value of the parameter which caused the error.
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: The base currency applied to the <b>value</b> field to establish a monetary amount.  <br><br>The currency is represented as a 3-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " title="https://www.iso.org " target="_blank">ISO 4217</a> currency code. For example, the code for the Canadian Dollar is <code>CAD</code>.<br><br><b>Default:</b> The default currency of the eBay marketplace that hosts the listing. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
+        value:
+          type: string
+          description: The monetary amount in the specified <b>currency</b>.
+      description: A complex type that describes the value of a monetary amount as represented by a global currency. When passing in an amount in a request payload, both <b>currency</b> and <b>value</b> fields are required, and both fields are also always returned for an amount in a response field.
   securitySchemes:
     api_auth:
       type: oauth2

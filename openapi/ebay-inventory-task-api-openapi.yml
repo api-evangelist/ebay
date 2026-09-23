@@ -1,7 +1,7 @@
 openapi: 3.2.0
 info:
   title: eBay Feed Inventory Task API
-  description: <p>The <strong>Feed API</strong> lets sellers upload input files, download reports and files including their status, filter reports using URI parameters, and retrieve customer service metrics task details.</p>
+  description: The Feed API lets sellers upload input files, download reports and files including their status, filter reports using URI parameters, and retrieve customer service metrics task details.
   contact:
     name: eBay Inc,
   license:
@@ -134,10 +134,22 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.inventory
+      summary: Get inventory tasks
+      x-summary-source: derived
     post:
       tags:
       - Inventory_task
-      description: This method creates an inventory-related download task for a specified feed type with optional filter criteria. When using this method, specify the <strong>feedType</strong>. <br/><br/>This method returns the location response header containing the <strong>getInventoryTask</strong> call URI to retrieve the inventory task you just created. The URL includes the eBay-assigned task ID, which you can use to reference the inventory task.<br/><br/>To retrieve the status of the task, use the <strong>getInventoryTask</strong> method to retrieve a single task ID or the <strong>getInventoryTasks</strong> method to retrieve multiple task IDs.<p> <span class="tablenote"><strong>Note:</strong> The scope depends on the feed type. An error message results when an unsupported scope or feed type is specified.</span></p>Presently, this method supports Active Inventory Report. The <strong>ActiveInventoryReport</strong> returns a report that contains price and quantity information for all of the active listings for a specific seller. A seller can use this information to maintain their inventory on eBay.
+      description: 'This method creates an inventory-related download task for a specified feed type with optional filter criteria. When using this method, specify the feedType.
+
+
+        This method returns the location response header containing the getInventoryTask call URI to retrieve the inventory task you just created. The URL includes the eBay-assigned task ID, which you can use to reference the inventory task.
+
+
+        To retrieve the status of the task, use the getInventoryTask method to retrieve a single task ID or the getInventoryTasks method to retrieve multiple task IDs.
+
+        Note: The scope depends on the feed type. An error message results when an unsupported scope or feed type is specified.
+
+        Presently, this method supports Active Inventory Report. The ActiveInventoryReport returns a report that contains price and quantity information for all of the active listings for a specific seller. A seller can use this information to maintain their inventory on eBay.'
       operationId: createInventoryTask
       parameters:
       - name: Content-Type
@@ -216,11 +228,13 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.inventory
+      summary: Create inventory task
+      x-summary-source: derived
   /inventory_task/{task_id}:
     get:
       tags:
       - Inventory_task
-      description: This method retrieves the task details and status of the specified inventory-related task. The input is <strong>task_id</strong>.
+      description: This method retrieves the task details and status of the specified inventory-related task. The input is task_id.
       operationId: getInventoryTask
       parameters:
       - name: task_id
@@ -265,27 +279,10 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.inventory
+      summary: Get inventory task
+      x-summary-source: derived
 components:
   schemas:
-    InventoryFilterCriteria:
-      type: object
-      properties:
-        listingFormat:
-          type: string
-          description: The listing format for the ActiveInventoryReport being created. Supported types are:<br><ul><li><code>AUCTION</code></li><li><code>FIXED_PRICE</code></li></ul> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:ListingFormatEnum'>eBay API documentation</a>
-      description: This container is used to set the filter criteria for the ActiveInventoryReport. A seller can create an ActiveInventoryReport for a single listing format.
-    UploadSummary:
-      type: object
-      properties:
-        failureCount:
-          type: integer
-          description: The number of records, such as the number of listings created or the number of pictures uploaded to a listing, that failed to process during the upload feed. Check the response file and correct any issues mentioned. If the feed fails before processing, no response file is provided. In this case check the REST output response.
-          format: int32
-        successCount:
-          type: integer
-          description: The number of records that were successfully processed during the upload feed.
-          format: int32
-      description: This container provides summary information on an upload feed (not applicable for download feed types).
     InventoryTask:
       type: object
       properties:
@@ -328,6 +325,25 @@ components:
         schemaVersion:
           type: string
           description: The version number of the inventory task to use for the <b>feedType</b>.<br><br><span class="tablenote"><b>Note:</b> This field <b>must</b> have a value of <code>1.0</code>.</span>
+    InventoryFilterCriteria:
+      type: object
+      properties:
+        listingFormat:
+          type: string
+          description: The listing format for the ActiveInventoryReport being created. Supported types are:<br><ul><li><code>AUCTION</code></li><li><code>FIXED_PRICE</code></li></ul> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:ListingFormatEnum'>eBay API documentation</a>
+      description: This container is used to set the filter criteria for the ActiveInventoryReport. A seller can create an ActiveInventoryReport for a single listing format.
+    UploadSummary:
+      type: object
+      properties:
+        failureCount:
+          type: integer
+          description: The number of records, such as the number of listings created or the number of pictures uploaded to a listing, that failed to process during the upload feed. Check the response file and correct any issues mentioned. If the feed fails before processing, no response file is provided. In this case check the REST output response.
+          format: int32
+        successCount:
+          type: integer
+          description: The number of records that were successfully processed during the upload feed.
+          format: int32
+      description: This container provides summary information on an upload feed (not applicable for download feed types).
     InventoryTaskCollection:
       type: object
       properties:

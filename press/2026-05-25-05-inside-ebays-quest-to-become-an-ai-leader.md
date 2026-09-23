@@ -1,7 +1,9 @@
 ---
 title: Inside eBay's Quest to Become an AI Leader
 url: https://www.wsj.com/articles/inside-ebays-quest-to-become-an-ai-leader-32e7fa45
-date: '2026-05-25'
+published: ''
+date_basis: harvested
+harvested: '2026-05-25'
 query: '"eBay" press release artificial intelligence'
 position: 5
 source: serpapi-google

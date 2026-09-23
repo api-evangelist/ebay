@@ -1,7 +1,10 @@
 openapi: 3.2.0
 info:
   title: eBay Account Program API
-  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  description: 'The Account API gives sellers the ability to configure their eBay seller accounts, including the seller''s policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.
+
+
+    For details on the availability of the methods in this API, see Account API requirements and restrictions.'
   contact:
     name: eBay Inc,
   license:
@@ -56,11 +59,16 @@ paths:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.account
         - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+      summary: Get opted in programs
+      x-summary-source: derived
   /program/opt_in:
     post:
       tags:
       - Program
-      description: This method opts the seller in to an eBay seller program. Refer to the <a href="/api-docs/sell/account/overview.html#opt-in" target="_blank">Account API overview</a> for information about available eBay seller programs.<br><br><span class="tablenote"><b>Note:</b> It can take up to 24-hours for eBay to process your request to opt-in to a Seller Program. Use the <a href="/api-docs/sell/account/resources/program/methods/getOptedInPrograms" target="_blank">getOptedInPrograms</a> call to check the status of your request after the processing period has passed.</span>
+      description: 'This method opts the seller in to an eBay seller program. Refer to the Account API overview for information about available eBay seller programs.
+
+
+        Note: It can take up to 24-hours for eBay to process your request to opt-in to a Seller Program. Use the getOptedInPrograms call to check the status of your request after the processing period has passed.'
       operationId: optInToProgram
       parameters:
       - name: Content-Type
@@ -117,11 +125,13 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.account
+      summary: Opt in to program
+      x-summary-source: derived
   /program/opt_out:
     post:
       tags:
       - Program
-      description: This method opts the seller out of a seller program to which you have previously opted-in to. Get a list of the seller programs you have opted-in to using the <b>getOptedInPrograms</b> call.
+      description: This method opts the seller out of a seller program to which you have previously opted-in to. Get a list of the seller programs you have opted-in to using the getOptedInPrograms call.
       operationId: optOutOfProgram
       parameters:
       - name: Content-Type
@@ -176,6 +186,8 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.account
+      summary: Opt out of program
+      x-summary-source: derived
 components:
   schemas:
     Program:

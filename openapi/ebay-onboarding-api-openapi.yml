@@ -1,7 +1,10 @@
 openapi: 3.2.0
 info:
   title: eBay Account Onboarding API
-  description: The <b>Account API</b> gives sellers the ability to configure their eBay seller accounts, including the seller's policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.  <br><br>For details on the availability of the methods in this API, see <a href="/api-docs/sell/account/overview.html#requirements">Account API requirements and restrictions</a>.
+  description: 'The Account API gives sellers the ability to configure their eBay seller accounts, including the seller''s policies (eBay business policies and seller-defined custom policies), opt in and out of eBay seller programs, configure sales tax tables, and get account information.
+
+
+    For details on the availability of the methods in this API, see Account API requirements and restrictions.'
   contact:
     name: eBay Inc,
   license:
@@ -21,7 +24,9 @@ paths:
     get:
       tags:
       - Onboarding
-      description: <span class="tablenote"><b>Note:</b> This method is no longer applicable, as all seller accounts globally have been enabled for the new eBay payment and checkout flow.</span><br>This method retrieves a seller's onboarding status for a payments program for a specified marketplace. The overall onboarding status of the seller and the status of each onboarding step is returned.
+      description: 'Note: This method is no longer applicable, as all seller accounts globally have been enabled for the new eBay payment and checkout flow.
+
+        This method retrieves a seller''s onboarding status for a payments program for a specified marketplace. The overall onboarding status of the seller and the status of each onboarding step is returned.'
       operationId: getPaymentsProgramOnboarding
       parameters:
       - name: marketplace_id
@@ -65,8 +70,22 @@ paths:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.account
         - https://api.ebay.com/oauth/api_scope/sell.account.readonly
+      summary: Get payments program onboarding
+      x-summary-source: derived
 components:
   schemas:
+    PaymentsProgramOnboardingResponse:
+      type: object
+      properties:
+        onboardingStatus:
+          type: string
+          description: This enumeration value indicates the eligibility of payment onboarding for the registered site. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:PaymentsProgramOnboardingStatus'>eBay API documentation</a>
+        steps:
+          type: array
+          description: 'An array of the active process steps for payment onboarding and the status of each step. This array includes the step <strong>name</strong>, step <strong>status</strong>, and a <strong>webUrl</strong> to the <code>IN_PROGRESS</code> step. The step names are returned in sequential order. '
+          items:
+            $ref: '#/components/schemas/PaymentsProgramOnboardingSteps'
+      description: Type used by the payments program onboarding response
     PaymentsProgramOnboardingSteps:
       type: object
       properties:
@@ -80,18 +99,6 @@ components:
           type: string
           description: This URL provides access to the <code>IN_PROGRESS</code> step.
       description: The payments program onboarding steps, status, and link.
-    PaymentsProgramOnboardingResponse:
-      type: object
-      properties:
-        onboardingStatus:
-          type: string
-          description: This enumeration value indicates the eligibility of payment onboarding for the registered site. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:PaymentsProgramOnboardingStatus'>eBay API documentation</a>
-        steps:
-          type: array
-          description: 'An array of the active process steps for payment onboarding and the status of each step. This array includes the step <strong>name</strong>, step <strong>status</strong>, and a <strong>webUrl</strong> to the <code>IN_PROGRESS</code> step. The step names are returned in sequential order. '
-          items:
-            $ref: '#/components/schemas/PaymentsProgramOnboardingSteps'
-      description: Type used by the payments program onboarding response
   securitySchemes:
     api_auth:
       type: oauth2

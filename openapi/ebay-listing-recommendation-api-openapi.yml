@@ -1,7 +1,10 @@
 openapi: 3.2.0
 info:
   title: eBay Recommendation Listing Recommendation API
-  description: The <b>Recommendation API</b> returns information that sellers can use to optimize the configuration of their listings on eBay. <br><br>Currently, the API contains a single method, <b>findListingRecommendations</b>. This method provides information that sellers can use to configure Promoted Listings ad campaigns to maximize the visibility of their items in the eBay marketplace.
+  description: 'The Recommendation API returns information that sellers can use to optimize the configuration of their listings on eBay.
+
+
+    Currently, the API contains a single method, findListingRecommendations. This method provides information that sellers can use to configure Promoted Listings ad campaigns to maximize the visibility of their items in the eBay marketplace.'
   contact:
     name: eBay Inc,
   license:
@@ -21,7 +24,54 @@ paths:
     post:
       tags:
       - Listing_recommendation
-      description: The <b>find</b> method currently returns information for a single recommendation type (<code>AD</code>) which contains information that sellers can use to configure <a href="/api-docs/sell/static/marketing/promoted-listings.html" title="Selling Integration Guide">Promoted Listings</a> ad campaigns. <p>The response from this method includes an array of the seller's listing IDs, where each element in the array contains recommendations related to the associated listing ID. For details on how to use this method, see <a href="/api-docs/sell/static/marketing/pl-reco-api.html" title="Selling Integration Guide">Using the Recommendation API to help configure campaigns</a>.</p>  <h3>The AD recommendation type</h3>  </p>  <p>The <code>AD</code> type contains two sets of information:</p>  <ul><li><b>The promoteWithAd indicator</b> <br>The <b>promoteWithAd</b> response field indicates whether or not eBay recommends you place the associated listing in a Promoted Listings ad campaign. <p>The returned value is set to either <code>RECOMMENDED</code> or <code>UNDETERMINED</code>, where <code>RECOMMENDED</code> identifies the listings that will benefit the most from having them included in an ad campaign.</p></li>  <li><b>The bid percentage</b> <br>Also known as the "ad rate," the <b>bidPercentage</b> field provides the current trending bid percentage of similarly promoted items in the marketplace. <p>The ad rate is a user-specified value that indicates the level of promotion that eBay applies to the campaign across the marketplace. The value is also used to calculate the Promotion Listings fee, which is assessed to the seller if a Promoted Listings action results in the sale of an item.</p></li></ul>  <h3>Configuring the request</h3> <p>You can configure a request to review all of a seller's currently active listings, or just a subset of them.</p>  <ul><li><b>All active listings</b> &ndash; If you leave the request body empty, the request targets <i>all</i> the items currently listed by the seller. <p>Here, the response is filtered to contain only the items where <b>promoteWithAd</b> equals <code>RECOMMENDED</code>. In this case, eBay recommends that all the returned listings should be included in a Promoted Listings ad campaign.</p></li> <li><b>Selected listing IDs</b> &ndash; If you populate the request body with a set of <b>listingIds</b>, the response contains data for all the specified listing IDs. <p>In this scenario, the response provides you with information on listings where the <b>promoteWithAd</b> can be either <code>RECOMMENDED</code> or <code>UNDETERMINED</code>.</li></ul>  <h3>The paginated response</h3>  <p>Because the response can contain many listing IDs, the <b>findListingRecommendations</b> method paginates the response set.</p> <p>You can control size of the returned pages, as well as an offset that dictates where to start the pagination, using query parameters in the request.
+      description: 'The find method currently returns information for a single recommendation type (AD) which contains information that sellers can use to configure Promoted Listings ad campaigns.
+
+        The response from this method includes an array of the seller''s listing IDs, where each element in the array contains recommendations related to the associated listing ID. For details on how to use this method, see Using the Recommendation API to help configure campaigns.
+
+
+        The AD recommendation type
+
+
+        The AD type contains two sets of information:
+
+
+        The promoteWithAd indicator
+
+        The promoteWithAd response field indicates whether or not eBay recommends you place the associated listing in a Promoted Listings ad campaign.
+
+        The returned value is set to either RECOMMENDED or UNDETERMINED, where RECOMMENDED identifies the listings that will benefit the most from having them included in an ad campaign.
+
+
+        The bid percentage
+
+        Also known as the "ad rate," the bidPercentage field provides the current trending bid percentage of similarly promoted items in the marketplace.
+
+        The ad rate is a user-specified value that indicates the level of promotion that eBay applies to the campaign across the marketplace. The value is also used to calculate the Promotion Listings fee, which is assessed to the seller if a Promoted Listings action results in the sale of an item.
+
+
+        Configuring the request
+
+
+        You can configure a request to review all of a seller''s currently active listings, or just a subset of them.
+
+
+        All active listings – If you leave the request body empty, the request targets all the items currently listed by the seller.
+
+        Here, the response is filtered to contain only the items where promoteWithAd equals RECOMMENDED. In this case, eBay recommends that all the returned listings should be included in a Promoted Listings ad campaign.
+
+
+        Selected listing IDs – If you populate the request body with a set of listingIds, the response contains data for all the specified listing IDs.
+
+        In this scenario, the response provides you with information on listings where the promoteWithAd can be either RECOMMENDED or UNDETERMINED.
+
+
+        The paginated response
+
+
+        Because the response can contain many listing IDs, the findListingRecommendations method paginates the response set.
+
+
+        You can control size of the returned pages, as well as an offset that dictates where to start the pagination, using query parameters in the request.'
       operationId: findListingRecommendations
       parameters:
       - name: filter
@@ -102,6 +152,8 @@ paths:
       security:
       - api_auth:
         - https://api.ebay.com/oauth/api_scope/sell.inventory
+      summary: Find listing recommendations
+      x-summary-source: derived
 components:
   schemas:
     BidPercentages:
@@ -114,16 +166,6 @@ components:
           type: string
           description: The bid percentage data is a single precision value, as calculated by the associated basis. <p>In Promoted listings ad campaigns, the <b>bid percentage</b> (also known as the <i>ad rate</i>) is a user-defined value that sets the level that eBay raises the visibility of the listing in the marketplace. It is also the rate that is used to calculate the Promoted Listings fee.</p> <p><b>Minimum value:</b> 1.0 &nbsp; <b>Maximum value:</b> 100.0</p>
       description: A complex type that returns data related to Promoted Listings bid percentages.
-    MarketingRecommendation:
-      type: object
-      properties:
-        ad:
-          description: An object that contains Promoted Listings recommendations and information related to the associated listing ID.
-          $ref: '#/components/schemas/Ad'
-        message:
-          type: string
-          description: A message that can conditionally accompany the listing information.
-      description: A complex type that contains information about how a seller can improve their listing configurations. The <code>AD</code> object contains Promoted Listings recommendations and information, which the seller can use to improve buyer conversions. The response can also contain an optional message about the returned data.
     PagedListingRecommendationCollection:
       type: object
       properties:
@@ -163,16 +205,6 @@ components:
           items:
             type: string
       description: An list of listing ID values for which you want Promoted Listings ad configuration information.
-    ListingRecommendation:
-      type: object
-      properties:
-        listingId:
-          type: string
-          description: An ID that identifies the active listing associated with the eBay recommendations.
-        marketing:
-          description: 'This return object provides the eBay recommendations and information related to the associated listing ID.  <br><br>The container currently returns the <code>AD</code> recommendation type, which contains information that sellers can use to configure Promoted Listings ad campaigns.  <br><br>This container is returned with each <b>ListingRecommendation</b> object, <i>except</i> when: <ul><li>The listing ID is not eligible for Promoted Listings</li> <li>The listing ID is currently in a Promoted Listings campaign</li> <li>The listing ID is invalid</li></ul>'
-          $ref: '#/components/schemas/MarketingRecommendation'
-      description: A complex type that contains the ID of an actively listed item and a set of related listing recommendations. The recommendations contain information the seller can use to optimize their listing configurations.
     Ad:
       type: object
       properties:
@@ -185,6 +217,26 @@ components:
           type: string
           description: An enum whose values describe whether or not eBay recommends you place the associated listing in a Promoted Listings ad campaign.  <br><br>IDs deemed <code>RECOMMENDED</code> by eBay are the listings with the highest potential of benefiting from being promoted. The recommendation calculation is based on marketplace trends, like buyer demand and the competition in the item’s category.  <p class="tablenote"><b>Note:</b> A <b>promoteWithAd</b> value cannot be calculated for listings that are part of Promoted Listings campaigns.  <br><br>Because of this, if you call <b>findListingRecommendations</b> with a specific set of listing IDs, the <b>promoteWithAd</b> field is not returned for any of the listings that are involved in a promotion. However, as long as they are eligible, the trending <b>bidPercentage</b> <i>is</i> returned for all specified listings, even if they are part of an ad campaign.</p> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/recommendation/types/api:PromoteWithAd'>eBay API documentation</a>
       description: A complex type that contains recommendations and information on how to configure Promoted Listings ad campaigns.
+    ListingRecommendation:
+      type: object
+      properties:
+        listingId:
+          type: string
+          description: An ID that identifies the active listing associated with the eBay recommendations.
+        marketing:
+          description: 'This return object provides the eBay recommendations and information related to the associated listing ID.  <br><br>The container currently returns the <code>AD</code> recommendation type, which contains information that sellers can use to configure Promoted Listings ad campaigns.  <br><br>This container is returned with each <b>ListingRecommendation</b> object, <i>except</i> when: <ul><li>The listing ID is not eligible for Promoted Listings</li> <li>The listing ID is currently in a Promoted Listings campaign</li> <li>The listing ID is invalid</li></ul>'
+          $ref: '#/components/schemas/MarketingRecommendation'
+      description: A complex type that contains the ID of an actively listed item and a set of related listing recommendations. The recommendations contain information the seller can use to optimize their listing configurations.
+    MarketingRecommendation:
+      type: object
+      properties:
+        ad:
+          description: An object that contains Promoted Listings recommendations and information related to the associated listing ID.
+          $ref: '#/components/schemas/Ad'
+        message:
+          type: string
+          description: A message that can conditionally accompany the listing information.
+      description: A complex type that contains information about how a seller can improve their listing configurations. The <code>AD</code> object contains Promoted Listings recommendations and information, which the seller can use to improve buyer conversions. The response can also contain an optional message about the returned data.
   securitySchemes:
     api_auth:
       type: oauth2
