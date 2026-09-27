@@ -576,9 +576,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    StreamingOutput:
-      type: object
-      description: File stream
     Task:
       type: object
       properties:
@@ -659,6 +656,9 @@ components:
           type: string
           description: The schemaVersion/version number of the file format:<br><ul><li><a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#Version" target="_blank">Version Details / Schema Version</a></li><li><a href="/api-docs/sell/static/feed/fx-feeds-quick-reference.html#schema" target="_blank">Seller Hub feed schema version</a></li></ul>
       description: The type that defines the fields for the <b> createTask</b> method.
+    StreamingOutput:
+      type: object
+      description: File stream
   securitySchemes:
     api_auth:
       type: oauth2

@@ -252,42 +252,20 @@ components:
           description: The width of the image in pixels.
           format: int32
       description: This type contains information about a product image stored in eBay Picture Services (EPS).
-    Refinement:
+    AspectValueDistribution:
       type: object
       properties:
-        aspectDistributions:
-          type: array
-          description: Contains information about one or more aspects that are associated with the category identified by <b>dominantCategoryId</b>.
-          items:
-            $ref: '#/components/schemas/AspectDistribution'
-        dominantCategoryId:
+        localizedAspectValue:
           type: string
-          description: The ID of the category that eBay determines is most likely to cover the products matching the search criteria.
-      description: This type identifies a product category and the aspects associated with that category. Each aspect distribution container returns the distribution of values that have been used for the aspect.
-    Aspect:
-      type: object
-      properties:
-        localizedName:
+          description: The localized value of the category aspect identified by <b>refinement.aspectDistributions.localizedAspectName</b>.
+        matchCount:
+          type: integer
+          description: The number of times the value of <b>localizedAspectValue</b> has been used for eBay product listings. By comparing this quantity to the <b>matchCount</b> for other values of the same aspect, you can present a histogram of the values to sellers, who can use that information to select which aspect value is most appropriate for their product. You can then include the user-selected value in the the <b>search</b> call's <b>aspect_filter</b> parameter to refine your search.
+          format: int32
+        refinementHref:
           type: string
-          description: The localized name of this category aspect.
-        localizedValues:
-          type: array
-          description: A list of the localized values of this category aspect.
-          items:
-            type: string
-      description: This type contains the name and values of a category aspect.
-    AspectDistribution:
-      type: object
-      properties:
-        aspectValueDistributions:
-          type: array
-          description: 'Contains information about one or more values of the category aspect identified by <b>localizedAspectName</b>. '
-          items:
-            $ref: '#/components/schemas/AspectValueDistribution'
-        localizedAspectName:
-          type: string
-          description: The localized name of an aspect that is associated with the category identified by <b>dominantCategoryId</b>.
-      description: This type contains information about one category aspect that is associated with a specified category.
+          description: A HATEOAS reference that further refines the search with this particular <b>localizedAspectValue</b>.
+      description: This type contains information about one value of a specified aspect. This value serves as a product refinement.
     ProductSearchResponse:
       type: object
       properties:
@@ -321,20 +299,42 @@ components:
           description: This field is reserved for internal or future use. <!-- The total number of product records in the returned collection of matched products. -->
           format: int32
       description: 'This type contains the specifications for the collection of products that match the search or filter criteria of a <b>search</b> call. A maximum of 200 product summaries is returned (the result set), fewer if you include the <b>limit</b> query parameter in the request. '
-    AspectValueDistribution:
+    Aspect:
       type: object
       properties:
-        localizedAspectValue:
+        localizedName:
           type: string
-          description: The localized value of the category aspect identified by <b>refinement.aspectDistributions.localizedAspectName</b>.
-        matchCount:
-          type: integer
-          description: The number of times the value of <b>localizedAspectValue</b> has been used for eBay product listings. By comparing this quantity to the <b>matchCount</b> for other values of the same aspect, you can present a histogram of the values to sellers, who can use that information to select which aspect value is most appropriate for their product. You can then include the user-selected value in the the <b>search</b> call's <b>aspect_filter</b> parameter to refine your search.
-          format: int32
-        refinementHref:
+          description: The localized name of this category aspect.
+        localizedValues:
+          type: array
+          description: A list of the localized values of this category aspect.
+          items:
+            type: string
+      description: This type contains the name and values of a category aspect.
+    Refinement:
+      type: object
+      properties:
+        aspectDistributions:
+          type: array
+          description: Contains information about one or more aspects that are associated with the category identified by <b>dominantCategoryId</b>.
+          items:
+            $ref: '#/components/schemas/AspectDistribution'
+        dominantCategoryId:
           type: string
-          description: A HATEOAS reference that further refines the search with this particular <b>localizedAspectValue</b>.
-      description: This type contains information about one value of a specified aspect. This value serves as a product refinement.
+          description: The ID of the category that eBay determines is most likely to cover the products matching the search criteria.
+      description: This type identifies a product category and the aspects associated with that category. Each aspect distribution container returns the distribution of values that have been used for the aspect.
+    AspectDistribution:
+      type: object
+      properties:
+        aspectValueDistributions:
+          type: array
+          description: 'Contains information about one or more values of the category aspect identified by <b>localizedAspectName</b>. '
+          items:
+            $ref: '#/components/schemas/AspectValueDistribution'
+        localizedAspectName:
+          type: string
+          description: The localized name of an aspect that is associated with the category identified by <b>dominantCategoryId</b>.
+      description: This type contains information about one category aspect that is associated with a specified category.
   securitySchemes:
     api_auth:
       type: oauth2

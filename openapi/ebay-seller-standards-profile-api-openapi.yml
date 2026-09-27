@@ -116,58 +116,16 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Metric:
+    Distribution:
       type: object
       properties:
-        benchmark:
-          description: This complex type defines a set of benchmark data, which includes the <b>average</b> rating for the group included in the benchmark evaluation and the seller's calculated customer service metric rating for the benchmark.  <br><br>This container is returned only if the associated <b>metricKey</b> value is <code>RATE</code>.
-          $ref: '#/components/schemas/MetricBenchmark'
-        distributions:
-          type: array
-          description: Returned when <b>metricKey</b> equals <code>COUNT</code>, this field returns an array of  seller data where each set of data is grouped according by an overarching <b>basis</b>.  <br><br>When the seller distribution is returned, the numeric value of the associated <b>value</b> container equals the sum of the transactions where the seller meets the criteria of the customer service metric type for the given <b>dimension</b> during the <b>evaluationCycle</b>.
-          items:
-            $ref: '#/components/schemas/MetricDistribution'
-        metricKey:
+        name:
           type: string
-          description: 'This field indicates the customer service metric being returned in the associated <b>metrics</b> container. The field is set as follows: <ul><li><code>TRANSACTION_COUNT</code> &ndash; When set to this value, the associated <b>value</b> field returns the number of transactions completed in the peer group for the metric being evaluated in the associated <b>dimension</b> and <b>evaluationCycle</b>.</li> <li><code>COUNT</code> &ndash; When set to this value, the associated <b>value</b> field is set to the number of transactions completed by the seller for the metric being evaluated in the associated <b>dimension</b> and <b>evaluationCycle</b>.</li> <li><code>RATE</code> &ndash; When set to this value, the fields in the associated container return the seller''s calculated <b>value</b> for the associated customer service metric along with the benchmark data against which the seller is evaluated.  <br><br>Specifically, when <b>metricKey</b> is set to <code>RATE</code>, the associated <b>value</b> field is set to the value of <b>metricKey</b> <code>TRANSACTION_COUNT</code> divided by the value of <b>metricKey</b> <code>COUNT</code>.  <br><br>The <b>benchmark.rating</b> value is the seller''s rating for the metric in the associated <b>dimension</b> and <b>evaluationCycle</b>.</li></ul>'
+          description: The name of a distribution in which the seller is active.
         value:
           type: string
-          description: This field is set to the seller's numeric rating for the associated <b>metricKey</b> for the given <b>dimension</b> during the <b>evaluationCycle</b>.  <br><br>To determine the seller's rating for this metric, the value of this field is compared to the average metric value of the group.
-      description: This complex data type defines the details of the customer service metric and benchmark data related to the associated <b>dimension</b>.
-    FindSellerStandardsProfilesResponse:
-      type: object
-      properties:
-        standardsProfiles:
-          type: array
-          description: A list of the seller's standards profiles.  <br><br>A "standards profile" is a set of eBay seller standards categories and the values related to the associated seller.  <br><br>Profiles are distinguished by a combination of cycle and program values. The "program" value specifies the region to which the data is from. The "cycle" value specifies whether the values were determined just now, or if the values are from the last official eBay seller standards evaluation.
-          items:
-            $ref: '#/components/schemas/StandardsProfile'
-      description: The response container for a list of seller profiles.
-    Cycle:
-      type: object
-      properties:
-        cycleType:
-          type: string
-          description: The cycle type, either <code>CURRENT</code> or <code>PROJECTED</code>. <br><br><code>CURRENT</code> means the profile's metrics values are from the most recent official eBay  monthly standards evaluation. <code>PROJECTED</code> means the profile values were determined when the profile was requested. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/ssp:CycleTypeEnum'>eBay API documentation</a>
-        evaluationDate:
-          type: string
-          description: The date and time at which the standard compliance values were determined for the profile.  <br><br>The time stamp is formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html" target="_blank">ISO 8601</a> string, which is based on the 24-hour Universal Coordinated Time (UTC) clock. <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2018-08-04T07:09:00.000Z</code>
-        evaluationMonth:
-          type: string
-          description: The month in which the currently effective seller level was computed.  <br><br>The value is always formatted as <code>YYYY-MM</code>. If the cycle is <code>CURRENT</code>, this value is the month and year the of the last eBay compliance evaluation. If this is for a <code>PROJECTED</code> cycle, the value is the month and year of the next scheduled evaluation. Because eBay does official evaluations around the 20th of each month, a <code>PROJECTED</code> value may indicate either the current or the next month.
-      description: A complex type that describes a program cycle.
-    MetricDistribution:
-      type: object
-      properties:
-        basis:
-          type: string
-          description: This field returns the basis, or the method, by which the metric rating is calculated.
-        data:
-          type: array
-          description: This field returns a list of name/value pairs, where the <b>name</b> indicates the distribution being rated and the <b>value</b> indicates the count of seller transactions that meet the distribution criteria.
-          items:
-            $ref: '#/components/schemas/Distribution'
-      description: This complex data type describes the metric distribution by basis.
+          description: This field contains the number of transactions the seller had in the distribution (identified by the associated <b>name</b> field) during the metric <b>evaluationCycle</b>.
+      description: This complex type defines of a piece of data that is grouped by the associated <b>basis</b>. It contains the <b>name</b> for the data set and its associated <b>value</b>.
     MetricBenchmark:
       type: object
       properties:
@@ -184,16 +142,6 @@ components:
           type: string
           description: This field returns seller's rating for the customer service metric.  <br><br>The rating is set to a value that equals the relative deviation between the seller's metric value and the benchmark value for the customer service metric.  <br><br>Deviation values range from <code>LOW</code> to <code>VERY HIGH</code>, and the lower the deviation, the better the seller rating. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/api:RatingTypeEnum'>eBay API documentation</a>
       description: This complex type defines the benchmark data, which includes the <b>average</b> value of the metric for the group (the benchmark) and the seller's overall <b>rating</b> when compared to the benchmark.
-    Distribution:
-      type: object
-      properties:
-        name:
-          type: string
-          description: The name of a distribution in which the seller is active.
-        value:
-          type: string
-          description: This field contains the number of transactions the seller had in the distribution (identified by the associated <b>name</b> field) during the metric <b>evaluationCycle</b>.
-      description: This complex type defines of a piece of data that is grouped by the associated <b>basis</b>. It contains the <b>name</b> for the data set and its associated <b>value</b>.
     StandardsProfile:
       type: object
       properties:
@@ -218,6 +166,58 @@ components:
           type: string
           description: The overall standards level of the seller, one of <code>TOP_RATED</code>, <code>ABOVE_STANDARD</code>, or <code>BELOW_STANDARD</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/ssp:StandardsLevelEnum'>eBay API documentation</a>
       description: A complex type that defines a seller profile.
+    Cycle:
+      type: object
+      properties:
+        cycleType:
+          type: string
+          description: The cycle type, either <code>CURRENT</code> or <code>PROJECTED</code>. <br><br><code>CURRENT</code> means the profile's metrics values are from the most recent official eBay  monthly standards evaluation. <code>PROJECTED</code> means the profile values were determined when the profile was requested. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/ssp:CycleTypeEnum'>eBay API documentation</a>
+        evaluationDate:
+          type: string
+          description: The date and time at which the standard compliance values were determined for the profile.  <br><br>The time stamp is formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html" target="_blank">ISO 8601</a> string, which is based on the 24-hour Universal Coordinated Time (UTC) clock. <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2018-08-04T07:09:00.000Z</code>
+        evaluationMonth:
+          type: string
+          description: The month in which the currently effective seller level was computed.  <br><br>The value is always formatted as <code>YYYY-MM</code>. If the cycle is <code>CURRENT</code>, this value is the month and year the of the last eBay compliance evaluation. If this is for a <code>PROJECTED</code> cycle, the value is the month and year of the next scheduled evaluation. Because eBay does official evaluations around the 20th of each month, a <code>PROJECTED</code> value may indicate either the current or the next month.
+      description: A complex type that describes a program cycle.
+    FindSellerStandardsProfilesResponse:
+      type: object
+      properties:
+        standardsProfiles:
+          type: array
+          description: A list of the seller's standards profiles.  <br><br>A "standards profile" is a set of eBay seller standards categories and the values related to the associated seller.  <br><br>Profiles are distinguished by a combination of cycle and program values. The "program" value specifies the region to which the data is from. The "cycle" value specifies whether the values were determined just now, or if the values are from the last official eBay seller standards evaluation.
+          items:
+            $ref: '#/components/schemas/StandardsProfile'
+      description: The response container for a list of seller profiles.
+    MetricDistribution:
+      type: object
+      properties:
+        basis:
+          type: string
+          description: This field returns the basis, or the method, by which the metric rating is calculated.
+        data:
+          type: array
+          description: This field returns a list of name/value pairs, where the <b>name</b> indicates the distribution being rated and the <b>value</b> indicates the count of seller transactions that meet the distribution criteria.
+          items:
+            $ref: '#/components/schemas/Distribution'
+      description: This complex data type describes the metric distribution by basis.
+    Metric:
+      type: object
+      properties:
+        benchmark:
+          description: This complex type defines a set of benchmark data, which includes the <b>average</b> rating for the group included in the benchmark evaluation and the seller's calculated customer service metric rating for the benchmark.  <br><br>This container is returned only if the associated <b>metricKey</b> value is <code>RATE</code>.
+          $ref: '#/components/schemas/MetricBenchmark'
+        distributions:
+          type: array
+          description: Returned when <b>metricKey</b> equals <code>COUNT</code>, this field returns an array of  seller data where each set of data is grouped according by an overarching <b>basis</b>.  <br><br>When the seller distribution is returned, the numeric value of the associated <b>value</b> container equals the sum of the transactions where the seller meets the criteria of the customer service metric type for the given <b>dimension</b> during the <b>evaluationCycle</b>.
+          items:
+            $ref: '#/components/schemas/MetricDistribution'
+        metricKey:
+          type: string
+          description: 'This field indicates the customer service metric being returned in the associated <b>metrics</b> container. The field is set as follows: <ul><li><code>TRANSACTION_COUNT</code> &ndash; When set to this value, the associated <b>value</b> field returns the number of transactions completed in the peer group for the metric being evaluated in the associated <b>dimension</b> and <b>evaluationCycle</b>.</li> <li><code>COUNT</code> &ndash; When set to this value, the associated <b>value</b> field is set to the number of transactions completed by the seller for the metric being evaluated in the associated <b>dimension</b> and <b>evaluationCycle</b>.</li> <li><code>RATE</code> &ndash; When set to this value, the fields in the associated container return the seller''s calculated <b>value</b> for the associated customer service metric along with the benchmark data against which the seller is evaluated.  <br><br>Specifically, when <b>metricKey</b> is set to <code>RATE</code>, the associated <b>value</b> field is set to the value of <b>metricKey</b> <code>TRANSACTION_COUNT</code> divided by the value of <b>metricKey</b> <code>COUNT</code>.  <br><br>The <b>benchmark.rating</b> value is the seller''s rating for the metric in the associated <b>dimension</b> and <b>evaluationCycle</b>.</li></ul>'
+        value:
+          type: string
+          description: This field is set to the seller's numeric rating for the associated <b>metricKey</b> for the given <b>dimension</b> during the <b>evaluationCycle</b>.  <br><br>To determine the seller's rating for this metric, the value of this field is compared to the average metric value of the group.
+      description: This complex data type defines the details of the customer service metric and benchmark data related to the associated <b>dimension</b>.
     BenchmarkMetadata:
       type: object
       properties:

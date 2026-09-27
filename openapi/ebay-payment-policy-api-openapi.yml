@@ -439,105 +439,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        category:
-          type: string
-          description: 'The category type for this error or warning. It is a string that can have one of three values:<ul><li><code>Application</code>: Indicates an exception or error occurred in the application code or at runtime. Examples include catching an exception in a service''s business logic, system failures, or request errors from a dependency.</li><li><code>Business</code>: Used when your service or a dependent service refused to continue processing on the resource because of a business rule violation such as "Seller does not ship item to Antarctica" or "Buyer ineligible to purchase an alcoholic item". Business errors are not syntactical input errors.</li><li><code>Request</code>: Used when there is anything wrong with the request, such as authentication, syntactical errors, rate limiting or missing headers, bad HTTP header values, and so on.</li></ul>'
-        domain:
-          type: string
-          description: Name of the domain ,or primary system, of the service or application where the error occurred.
-        errorId:
-          type: integer
-          description: A positive integer that uniquely identifies the specific error condition that occurred. Your application can use error codes as identifiers in your customized error-handling algorithms.
-          format: int32
-        inputRefIds:
-          type: array
-          description: Identifies specific request elements associated with the error, if any. inputRefId's response is format specific. For JSON, use <i>JSONPath</i> notation.
-          items:
-            type: string
-        longMessage:
-          type: string
-          description: A more detailed explanation of the error than given in the <code>message</code> error field.
-        message:
-          type: string
-          description: Information on how to correct the problem, in the end user's terms and language where applicable. Its value is at most 50 characters long. If applicable, the value is localized in the end user's requested locale.
-        outputRefIds:
-          type: array
-          description: Identifies specific response elements associated with the error, if any. Path format is the same as <code>inputRefId</code>.
-          items:
-            type: string
-        parameters:
-          type: array
-          description: This optional list of name/value pairs that contain context-specific <code>ErrorParameter</code> objects, with each item in the list being a parameter (or input field name) that caused an error condition. Each <code>ErrorParameter</code> object consists of two fields, a <code>name</code> and a <code>value</code>.
-          items:
-            $ref: '#/components/schemas/ErrorParameter'
-        subdomain:
-          type: string
-          description: If present, indicates the subsystem in which the error occurred.
-      description: A container that defines the elements of error and warning messages.
-    PaymentMethod:
-      type: object
-      properties:
-        brands:
-          type: array
-          description: '<span class="tablenote"><b>Note</b>: This array is no longer applicable and should not be used. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods, including any credit card brands accepted. </span>'
-          items:
-            type: string
-            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/account/types/api:PaymentInstrumentBrandEnum''>eBay API documentation</a>'
-        paymentMethodType:
-          type: string
-          description: eBay now controls all electronic payment methods available for a marketplace, so only offline payment method enum values may be used in this field, and offline payment methods will only be applicable to listings that require or support offline payments. See the <b>PaymentMethodTypeEnum</b> type for supported offline payment method enum values. </p> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:PaymentMethodTypeEnum'>eBay API documentation</a>
-        recipientAccountReference:
-          description: '<span class="tablenote"><b>Note</b>: This container is no longer applicable and should not be used. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods, including PayPal. </span>'
-          $ref: '#/components/schemas/RecipientAccountReference'
-      description: 'This type is used by the <b>paymentMethods</b> container, which is used by the seller to specify one or more offline payment methods. <br><br> <span class="tablenote"><b>Note</b>: eBay now controls all electronic payment methods available for a marketplace, so a seller will no longer use this type to specify any electronic payment methods.</span>'
-    RecipientAccountReference:
-      type: object
-      properties:
-        referenceId:
-          type: string
-          description: '<span class="tablenote"><b>Note</b>: DO NOT USE THIS FIELD. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span>'
-        referenceType:
-          type: string
-          description: '<span class="tablenote"><b>Note</b>: DO NOT USE THIS FIELD. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/account/types/api:RecipientAccountReferenceTypeEnum''>eBay API documentation</a>'
-      description: '<span class="tablenote"><b>Note</b>: This type is no longer applicable. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span>'
-    PaymentPolicyRequest:
-      type: object
-      properties:
-        categoryTypes:
-          type: array
-          description: This container is used to specify whether the payment business policy applies to motor vehicle listings, or if it applies to non-motor vehicle listings.
-          items:
-            $ref: '#/components/schemas/CategoryType'
-        deposit:
-          description: 'This container is used if the seller wants to require an initial deposit on a motor vehicle listing. In this container, the seller sets the deposit amount and the due date for the deposit.<br><br>Because eBay controls all electronic payment methods, sellers do not need to specify a payment method and the <b>deposit.paymentMethods</b> array is not needed.<p class="tablenote"><b>Note: </b>The ''due date'' specified in the <b>deposit</b> container will be overridden if the payment business policy requires immediate payment (in this case, for the deposit), and the buyer commits to purchase the motor vehicle through a fixed-price listing or through the ''Buy it Now'' option of an auction listing.</p>'
-          $ref: '#/components/schemas/Deposit'
-        description:
-          type: string
-          description: 'A seller-defined description of the payment business policy. This description is only for the seller''s use, and is not exposed on any eBay pages.  <br><br><b>Max length</b>: 250'
-        fullPaymentDueIn:
-          description: 'This container is used to specify the number of days that a buyer has to make their full payment to the seller and close the remaining balance on a motor vehicle transaction. This container must be specified for motor vehicles listings. <br><br>The period starts when the buyer commits to buy. The valid values, as specified with <b>TimeDuration</b>, are:<ul><li><code>3 DAYS</code></li><li><code>7 DAYS</code> (the default)</li><li><code>10 DAYS</code></li><li><code>14 DAYS</code></li></ul>In order for a buyer to make a full payment on a motor vehicle, at least one of the following <b>paymentMethods</b> values must be specified for the corresponding payment business policy: <ul> <li><code>CASH_ON_PICKUP</code></li> <li><code>CASHIER_CHECK</code></li> <li><code>MONEY_ORDER</code></li> <li><code>PERSONAL_CHECK</code></li></ul><b>Default:</b> <code>7 DAYS</code>'
-          $ref: '#/components/schemas/TimeDuration'
-        immediatePay:
-          type: boolean
-          description: 'This field should be included and set to <code>true</code> if the seller wants to require immediate payment from the buyer for: <ul><li>A fixed-price item</li><li>An auction item where the buyer is using the ''Buy it Now'' option</li><li>A deposit for a motor vehicle listing</li></ul><br><b>Default:</b> False'
-        marketplaceId:
-          type: string
-          description: The ID of the eBay marketplace to which this payment business policy applies. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum'>eBay API documentation</a>
-        name:
-          type: string
-          description: A seller-defined name for this payment business policy. Names must be unique for policies assigned to the same marketplace.<br><br><b>Max length:</b> 64
-        paymentInstructions:
-          type: string
-          description: <p class="tablenote"><b>Note:</b> DO NOT USE THIS FIELD. Payment instructions are no longer supported by payment business policies.</p>A free-form string field that allows sellers to add detailed payment instructions to their listings.
-        paymentMethods:
-          type: array
-          description: <p class="tablenote"><b>Note:</b> This field applies only when the seller needs to specify one or more offline payment methods. eBay now manages the electronic payment options available to buyers to pay for the item.</p>This array is used to specify one or more offline payment methods that will be accepted for payment that occurs off of eBay's platform.
-          items:
-            $ref: '#/components/schemas/PaymentMethod'
-      description: This root container defines a seller's payment business policy for a specific marketplace and category group. This type is used when creating or updating a payment business policy.
     SetPaymentPolicyResponse:
       type: object
       properties:
@@ -581,21 +482,17 @@ components:
           items:
             $ref: '#/components/schemas/Error'
       description: Complex type that that gets populated with a response containing a payment policy.
-    Deposit:
+    TimeDuration:
       type: object
       properties:
-        amount:
-          description: 'This value indicates the initial deposit amount required from the buyer in order to purchase a motor vehicle. This value can be as high as $2,000.00 if immediate payment is not required, and up to $500.00 if immediate payment is required.<br><br><b>Max</b>: <code>2000.0</code>'
-          $ref: '#/components/schemas/Amount'
-        dueIn:
-          description: 'This value indicates the number of hours that the buyer has (after they commit to buy) to pay the initial deposit on a motor vehicle. Valid <b>dueIn</b> times are 24, 48, and 72 hours. <code>HOUR</code> is set as the <b>unit</b> value, and <code>24</code>, <code>48</code> or <code>72</code> are set in the <b>value</b> field.<br><br><span class="tablenote"><b>Note</b>: The <b>dueIn</b> value is overridden if the seller has set the motor vehicle listing to require immediate payment. If the listing requires immediate payment, the buyer must pay the deposit immediately in order to be eligible to purchase the motor vehicle.</span><br><br><b>Min</b>=24 (hours)<b>Max</b>=72 (hours), <b>Default</b>=48 (hours)'
-          $ref: '#/components/schemas/TimeDuration'
-        paymentMethods:
-          type: array
-          description: This array is no longer applicable and should not be used since eBay now manages the electronic payment options available to buyers to pay the deposit.
-          items:
-            $ref: '#/components/schemas/PaymentMethod'
-      description: This type is used to specify/indicate that an initial deposit is required for a motor vehicle listing.
+        unit:
+          type: string
+          description: These enum values represent the time measurement unit, such as <code>DAY</code>. A span of time is defined when you apply the value specified in the <b>value</b> field to the value specified for <b>unit</b>. <br><br>See <b>TimeDurationUnitEnum</b> for a complete list of possible time-measurement units. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:TimeDurationUnitEnum'>eBay API documentation</a>
+        value:
+          type: integer
+          description: An integer that represents an amount of time, as measured by the time-measurement unit specified in the <b>unit</b> field.
+          format: int32
+      description: A type used to specify a period of time using a specified time-measurement unit. Payment, return, and fulfillment business policies all use this type to specify time windows.<br><br>Whenever a container that uses this type is used in a request, both of these fields are required. Similarly, whenever a container that uses this type is returned in a response, both of these fields are always returned.
     PaymentPolicy:
       type: object
       properties:
@@ -634,6 +531,51 @@ components:
           type: string
           description: A unique eBay-assigned ID for a payment business policy. This ID is generated when the policy is created.
       description: This type is used by the <b>paymentPolicy</b> response container, a container which defines a seller's payment business policy for a specific marketplace.
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: The base currency applied to the <b>value</b> field to establish a monetary amount.  <br><br>The currency is represented as a 3-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " title="https://www.iso.org " target="_blank">ISO 4217</a> currency code. For example, the code for the Canadian Dollar is <code>CAD</code>.<br><br><b>Default:</b> The default currency of the eBay marketplace that hosts the listing. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
+        value:
+          type: string
+          description: The monetary amount in the specified <b>currency</b>.
+      description: A complex type that describes the value of a monetary amount as represented by a global currency. When passing in an amount in a request payload, both <b>currency</b> and <b>value</b> fields are required, and both fields are also always returned for an amount in a response field.
+    PaymentPolicyRequest:
+      type: object
+      properties:
+        categoryTypes:
+          type: array
+          description: This container is used to specify whether the payment business policy applies to motor vehicle listings, or if it applies to non-motor vehicle listings.
+          items:
+            $ref: '#/components/schemas/CategoryType'
+        deposit:
+          description: 'This container is used if the seller wants to require an initial deposit on a motor vehicle listing. In this container, the seller sets the deposit amount and the due date for the deposit.<br><br>Because eBay controls all electronic payment methods, sellers do not need to specify a payment method and the <b>deposit.paymentMethods</b> array is not needed.<p class="tablenote"><b>Note: </b>The ''due date'' specified in the <b>deposit</b> container will be overridden if the payment business policy requires immediate payment (in this case, for the deposit), and the buyer commits to purchase the motor vehicle through a fixed-price listing or through the ''Buy it Now'' option of an auction listing.</p>'
+          $ref: '#/components/schemas/Deposit'
+        description:
+          type: string
+          description: 'A seller-defined description of the payment business policy. This description is only for the seller''s use, and is not exposed on any eBay pages.  <br><br><b>Max length</b>: 250'
+        fullPaymentDueIn:
+          description: 'This container is used to specify the number of days that a buyer has to make their full payment to the seller and close the remaining balance on a motor vehicle transaction. This container must be specified for motor vehicles listings. <br><br>The period starts when the buyer commits to buy. The valid values, as specified with <b>TimeDuration</b>, are:<ul><li><code>3 DAYS</code></li><li><code>7 DAYS</code> (the default)</li><li><code>10 DAYS</code></li><li><code>14 DAYS</code></li></ul>In order for a buyer to make a full payment on a motor vehicle, at least one of the following <b>paymentMethods</b> values must be specified for the corresponding payment business policy: <ul> <li><code>CASH_ON_PICKUP</code></li> <li><code>CASHIER_CHECK</code></li> <li><code>MONEY_ORDER</code></li> <li><code>PERSONAL_CHECK</code></li></ul><b>Default:</b> <code>7 DAYS</code>'
+          $ref: '#/components/schemas/TimeDuration'
+        immediatePay:
+          type: boolean
+          description: 'This field should be included and set to <code>true</code> if the seller wants to require immediate payment from the buyer for: <ul><li>A fixed-price item</li><li>An auction item where the buyer is using the ''Buy it Now'' option</li><li>A deposit for a motor vehicle listing</li></ul><br><b>Default:</b> False'
+        marketplaceId:
+          type: string
+          description: The ID of the eBay marketplace to which this payment business policy applies. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum'>eBay API documentation</a>
+        name:
+          type: string
+          description: A seller-defined name for this payment business policy. Names must be unique for policies assigned to the same marketplace.<br><br><b>Max length:</b> 64
+        paymentInstructions:
+          type: string
+          description: <p class="tablenote"><b>Note:</b> DO NOT USE THIS FIELD. Payment instructions are no longer supported by payment business policies.</p>A free-form string field that allows sellers to add detailed payment instructions to their listings.
+        paymentMethods:
+          type: array
+          description: <p class="tablenote"><b>Note:</b> This field applies only when the seller needs to specify one or more offline payment methods. eBay now manages the electronic payment options available to buyers to pay for the item.</p>This array is used to specify one or more offline payment methods that will be accepted for payment that occurs off of eBay's platform.
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+      description: This root container defines a seller's payment business policy for a specific marketplace and category group. This type is used when creating or updating a payment business policy.
     PaymentPolicyResponse:
       type: object
       properties:
@@ -664,17 +606,6 @@ components:
           description: The total number of payment business policies retrieved in the result set.  <br><br>If no payment business policies are defined for the specified marketplace, this field is returned with a value of <code>0</code>.
           format: int32
       description: 'The response payload for the <b>getPaymentPolicies</b> method. <br><br><span class="tablenote"><b>Note</b>: Pagination has not yet been enabled for <b>getPaymentPolicies</b>, so all of the pagination-related fields are for future use.</span>'
-    TimeDuration:
-      type: object
-      properties:
-        unit:
-          type: string
-          description: These enum values represent the time measurement unit, such as <code>DAY</code>. A span of time is defined when you apply the value specified in the <b>value</b> field to the value specified for <b>unit</b>. <br><br>See <b>TimeDurationUnitEnum</b> for a complete list of possible time-measurement units. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:TimeDurationUnitEnum'>eBay API documentation</a>
-        value:
-          type: integer
-          description: An integer that represents an amount of time, as measured by the time-measurement unit specified in the <b>unit</b> field.
-          format: int32
-      description: A type used to specify a period of time using a specified time-measurement unit. Payment, return, and fulfillment business policies all use this type to specify time windows.<br><br>Whenever a container that uses this type is used in a request, both of these fields are required. Similarly, whenever a container that uses this type is returned in a response, both of these fields are always returned.
     CategoryType:
       type: object
       properties:
@@ -685,6 +616,75 @@ components:
           type: string
           description: The category type to which the policy applies (motor vehicles or non-motor vehicles). <br><br>The <code>MOTORS_VEHICLES</code> category type is not valid for return policies. eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:CategoryTypeEnum'>eBay API documentation</a>
       description: The category type discerns whether the policy applies to motor vehicle listings, or to any other items except motor vehicle listings. <br><br>Each business policy can be associated with either or both categories ('MOTORS_VEHICLES' and 'ALL_EXCLUDING_MOTORS_VEHICLES'); however, return business policies are not applicable for motor vehicle listings.
+    Deposit:
+      type: object
+      properties:
+        amount:
+          description: 'This value indicates the initial deposit amount required from the buyer in order to purchase a motor vehicle. This value can be as high as $2,000.00 if immediate payment is not required, and up to $500.00 if immediate payment is required.<br><br><b>Max</b>: <code>2000.0</code>'
+          $ref: '#/components/schemas/Amount'
+        dueIn:
+          description: 'This value indicates the number of hours that the buyer has (after they commit to buy) to pay the initial deposit on a motor vehicle. Valid <b>dueIn</b> times are 24, 48, and 72 hours. <code>HOUR</code> is set as the <b>unit</b> value, and <code>24</code>, <code>48</code> or <code>72</code> are set in the <b>value</b> field.<br><br><span class="tablenote"><b>Note</b>: The <b>dueIn</b> value is overridden if the seller has set the motor vehicle listing to require immediate payment. If the listing requires immediate payment, the buyer must pay the deposit immediately in order to be eligible to purchase the motor vehicle.</span><br><br><b>Min</b>=24 (hours)<b>Max</b>=72 (hours), <b>Default</b>=48 (hours)'
+          $ref: '#/components/schemas/TimeDuration'
+        paymentMethods:
+          type: array
+          description: This array is no longer applicable and should not be used since eBay now manages the electronic payment options available to buyers to pay the deposit.
+          items:
+            $ref: '#/components/schemas/PaymentMethod'
+      description: This type is used to specify/indicate that an initial deposit is required for a motor vehicle listing.
+    PaymentMethod:
+      type: object
+      properties:
+        brands:
+          type: array
+          description: '<span class="tablenote"><b>Note</b>: This array is no longer applicable and should not be used. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods, including any credit card brands accepted. </span>'
+          items:
+            type: string
+            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/account/types/api:PaymentInstrumentBrandEnum''>eBay API documentation</a>'
+        paymentMethodType:
+          type: string
+          description: eBay now controls all electronic payment methods available for a marketplace, so only offline payment method enum values may be used in this field, and offline payment methods will only be applicable to listings that require or support offline payments. See the <b>PaymentMethodTypeEnum</b> type for supported offline payment method enum values. </p> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:PaymentMethodTypeEnum'>eBay API documentation</a>
+        recipientAccountReference:
+          description: '<span class="tablenote"><b>Note</b>: This container is no longer applicable and should not be used. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods, including PayPal. </span>'
+          $ref: '#/components/schemas/RecipientAccountReference'
+      description: 'This type is used by the <b>paymentMethods</b> container, which is used by the seller to specify one or more offline payment methods. <br><br> <span class="tablenote"><b>Note</b>: eBay now controls all electronic payment methods available for a marketplace, so a seller will no longer use this type to specify any electronic payment methods.</span>'
+    Error:
+      type: object
+      properties:
+        category:
+          type: string
+          description: 'The category type for this error or warning. It is a string that can have one of three values:<ul><li><code>Application</code>: Indicates an exception or error occurred in the application code or at runtime. Examples include catching an exception in a service''s business logic, system failures, or request errors from a dependency.</li><li><code>Business</code>: Used when your service or a dependent service refused to continue processing on the resource because of a business rule violation such as "Seller does not ship item to Antarctica" or "Buyer ineligible to purchase an alcoholic item". Business errors are not syntactical input errors.</li><li><code>Request</code>: Used when there is anything wrong with the request, such as authentication, syntactical errors, rate limiting or missing headers, bad HTTP header values, and so on.</li></ul>'
+        domain:
+          type: string
+          description: Name of the domain ,or primary system, of the service or application where the error occurred.
+        errorId:
+          type: integer
+          description: A positive integer that uniquely identifies the specific error condition that occurred. Your application can use error codes as identifiers in your customized error-handling algorithms.
+          format: int32
+        inputRefIds:
+          type: array
+          description: Identifies specific request elements associated with the error, if any. inputRefId's response is format specific. For JSON, use <i>JSONPath</i> notation.
+          items:
+            type: string
+        longMessage:
+          type: string
+          description: A more detailed explanation of the error than given in the <code>message</code> error field.
+        message:
+          type: string
+          description: Information on how to correct the problem, in the end user's terms and language where applicable. Its value is at most 50 characters long. If applicable, the value is localized in the end user's requested locale.
+        outputRefIds:
+          type: array
+          description: Identifies specific response elements associated with the error, if any. Path format is the same as <code>inputRefId</code>.
+          items:
+            type: string
+        parameters:
+          type: array
+          description: This optional list of name/value pairs that contain context-specific <code>ErrorParameter</code> objects, with each item in the list being a parameter (or input field name) that caused an error condition. Each <code>ErrorParameter</code> object consists of two fields, a <code>name</code> and a <code>value</code>.
+          items:
+            $ref: '#/components/schemas/ErrorParameter'
+        subdomain:
+          type: string
+          description: If present, indicates the subsystem in which the error occurred.
+      description: A container that defines the elements of error and warning messages.
     ErrorParameter:
       type: object
       properties:
@@ -695,16 +695,16 @@ components:
           type: string
           description: The value of the parameter that caused the error.
       description: A complex type that indicates a parameter that caused an error and the value of the parameter which caused the error.
-    Amount:
+    RecipientAccountReference:
       type: object
       properties:
-        currency:
+        referenceId:
           type: string
-          description: The base currency applied to the <b>value</b> field to establish a monetary amount.  <br><br>The currency is represented as a 3-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " title="https://www.iso.org " target="_blank">ISO 4217</a> currency code. For example, the code for the Canadian Dollar is <code>CAD</code>.<br><br><b>Default:</b> The default currency of the eBay marketplace that hosts the listing. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
-        value:
+          description: '<span class="tablenote"><b>Note</b>: DO NOT USE THIS FIELD. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span>'
+        referenceType:
           type: string
-          description: The monetary amount in the specified <b>currency</b>.
-      description: A complex type that describes the value of a monetary amount as represented by a global currency. When passing in an amount in a request payload, both <b>currency</b> and <b>value</b> fields are required, and both fields are also always returned for an amount in a response field.
+          description: '<span class="tablenote"><b>Note</b>: DO NOT USE THIS FIELD. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/account/types/api:RecipientAccountReferenceTypeEnum''>eBay API documentation</a>'
+      description: '<span class="tablenote"><b>Note</b>: This type is no longer applicable. eBay now controls all electronic payment methods available for a marketplace, and a seller never has to specify any electronic payment methods.</span>'
   securitySchemes:
     api_auth:
       type: oauth2

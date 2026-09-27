@@ -199,13 +199,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CreateSigningKeyRequest:
-      type: object
-      properties:
-        signingKeyCipher:
-          type: string
-          description: The enumerated value for the cipher to be used to create the signing key. Refer to <a href= "/api-docs/developer/key-management/types/api:SigningKeyCipher" target= "_blank">SigningKeyCiper</a> for the list of supported enum values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/developer/key_management/types/api:SigningKeyCipher'>eBay API documentation</a>
-      description: This request creates a new signing key.
     SigningKey:
       type: object
       properties:
@@ -242,6 +235,13 @@ components:
           items:
             $ref: '#/components/schemas/SigningKey'
       description: This container stores metadata information for all keypairs that are owned by a user.
+    CreateSigningKeyRequest:
+      type: object
+      properties:
+        signingKeyCipher:
+          type: string
+          description: The enumerated value for the cipher to be used to create the signing key. Refer to <a href= "/api-docs/developer/key-management/types/api:SigningKeyCipher" target= "_blank">SigningKeyCiper</a> for the list of supported enum values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/developer/key_management/types/api:SigningKeyCipher'>eBay API documentation</a>
+      description: This request creates a new signing key.
   securitySchemes:
     api_auth:
       type: oauth2

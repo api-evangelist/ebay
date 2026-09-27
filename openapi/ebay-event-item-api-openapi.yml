@@ -142,22 +142,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    MarketingPrice:
-      type: object
-      properties:
-        discountAmount:
-          description: The monetary value of the seller discount.
-          $ref: '#/components/schemas/Amount'
-        discountPercentage:
-          type: string
-          description: The percentage of the seller discount based on the value returned in the <b>originalPrice</b> field.
-        originalPrice:
-          description: The monetary value of the item prior to the discount.
-          $ref: '#/components/schemas/Amount'
-        priceTreatment:
-          type: string
-          description: 'The pricing treatment (discount) that was applied to the price of the item. <br /><br /><span class="tablenote"><b>Note: </b> The pricing treatment affects how and where the discounted price can be displayed.</span> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/deal/types/api:PriceTreatmentEnum''>eBay API documentation</a>'
-      description: A type that describes the seller discount.
     EventItemSearchResponse:
       type: object
       properties:
@@ -204,6 +188,16 @@ components:
           type: string
           description: The width of the image.
       description: The type that defines the details of an image, such as size and URL.
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html" target="_blank">ISO 4217</a> code representing the currency of the amount in the <b> value</b> field.<br /><br /><b> Default:</b> The currency of the authenticated user's country. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/deal/types/bas:CurrencyCodeEnum'>eBay API documentation</a>
+        value:
+          type: string
+          description: The monetary value, in the currency specified by the <b> currency</b> field.
+      description: The currency and value of the item.
     ShippingOption:
       type: object
       properties:
@@ -214,6 +208,22 @@ components:
           type: string
           description: 'The class of the shipping cost. <br /><br /><b> Valid Values: </b> <code>FIXED</code> or <code>CALCULATED</code> <br /><br />Code so that your app gracefully handles any future changes to this list. '
       description: The details provided for the shipping provider, such as shipping cost and type.
+    MarketingPrice:
+      type: object
+      properties:
+        discountAmount:
+          description: The monetary value of the seller discount.
+          $ref: '#/components/schemas/Amount'
+        discountPercentage:
+          type: string
+          description: The percentage of the seller discount based on the value returned in the <b>originalPrice</b> field.
+        originalPrice:
+          description: The monetary value of the item prior to the discount.
+          $ref: '#/components/schemas/Amount'
+        priceTreatment:
+          type: string
+          description: 'The pricing treatment (discount) that was applied to the price of the item. <br /><br /><span class="tablenote"><b>Note: </b> The pricing treatment affects how and where the discounted price can be displayed.</span> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/deal/types/api:PriceTreatmentEnum''>eBay API documentation</a>'
+      description: A type that describes the seller discount.
     EventItem:
       type: object
       properties:
@@ -284,16 +294,6 @@ components:
           type: string
           description: 'The designation used to specify the quantity of the event item, such as size, weight, volume, and count. This helps buyers compare prices. <br /><br />For example, the following tells the buyer that the item is 7.99 per 100 grams. <br /><br /><code>"unitPricingMeasure": "100g",<br /> "unitPrice": {<br />&nbsp;&nbsp;"value": "7.99",<br />&nbsp;&nbsp;"currency": "GBP"</code>'
       description: The detailed data returned for the event item.
-    Amount:
-      type: object
-      properties:
-        currency:
-          type: string
-          description: The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html" target="_blank">ISO 4217</a> code representing the currency of the amount in the <b> value</b> field.<br /><br /><b> Default:</b> The currency of the authenticated user's country. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/deal/types/bas:CurrencyCodeEnum'>eBay API documentation</a>
-        value:
-          type: string
-          description: The monetary value, in the currency specified by the <b> currency</b> field.
-      description: The currency and value of the item.
   securitySchemes:
     api_auth:
       type: oauth2

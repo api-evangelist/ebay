@@ -62,6 +62,31 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Address:
+      type: object
+      properties:
+        addressLine1:
+          type: string
+          description: The first line of the street address.
+        addressLine2:
+          type: string
+          description: The second line of the street address. This field is not always used, but can be used for 'Suite Number' or 'Apt Number'.
+        city:
+          type: string
+          description: The city of the address.
+        country:
+          type: string
+          description: The two-letter <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> standard of the country of the address. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/identity/types/bas:CountryCodeEnum'>eBay API documentation</a>
+        county:
+          type: string
+          description: The county of the address.
+        postalCode:
+          type: string
+          description: The postal code of the address.
+        stateOrProvince:
+          type: string
+          description: The state or province of the address.
+      description: The type that defines the fields for an address.
     Phone:
       type: object
       properties:
@@ -75,16 +100,28 @@ components:
           type: string
           description: 'The type of phone service. <br /><br /><b> Valid Values: </b> MOBILE or LAND_LINE  <br /><br />Code so that your app gracefully handles any future changes to this list.'
       description: The type that defines the fields for the details of a phone.
-    Contact:
+    IndividualAccount:
       type: object
       properties:
+        email:
+          type: string
+          description: The eBay user's registration email address.
         firstName:
           type: string
-          description: The first name of the contact person.
+          description: The eBay user's first name.
         lastName:
           type: string
-          description: The last name of the contact person.
-      description: The type that defines the fields for the information of the contact person for the account.
+          description: The eBay user's last name.
+        primaryPhone:
+          description: The container that returns the eBay user's primary phone number information.
+          $ref: '#/components/schemas/Phone'
+        registrationAddress:
+          description: The container that returns the eBay user's address information.
+          $ref: '#/components/schemas/Address'
+        secondaryPhone:
+          description: The container that returns the eBay user's secondary phone number information.
+          $ref: '#/components/schemas/Phone'
+      description: The type that defines the fields for the information of an individual account.
     UserResponse:
       type: object
       properties:
@@ -110,28 +147,16 @@ components:
           type: string
           description: 'The user name, which was specific by the user when they created the account. <br /><br /><span class="tablenote"><b>Note: </b> This value can be changed by the user.</span>'
       description: The type that defines the fields for the <b>getUser</b> method.
-    IndividualAccount:
+    Contact:
       type: object
       properties:
-        email:
-          type: string
-          description: The eBay user's registration email address.
         firstName:
           type: string
-          description: The eBay user's first name.
+          description: The first name of the contact person.
         lastName:
           type: string
-          description: The eBay user's last name.
-        primaryPhone:
-          description: The container that returns the eBay user's primary phone number information.
-          $ref: '#/components/schemas/Phone'
-        registrationAddress:
-          description: The container that returns the eBay user's address information.
-          $ref: '#/components/schemas/Address'
-        secondaryPhone:
-          description: The container that returns the eBay user's secondary phone number information.
-          $ref: '#/components/schemas/Phone'
-      description: The type that defines the fields for the information of an individual account.
+          description: The last name of the contact person.
+      description: The type that defines the fields for the information of the contact person for the account.
     BusinessAccount:
       type: object
       properties:
@@ -160,31 +185,6 @@ components:
           type: string
           description: The business website address associated with the eBay account.
       description: The type that defines the fields for the business account information.
-    Address:
-      type: object
-      properties:
-        addressLine1:
-          type: string
-          description: The first line of the street address.
-        addressLine2:
-          type: string
-          description: The second line of the street address. This field is not always used, but can be used for 'Suite Number' or 'Apt Number'.
-        city:
-          type: string
-          description: The city of the address.
-        country:
-          type: string
-          description: The two-letter <a href="https://www.iso.org/iso-3166-country-codes.html">ISO 3166</a> standard of the country of the address. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/identity/types/bas:CountryCodeEnum'>eBay API documentation</a>
-        county:
-          type: string
-          description: The county of the address.
-        postalCode:
-          type: string
-          description: The postal code of the address.
-        stateOrProvince:
-          type: string
-          description: The state or province of the address.
-      description: The type that defines the fields for an address.
   securitySchemes:
     api_auth:
       type: oauth2

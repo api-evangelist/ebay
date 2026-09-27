@@ -200,6 +200,112 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Definition:
+      type: object
+      properties:
+        dataType:
+          type: string
+          description: Indicates the data type of the returned dimension. For example, if the <b>dimension</b> is <code>day</code>, the data type is <code>DATE</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/ssp:DataTypeEnum'>eBay API documentation</a>
+        key:
+          type: string
+          description: The value the <b>dimension</b> or <b>metric</b> parameter as submitted in the request.
+        localizedName:
+          type: string
+          description: The localized name of the metric or dimension (translated into the language specified in the <b>Accept-Language</b> HTTP request header). For example, if <b>Accept-Language</b> is set to <code>de-DE</code>, the value "day" in the <b>dimension</b> container is returned as "tag", and a metric of TRANSACTION is returned as "Transaktionsanzahl".
+      description: A complex type that defines a dimension key and metrics in a traffic report.
+    Report:
+      type: object
+      properties:
+        dimensionMetadata:
+          type: array
+          description: A complex type containing the header of the report and the type of data containted in the rows of the report.
+          items:
+            $ref: '#/components/schemas/Metadata'
+        endDate:
+          type: string
+          description: '  <br><br>The time stamp is formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html" target="_blank">ISO 8601</a> string, which is based on the 24-hour Universal Coordinated Time (UTC) clock.  <br><br>If you specify an end date that is beyond the <a href="#response.lastUpdatedDate">lastUpdatedDate</a> value, eBay returns a report that contains data only up to the lastUpdateDate date. <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2018-08-20T07:09:00.000Z</code>'
+        header:
+          description: A complex type containing the header for the report.
+          $ref: '#/components/schemas/Header'
+        lastUpdatedDate:
+          type: string
+          description: The date and time, in ISO 8601 format, that indicates the last time the data returned in the report was updated.
+        records:
+          type: array
+          description: A complex type containing the individual data records for the traffic report.
+          items:
+            $ref: '#/components/schemas/Record'
+        startDate:
+          type: string
+          description: The start date of the date range used to calculate the report, in ISO 8601 format.
+        warnings:
+          type: array
+          description: An array of any process errors or warnings that were generated during the processing of the call processing.
+          items:
+            $ref: '#/components/schemas/Error'
+      description: The complex type that defines that defines the report.
+    Record:
+      type: object
+      properties:
+        dimensionValues:
+          type: array
+          description: A list where each element contains either the string <code>DAY</code> (if the <b>dimension</b> is <code>DAY</code>), or the listing ID for which the record's metric data is computed. A second array member, <b>applicable</b>, is always <code>true</code> for dimension values.
+          items:
+            $ref: '#/components/schemas/Value'
+        metricValues:
+          type: array
+          description: A list where each element contains a <b>value</b> field that indicates the record's value for the metric. Each element also contains an <b>applicable</b> field that indicates the veracity of the computed <b>value</b>.   <br><br>Note that there are no metric names or IDs associated with the values returned in this array. The metadata to which these values relate can be found in the key values in <b>metadataKeys</b>. The order of the metric values in this array equals the order of the key values in <b>metadataHeader</b>.
+          items:
+            $ref: '#/components/schemas/Value'
+      description: Type that defines the fields of the individual record of the report.
+    Header:
+      type: object
+      properties:
+        dimensionKeys:
+          type: array
+          description: A list of the dimension or metric keys returned in the report. The values for each are is returned in the associated <b>key</b> fields.
+          items:
+            $ref: '#/components/schemas/Definition'
+        metrics:
+          type: array
+          description: The list of metrics returned in the report. The values for each are is returned in the associated <b>key</b> fields.
+          items:
+            $ref: '#/components/schemas/Definition'
+      description: Type that defines the headers for the dimension keys and metrics returned in the report.
+    Metadata:
+      type: object
+      properties:
+        metadataHeader:
+          description: The container that returns the <b>dimensionKeys</b> and <b>metrics</b> headers for the report.
+          $ref: '#/components/schemas/MetadataHeader'
+        metadataRecords:
+          type: array
+          description: A list of the individual report records.
+          items:
+            $ref: '#/components/schemas/MetadataRecord'
+      description: Type the defines the metadata information of the report. This includes the headers and the individual metadata records.
+    Value:
+      type: object
+      properties:
+        applicable:
+          type: boolean
+          description: 'If set to <code>true</code>, this flag indicates the value in the <b>value</b> field is valid as computed.  <br><br>A value of <code>false</code> indicates one or more of the values used to calculate the value was invalid. The occurrence of this is a rare, however consider this case: suppose a buyer navigates to a View Item page at 11:59 pm (the end of the day) and purchases the item at 12:05am the next day. In this case, the item would have been purchased with <code>0</code> views for the day.'
+        value:
+          type: object
+          description: The value of the report data.
+      description: A complex type that contains a value, plus the veracity of that value.
+    MetadataHeader:
+      type: object
+      properties:
+        key:
+          type: string
+          description: 'The key value used for the report. <br><br>For example: <code>"key": "LISTING_ID"</code>'
+        metadataKeys:
+          type: array
+          description: 'The list of dimension key values used for the report header. Each list element contains the key name, its data type, and its localized name.  <br><br>For example: <p><code>"metadataKeys": [<br>&nbsp;&nbsp;"key": "LISTING_TITLE",<br>&nbsp;&nbsp;"localizedName": "Listing title",<br>&nbsp;&nbsp;"dataType": "STRING"</code></p>'
+          items:
+            $ref: '#/components/schemas/Definition'
+      description: Type that defines the metadata header fields.
     Error:
       type: object
       properties:
@@ -238,6 +344,16 @@ components:
           type: string
           description: If present, indicates which subsystem in which the error occurred.
       description: Type that defines the fields that can be returned in an error.
+    ErrorParameter:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Name of the entity that threw the error.
+        value:
+          type: string
+          description: A description of the error.
+      description: A complex type that defines an error and error message.
     MetadataRecord:
       type: object
       properties:
@@ -250,122 +366,6 @@ components:
           description: 'The value of the key on which the report is based. <br><br>For example, if the key is the listing ID, the value of this container could be: <br><br><code>"value": {<br>&nbsp;&nbsp;"value": "142133954229",<br>&nbsp;&nbsp;"applicable": true<br>}</code>'
           $ref: '#/components/schemas/Value'
       description: A complex type that defines the data records returned in the report.
-    Report:
-      type: object
-      properties:
-        dimensionMetadata:
-          type: array
-          description: A complex type containing the header of the report and the type of data containted in the rows of the report.
-          items:
-            $ref: '#/components/schemas/Metadata'
-        endDate:
-          type: string
-          description: '  <br><br>The time stamp is formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html" target="_blank">ISO 8601</a> string, which is based on the 24-hour Universal Coordinated Time (UTC) clock.  <br><br>If you specify an end date that is beyond the <a href="#response.lastUpdatedDate">lastUpdatedDate</a> value, eBay returns a report that contains data only up to the lastUpdateDate date. <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2018-08-20T07:09:00.000Z</code>'
-        header:
-          description: A complex type containing the header for the report.
-          $ref: '#/components/schemas/Header'
-        lastUpdatedDate:
-          type: string
-          description: The date and time, in ISO 8601 format, that indicates the last time the data returned in the report was updated.
-        records:
-          type: array
-          description: A complex type containing the individual data records for the traffic report.
-          items:
-            $ref: '#/components/schemas/Record'
-        startDate:
-          type: string
-          description: The start date of the date range used to calculate the report, in ISO 8601 format.
-        warnings:
-          type: array
-          description: An array of any process errors or warnings that were generated during the processing of the call processing.
-          items:
-            $ref: '#/components/schemas/Error'
-      description: The complex type that defines that defines the report.
-    Metadata:
-      type: object
-      properties:
-        metadataHeader:
-          description: The container that returns the <b>dimensionKeys</b> and <b>metrics</b> headers for the report.
-          $ref: '#/components/schemas/MetadataHeader'
-        metadataRecords:
-          type: array
-          description: A list of the individual report records.
-          items:
-            $ref: '#/components/schemas/MetadataRecord'
-      description: Type the defines the metadata information of the report. This includes the headers and the individual metadata records.
-    Record:
-      type: object
-      properties:
-        dimensionValues:
-          type: array
-          description: A list where each element contains either the string <code>DAY</code> (if the <b>dimension</b> is <code>DAY</code>), or the listing ID for which the record's metric data is computed. A second array member, <b>applicable</b>, is always <code>true</code> for dimension values.
-          items:
-            $ref: '#/components/schemas/Value'
-        metricValues:
-          type: array
-          description: A list where each element contains a <b>value</b> field that indicates the record's value for the metric. Each element also contains an <b>applicable</b> field that indicates the veracity of the computed <b>value</b>.   <br><br>Note that there are no metric names or IDs associated with the values returned in this array. The metadata to which these values relate can be found in the key values in <b>metadataKeys</b>. The order of the metric values in this array equals the order of the key values in <b>metadataHeader</b>.
-          items:
-            $ref: '#/components/schemas/Value'
-      description: Type that defines the fields of the individual record of the report.
-    Definition:
-      type: object
-      properties:
-        dataType:
-          type: string
-          description: Indicates the data type of the returned dimension. For example, if the <b>dimension</b> is <code>day</code>, the data type is <code>DATE</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/ssp:DataTypeEnum'>eBay API documentation</a>
-        key:
-          type: string
-          description: The value the <b>dimension</b> or <b>metric</b> parameter as submitted in the request.
-        localizedName:
-          type: string
-          description: The localized name of the metric or dimension (translated into the language specified in the <b>Accept-Language</b> HTTP request header). For example, if <b>Accept-Language</b> is set to <code>de-DE</code>, the value "day" in the <b>dimension</b> container is returned as "tag", and a metric of TRANSACTION is returned as "Transaktionsanzahl".
-      description: A complex type that defines a dimension key and metrics in a traffic report.
-    MetadataHeader:
-      type: object
-      properties:
-        key:
-          type: string
-          description: 'The key value used for the report. <br><br>For example: <code>"key": "LISTING_ID"</code>'
-        metadataKeys:
-          type: array
-          description: 'The list of dimension key values used for the report header. Each list element contains the key name, its data type, and its localized name.  <br><br>For example: <p><code>"metadataKeys": [<br>&nbsp;&nbsp;"key": "LISTING_TITLE",<br>&nbsp;&nbsp;"localizedName": "Listing title",<br>&nbsp;&nbsp;"dataType": "STRING"</code></p>'
-          items:
-            $ref: '#/components/schemas/Definition'
-      description: Type that defines the metadata header fields.
-    Value:
-      type: object
-      properties:
-        applicable:
-          type: boolean
-          description: 'If set to <code>true</code>, this flag indicates the value in the <b>value</b> field is valid as computed.  <br><br>A value of <code>false</code> indicates one or more of the values used to calculate the value was invalid. The occurrence of this is a rare, however consider this case: suppose a buyer navigates to a View Item page at 11:59 pm (the end of the day) and purchases the item at 12:05am the next day. In this case, the item would have been purchased with <code>0</code> views for the day.'
-        value:
-          type: object
-          description: The value of the report data.
-      description: A complex type that contains a value, plus the veracity of that value.
-    ErrorParameter:
-      type: object
-      properties:
-        name:
-          type: string
-          description: Name of the entity that threw the error.
-        value:
-          type: string
-          description: A description of the error.
-      description: A complex type that defines an error and error message.
-    Header:
-      type: object
-      properties:
-        dimensionKeys:
-          type: array
-          description: A list of the dimension or metric keys returned in the report. The values for each are is returned in the associated <b>key</b> fields.
-          items:
-            $ref: '#/components/schemas/Definition'
-        metrics:
-          type: array
-          description: The list of metrics returned in the report. The values for each are is returned in the associated <b>key</b> fields.
-          items:
-            $ref: '#/components/schemas/Definition'
-      description: Type that defines the headers for the dimension keys and metrics returned in the report.
   securitySchemes:
     api_auth:
       type: oauth2

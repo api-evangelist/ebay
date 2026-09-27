@@ -112,16 +112,6 @@ components:
           type: string
           description: Input the listing entity to be translated.<br><br><b>Valid Values:</b> <code>ITEM_TITLE</code> and <code>ITEM_DESCRIPTION</code></p> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/translation/types/api:TranslationContextEnum'>eBay API documentation</a>
       description: This is the base type of the <b>translate</b> method request payload.
-    Translation:
-      type: object
-      properties:
-        originalText:
-          type: string
-          description: The original text, in the language specified in the <b>from</b> field, that was input into the <b>text</b> field in the request.
-        translatedText:
-          type: string
-          description: The translation of the original text into the language specified in the <b>to</b> field.
-      description: This type is used by the <b>translations</b> array, which shows the original text supplied by the user in the request payload, and the text translated by eBay.<br><br>Only one input string can be translated at this time. Support for multiple continuous text strings is expected in the future.
     TranslateResponse:
       type: object
       properties:
@@ -137,6 +127,16 @@ components:
           items:
             $ref: '#/components/schemas/Translation'
       description: This is the base type of the <b>translate</b> method response payload.
+    Translation:
+      type: object
+      properties:
+        originalText:
+          type: string
+          description: The original text, in the language specified in the <b>from</b> field, that was input into the <b>text</b> field in the request.
+        translatedText:
+          type: string
+          description: The translation of the original text into the language specified in the <b>to</b> field.
+      description: This type is used by the <b>translations</b> array, which shows the original text supplied by the user in the request payload, and the text translated by eBay.<br><br>Only one input string can be translated at this time. Support for multiple continuous text strings is expected in the future.
   securitySchemes:
     api_auth:
       type: oauth2

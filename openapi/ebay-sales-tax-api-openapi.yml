@@ -377,15 +377,6 @@ components:
           type: boolean
           description: If returned as <code>true</code>, sales tax is also applied to shipping and handling charges, and not just the total sales price of the order.
       description: This type is used to provide sales tax settings for a specific tax jurisdiction.
-    SalesTaxes:
-      type: object
-      properties:
-        salesTaxes:
-          type: array
-          description: An array of one or more sales-tax rate entries for a specific marketplace (or all applicable marketplaces if the <b>country_code</b> query parameter is not used.<br><br>If no sales-tax rate entries are set up, no response payload is returned, but an HTTP status code of <code>204 No Content</code> is returned.
-          items:
-            $ref: '#/components/schemas/SalesTax'
-      description: This type is used by the root response of the <b>getSalesTaxes</b> method.
     SalesTaxBase:
       type: object
       properties:
@@ -396,6 +387,15 @@ components:
           type: boolean
           description: This field is set to <code>true</code> if the seller wishes to apply sales tax to shipping and handling charges, and not just the total sales price of the order. Otherwise, this field's value should be set to <code>false</code>.
       description: 'This type is used by the base request of the <b>createOrReplaceSalesTax</b>. '
+    SalesTaxes:
+      type: object
+      properties:
+        salesTaxes:
+          type: array
+          description: An array of one or more sales-tax rate entries for a specific marketplace (or all applicable marketplaces if the <b>country_code</b> query parameter is not used.<br><br>If no sales-tax rate entries are set up, no response payload is returned, but an HTTP status code of <code>204 No Content</code> is returned.
+          items:
+            $ref: '#/components/schemas/SalesTax'
+      description: This type is used by the root response of the <b>getSalesTaxes</b> method.
   securitySchemes:
     api_auth:
       type: oauth2

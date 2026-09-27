@@ -82,6 +82,15 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    SellerEligibilityMultiProgramResponse:
+      type: object
+      properties:
+        advertisingEligibility:
+          type: array
+          description: An array of response fields that define the seller eligibility for eBay advertising programs.
+          items:
+            $ref: '#/components/schemas/SellerEligibilityResponse'
+      description: The base response of the <b>getAdvertisingEligibility</b> method that contains the seller eligibility information for one or more advertising programs.
     SellerEligibilityResponse:
       type: object
       properties:
@@ -95,15 +104,6 @@ components:
           type: string
           description: The seller elibibilty status for the specified eBay advertising program. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/cmlib:SellerEligibilityEnum'>eBay API documentation</a>
       description: A type that is used to provide the seller's eligibility status for an eBay advertising program.
-    SellerEligibilityMultiProgramResponse:
-      type: object
-      properties:
-        advertisingEligibility:
-          type: array
-          description: An array of response fields that define the seller eligibility for eBay advertising programs.
-          items:
-            $ref: '#/components/schemas/SellerEligibilityResponse'
-      description: The base response of the <b>getAdvertisingEligibility</b> method that contains the seller eligibility information for one or more advertising programs.
   securitySchemes:
     api_auth:
       type: oauth2

@@ -300,23 +300,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PlaceProxyBidResponse:
-      type: object
-      properties:
-        proxyBidId:
-          type: string
-          description: Identifier of the proxy bid created by the request. This indicates that the bid was placed and is not used for anything else.
-      description: The type that defines the fields for the place proxy bid response.
-    PlaceProxyBidRequest:
-      type: object
-      properties:
-        maxAmount:
-          description: 'The amount of the proxy bid to be placed. This is the maximum amount the buyer is willing to pay for the item. <br><br><b>Note: </b>  <ul>  <li>Currency for the bid must be the currency specified by the seller when listing the item.</li>    <li>VAT (value added tax) does not need to be added to the proxy bid amount even if VAT applies.  </li>  </ul>  '
-          $ref: '#/components/schemas/Amount'
-        userConsent:
-          description: 'Specifies whether the buyer wants to give their consent to bid on adult-only items. For a buyer to bid on an adult-only item, you must collect their consent using this field, and they must agree to the Terms of Use. <p>For more information about adult-only items on eBay, see  <a href="https://www.ebay.com/help/terms-conditions/default/searching-adult-items?id=4661" target="_blank">Adult-Only items on eBay</a>.</p> <p><b>Default: </b>false </p>'
-          $ref: '#/components/schemas/UserConsent'
-      description: The type that defines the fields for placing a proxy bid.
     ProxyBid:
       type: object
       properties:
@@ -327,6 +310,26 @@ components:
           type: string
           description: Identifier of a specific proxy bid.
       description: The type the defines the fields for the proxy bid information.
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html" target="_blank">ISO 4217</a> code representing the currency of the amount in the <b> value</b> field.  For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/offer/types/bas:CurrencyCodeEnum'>eBay API documentation</a>
+        value:
+          type: string
+          description: The monetary amount.
+      description: The type that defines the fields for a monetary value and its currency.
+    PlaceProxyBidRequest:
+      type: object
+      properties:
+        maxAmount:
+          description: 'The amount of the proxy bid to be placed. This is the maximum amount the buyer is willing to pay for the item. <br><br><b>Note: </b>  <ul>  <li>Currency for the bid must be the currency specified by the seller when listing the item.</li>    <li>VAT (value added tax) does not need to be added to the proxy bid amount even if VAT applies.  </li>  </ul>  '
+          $ref: '#/components/schemas/Amount'
+        userConsent:
+          description: 'Specifies whether the buyer wants to give their consent to bid on adult-only items. For a buyer to bid on an adult-only item, you must collect their consent using this field, and they must agree to the Terms of Use. <p>For more information about adult-only items on eBay, see  <a href="https://www.ebay.com/help/terms-conditions/default/searching-adult-items?id=4661" target="_blank">Adult-Only items on eBay</a>.</p> <p><b>Default: </b>false </p>'
+          $ref: '#/components/schemas/UserConsent'
+      description: The type that defines the fields for placing a proxy bid.
     UserConsent:
       type: object
       properties:
@@ -334,6 +337,13 @@ components:
           type: boolean
           description: The type that defines the fields for buyer consent to bid on adult-only items.<br><br>This field must be included in the <b>placeProxyBid</b> request and set to <code>true</code> if the buyer is bidding on an <i>adult-only</i> item.<br><br>For more information about adult-only items on eBay, see  <a href="https://www.ebay.com/help/terms-conditions/default/searching-adult-items?id=4661" target="_blank">Adult-Only items on eBay</a>.
       description: The type that defines the fields for collecting the buyers consent.
+    PlaceProxyBidResponse:
+      type: object
+      properties:
+        proxyBidId:
+          type: string
+          description: Identifier of the proxy bid created by the request. This indicates that the bid was placed and is not used for anything else.
+      description: The type that defines the fields for the place proxy bid response.
     Bidding:
       type: object
       properties:
@@ -368,16 +378,6 @@ components:
           items:
             $ref: '#/components/schemas/Amount'
       description: The type the defines the field for the auction details.
-    Amount:
-      type: object
-      properties:
-        currency:
-          type: string
-          description: The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html" target="_blank">ISO 4217</a> code representing the currency of the amount in the <b> value</b> field.  For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/offer/types/bas:CurrencyCodeEnum'>eBay API documentation</a>
-        value:
-          type: string
-          description: The monetary amount.
-      description: The type that defines the fields for a monetary value and its currency.
   securitySchemes:
     api_auth:
       type: oauth2

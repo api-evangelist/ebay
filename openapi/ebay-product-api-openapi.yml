@@ -90,18 +90,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Aspect:
-      type: object
-      properties:
-        localizedName:
-          type: string
-          description: The localized name of this category aspect.
-        localizedValues:
-          type: array
-          description: A list of the localized values of this category aspect.
-          items:
-            type: string
-      description: This type contains the name and values of a category aspect.
     Product:
       type: object
       properties:
@@ -185,6 +173,18 @@ components:
           description: The width of the image in pixels.
           format: int32
       description: This type contains information about a product image stored in eBay Picture Services (EPS).
+    Aspect:
+      type: object
+      properties:
+        localizedName:
+          type: string
+          description: The localized name of this category aspect.
+        localizedValues:
+          type: array
+          description: A list of the localized values of this category aspect.
+          items:
+            type: string
+      description: This type contains the name and values of a category aspect.
   securitySchemes:
     api_auth:
       type: oauth2
