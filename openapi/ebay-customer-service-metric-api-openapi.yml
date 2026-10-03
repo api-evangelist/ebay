@@ -110,16 +110,18 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Distribution:
+    DimensionMetric:
       type: object
       properties:
-        name:
-          type: string
-          description: The name of a distribution in which the seller is active.
-        value:
-          type: string
-          description: This field contains the number of transactions the seller had in the distribution (identified by the associated <b>name</b> field) during the metric <b>evaluationCycle</b>.
-      description: This complex type defines of a piece of data that is grouped by the associated <b>basis</b>. It contains the <b>name</b> for the data set and its associated <b>value</b>.
+        dimension:
+          description: This type defines the "dimension," or attributes, against which the associated customer service metric values and benchmark ratings are based.  <br><br>The <b>dimensionKey</b> value is set according to the <b>customer_service_metric_type</b> request parameter and the values in the associated <b>name</b>/<b>value</b> pairs relate to the <b>dimensionKey</b> that's being used to calculate the benchmark rating.
+          $ref: '#/components/schemas/Dimension'
+        metrics:
+          type: array
+          description: This is a list of <b>Metric</b> elements where each element contains data and information related to the transactions grouped by the associated <b>dimension</b>.
+          items:
+            $ref: '#/components/schemas/Metric'
+      description: This complex type defines a the customer service metrics and seller benchmark performance related to a given dimension.
     MetricBenchmark:
       type: object
       properties:
@@ -136,6 +138,28 @@ components:
           type: string
           description: This field returns seller's rating for the customer service metric.  <br><br>The rating is set to a value that equals the relative deviation between the seller's metric value and the benchmark value for the customer service metric.  <br><br>Deviation values range from <code>LOW</code> to <code>VERY HIGH</code>, and the lower the deviation, the better the seller rating. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/api:RatingTypeEnum'>eBay API documentation</a>
       description: This complex type defines the benchmark data, which includes the <b>average</b> value of the metric for the group (the benchmark) and the seller's overall <b>rating</b> when compared to the benchmark.
+    BenchmarkMetadata:
+      type: object
+      properties:
+        average:
+          type: string
+          description: This field returns the average value for the group, as defined by the specified <b>basis</b>.  <br><br>When the benchmark <b>basis</b> is set to <code>PEER_BENCHMARK</code>, the value returned in this field is the benchmark value to which the seller's metric <b>value</b> is compared to determine the seller's rating for the customer service metric.
+      description: This complex type defines the fields that comprise the benchmark against which the seller's performance is compared. The comparison determines the seller's rating for the metric.
+    GetCustomerServiceMetricResponse:
+      type: object
+      properties:
+        dimensionMetrics:
+          type: array
+          description: 'This container provides a seller''s customer service <b>metric</b> performance for a given <b>dimension</b>.  <br><br>In the <b>getCustomerServiceMetric</b> request, specify values for the following request parameters to control the returned dimension and the associated metric values: <ul><li> <b>customer_service_metric_type</b></li> <li><b>evaluation_type</b></li> <li><b>evaluation_marketplace_id</b></li></ul>'
+          items:
+            $ref: '#/components/schemas/DimensionMetric'
+        evaluationCycle:
+          description: This complex type defines the evaluation type (<code>CURRENT</code> or <code>PROJECTED</code>) and the transaction lookback period used to calculate the seller's customer service metric.
+          $ref: '#/components/schemas/EvaluationCycle'
+        marketplaceId:
+          type: string
+          description: The eBay marketplace ID of the marketplace upon which the customer service metric evaluation is based.  <br><br>The <b>customer_service_metric</b> resource supports a limited set of marketplaces. For a complete list of the supported marketplaces, please see the <a href="https://www.ebay.com/help/policies/selling-policies/seller-performance-policy/service-metrics-policy?id=4769#section2" title="eBay Help pages">Service metrics policy</a> page. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/bas:MarketplaceIdEnum'>eBay API documentation</a>
+      description: This complex data type defines the response data that is returned from a request to <b>getCustomerServiceMetric</b>.  <br><br>The <b>dimensionMetrics</b> object contains the details of the dimension being measured and the calculated customer service metric values. <br><br>The <b>evaluationCycle</b> defines the period used to calculate the metric values.  <br><br>The <b>marketplaceId</b> is the eBay marketplace for which the metrics are being considered.
     EvaluationCycle:
       type: object
       properties:
@@ -152,33 +176,29 @@ components:
           type: string
           description: The start date and time of the transaction lookback range. All timestamps are based on Mountain Standard Time (MST).  <br><br>The timestamp is formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html" title="https://www.iso.org" target="_blank">ISO 8601</a> string, which is based on the 24-hour Coordinated Universal Time (UTC) clock.  <br><br><b>Format:</b> <code>[YYYY]-[MM]-[DD]T[hh]:[mm]:[ss].[sss]Z</code> <br><b>Example:</b> <code>2018-08-04T07:09:00.000Z</code>
       description: This complex type describes the start and end dates of the of the time period over which the associated benchmark is computed.  <br><br>All timestamps are based on Mountain Standard Time (MST).  <br><br>The timestamp is formatted as an <a href="https://www.iso.org/iso-8601-date-and-time-format.html" title="https://www.iso.org" target="_blank">ISO 8601</a> string, which is based on the 24-hour Coordinated Universal Time (UTC) clock.
-    DimensionMetric:
+    Distribution:
       type: object
       properties:
-        dimension:
-          description: This type defines the "dimension," or attributes, against which the associated customer service metric values and benchmark ratings are based.  <br><br>The <b>dimensionKey</b> value is set according to the <b>customer_service_metric_type</b> request parameter and the values in the associated <b>name</b>/<b>value</b> pairs relate to the <b>dimensionKey</b> that's being used to calculate the benchmark rating.
-          $ref: '#/components/schemas/Dimension'
-        metrics:
-          type: array
-          description: This is a list of <b>Metric</b> elements where each element contains data and information related to the transactions grouped by the associated <b>dimension</b>.
-          items:
-            $ref: '#/components/schemas/Metric'
-      description: This complex type defines a the customer service metrics and seller benchmark performance related to a given dimension.
-    GetCustomerServiceMetricResponse:
-      type: object
-      properties:
-        dimensionMetrics:
-          type: array
-          description: 'This container provides a seller''s customer service <b>metric</b> performance for a given <b>dimension</b>.  <br><br>In the <b>getCustomerServiceMetric</b> request, specify values for the following request parameters to control the returned dimension and the associated metric values: <ul><li> <b>customer_service_metric_type</b></li> <li><b>evaluation_type</b></li> <li><b>evaluation_marketplace_id</b></li></ul>'
-          items:
-            $ref: '#/components/schemas/DimensionMetric'
-        evaluationCycle:
-          description: This complex type defines the evaluation type (<code>CURRENT</code> or <code>PROJECTED</code>) and the transaction lookback period used to calculate the seller's customer service metric.
-          $ref: '#/components/schemas/EvaluationCycle'
-        marketplaceId:
+        name:
           type: string
-          description: The eBay marketplace ID of the marketplace upon which the customer service metric evaluation is based.  <br><br>The <b>customer_service_metric</b> resource supports a limited set of marketplaces. For a complete list of the supported marketplaces, please see the <a href="https://www.ebay.com/help/policies/selling-policies/seller-performance-policy/service-metrics-policy?id=4769#section2" title="eBay Help pages">Service metrics policy</a> page. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/bas:MarketplaceIdEnum'>eBay API documentation</a>
-      description: This complex data type defines the response data that is returned from a request to <b>getCustomerServiceMetric</b>.  <br><br>The <b>dimensionMetrics</b> object contains the details of the dimension being measured and the calculated customer service metric values. <br><br>The <b>evaluationCycle</b> defines the period used to calculate the metric values.  <br><br>The <b>marketplaceId</b> is the eBay marketplace for which the metrics are being considered.
+          description: The name of a distribution in which the seller is active.
+        value:
+          type: string
+          description: This field contains the number of transactions the seller had in the distribution (identified by the associated <b>name</b> field) during the metric <b>evaluationCycle</b>.
+      description: This complex type defines of a piece of data that is grouped by the associated <b>basis</b>. It contains the <b>name</b> for the data set and its associated <b>value</b>.
+    Dimension:
+      type: object
+      properties:
+        dimensionKey:
+          type: string
+          description: '<b>dimensionKey</b> defines the basis against which the seller''s customer service metric is measured.  <br><br>The value of this field gets set according to the value of the <b>customer_service_metric_type</b> input parameter. The following input configurations return the responses shown: <ul><li><code>ITEM_NOT_AS_DESCRIBED</code> &ndash; Returns benchmark ratings based on L1 listing categories, so the result shows metrics where the <b>dimensionKey</b> is set to <code>LISTING_CATEGORY</code>.</li>  <li><code>ITEM_NOT_RECEIVED</code> &ndash; Returns benchmark ratings based on world shipping regions, so the result shows metrics where the <b>dimensionKey</b> is set to <code>SHIPPING_REGION</code>.  <br><br>The shipping region is indicated by the associated <b>value</b> field. For specifics on world shipping regions, see the FAQ section on the following page: <a href="https://www.ebay.com/help/selling/selling/monitor-service-metrics?id=4785" title="eBay Help page" target="_blank">Monitor your service metrics</a></li></ul> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/analytics/types/api:DimensionTypeEnum''>eBay API documentation</a>'
+        name:
+          type: string
+          description: 'The dimension name returned in this field depends on the <b>dimensionKey</b>: <ul><li>If  <b>dimensionKey</b> is set to <code>SHIPPING_REGION</code>, this field is set to one of following values, which represent established shipping corridors: <ul><li><code>Domestic</code></li> <li><code>International: Mature region</code></li> <li><code>International: Emerging region</code></li></ul></li>  <li>If <b>dimensionKey</b> is set to <code>LISTING_CATEGORY</code>, this field is set to the name of the primary (L1) category in which the items being rated were listed.</li></ul>'
+        value:
+          type: string
+          description: 'The value returned in this field depends on the <b>dimensionKey</b>.  <br><br>If <b>dimensionKey</b> equals <code>LISTING_CATEGORY</code>, the value returned in this field is the category ID of the primary (L1) category in which the items being rated were listed.  <br><br>If <b>dimensionKey</b> equals <code>SHIPPING_REGION</code>, one of the following values is returned:  <ul><li><code>DOMESTIC</code></li> <li><code>INTERNATIONAL_MATURED_REGION</code></li> <li><code>INTERNATIONAL_EMERGING_REGION</code></li></ul>'
+      description: The fields in this complex type define the dimension, or attributes, by which the associated customer service metric and benchmark data is measured.  <br><br>The value of <b>dimensionKey</b> gets set according to the configuration of the input request. The <b>name</b> and <b>value</b> pair further define dimension under the key.
     MetricDistribution:
       type: object
       properties:
@@ -209,26 +229,6 @@ components:
           type: string
           description: This field is set to the seller's numeric rating for the associated <b>metricKey</b> for the given <b>dimension</b> during the <b>evaluationCycle</b>.  <br><br>To determine the seller's rating for this metric, the value of this field is compared to the average metric value of the group.
       description: This complex data type defines the details of the customer service metric and benchmark data related to the associated <b>dimension</b>.
-    BenchmarkMetadata:
-      type: object
-      properties:
-        average:
-          type: string
-          description: This field returns the average value for the group, as defined by the specified <b>basis</b>.  <br><br>When the benchmark <b>basis</b> is set to <code>PEER_BENCHMARK</code>, the value returned in this field is the benchmark value to which the seller's metric <b>value</b> is compared to determine the seller's rating for the customer service metric.
-      description: This complex type defines the fields that comprise the benchmark against which the seller's performance is compared. The comparison determines the seller's rating for the metric.
-    Dimension:
-      type: object
-      properties:
-        dimensionKey:
-          type: string
-          description: '<b>dimensionKey</b> defines the basis against which the seller''s customer service metric is measured.  <br><br>The value of this field gets set according to the value of the <b>customer_service_metric_type</b> input parameter. The following input configurations return the responses shown: <ul><li><code>ITEM_NOT_AS_DESCRIBED</code> &ndash; Returns benchmark ratings based on L1 listing categories, so the result shows metrics where the <b>dimensionKey</b> is set to <code>LISTING_CATEGORY</code>.</li>  <li><code>ITEM_NOT_RECEIVED</code> &ndash; Returns benchmark ratings based on world shipping regions, so the result shows metrics where the <b>dimensionKey</b> is set to <code>SHIPPING_REGION</code>.  <br><br>The shipping region is indicated by the associated <b>value</b> field. For specifics on world shipping regions, see the FAQ section on the following page: <a href="https://www.ebay.com/help/selling/selling/monitor-service-metrics?id=4785" title="eBay Help page" target="_blank">Monitor your service metrics</a></li></ul> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/analytics/types/api:DimensionTypeEnum''>eBay API documentation</a>'
-        name:
-          type: string
-          description: 'The dimension name returned in this field depends on the <b>dimensionKey</b>: <ul><li>If  <b>dimensionKey</b> is set to <code>SHIPPING_REGION</code>, this field is set to one of following values, which represent established shipping corridors: <ul><li><code>Domestic</code></li> <li><code>International: Mature region</code></li> <li><code>International: Emerging region</code></li></ul></li>  <li>If <b>dimensionKey</b> is set to <code>LISTING_CATEGORY</code>, this field is set to the name of the primary (L1) category in which the items being rated were listed.</li></ul>'
-        value:
-          type: string
-          description: 'The value returned in this field depends on the <b>dimensionKey</b>.  <br><br>If <b>dimensionKey</b> equals <code>LISTING_CATEGORY</code>, the value returned in this field is the category ID of the primary (L1) category in which the items being rated were listed.  <br><br>If <b>dimensionKey</b> equals <code>SHIPPING_REGION</code>, one of the following values is returned:  <ul><li><code>DOMESTIC</code></li> <li><code>INTERNATIONAL_MATURED_REGION</code></li> <li><code>INTERNATIONAL_EMERGING_REGION</code></li></ul>'
-      description: The fields in this complex type define the dimension, or attributes, by which the associated customer service metric and benchmark data is measured.  <br><br>The value of <b>dimensionKey</b> gets set according to the configuration of the input request. The <b>name</b> and <b>value</b> pair further define dimension under the key.
   securitySchemes:
     api_auth:
       type: oauth2

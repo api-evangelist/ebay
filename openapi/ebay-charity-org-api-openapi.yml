@@ -154,19 +154,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Image:
-      type: object
-      properties:
-        height:
-          type: string
-          description: The height of the logo image.
-        imageUrl:
-          type: string
-          description: The URL to the logo image location.
-        width:
-          type: string
-          description: The width of the logo image.
-      description: The logo of the charitable organization.
     CharityOrg:
       type: object
       properties:
@@ -195,16 +182,19 @@ components:
           type: string
           description: The link to the website for the charitable organization.
       description: The full location, ID, logo and other details of the charity organization.
-    GeoCoordinates:
+    Image:
       type: object
       properties:
-        latitude:
-          type: number
-          description: The latitude component of the geographic coordinate.
-        longitude:
-          type: number
-          description: The longitude component of the geographic coordinate.
-      description: Defines the format of a geographic coordinate.
+        height:
+          type: string
+          description: The height of the logo image.
+        imageUrl:
+          type: string
+          description: The URL to the logo image location.
+        width:
+          type: string
+          description: The width of the logo image.
+      description: The logo of the charitable organization.
     Address:
       type: object
       properties:
@@ -251,6 +241,16 @@ components:
           description: The total number of matches for the search criteria.
           format: int32
       description: A single set of search results, with information for accessing other sets.
+    GeoCoordinates:
+      type: object
+      properties:
+        latitude:
+          type: number
+          description: The latitude component of the geographic coordinate.
+        longitude:
+          type: number
+          description: The longitude component of the geographic coordinate.
+      description: Defines the format of a geographic coordinate.
     Location:
       type: object
       properties:

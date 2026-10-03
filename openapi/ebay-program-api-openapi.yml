@@ -190,13 +190,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Program:
-      type: object
-      properties:
-        programType:
-          type: string
-          description: A seller program in to which a seller can opt-in. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:ProgramTypeEnum'>eBay API documentation</a>
-      description: A seller program in to which a seller can opt-in.
     Programs:
       type: object
       properties:
@@ -206,6 +199,13 @@ components:
           items:
             $ref: '#/components/schemas/Program'
       description: The base response type of the <b>getOptedInPrograms</b> method.
+    Program:
+      type: object
+      properties:
+        programType:
+          type: string
+          description: A seller program in to which a seller can opt-in. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:ProgramTypeEnum'>eBay API documentation</a>
+      description: A seller program in to which a seller can opt-in.
   securitySchemes:
     api_auth:
       type: oauth2

@@ -174,72 +174,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Image:
-      type: object
-      properties:
-        height:
-          type: string
-          description: The height of the image.
-        imageUrl:
-          type: string
-          description: The relative path to the image location.
-        text:
-          type: string
-          description: The text associated with the image.
-        width:
-          type: string
-          description: The width of the image.
-      description: The type that defines the details of an image, such as size and URL.
-    Terms:
-      type: object
-      properties:
-        fullText:
-          type: string
-          description: A full-text description of the terms.
-        summary:
-          type: string
-          description: A summarized description of the terms.
-      description: The terms for the event, provided in a full-text description and summary.
-    EventSearchResponse:
-      type: object
-      properties:
-        events:
-          type: array
-          description: A list of results that match the search criteria.
-          items:
-            $ref: '#/components/schemas/Event'
-        href:
-          type: string
-          description: The relative path to the current set of results.
-        limit:
-          type: integer
-          description: The maximum number of items, from the current result set, returned on a single page.<br /><br /><b>Default:</b> <code>20</code>
-          format: int32
-        next:
-          type: string
-          description: The relative path to the next set of results.
-        offset:
-          type: integer
-          description: The number of items that will be skipped in the result set. This is used with the <b>limit</b> field to control the pagination of the output.<br /><br />For example, if the <b>offset</b> is set to <code>0</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 1 through 10 from the list of items returned. If the <b>offset</b> is set to <code>10</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 11 through 20 from the list of items returned.<br /><br /><b>Default:</b> <code>0</code>
-          format: int32
-        prev:
-          type: string
-          description: The relative path to the previous set of results.
-        total:
-          type: integer
-          description: The total number of matches for the specified search criteria.
-          format: int32
-      description: The result set for the specified event search criteria.
-    Coupon:
-      type: object
-      properties:
-        redemptionCode:
-          type: string
-          description: The coupon code.
-        terms:
-          description: The terms of use associated with the coupon.
-          $ref: '#/components/schemas/Terms'
-      description: The details for the coupon available for the item.
     Event:
       type: object
       properties:
@@ -278,6 +212,72 @@ components:
           type: string
           description: The title of the event.
       description: The result set for the event search.
+    Terms:
+      type: object
+      properties:
+        fullText:
+          type: string
+          description: A full-text description of the terms.
+        summary:
+          type: string
+          description: A summarized description of the terms.
+      description: The terms for the event, provided in a full-text description and summary.
+    Image:
+      type: object
+      properties:
+        height:
+          type: string
+          description: The height of the image.
+        imageUrl:
+          type: string
+          description: The relative path to the image location.
+        text:
+          type: string
+          description: The text associated with the image.
+        width:
+          type: string
+          description: The width of the image.
+      description: The type that defines the details of an image, such as size and URL.
+    Coupon:
+      type: object
+      properties:
+        redemptionCode:
+          type: string
+          description: The coupon code.
+        terms:
+          description: The terms of use associated with the coupon.
+          $ref: '#/components/schemas/Terms'
+      description: The details for the coupon available for the item.
+    EventSearchResponse:
+      type: object
+      properties:
+        events:
+          type: array
+          description: A list of results that match the search criteria.
+          items:
+            $ref: '#/components/schemas/Event'
+        href:
+          type: string
+          description: The relative path to the current set of results.
+        limit:
+          type: integer
+          description: The maximum number of items, from the current result set, returned on a single page.<br /><br /><b>Default:</b> <code>20</code>
+          format: int32
+        next:
+          type: string
+          description: The relative path to the next set of results.
+        offset:
+          type: integer
+          description: The number of items that will be skipped in the result set. This is used with the <b>limit</b> field to control the pagination of the output.<br /><br />For example, if the <b>offset</b> is set to <code>0</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 1 through 10 from the list of items returned. If the <b>offset</b> is set to <code>10</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 11 through 20 from the list of items returned.<br /><br /><b>Default:</b> <code>0</code>
+          format: int32
+        prev:
+          type: string
+          description: The relative path to the previous set of results.
+        total:
+          type: integer
+          description: The total number of matches for the specified search criteria.
+          format: int32
+      description: The result set for the specified event search criteria.
   securitySchemes:
     api_auth:
       type: oauth2

@@ -795,220 +795,6 @@ paths:
         - https://api.ebay.com/oauth/api_scope/sell.payment.dispute
 components:
   schemas:
-    AcceptPaymentDisputeRequest:
-      type: object
-      properties:
-        returnAddress:
-          description: This container is used if the seller wishes to provide a return address to the buyer. This container should be used if the seller is requesting that the buyer return the item.
-          $ref: '#/components/schemas/ReturnAddress'
-        revision:
-          type: integer
-          description: This integer value indicates the revision number of the payment dispute. This field is required. The current <strong>revision</strong> number for a payment dispute can be retrieved with the <strong>getPaymentDispute</strong> method. Each time an action is taken against a payment dispute, this integer value increases by 1.
-          format: int32
-      description: This type is used by base request of the <strong>acceptPaymentDispute</strong> method.
-    InfoFromBuyer:
-      type: object
-      properties:
-        contentOnHold:
-          type: boolean
-          description: When the value of this field is <code>true</code> it indicates that the buyer's note regarding the payment dispute (i.e., the <b>buyerProvided.note</b> field,) is on hold. When this is the case, the <b>buyerProvided.note</b> field will not be returned.<br><br>When the value of this field is <code>false</code>, it is not returned.
-        note:
-          type: string
-          description: This field shows any note that was left by the buyer in regard to the dispute.
-        returnShipmentTracking:
-          type: array
-          description: This array shows shipment tracking information for one or more shipping packages being returned to the buyer after a payment dispute.
-          items:
-            $ref: '#/components/schemas/TrackingInfo'
-      description: This container is returned if the buyer is returning one or more line items in an order that is associated with the payment dispute, and that buyer has provided return shipping tracking information and/or a note about the return.
-    UpdateEvidencePaymentDisputeRequest:
-      type: object
-      properties:
-        evidenceId:
-          type: string
-          description: The unique identifier of the evidence set that is being updated with new evidence files.<br><br> This ID is returned under the <strong>evidence</strong> array in the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDispute" target="_blank ">getPaymentDispute</a> response.
-        evidenceType:
-          type: string
-          description: This field is used to indicate the type of evidence being provided through one or more evidence files. All evidence files (if more than one) should be associated with the evidence type passed in this field.<br><br>See the <a href="/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum" target="_blank ">EvidenceTypeEnum</a> type for the supported evidence types. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum'>eBay API documentation</a>
-        files:
-          type: array
-          description: This array is used to specify one or more evidence files that will be added to the evidence set associated with a payment dispute. At least one evidence file must be specified in the <strong>files</strong> array.<br><br> The unique identifier of an evidence file is returned in the response payload of the <strong>uploadEvidence</strong> method.
-          items:
-            $ref: '#/components/schemas/FileEvidence'
-        lineItems:
-          type: array
-          description: This required array identifies the order line item(s) for which the evidence file(s) will be applicable. <br><Br>These values are returned under the <strong>evidenceRequests.lineItems</strong> array in the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDispute" target="_blank ">getPaymentDispute</a> response. <br><br><span class="tablenote"><b>Note:</b> Both the <strong>itemId</strong> and <strong>lineItemID</strong> fields are needed to identify each order line item.</span>
-          items:
-            $ref: '#/components/schemas/OrderLineItems'
-      description: This type is used by the request payload of the <strong>updateEvidence</strong> method. The <strong>updateEvidence</strong> method is used to update an existing evidence set against a payment dispute with one or more evidence files.
-    AddEvidencePaymentDisputeResponse:
-      type: object
-      properties:
-        evidenceId:
-          type: string
-          description: The value returned in this field is the unique identifier of the newly-created evidence set. Upon a successful call, this value is automatically genererated. This new evidence set for the payment dispute includes the evidence file(s) that were passed in to the <strong>fileId</strong> array in the request payload. The <strong>evidenceId</strong> value will be needed if the seller wishes to add to the evidence set by using the <strong>updateEvidence</strong> method, or if they want to retrieve a specific evidence file within the evidence set by using the <strong>fetchEvidenceContent</strong> method.
-      description: This type is used by the response payload of the <strong>addEvidence</strong> method. Its only field is an unique identifier of an evidence set.
-    PaymentDisputeActivityHistory:
-      type: object
-      properties:
-        activity:
-          type: array
-          description: This array holds all activities of a payment dispute, from creation to resolution. For each activity, the activity type, the actor, and a timestamp is shown. The <strong>getActivities</strong> response is dynamic, and grows with each recorded activity.
-          items:
-            $ref: '#/components/schemas/PaymentDisputeActivity'
-      description: This type is used by the base response of the <strong>getActivities</strong> method, and includes a log of all activities of a payment dispute, from creation to resolution.
-    PaymentDisputeSummary:
-      type: object
-      properties:
-        amount:
-          description: This container shows the dollar value associated with the payment dispute in the currency used by the seller's marketplace. This container is returned for all payment disputes returned in the response.
-          $ref: '#/components/schemas/SimpleAmount'
-        buyerUsername:
-          type: string
-          description: This is the buyer's eBay user ID. This field is returned for all payment disputes returned in the response.
-        closedDate:
-          type: string
-          description: 'The timestamp in this field shows the date/time when the payment dispute was closed, so this field is only returned for payment disputes in the <code>CLOSED</code> state.<br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
-        openDate:
-          type: string
-          description: 'The timestamp in this field shows the date/time when the payment dispute was opened. This field is returned for payment disputes in all states.<br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
-        orderId:
-          type: string
-          description: This is the unique identifier of the order involved in the payment dispute.
-        paymentDisputeId:
-          type: string
-          description: This is the unique identifier of the payment dispute. This identifier is automatically created by eBay once the payment dispute comes into the eBay system. This identifier is passed in at the end of the <strong>getPaymentDispute</strong> call URI to retrieve a specific payment dispute. The <strong>getPaymentDispute</strong> method returns more details about a payment dispute than the <strong>getPaymentDisputeSummaries</strong> method.
-        paymentDisputeStatus:
-          type: string
-          description: The enumeration value in this field gives the current status of the payment dispute. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:DisputeStateEnum'>eBay API documentation</a>
-        reason:
-          type: string
-          description: The enumeration value in this field gives the reason why the buyer initiated the payment dispute. See <strong>DisputeReasonEnum</strong> type for a description of the supported reasons that buyers can give for initiating a payment dispute. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:DisputeReasonEnum'>eBay API documentation</a>
-        respondByDate:
-          type: string
-          description: 'The timestamp in this field shows the date/time when the seller must response to a payment dispute, so this field is only returned for payment disputes in the <code>ACTION_NEEDED</code> state. For payment disputes that require action by the seller, that same seller must call <strong>getPaymentDispute</strong> to see the next action(s) that they can take against the payment dispute.<br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
-      description: This type is used by each payment dispute that is returned with the <strong>getPaymentDisputeSummaries</strong> method.
-    TrackingInfo:
-      type: object
-      properties:
-        shipmentTrackingNumber:
-          type: string
-          description: This string value represents the shipment tracking number of the package.
-        shippingCarrierCode:
-          type: string
-          description: This string value represents the shipping carrier used to ship the package.
-      description: This type is used for seller provided shipment tracking information.
-    OrderLineItems:
-      type: object
-      properties:
-        itemId:
-          type: string
-          description: The unique identifier of the eBay listing associated with the order.
-        lineItemId:
-          type: string
-          description: The unique identifier of the line item within the order.
-      description: This type is used by the <strong>lineItems</strong> array that is used to identify one or more line items in the order with the payment dispute.
-    ContestPaymentDisputeRequest:
-      type: object
-      properties:
-        note:
-          type: string
-          description: This field shows information that the seller provides about the dispute, such as the basis for the dispute, any relevant evidence, tracking numbers, and so forth.<br><br><b>Max Length:</b> 1000 characters.
-        returnAddress:
-          description: This container is needed if the seller is requesting that the buyer return the item. If this container is used, all relevant fields must be included, including <strong>fullName</strong> and <strong>primaryPhone</strong>.
-          $ref: '#/components/schemas/ReturnAddress'
-        revision:
-          type: integer
-          description: This integer value indicates the revision number of the payment dispute. This field is required. The current <strong>revision</strong> number for a payment dispute can be retrieved with the <strong>getPaymentDispute</strong> method. Each time an action is taken against a payment dispute, this integer value increases by 1.
-          format: int32
-      description: This type is used by the request payload of the <strong>contestPaymentDispute</strong> method.
-    EvidenceRequest:
-      type: object
-      properties:
-        evidenceId:
-          type: string
-          description: Unique identifier of the evidential file set. Potentially, each evidential file set can have more than one file, that is why there is this file set identifier, and then an identifier for each file within this file set.
-        evidenceType:
-          type: string
-          description: This enumeration value shows the type of evidential document provided. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum'>eBay API documentation</a>
-        lineItems:
-          type: array
-          description: This array shows one or more order line items associated with the evidential document that has been provided.
-          items:
-            $ref: '#/components/schemas/OrderLineItems'
-        requestDate:
-          type: string
-          description: 'The timestamp in this field shows the date/time when eBay requested the evidential document from the seller in response to a payment dispute. <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
-        respondByDate:
-          type: string
-          description: 'The timestamp in this field shows the date/time when the seller is expected to provide a requested evidential document to eBay.  <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
-      description: This type is used by the <strong>evidenceRequests</strong> array that is returned in the <strong>getPaymentDispute</strong> response if one or more evidential documents are being requested to help resolve the payment dispute.
-    DisputeEvidence:
-      type: object
-      properties:
-        evidenceId:
-          type: string
-          description: Unique identifier of the evidential file set. Potentially, each evidential file set can have more than one file, that is why there is this file set identifier, and then an identifier for each file within this file set.
-        evidenceType:
-          type: string
-          description: This enumeration value shows the type of evidential file provided. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum'>eBay API documentation</a>
-        files:
-          type: array
-          description: This array shows the name, ID, file type, and upload date for each provided file.
-          items:
-            $ref: '#/components/schemas/FileInfo'
-        lineItems:
-          type: array
-          description: This array shows one or more order line items associated with the evidential document that has been provided.
-          items:
-            $ref: '#/components/schemas/OrderLineItems'
-        providedDate:
-          type: string
-          description: 'The timestamp in this field shows the date/time when the seller provided a requested evidential document to eBay. <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
-        requestDate:
-          type: string
-          description: 'The timestamp in this field shows the date/time when eBay requested the evidential document from the seller in response to a payment dispute. <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
-        respondByDate:
-          type: string
-          description: 'The timestamp in this field shows the date/time when the seller was expected to provide a requested evidential document to eBay.  <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
-        shipmentTracking:
-          type: array
-          description: This array shows the shipping carrier and shipment tracking number associated with each shipment package of the order. This array is returned under the <strong>evidence</strong> container if the seller has provided shipment tracking information as evidence to support <code>PROOF_OF_DELIVERY</code> for an INR-related payment dispute.
-          items:
-            $ref: '#/components/schemas/TrackingInfo'
-      description: 'This type is used by the <strong>evidence</strong> array that is returned in the <strong>getPaymentDispute</strong> response if one or more evidential documents are associated with the payment dispute. '
-    MonetaryTransaction:
-      type: object
-      properties:
-        date:
-          type: string
-          description: 'This timestamp indicates when the monetary transaction occurred. A date is returned for all monetary transactions.<br><br> The following format is used: <code>YYYY-MM-DDTHH:MM:SS.SSSZ</code>. For example, <code>2015-08-04T19:09:02.768Z</code>.'
-        type:
-          type: string
-          description: This enumeration value indicates whether the monetary transaction is a charge or a credit to the seller. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:MonetaryTransactionTypeEnum'>eBay API documentation</a>
-        reason:
-          type: string
-          description: This enumeration value indicates the reason for the monetary transaction. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:MonetaryTransactionReasonEnum'>eBay API documentation</a>
-        amount:
-          description: The amount involved in the monetary transaction. For active cross-border trade orders, the currency conversion and <b>exchangeRate</b> fields will be displayed as well.
-          $ref: '#/components/schemas/DisputeAmount'
-      description: This type is used to provide details about one or more monetary transactions that occur as part of a payment dispute.
-    FileInfo:
-      type: object
-      properties:
-        fileId:
-          type: string
-          description: The unique identifier of the evidence file.
-        fileType:
-          type: string
-          description: The type of file uploaded. Supported file extensions are .JPEG, .JPG, and .PNG., and maximum file size allowed is 1.5 MB.
-        name:
-          type: string
-          description: The seller-provided name of the evidence file.
-        uploadedDate:
-          type: string
-          description: 'The timestamp in this field shows the date/time when the seller uploaded the evidential document to eBay. <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
-      description: This type is used by the <strong>files</strong> array, which shows the name, ID, file type, and upload date for each provided evidential file.
     ReturnAddress:
       type: object
       properties:
@@ -1040,16 +826,67 @@ components:
           type: string
           description: The state or province of the return address.
       description: This type is used by the payment dispute methods, and is relevant if the buyer will be returning the item to the seller.
-    SimpleAmount:
+    OrderLineItems:
       type: object
       properties:
-        currency:
+        itemId:
           type: string
-          description: A three-letter ISO 4217 code (such as <code>USD</code> for US site) that indicates the currency of the amount in the <strong>value</strong> field. Both the <strong>value</strong> and <strong>currency</strong> fields are always returned with the <strong>amount</strong> container. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
-        value:
+          description: The unique identifier of the eBay listing associated with the order.
+        lineItemId:
           type: string
-          description: The monetary amount of the payment dispute. Both the <strong>value</strong> and <strong>currency</strong> fields are always returned with the <strong>amount</strong> container.
-      description: This type defines the monetary value of the payment dispute, and the currency used.
+          description: The unique identifier of the line item within the order.
+      description: This type is used by the <strong>lineItems</strong> array that is used to identify one or more line items in the order with the payment dispute.
+    DisputeSummaryResponse:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The URI of the <strong>getPaymentDisputeSummaries</strong> call request that produced the current page of the result set.
+        limit:
+          type: integer
+          description: 'This value shows the maximum number of payment disputes that will appear on one page of the result set. The <strong>limit</strong> value can be passed in as a query parameter in the request, or if it is not used, it defaults to <code>200</code>. If the value in the <strong>total</strong> field exceeds this <strong>limit</strong> value, there are multiple pages in the current result set.<br><br><b>Min</b>: 1; <b>Max</b>: 200; <b>Default</b>: 200'
+          format: int32
+        next:
+          type: string
+          description: The <strong>getPaymentDisputeSummaries</strong> call URI to use if you wish to view the next page of the result set. For example, the following URI returns records 11 thru 20 from the collection of payment disputes:<br><br><code>path/payment_dispute_summary?limit=10&offset=10</code><br><br>This field is only returned if there is a next page of results to view based on the current input criteria.
+        offset:
+          type: integer
+          description: This integer value indicates the number of payment disputes skipped before listing the first payment dispute from the result set. The <strong>offset</strong> value can be passed in as a query parameter in the request, or if it is not used, it defaults to <code>0</code> and the first payment dispute of the result set is shown at the top of the response.
+          format: int32
+        paymentDisputeSummaries:
+          type: array
+          description: Each payment dispute that matches the input criteria is returned under this array. If no payment disputes are found, an empty array is returned.
+          items:
+            $ref: '#/components/schemas/PaymentDisputeSummary'
+        prev:
+          type: string
+          description: The <strong>getPaymentDisputeSummaries</strong> call URI to use if you wish to view the previous page of the result set. For example, the following URI returns records 1 thru 10 from the collection of payment disputes:<br><br><code>path/payment_dispute_summary?limit=10&offset=0</code><br><br>This field is only returned if there is a previous page of results to view based on the current input criteria.
+        total:
+          type: integer
+          description: This integer value is the total number of payment disputes that matched the input criteria. If the total number of entries exceeds the value that was set for <strong>limit</strong> in the request payload, you will have to make multiple API calls to see all pages of the results set. This field is returned even if it is <code>0</code>.
+          format: int32
+      description: This type defines the base response payload of the <strong>getPaymentDisputeSummaries</strong> method. Each payment dispute that matches the input criteria is returned under the <strong>paymentDisputeSummaries</strong> array.
+    TrackingInfo:
+      type: object
+      properties:
+        shipmentTrackingNumber:
+          type: string
+          description: This string value represents the shipment tracking number of the package.
+        shippingCarrierCode:
+          type: string
+          description: This string value represents the shipping carrier used to ship the package.
+      description: This type is used for seller provided shipment tracking information.
+    AcceptPaymentDisputeRequest:
+      type: object
+      properties:
+        returnAddress:
+          description: This container is used if the seller wishes to provide a return address to the buyer. This container should be used if the seller is requesting that the buyer return the item.
+          $ref: '#/components/schemas/ReturnAddress'
+        revision:
+          type: integer
+          description: This integer value indicates the revision number of the payment dispute. This field is required. The current <strong>revision</strong> number for a payment dispute can be retrieved with the <strong>getPaymentDispute</strong> method. Each time an action is taken against a payment dispute, this integer value increases by 1.
+          format: int32
+      description: This type is used by base request of the <strong>acceptPaymentDispute</strong> method.
     DisputeAmount:
       type: object
       properties:
@@ -1069,6 +906,88 @@ components:
           type: string
           description: The monetary amount, in the currency specified by the <b>currency</b> field. This field is always returned with any container using <b>Amount</b> type.
       description: This type defines the monetary value of an amount. It can provide the amount in both the currency used on the eBay site where an item is being offered and the conversion of that value into another currency, if applicable.
+    EvidenceRequest:
+      type: object
+      properties:
+        evidenceId:
+          type: string
+          description: Unique identifier of the evidential file set. Potentially, each evidential file set can have more than one file, that is why there is this file set identifier, and then an identifier for each file within this file set.
+        evidenceType:
+          type: string
+          description: This enumeration value shows the type of evidential document provided. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum'>eBay API documentation</a>
+        lineItems:
+          type: array
+          description: This array shows one or more order line items associated with the evidential document that has been provided.
+          items:
+            $ref: '#/components/schemas/OrderLineItems'
+        requestDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when eBay requested the evidential document from the seller in response to a payment dispute. <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        respondByDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the seller is expected to provide a requested evidential document to eBay.  <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+      description: This type is used by the <strong>evidenceRequests</strong> array that is returned in the <strong>getPaymentDispute</strong> response if one or more evidential documents are being requested to help resolve the payment dispute.
+    PaymentDisputeSummary:
+      type: object
+      properties:
+        amount:
+          description: This container shows the dollar value associated with the payment dispute in the currency used by the seller's marketplace. This container is returned for all payment disputes returned in the response.
+          $ref: '#/components/schemas/SimpleAmount'
+        buyerUsername:
+          type: string
+          description: This is the buyer's eBay user ID. This field is returned for all payment disputes returned in the response.
+        closedDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the payment dispute was closed, so this field is only returned for payment disputes in the <code>CLOSED</code> state.<br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        openDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the payment dispute was opened. This field is returned for payment disputes in all states.<br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        orderId:
+          type: string
+          description: This is the unique identifier of the order involved in the payment dispute.
+        paymentDisputeId:
+          type: string
+          description: This is the unique identifier of the payment dispute. This identifier is automatically created by eBay once the payment dispute comes into the eBay system. This identifier is passed in at the end of the <strong>getPaymentDispute</strong> call URI to retrieve a specific payment dispute. The <strong>getPaymentDispute</strong> method returns more details about a payment dispute than the <strong>getPaymentDisputeSummaries</strong> method.
+        paymentDisputeStatus:
+          type: string
+          description: The enumeration value in this field gives the current status of the payment dispute. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:DisputeStateEnum'>eBay API documentation</a>
+        reason:
+          type: string
+          description: The enumeration value in this field gives the reason why the buyer initiated the payment dispute. See <strong>DisputeReasonEnum</strong> type for a description of the supported reasons that buyers can give for initiating a payment dispute. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:DisputeReasonEnum'>eBay API documentation</a>
+        respondByDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the seller must response to a payment dispute, so this field is only returned for payment disputes in the <code>ACTION_NEEDED</code> state. For payment disputes that require action by the seller, that same seller must call <strong>getPaymentDispute</strong> to see the next action(s) that they can take against the payment dispute.<br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+      description: This type is used by each payment dispute that is returned with the <strong>getPaymentDisputeSummaries</strong> method.
+    UpdateEvidencePaymentDisputeRequest:
+      type: object
+      properties:
+        evidenceId:
+          type: string
+          description: The unique identifier of the evidence set that is being updated with new evidence files.<br><br> This ID is returned under the <strong>evidence</strong> array in the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDispute" target="_blank ">getPaymentDispute</a> response.
+        evidenceType:
+          type: string
+          description: This field is used to indicate the type of evidence being provided through one or more evidence files. All evidence files (if more than one) should be associated with the evidence type passed in this field.<br><br>See the <a href="/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum" target="_blank ">EvidenceTypeEnum</a> type for the supported evidence types. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum'>eBay API documentation</a>
+        files:
+          type: array
+          description: This array is used to specify one or more evidence files that will be added to the evidence set associated with a payment dispute. At least one evidence file must be specified in the <strong>files</strong> array.<br><br> The unique identifier of an evidence file is returned in the response payload of the <strong>uploadEvidence</strong> method.
+          items:
+            $ref: '#/components/schemas/FileEvidence'
+        lineItems:
+          type: array
+          description: This required array identifies the order line item(s) for which the evidence file(s) will be applicable. <br><Br>These values are returned under the <strong>evidenceRequests.lineItems</strong> array in the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDispute" target="_blank ">getPaymentDispute</a> response. <br><br><span class="tablenote"><b>Note:</b> Both the <strong>itemId</strong> and <strong>lineItemID</strong> fields are needed to identify each order line item.</span>
+          items:
+            $ref: '#/components/schemas/OrderLineItems'
+      description: This type is used by the request payload of the <strong>updateEvidence</strong> method. The <strong>updateEvidence</strong> method is used to update an existing evidence set against a payment dispute with one or more evidence files.
+    Phone:
+      type: object
+      properties:
+        countryCode:
+          type: string
+          description: The seller's country calling code. This field is needed if the buyer is located in a different country than the seller. It is also OK to provide if the buyer and seller are both located in the same country. For a full list of calling codes for all countries, see the <a href="https://countrycode.org/ " target="_blank">countrycode.org</a> site.
+        number:
+          type: string
+          description: 'The seller''s primary phone number associated with the return address. When this number is provided in a <strong>contestPaymentDispute</strong> or <strong>contestPaymentDispute</strong> method, it is provided as one continuous numeric string, including the area code. So, if the phone number''s area code was ''408'', a number in this field may look something like this: <br><br><code>"number" : "4088084356"</code><br><br>If the buyer is located in a different country than the seller, the seller''s country calling code will need to be specified in the <strong>countryCode</strong> field.'
+      description: This type is used by the <strong>returnAddress</strong field that is used by the payment dispute methods. If a buyer is returning the item (under payment dispute) to the seller, a primary phone number for the seller must be provided.
     PaymentDispute:
       type: object
       properties:
@@ -1145,63 +1064,59 @@ components:
           type: string
           description: The enumeration value returned in this field indicates how the seller has responded to the payment dispute. The seller has the option of accepting the payment dispute and agreeing to issue a refund, accepting the payment dispute and agreeing to issue a refund as long as the buyer returns the item, or contesting the payment dispute. This field is returned as soon as the seller makes an initial decision on the payment dispute. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:SellerResponseEnum'>eBay API documentation</a>
       description: This type is used by the base response of the <strong>getPaymentDispute</strong> method. The <strong>getPaymentDispute</strong> method retrieves detailed information on a specific payment dispute.
-    DisputeSummaryResponse:
+    AddEvidencePaymentDisputeResponse:
       type: object
       properties:
-        href:
+        evidenceId:
           type: string
-          description: The URI of the <strong>getPaymentDisputeSummaries</strong> call request that produced the current page of the result set.
-        limit:
-          type: integer
-          description: 'This value shows the maximum number of payment disputes that will appear on one page of the result set. The <strong>limit</strong> value can be passed in as a query parameter in the request, or if it is not used, it defaults to <code>200</code>. If the value in the <strong>total</strong> field exceeds this <strong>limit</strong> value, there are multiple pages in the current result set.<br><br><b>Min</b>: 1; <b>Max</b>: 200; <b>Default</b>: 200'
-          format: int32
-        next:
-          type: string
-          description: The <strong>getPaymentDisputeSummaries</strong> call URI to use if you wish to view the next page of the result set. For example, the following URI returns records 11 thru 20 from the collection of payment disputes:<br><br><code>path/payment_dispute_summary?limit=10&offset=10</code><br><br>This field is only returned if there is a next page of results to view based on the current input criteria.
-        offset:
-          type: integer
-          description: This integer value indicates the number of payment disputes skipped before listing the first payment dispute from the result set. The <strong>offset</strong> value can be passed in as a query parameter in the request, or if it is not used, it defaults to <code>0</code> and the first payment dispute of the result set is shown at the top of the response.
-          format: int32
-        paymentDisputeSummaries:
-          type: array
-          description: Each payment dispute that matches the input criteria is returned under this array. If no payment disputes are found, an empty array is returned.
-          items:
-            $ref: '#/components/schemas/PaymentDisputeSummary'
-        prev:
-          type: string
-          description: The <strong>getPaymentDisputeSummaries</strong> call URI to use if you wish to view the previous page of the result set. For example, the following URI returns records 1 thru 10 from the collection of payment disputes:<br><br><code>path/payment_dispute_summary?limit=10&offset=0</code><br><br>This field is only returned if there is a previous page of results to view based on the current input criteria.
-        total:
-          type: integer
-          description: This integer value is the total number of payment disputes that matched the input criteria. If the total number of entries exceeds the value that was set for <strong>limit</strong> in the request payload, you will have to make multiple API calls to see all pages of the results set. This field is returned even if it is <code>0</code>.
-          format: int32
-      description: This type defines the base response payload of the <strong>getPaymentDisputeSummaries</strong> method. Each payment dispute that matches the input criteria is returned under the <strong>paymentDisputeSummaries</strong> array.
-    Phone:
+          description: The value returned in this field is the unique identifier of the newly-created evidence set. Upon a successful call, this value is automatically genererated. This new evidence set for the payment dispute includes the evidence file(s) that were passed in to the <strong>fileId</strong> array in the request payload. The <strong>evidenceId</strong> value will be needed if the seller wishes to add to the evidence set by using the <strong>updateEvidence</strong> method, or if they want to retrieve a specific evidence file within the evidence set by using the <strong>fetchEvidenceContent</strong> method.
+      description: This type is used by the response payload of the <strong>addEvidence</strong> method. Its only field is an unique identifier of an evidence set.
+    MonetaryTransaction:
       type: object
       properties:
-        countryCode:
+        date:
           type: string
-          description: The seller's country calling code. This field is needed if the buyer is located in a different country than the seller. It is also OK to provide if the buyer and seller are both located in the same country. For a full list of calling codes for all countries, see the <a href="https://countrycode.org/ " target="_blank">countrycode.org</a> site.
-        number:
+          description: 'This timestamp indicates when the monetary transaction occurred. A date is returned for all monetary transactions.<br><br> The following format is used: <code>YYYY-MM-DDTHH:MM:SS.SSSZ</code>. For example, <code>2015-08-04T19:09:02.768Z</code>.'
+        type:
           type: string
-          description: 'The seller''s primary phone number associated with the return address. When this number is provided in a <strong>contestPaymentDispute</strong> or <strong>contestPaymentDispute</strong> method, it is provided as one continuous numeric string, including the area code. So, if the phone number''s area code was ''408'', a number in this field may look something like this: <br><br><code>"number" : "4088084356"</code><br><br>If the buyer is located in a different country than the seller, the seller''s country calling code will need to be specified in the <strong>countryCode</strong> field.'
-      description: This type is used by the <strong>returnAddress</strong field that is used by the payment dispute methods. If a buyer is returning the item (under payment dispute) to the seller, a primary phone number for the seller must be provided.
-    AddEvidencePaymentDisputeRequest:
+          description: This enumeration value indicates whether the monetary transaction is a charge or a credit to the seller. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:MonetaryTransactionTypeEnum'>eBay API documentation</a>
+        reason:
+          type: string
+          description: This enumeration value indicates the reason for the monetary transaction. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:MonetaryTransactionReasonEnum'>eBay API documentation</a>
+        amount:
+          description: The amount involved in the monetary transaction. For active cross-border trade orders, the currency conversion and <b>exchangeRate</b> fields will be displayed as well.
+          $ref: '#/components/schemas/DisputeAmount'
+      description: This type is used to provide details about one or more monetary transactions that occur as part of a payment dispute.
+    FileEvidence:
       type: object
       properties:
-        evidenceType:
+        fileId:
           type: string
-          description: This field is used to indicate the type of evidence being provided through one or more evidence files. All evidence files (if more than one) should be associated with the evidence type passed in this field.<br><br>See the <a href="/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum" target="_blank ">EvidenceTypeEnum</a> type for the supported evidence types. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum'>eBay API documentation</a>
-        files:
+          description: This field is used to identify the evidence file to be uploaded to the evidence set.<br><br> This file is created with the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/uploadEvidenceFile" target="_blank ">uploadEvidenceFile</a> method and can be retrieved using the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDisputes" target="_blank ">getPaymentDisputes</a> method.
+      description: This type is used to store the unique identifier of an evidence file. Evidence files are used by seller to contest a payment dispute.
+    PaymentDisputeActivityHistory:
+      type: object
+      properties:
+        activity:
           type: array
-          description: This array is used to specify one or more evidence files that will become part of a new evidence set associated with a payment dispute. At least one evidence file must be specified in the <strong>files</strong> array.
+          description: This array holds all activities of a payment dispute, from creation to resolution. For each activity, the activity type, the actor, and a timestamp is shown. The <strong>getActivities</strong> response is dynamic, and grows with each recorded activity.
           items:
-            $ref: '#/components/schemas/FileEvidence'
-        lineItems:
-          type: array
-          description: This array identifies the order line item(s) for which the evidence file(s) will be applicable.<br><Br>These values are returned under the <strong>evidenceRequests.lineItems</strong> array in the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDispute" target="_blank ">getPaymentDispute</a> response.
-          items:
-            $ref: '#/components/schemas/OrderLineItems'
-      description: This type is used by the request payload of the <strong>addEvidence</strong> method. The <strong>addEvidence</strong> method is used to create a new evidence set against a payment dispute with one or more evidence files.
+            $ref: '#/components/schemas/PaymentDisputeActivity'
+      description: This type is used by the base response of the <strong>getActivities</strong> method, and includes a log of all activities of a payment dispute, from creation to resolution.
+    ContestPaymentDisputeRequest:
+      type: object
+      properties:
+        note:
+          type: string
+          description: This field shows information that the seller provides about the dispute, such as the basis for the dispute, any relevant evidence, tracking numbers, and so forth.<br><br><b>Max Length:</b> 1000 characters.
+        returnAddress:
+          description: This container is needed if the seller is requesting that the buyer return the item. If this container is used, all relevant fields must be included, including <strong>fullName</strong> and <strong>primaryPhone</strong>.
+          $ref: '#/components/schemas/ReturnAddress'
+        revision:
+          type: integer
+          description: This integer value indicates the revision number of the payment dispute. This field is required. The current <strong>revision</strong> number for a payment dispute can be retrieved with the <strong>getPaymentDispute</strong> method. Each time an action is taken against a payment dispute, this integer value increases by 1.
+          format: int32
+      description: This type is used by the request payload of the <strong>contestPaymentDispute</strong> method.
     PaymentDisputeOutcomeDetail:
       type: object
       properties:
@@ -1224,13 +1139,54 @@ components:
           description: This container shows the amount of money in selling fee credits due back to the seller after a payment dispute is settled.
           $ref: '#/components/schemas/SimpleAmount'
       description: This type is used by the <strong>resolution</strong> container that is returned for payment disputes that have been resolved.
-    FileEvidence:
+    InfoFromBuyer:
+      type: object
+      properties:
+        contentOnHold:
+          type: boolean
+          description: When the value of this field is <code>true</code> it indicates that the buyer's note regarding the payment dispute (i.e., the <b>buyerProvided.note</b> field,) is on hold. When this is the case, the <b>buyerProvided.note</b> field will not be returned.<br><br>When the value of this field is <code>false</code>, it is not returned.
+        note:
+          type: string
+          description: This field shows any note that was left by the buyer in regard to the dispute.
+        returnShipmentTracking:
+          type: array
+          description: This array shows shipment tracking information for one or more shipping packages being returned to the buyer after a payment dispute.
+          items:
+            $ref: '#/components/schemas/TrackingInfo'
+      description: This container is returned if the buyer is returning one or more line items in an order that is associated with the payment dispute, and that buyer has provided return shipping tracking information and/or a note about the return.
+    FileInfo:
       type: object
       properties:
         fileId:
           type: string
-          description: This field is used to identify the evidence file to be uploaded to the evidence set.<br><br> This file is created with the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/uploadEvidenceFile" target="_blank ">uploadEvidenceFile</a> method and can be retrieved using the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDisputes" target="_blank ">getPaymentDisputes</a> method.
-      description: This type is used to store the unique identifier of an evidence file. Evidence files are used by seller to contest a payment dispute.
+          description: The unique identifier of the evidence file.
+        fileType:
+          type: string
+          description: The type of file uploaded. Supported file extensions are .JPEG, .JPG, and .PNG., and maximum file size allowed is 1.5 MB.
+        name:
+          type: string
+          description: The seller-provided name of the evidence file.
+        uploadedDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the seller uploaded the evidential document to eBay. <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+      description: This type is used by the <strong>files</strong> array, which shows the name, ID, file type, and upload date for each provided evidential file.
+    AddEvidencePaymentDisputeRequest:
+      type: object
+      properties:
+        evidenceType:
+          type: string
+          description: This field is used to indicate the type of evidence being provided through one or more evidence files. All evidence files (if more than one) should be associated with the evidence type passed in this field.<br><br>See the <a href="/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum" target="_blank ">EvidenceTypeEnum</a> type for the supported evidence types. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum'>eBay API documentation</a>
+        files:
+          type: array
+          description: This array is used to specify one or more evidence files that will become part of a new evidence set associated with a payment dispute. At least one evidence file must be specified in the <strong>files</strong> array.
+          items:
+            $ref: '#/components/schemas/FileEvidence'
+        lineItems:
+          type: array
+          description: This array identifies the order line item(s) for which the evidence file(s) will be applicable.<br><Br>These values are returned under the <strong>evidenceRequests.lineItems</strong> array in the <a href="/api-docs/sell/fulfillment/resources/payment_dispute/methods/getPaymentDispute" target="_blank ">getPaymentDispute</a> response.
+          items:
+            $ref: '#/components/schemas/OrderLineItems'
+      description: This type is used by the request payload of the <strong>addEvidence</strong> method. The <strong>addEvidence</strong> method is used to create a new evidence set against a payment dispute with one or more evidence files.
     PaymentDisputeActivity:
       type: object
       properties:
@@ -1244,6 +1200,50 @@ components:
           type: string
           description: This enumeration value indicates the actor that performed the action. Possible values include the <code>BUYER</code>, <code>SELLER</code>, <code>CS_AGENT</code> (eBay customer service), or <code>SYSTEM</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:ActorEnum'>eBay API documentation</a>
       description: This type is used by each recorded activity on a payment dispute, from creation to resolution.
+    DisputeEvidence:
+      type: object
+      properties:
+        evidenceId:
+          type: string
+          description: Unique identifier of the evidential file set. Potentially, each evidential file set can have more than one file, that is why there is this file set identifier, and then an identifier for each file within this file set.
+        evidenceType:
+          type: string
+          description: This enumeration value shows the type of evidential file provided. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/api:EvidenceTypeEnum'>eBay API documentation</a>
+        files:
+          type: array
+          description: This array shows the name, ID, file type, and upload date for each provided file.
+          items:
+            $ref: '#/components/schemas/FileInfo'
+        lineItems:
+          type: array
+          description: This array shows one or more order line items associated with the evidential document that has been provided.
+          items:
+            $ref: '#/components/schemas/OrderLineItems'
+        providedDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the seller provided a requested evidential document to eBay. <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        requestDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when eBay requested the evidential document from the seller in response to a payment dispute. <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        respondByDate:
+          type: string
+          description: 'The timestamp in this field shows the date/time when the seller was expected to provide a requested evidential document to eBay.  <br><br>The timestamps returned here use the ISO-8601 24-hour date and time format, and the time zone used is Universal Coordinated Time (UTC), also known as Greenwich Mean Time (GMT), or Zulu. The ISO-8601 format looks like this: <em>yyyy-MM-ddThh:mm.ss.sssZ</em>. An example would be <code>2019-08-04T19:09:02.768Z</code>.'
+        shipmentTracking:
+          type: array
+          description: This array shows the shipping carrier and shipment tracking number associated with each shipment package of the order. This array is returned under the <strong>evidence</strong> container if the seller has provided shipment tracking information as evidence to support <code>PROOF_OF_DELIVERY</code> for an INR-related payment dispute.
+          items:
+            $ref: '#/components/schemas/TrackingInfo'
+      description: 'This type is used by the <strong>evidence</strong> array that is returned in the <strong>getPaymentDispute</strong> response if one or more evidential documents are associated with the payment dispute. '
+    SimpleAmount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: A three-letter ISO 4217 code (such as <code>USD</code> for US site) that indicates the currency of the amount in the <strong>value</strong> field. Both the <strong>value</strong> and <strong>currency</strong> fields are always returned with the <strong>amount</strong> container. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/fulfillment/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
+        value:
+          type: string
+          description: The monetary amount of the payment dispute. Both the <strong>value</strong> and <strong>currency</strong> fields are always returned with the <strong>amount</strong> container.
+      description: This type defines the monetary value of the payment dispute, and the currency used.
   securitySchemes:
     api_auth:
       type: oauth2

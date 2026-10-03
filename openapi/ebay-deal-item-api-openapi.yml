@@ -134,6 +134,32 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html" target="_blank">ISO 4217</a> code representing the currency of the amount in the <b> value</b> field.<br /><br /><b> Default:</b> The currency of the authenticated user's country. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/deal/types/bas:CurrencyCodeEnum'>eBay API documentation</a>
+        value:
+          type: string
+          description: The monetary value, in the currency specified by the <b> currency</b> field.
+      description: The currency and value of the item.
+    MarketingPrice:
+      type: object
+      properties:
+        discountAmount:
+          description: The monetary value of the seller discount.
+          $ref: '#/components/schemas/Amount'
+        discountPercentage:
+          type: string
+          description: The percentage of the seller discount based on the value returned in the <b>originalPrice</b> field.
+        originalPrice:
+          description: The monetary value of the item prior to the discount.
+          $ref: '#/components/schemas/Amount'
+        priceTreatment:
+          type: string
+          description: 'The pricing treatment (discount) that was applied to the price of the item. <br /><br /><span class="tablenote"><b>Note: </b> The pricing treatment affects how and where the discounted price can be displayed.</span> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/deal/types/api:PriceTreatmentEnum''>eBay API documentation</a>'
+      description: A type that describes the seller discount.
     Image:
       type: object
       properties:
@@ -180,16 +206,16 @@ components:
           description: The total number of matches for the search criteria.
           format: int32
       description: The result set for the deal item search.
-    Amount:
+    ShippingOption:
       type: object
       properties:
-        currency:
+        shippingCost:
+          description: 'The final shipping cost for all items after all discounts are applied. <br /><br /><span class="tablenote"><b> Note: </b>The price does include the value-added tax (VAT) for applicable jurisdictions when requested from supported marketplaces. In this case, users must pass the <a href="/api-docs/static/rest-request-components.html#HTTP"><code>X-EBAY-C-MARKETPLACE-ID</code></a> request header specifying the supported marketplace (such as <code>EBAY_GB</code>) to see the VAT-inclusive pricing. For more information on VAT, refer to <a href="https://www.ebay.co.uk/help/listings/default/vat-obligations-eu?id=4650&st=12&pos=1&query=Your%20VAT%20obligations%20in%20the%20EU&intent=VAT">VAT Obligations in the EU</a>.</span>'
+          $ref: '#/components/schemas/Amount'
+        shippingCostType:
           type: string
-          description: The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html" target="_blank">ISO 4217</a> code representing the currency of the amount in the <b> value</b> field.<br /><br /><b> Default:</b> The currency of the authenticated user's country. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/deal/types/bas:CurrencyCodeEnum'>eBay API documentation</a>
-        value:
-          type: string
-          description: The monetary value, in the currency specified by the <b> currency</b> field.
-      description: The currency and value of the item.
+          description: 'The class of the shipping cost. <br /><br /><b> Valid Values: </b> <code>FIXED</code> or <code>CALCULATED</code> <br /><br />Code so that your app gracefully handles any future changes to this list. '
+      description: The details provided for the shipping provider, such as shipping cost and type.
     DealItem:
       type: object
       properties:
@@ -272,32 +298,6 @@ components:
           type: string
           description: 'The designation used to specify the quantity of the deal item, such as size, weight, volume, and count. This helps buyers compare prices. <br /><br />For example, the following tells the buyer that the item is 7.99 per 100 grams. <br /><br /><code>"unitPricingMeasure": "100g",<br /> "unitPrice": {<br />&nbsp;&nbsp;"value": "7.99",<br />&nbsp;&nbsp;"currency": "GBP"</code>'
       description: The detailed data returned for the deal item.
-    ShippingOption:
-      type: object
-      properties:
-        shippingCost:
-          description: 'The final shipping cost for all items after all discounts are applied. <br /><br /><span class="tablenote"><b> Note: </b>The price does include the value-added tax (VAT) for applicable jurisdictions when requested from supported marketplaces. In this case, users must pass the <a href="/api-docs/static/rest-request-components.html#HTTP"><code>X-EBAY-C-MARKETPLACE-ID</code></a> request header specifying the supported marketplace (such as <code>EBAY_GB</code>) to see the VAT-inclusive pricing. For more information on VAT, refer to <a href="https://www.ebay.co.uk/help/listings/default/vat-obligations-eu?id=4650&st=12&pos=1&query=Your%20VAT%20obligations%20in%20the%20EU&intent=VAT">VAT Obligations in the EU</a>.</span>'
-          $ref: '#/components/schemas/Amount'
-        shippingCostType:
-          type: string
-          description: 'The class of the shipping cost. <br /><br /><b> Valid Values: </b> <code>FIXED</code> or <code>CALCULATED</code> <br /><br />Code so that your app gracefully handles any future changes to this list. '
-      description: The details provided for the shipping provider, such as shipping cost and type.
-    MarketingPrice:
-      type: object
-      properties:
-        discountAmount:
-          description: The monetary value of the seller discount.
-          $ref: '#/components/schemas/Amount'
-        discountPercentage:
-          type: string
-          description: The percentage of the seller discount based on the value returned in the <b>originalPrice</b> field.
-        originalPrice:
-          description: The monetary value of the item prior to the discount.
-          $ref: '#/components/schemas/Amount'
-        priceTreatment:
-          type: string
-          description: 'The pricing treatment (discount) that was applied to the price of the item. <br /><br /><span class="tablenote"><b>Note: </b> The pricing treatment affects how and where the discounted price can be displayed.</span> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/deal/types/api:PriceTreatmentEnum''>eBay API documentation</a>'
-      description: A type that describes the seller discount.
   securitySchemes:
     api_auth:
       type: oauth2

@@ -90,6 +90,21 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Image:
+      type: object
+      properties:
+        height:
+          type: integer
+          description: The height of the image in pixels.
+          format: int32
+        imageUrl:
+          type: string
+          description: The eBay Picture Services (EPS) URL of the image.
+        width:
+          type: integer
+          description: The width of the image in pixels.
+          format: int32
+      description: This type contains information about a product image stored in eBay Picture Services (EPS).
     Product:
       type: object
       properties:
@@ -158,21 +173,6 @@ components:
           type: string
           description: The current version number of this product record in the catalog.
       description: This type contains the full details of a specified product, including information about the product's identifiers, product images, aspects, and categories.
-    Image:
-      type: object
-      properties:
-        height:
-          type: integer
-          description: The height of the image in pixels.
-          format: int32
-        imageUrl:
-          type: string
-          description: The eBay Picture Services (EPS) URL of the image.
-        width:
-          type: integer
-          description: The width of the image in pixels.
-          format: int32
-      description: This type contains information about a product image stored in eBay Picture Services (EPS).
     Aspect:
       type: object
       properties:

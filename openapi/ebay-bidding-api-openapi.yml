@@ -320,6 +320,13 @@ components:
           type: string
           description: The monetary amount.
       description: The type that defines the fields for a monetary value and its currency.
+    PlaceProxyBidResponse:
+      type: object
+      properties:
+        proxyBidId:
+          type: string
+          description: Identifier of the proxy bid created by the request. This indicates that the bid was placed and is not used for anything else.
+      description: The type that defines the fields for the place proxy bid response.
     PlaceProxyBidRequest:
       type: object
       properties:
@@ -337,13 +344,6 @@ components:
           type: boolean
           description: The type that defines the fields for buyer consent to bid on adult-only items.<br><br>This field must be included in the <b>placeProxyBid</b> request and set to <code>true</code> if the buyer is bidding on an <i>adult-only</i> item.<br><br>For more information about adult-only items on eBay, see  <a href="https://www.ebay.com/help/terms-conditions/default/searching-adult-items?id=4661" target="_blank">Adult-Only items on eBay</a>.
       description: The type that defines the fields for collecting the buyers consent.
-    PlaceProxyBidResponse:
-      type: object
-      properties:
-        proxyBidId:
-          type: string
-          description: Identifier of the proxy bid created by the request. This indicates that the bid was placed and is not used for anything else.
-      description: The type that defines the fields for the place proxy bid response.
     Bidding:
       type: object
       properties:

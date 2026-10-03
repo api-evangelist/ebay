@@ -74,38 +74,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    FundingSource:
-      type: object
-      properties:
-        brand:
-          type: string
-          description: The brand name of the credit card or the name of the financial institution that is the source of payment. This field may not be populated for other funding sources.
-        memo:
-          type: string
-          description: This field provides a note about the funding source. If the seller's credit card or bank account is the funding source, this field might contain the last four digits of the credit card or bank account. This field may also be returned as null.
-        type:
-          type: string
-          description: 'The string value returned here indicates the funding source. Possible values include the following:<ul><li><code>AVAILABLE_FUNDS</code>: transfer is funded with seller payout funds</li><li><code>CREDIT_CARD</code>: transfer is funded with seller''s credit card</li><li><code>BANK</code>: transfer is funded with a direct debit to seller''s bank account on file with eBay</li><li><code>PAY_UPON_INVOICE</code>: eBay will bill the seller for the transfer on the monthly invoice</li></ul>'
-      description: This type provided details on the funding source for the transfer.
-    Transfer:
-      type: object
-      properties:
-        fundingSource:
-          description: This container provides details about the seller's funding source to reimburse eBay for the transfer, such as a bank account, a credit card, or available seller payout funds.
-          $ref: '#/components/schemas/FundingSource'
-        transactionDate:
-          type: string
-          description: 'This timestamp indicates the date/time of the transfer. The following (UTC) format is used: <code>YYYY-MM-DDTHH:MM:SS.SSSZ</code>. For example, <code>2020-08-04T19:09:02.768Z</code>'
-        transferAmount:
-          description: The amount of the transfer being deducted from the funding source.
-          $ref: '#/components/schemas/Amount'
-        transferDetail:
-          description: This container provides more details about the transfer, including details on the charge(s) associated with the transfer. Multiple charges can be addressed with one transfer.
-          $ref: '#/components/schemas/TransferDetail'
-        transferId:
-          type: string
-          description: The unique identifier of the <code>TRANSFER</code> transaction type. This is the same value that was passed into the end of the call URI.
-      description: This type is the base response type used by <code>TRANSFER</code> transaction type that is returned in the response.
     Amount:
       type: object
       properties:
@@ -131,31 +99,19 @@ components:
           type: string
           description: The monetary amount, in the currency specified by the <b>currency</b> field. This field is always returned with any container using <b>Amount</b> type.
       description: This type is used to express the dollar value and currency used for any transaction retrieved with the <strong>Finances API</strong>, including an order total, a seller payout, a buyer refund, or a seller credit.
-    BalanceAdjustment:
+    FundingSource:
       type: object
       properties:
-        adjustmentAmount:
-          description: The seller payout balance amount that will be applied toward the charges outlined in the <b>charges</b> array.
-          $ref: '#/components/schemas/Amount'
-        adjustmentType:
+        brand:
           type: string
-          description: The enumeration value returned here indicates if the charge is a <code>DEBIT</code> or a <code>CREDIT</code> to the seller. Generally, all transfer transaction types are going to be <code>DEBIT</code>, since the money is being tranferred from the seller to eBay. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:BookingEntryEnum'>eBay API documentation</a>
-      description: This type is used by the <b>balanceAdjustment</b> container, which shows the seller payout balance that will be applied toward the charges outlined in the <b>charges</b> array.
-    TransferDetail:
-      type: object
-      properties:
-        balanceAdjustment:
-          description: This container shows the seller payout balance that will be applied toward the charges outlined in the <b>charges</b> array.
-          $ref: '#/components/schemas/BalanceAdjustment'
-        charges:
-          type: array
-          description: This container is an array of one or more charges related to the transfer. Charges can be related to an order cancellation, order return, case, payment dispute, etc.
-          items:
-            $ref: '#/components/schemas/Charge'
-        totalChargeNetAmount:
-          description: This container shows the total amount that the seller owes for all of the charges outlined in the <b>charges</b> array.
-          $ref: '#/components/schemas/Amount'
-      description: This type is used by the <b>transferDetail</b> container, which provides more details about the transfer and the charge(s) associated with the transfer.
+          description: The brand name of the credit card or the name of the financial institution that is the source of payment. This field may not be populated for other funding sources.
+        memo:
+          type: string
+          description: This field provides a note about the funding source. If the seller's credit card or bank account is the funding source, this field might contain the last four digits of the credit card or bank account. This field may also be returned as null.
+        type:
+          type: string
+          description: 'The string value returned here indicates the funding source. Possible values include the following:<ul><li><code>AVAILABLE_FUNDS</code>: transfer is funded with seller payout funds</li><li><code>CREDIT_CARD</code>: transfer is funded with seller''s credit card</li><li><code>BANK</code>: transfer is funded with a direct debit to seller''s bank account on file with eBay</li><li><code>PAY_UPON_INVOICE</code>: eBay will bill the seller for the transfer on the monthly invoice</li></ul>'
+      description: This type provided details on the funding source for the transfer.
     Charge:
       type: object
       properties:
@@ -184,6 +140,50 @@ components:
           type: string
           description: The unique identifier of an order return. This field is only applicable and returned if the charge is related to an order that was returned by the buyer.
       description: This type is used by the <b>charge</b> container, which is an array of one or more charges related to the transfer.
+    Transfer:
+      type: object
+      properties:
+        fundingSource:
+          description: This container provides details about the seller's funding source to reimburse eBay for the transfer, such as a bank account, a credit card, or available seller payout funds.
+          $ref: '#/components/schemas/FundingSource'
+        transactionDate:
+          type: string
+          description: 'This timestamp indicates the date/time of the transfer. The following (UTC) format is used: <code>YYYY-MM-DDTHH:MM:SS.SSSZ</code>. For example, <code>2020-08-04T19:09:02.768Z</code>'
+        transferAmount:
+          description: The amount of the transfer being deducted from the funding source.
+          $ref: '#/components/schemas/Amount'
+        transferDetail:
+          description: This container provides more details about the transfer, including details on the charge(s) associated with the transfer. Multiple charges can be addressed with one transfer.
+          $ref: '#/components/schemas/TransferDetail'
+        transferId:
+          type: string
+          description: The unique identifier of the <code>TRANSFER</code> transaction type. This is the same value that was passed into the end of the call URI.
+      description: This type is the base response type used by <code>TRANSFER</code> transaction type that is returned in the response.
+    TransferDetail:
+      type: object
+      properties:
+        balanceAdjustment:
+          description: This container shows the seller payout balance that will be applied toward the charges outlined in the <b>charges</b> array.
+          $ref: '#/components/schemas/BalanceAdjustment'
+        charges:
+          type: array
+          description: This container is an array of one or more charges related to the transfer. Charges can be related to an order cancellation, order return, case, payment dispute, etc.
+          items:
+            $ref: '#/components/schemas/Charge'
+        totalChargeNetAmount:
+          description: This container shows the total amount that the seller owes for all of the charges outlined in the <b>charges</b> array.
+          $ref: '#/components/schemas/Amount'
+      description: This type is used by the <b>transferDetail</b> container, which provides more details about the transfer and the charge(s) associated with the transfer.
+    BalanceAdjustment:
+      type: object
+      properties:
+        adjustmentAmount:
+          description: The seller payout balance amount that will be applied toward the charges outlined in the <b>charges</b> array.
+          $ref: '#/components/schemas/Amount'
+        adjustmentType:
+          type: string
+          description: The enumeration value returned here indicates if the charge is a <code>DEBIT</code> or a <code>CREDIT</code> to the seller. Generally, all transfer transaction types are going to be <code>DEBIT</code>, since the money is being tranferred from the seller to eBay. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:BookingEntryEnum'>eBay API documentation</a>
+      description: This type is used by the <b>balanceAdjustment</b> container, which shows the seller payout balance that will be applied toward the charges outlined in the <b>charges</b> array.
   securitySchemes:
     api_auth:
       type: oauth2

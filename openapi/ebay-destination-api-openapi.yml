@@ -355,16 +355,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    DeliveryConfig:
-      type: object
-      properties:
-        endpoint:
-          type: string
-          description: The endpoint for this destination.
-        verificationToken:
-          type: string
-          description: The verification token associated with this endpoint.
-      description: A type that contains information about the delivery configuration.
     DestinationSearchResponse:
       type: object
       properties:
@@ -388,6 +378,16 @@ components:
           description: The total number of matches for the search criteria.
           format: int32
       description: A type that contains information about the destination search response.
+    DeliveryConfig:
+      type: object
+      properties:
+        endpoint:
+          type: string
+          description: The endpoint for this destination.
+        verificationToken:
+          type: string
+          description: The verification token associated with this endpoint.
+      description: A type that contains information about the delivery configuration.
     Destination:
       type: object
       properties:

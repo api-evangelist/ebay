@@ -313,30 +313,6 @@ components:
         filterCriteria:
           description: This container is used to set the filter criteria for the ActiveInventoryReport. A seller can retrieve listings for a specified format.
           $ref: '#/components/schemas/InventoryFilterCriteria'
-    UploadSummary:
-      type: object
-      properties:
-        failureCount:
-          type: integer
-          description: The number of records, such as the number of listings created or the number of pictures uploaded to a listing, that failed to process during the upload feed. Check the response file and correct any issues mentioned. If the feed fails before processing, no response file is provided. In this case check the REST output response.
-          format: int32
-        successCount:
-          type: integer
-          description: The number of records that were successfully processed during the upload feed.
-          format: int32
-      description: This container provides summary information on an upload feed (not applicable for download feed types).
-    CreateInventoryTaskRequest:
-      type: object
-      properties:
-        feedType:
-          type: string
-          description: The feed type associated with the inventory task you are about to create. Presently, only one feed type is available:<br><ul><li><code>LMS_ACTIVE_INVENTORY_REPORT</code></li></ul>See <a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#merchant-data-reports-download-feed-types" target="_blank">Report download feed types</a> for more information.
-        filterCriteria:
-          description: This container allows a seller to create an ActiveInventoryReport for a single listing format.
-          $ref: '#/components/schemas/InventoryFilterCriteria'
-        schemaVersion:
-          type: string
-          description: The version number of the inventory task to use for the <b>feedType</b>.<br><br><span class="tablenote"><b>Note:</b> This field <b>must</b> have a value of <code>1.0</code>.</span>
     InventoryTaskCollection:
       type: object
       properties:
@@ -366,6 +342,30 @@ components:
           type: integer
           description: The total number of inventory tasks that match the input criteria.
           format: int32
+    CreateInventoryTaskRequest:
+      type: object
+      properties:
+        feedType:
+          type: string
+          description: The feed type associated with the inventory task you are about to create. Presently, only one feed type is available:<br><ul><li><code>LMS_ACTIVE_INVENTORY_REPORT</code></li></ul>See <a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#merchant-data-reports-download-feed-types" target="_blank">Report download feed types</a> for more information.
+        filterCriteria:
+          description: This container allows a seller to create an ActiveInventoryReport for a single listing format.
+          $ref: '#/components/schemas/InventoryFilterCriteria'
+        schemaVersion:
+          type: string
+          description: The version number of the inventory task to use for the <b>feedType</b>.<br><br><span class="tablenote"><b>Note:</b> This field <b>must</b> have a value of <code>1.0</code>.</span>
+    UploadSummary:
+      type: object
+      properties:
+        failureCount:
+          type: integer
+          description: The number of records, such as the number of listings created or the number of pictures uploaded to a listing, that failed to process during the upload feed. Check the response file and correct any issues mentioned. If the feed fails before processing, no response file is provided. In this case check the REST output response.
+          format: int32
+        successCount:
+          type: integer
+          description: The number of records that were successfully processed during the upload feed.
+          format: int32
+      description: This container provides summary information on an upload feed (not applicable for download feed types).
     InventoryFilterCriteria:
       type: object
       properties:
