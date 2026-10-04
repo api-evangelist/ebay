@@ -154,34 +154,25 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    CharityOrg:
+    GeoCoordinates:
       type: object
       properties:
-        charityOrgId:
-          type: string
-          description: The ID of the charitable organization.
-        description:
-          type: string
-          description: The description of the charitable organization.
-        location:
-          description: The location details of the charitable organization.
-          $ref: '#/components/schemas/Location'
-        logoImage:
-          description: The logo of the charitable organization.
-          $ref: '#/components/schemas/Image'
-        missionStatement:
-          type: string
-          description: The mission statement of the charitable organization.
-        name:
-          type: string
-          description: The name of the charitable organization.
-        registrationId:
-          type: string
-          description: The registration ID for the charitable organization.<br /><br /><span class="tablenote"><span style="color:#004680"><strong>Note:</strong></span> For the US marketplace, this is the EIN.</span>
-        website:
-          type: string
-          description: The link to the website for the charitable organization.
-      description: The full location, ID, logo and other details of the charity organization.
+        latitude:
+          type: number
+          description: The latitude component of the geographic coordinate.
+        longitude:
+          type: number
+          description: The longitude component of the geographic coordinate.
+      description: Defines the format of a geographic coordinate.
+    Location:
+      type: object
+      properties:
+        address:
+          description: The address of the charitable organization.
+          $ref: '#/components/schemas/Address'
+        geoCoordinates:
+          description: The geo-coordinates of the charitable organization.
+          $ref: '#/components/schemas/GeoCoordinates'
     Image:
       type: object
       properties:
@@ -241,25 +232,34 @@ components:
           description: The total number of matches for the search criteria.
           format: int32
       description: A single set of search results, with information for accessing other sets.
-    GeoCoordinates:
+    CharityOrg:
       type: object
       properties:
-        latitude:
-          type: number
-          description: The latitude component of the geographic coordinate.
-        longitude:
-          type: number
-          description: The longitude component of the geographic coordinate.
-      description: Defines the format of a geographic coordinate.
-    Location:
-      type: object
-      properties:
-        address:
-          description: The address of the charitable organization.
-          $ref: '#/components/schemas/Address'
-        geoCoordinates:
-          description: The geo-coordinates of the charitable organization.
-          $ref: '#/components/schemas/GeoCoordinates'
+        charityOrgId:
+          type: string
+          description: The ID of the charitable organization.
+        description:
+          type: string
+          description: The description of the charitable organization.
+        location:
+          description: The location details of the charitable organization.
+          $ref: '#/components/schemas/Location'
+        logoImage:
+          description: The logo of the charitable organization.
+          $ref: '#/components/schemas/Image'
+        missionStatement:
+          type: string
+          description: The mission statement of the charitable organization.
+        name:
+          type: string
+          description: The name of the charitable organization.
+        registrationId:
+          type: string
+          description: The registration ID for the charitable organization.<br /><br /><span class="tablenote"><span style="color:#004680"><strong>Note:</strong></span> For the US marketplace, this is the EIN.</span>
+        website:
+          type: string
+          description: The link to the website for the charitable organization.
+      description: The full location, ID, logo and other details of the charity organization.
   securitySchemes:
     api_auth:
       type: oauth2

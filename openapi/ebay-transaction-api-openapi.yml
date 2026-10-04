@@ -206,36 +206,13 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Transactions:
+    Buyer:
       type: object
       properties:
-        href:
+        username:
           type: string
-          description: The URI of the <b>getTransactions</b> method request that produced the current page of the result set.
-        limit:
-          type: integer
-          description: The maximum number of monetary transactions that may be returned per page of the result set. The <strong>limit</strong> value can be passed in as a query parameter, or if omitted, its value defaults to <code>20</code>. <br><br><span class="tablenote"><strong>Note:</strong> If this is the last or only page of the result set, the page may contain fewer monetary transactions than the <strong>limit</strong> value.  To determine the number of pages in a result set, divide the <b>total</b> value (total number of monetary transactions matching input criteria) by this <strong>limit</strong> value, and then round up to the next integer. For example, if the <b>total</b> value was <code>120</code> (120 total monetary transactions) and the <strong>limit</strong> value was <code>50</code> (show 50 monetary transactions per page), the total number of pages in the result set is three, so the seller would have to make three separate <strong>getTransactions</strong> calls to view all monetary transactions matching the input criteria. </span><br><br><b>Maximum:</b> <code>200</code> <br> <b>Default:</b> <code>20</code>
-          format: int32
-        next:
-          type: string
-          description: The <b>getTransactions</b> method URI to use if you wish to view the next page of the result set. <br><br>This field is only returned if there is a next page of results to view based on the current input criteria.
-        offset:
-          type: integer
-          description: This integer value indicates the actual position that the first monetary transaction returned on the current page has in the results set. So, if you wanted to view the 11th monetary transaction of the result set, you would set the <strong>offset</strong> value in the request to <code>10</code>. <br><br>In the request, you can use the <b>offset</b> parameter in conjunction with the <b>limit</b> parameter to control the pagination of the output. For example, if <b>offset</b> is set to <code>30</code> and <b>limit</b> is set to <code>10</code>, the method retrieves monetary transactions 31 thru 40 from the resulting collection of monetary transactions. <br><br> <span class="tablenote"><strong>Note:</strong> This feature employs a zero-based list, where the first item in the list has an offset of <code>0</code>.</span><br><br><b>Default:</b> <code>0</code> (zero)
-          format: int32
-        prev:
-          type: string
-          description: The <b>getTransactions</b> method URI to use if you wish to view the previous page of the result set. <br><br>This field is only returned if there is a previous page of results to view based on the current input criteria.
-        total:
-          type: integer
-          description: This integer value is the total amount of monetary transactions in the result set based on the current input criteria. Based on the total number of monetary transactions that match the criteria, and on the <strong>limit</strong> and <strong>offset</strong> values, there may be additional pages in the results set.
-          format: int32
-        transactions:
-          type: array
-          description: An array of one or more monetary transactions that match the input criteria. Details for each monetary transaction may include the unique identifier of the order associated with the monetary transaction, the status of the transaction, the amount of the order, the order's buyer, and the unique identifier of the payout (if a payout has been initiated/issued for the order).
-          items:
-            $ref: '#/components/schemas/Transaction'
-      description: 'This is the base response type of the <b>getTransactions</b> method. The <b>getTransactions</b> response includes details on one or more monetary transactions that match the input criteria, as well as pagination data. '
+          description: The eBay user ID of the order's buyer.
+      description: This type is used to express details about the buyer associated with an order. At this time, the only field in this type is the eBay user ID of the buyer, but more fields may get added at a later date.
     Amount:
       type: object
       properties:
@@ -261,6 +238,44 @@ components:
           type: string
           description: The monetary amount, in the currency specified by the <b>currency</b> field. This field is always returned with any container using <b>Amount</b> type.
       description: This type is used to express the dollar value and currency used for any transaction retrieved with the <strong>Finances API</strong>, including an order total, a seller payout, a buyer refund, or a seller credit.
+    PayoutDetails:
+      type: object
+      properties:
+        payoutIds:
+          type: array
+          description: This array indicates the list of true(actual) payout ids associated with a split payout. These values can be used as a path parameter for the <b>getPayout</b> method to retrieve details on the associated payouts.
+          items:
+            type: string
+        payoutReference:
+          type: string
+          description: This field contains the unique identifier for the Payout Reference. In split-payout cases, this is the unique identifier reference (not true payout). This field is only returned and will show the associated true(actual) payout id(s) when sellers in Mainland China enable split payouts between a Payoneer account and/or a bank account.  This value can be used by the <b>filter</b> query parameter of the <b>getPayouts</b> method to get the monetary details of each true(actual) payout associated with the payoutReference. <br><br><span class="tablenote"><b>Note:</b>Split-payout functionality will <b>only</b> be available to mainland China sellers.</span>
+      description: This type provide payout details for a split-payout case. This type is only applicable for split payouts.
+    Fee:
+      type: object
+      properties:
+        amount:
+          description: The amount of the fee.
+          $ref: '#/components/schemas/Amount'
+        feeJurisdiction:
+          description: Indicates the specific jurisdiction for the fee that has been deducted from the seller payout.
+          $ref: '#/components/schemas/FeeJurisdiction'
+        feeMemo:
+          type: string
+          description: A description of the fee that was deducted from the seller payout.
+        feeType:
+          type: string
+          description: The enumeration value returned here indicates the type of fee that was deducted from the seller payout. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/api:FeeTypeEnum'>eBay API documentation</a>
+      description: This type is used to display fees that are automatically deducted from seller payouts.
+    Reference:
+      type: object
+      properties:
+        referenceId:
+          type: string
+          description: The identifier of the transaction as specified by the <strong>referenceType</strong>. For example, with a <strong>referenceType</strong> of <strong>item_id</strong>, the <strong>referenceId</strong> refers to a unique item. This item may have several <code>NON_SALE_CHARGE</code> transactions.
+        referenceType:
+          type: string
+          description: An enumeration value that identifies the reference type associated with the <strong>referenceId</strong>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:ReferenceTypeEnum'>eBay API documentation</a>
+      description: This field is returned for NON_SALE_CHARGE transactions that contain non-transactional seller fees.
     TransactionSummaryResponse:
       type: object
       properties:
@@ -385,18 +400,46 @@ components:
           description: This integer value indicates the total number of on-demand payouts (withdrawals) that match the input criteria. <br><br>This field is generally returned, even if <code>0</code>, but it will not be returned if a <strong>transactionType</strong> filter is used, and its value is set to any value other than <code>WITHDRAWAL</code>.
           format: int32
       description: This type is the base response type of the <strong>getTransactionSummary</strong> method, and based on the filters that are used in the <strong>getTransactionSummary</strong> call URI, the response may include  total count and amount of the seller's sales and credits, total count and amount of buyer refunds, and total count and amount of seller payment holds.
-    PayoutDetails:
+    FeeJurisdiction:
       type: object
       properties:
-        payoutIds:
-          type: array
-          description: This array indicates the list of true(actual) payout ids associated with a split payout. These values can be used as a path parameter for the <b>getPayout</b> method to retrieve details on the associated payouts.
-          items:
-            type: string
-        payoutReference:
+        regionName:
           type: string
-          description: This field contains the unique identifier for the Payout Reference. In split-payout cases, this is the unique identifier reference (not true payout). This field is only returned and will show the associated true(actual) payout id(s) when sellers in Mainland China enable split payouts between a Payoneer account and/or a bank account.  This value can be used by the <b>filter</b> query parameter of the <b>getPayouts</b> method to get the monetary details of each true(actual) payout associated with the payoutReference. <br><br><span class="tablenote"><b>Note:</b>Split-payout functionality will <b>only</b> be available to mainland China sellers.</span>
-      description: This type provide payout details for a split-payout case. This type is only applicable for split payouts.
+          description: String value that indicates the name of the region to which a region-specific fee applies.<br><br>The set of valid <b>regionName</b> values that may be returned is determined by the <b>regionType</b> value.<br><br><span class="tablenote"><strong>Note:</strong> Currently, supported <b>regionName</b> values that may be returned are standard two-character country or state codes.<br><br>Typical examples include:<ul><li><b>MX</b> [Mexico]</li><li><b>IN</b> [India]</li><li><b>US</b> [United States]</li><li>CA [California]</li><li>VT [Vermont]</li><li>ME [Maine]</li></ul></span>
+        regionType:
+          type: string
+          description: The enumeration value returned here indicates the type of region that is collecting the corresponding fee. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:RegionTypeEnum'>eBay API documentation</a>
+      description: This container returns jurisdiction information about region-specific fees that are charged to sellers.
+    Tax:
+      type: object
+      properties:
+        taxType:
+          type: string
+          description: The enumeration value returned here indicates the type of tax. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:TaxTypeEnum'>eBay API documentation</a>
+        amount:
+          description: Amount of tax.
+          $ref: '#/components/schemas/Amount'
+      description: This type is used to return the tax details of a transaction.
+    OrderLineItem:
+      type: object
+      properties:
+        donations:
+          type: array
+          description: 'The list of donations applied to the line item.<br><br><span class="tablenote"><b>Note: </b>Currently, this array is only returned if the seller chooses to donate a percentage of the sales proceeds to a charitable organization registered with the eBay for Charity program.</span>'
+          items:
+            $ref: '#/components/schemas/Fee'
+        feeBasisAmount:
+          description: This amount is the order's total amount and equals what the buyer has paid. This value includes <b>transactions.amount</b>, <b>totalFeeAmount</b>, <b>eBayCollectedTaxAmount</b>, and shipping charges (if any).
+          $ref: '#/components/schemas/Amount'
+        lineItemId:
+          type: string
+          description: The unique identifier of an order line item.
+        marketplaceFees:
+          type: array
+          description: An array of all fees accrued for the order line item and deducted from a seller payout.
+          items:
+            $ref: '#/components/schemas/Fee'
+      description: This type is used to show the fees and donations that are deducted from a seller payout for each line item in an order.
     Transaction:
       type: object
       properties:
@@ -470,79 +513,36 @@ components:
           type: string
           description: This enumeration value indicates the type of monetary transaction. Examples of monetary transactions include a buyer's payment for an order, a refund to the buyer for a returned item or cancelled order, or a credit issued by eBay to the seller's account. For a complete list of monetary transaction types within the <strong>Finances API</strong>, see the <a href="/api-docs/sell/finances/types/pay:TransactionTypeEnum">TransactionTypeEnum</a> type. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:TransactionTypeEnum'>eBay API documentation</a>
       description: 'This type is used to express the details of one of the following monetary transactions: a buyer''s payment for an order, a refund to the buyer for a returned item or cancelled order, or a credit issued by eBay to the seller''s account.'
-    Fee:
+    Transactions:
       type: object
       properties:
-        amount:
-          description: The amount of the fee.
-          $ref: '#/components/schemas/Amount'
-        feeJurisdiction:
-          description: Indicates the specific jurisdiction for the fee that has been deducted from the seller payout.
-          $ref: '#/components/schemas/FeeJurisdiction'
-        feeMemo:
+        href:
           type: string
-          description: A description of the fee that was deducted from the seller payout.
-        feeType:
+          description: The URI of the <b>getTransactions</b> method request that produced the current page of the result set.
+        limit:
+          type: integer
+          description: The maximum number of monetary transactions that may be returned per page of the result set. The <strong>limit</strong> value can be passed in as a query parameter, or if omitted, its value defaults to <code>20</code>. <br><br><span class="tablenote"><strong>Note:</strong> If this is the last or only page of the result set, the page may contain fewer monetary transactions than the <strong>limit</strong> value.  To determine the number of pages in a result set, divide the <b>total</b> value (total number of monetary transactions matching input criteria) by this <strong>limit</strong> value, and then round up to the next integer. For example, if the <b>total</b> value was <code>120</code> (120 total monetary transactions) and the <strong>limit</strong> value was <code>50</code> (show 50 monetary transactions per page), the total number of pages in the result set is three, so the seller would have to make three separate <strong>getTransactions</strong> calls to view all monetary transactions matching the input criteria. </span><br><br><b>Maximum:</b> <code>200</code> <br> <b>Default:</b> <code>20</code>
+          format: int32
+        next:
           type: string
-          description: The enumeration value returned here indicates the type of fee that was deducted from the seller payout. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/api:FeeTypeEnum'>eBay API documentation</a>
-      description: This type is used to display fees that are automatically deducted from seller payouts.
-    Reference:
-      type: object
-      properties:
-        referenceId:
+          description: The <b>getTransactions</b> method URI to use if you wish to view the next page of the result set. <br><br>This field is only returned if there is a next page of results to view based on the current input criteria.
+        offset:
+          type: integer
+          description: This integer value indicates the actual position that the first monetary transaction returned on the current page has in the results set. So, if you wanted to view the 11th monetary transaction of the result set, you would set the <strong>offset</strong> value in the request to <code>10</code>. <br><br>In the request, you can use the <b>offset</b> parameter in conjunction with the <b>limit</b> parameter to control the pagination of the output. For example, if <b>offset</b> is set to <code>30</code> and <b>limit</b> is set to <code>10</code>, the method retrieves monetary transactions 31 thru 40 from the resulting collection of monetary transactions. <br><br> <span class="tablenote"><strong>Note:</strong> This feature employs a zero-based list, where the first item in the list has an offset of <code>0</code>.</span><br><br><b>Default:</b> <code>0</code> (zero)
+          format: int32
+        prev:
           type: string
-          description: The identifier of the transaction as specified by the <strong>referenceType</strong>. For example, with a <strong>referenceType</strong> of <strong>item_id</strong>, the <strong>referenceId</strong> refers to a unique item. This item may have several <code>NON_SALE_CHARGE</code> transactions.
-        referenceType:
-          type: string
-          description: An enumeration value that identifies the reference type associated with the <strong>referenceId</strong>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:ReferenceTypeEnum'>eBay API documentation</a>
-      description: This field is returned for NON_SALE_CHARGE transactions that contain non-transactional seller fees.
-    Buyer:
-      type: object
-      properties:
-        username:
-          type: string
-          description: The eBay user ID of the order's buyer.
-      description: This type is used to express details about the buyer associated with an order. At this time, the only field in this type is the eBay user ID of the buyer, but more fields may get added at a later date.
-    FeeJurisdiction:
-      type: object
-      properties:
-        regionName:
-          type: string
-          description: String value that indicates the name of the region to which a region-specific fee applies.<br><br>The set of valid <b>regionName</b> values that may be returned is determined by the <b>regionType</b> value.<br><br><span class="tablenote"><strong>Note:</strong> Currently, supported <b>regionName</b> values that may be returned are standard two-character country or state codes.<br><br>Typical examples include:<ul><li><b>MX</b> [Mexico]</li><li><b>IN</b> [India]</li><li><b>US</b> [United States]</li><li>CA [California]</li><li>VT [Vermont]</li><li>ME [Maine]</li></ul></span>
-        regionType:
-          type: string
-          description: The enumeration value returned here indicates the type of region that is collecting the corresponding fee. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:RegionTypeEnum'>eBay API documentation</a>
-      description: This container returns jurisdiction information about region-specific fees that are charged to sellers.
-    OrderLineItem:
-      type: object
-      properties:
-        donations:
+          description: The <b>getTransactions</b> method URI to use if you wish to view the previous page of the result set. <br><br>This field is only returned if there is a previous page of results to view based on the current input criteria.
+        total:
+          type: integer
+          description: This integer value is the total amount of monetary transactions in the result set based on the current input criteria. Based on the total number of monetary transactions that match the criteria, and on the <strong>limit</strong> and <strong>offset</strong> values, there may be additional pages in the results set.
+          format: int32
+        transactions:
           type: array
-          description: 'The list of donations applied to the line item.<br><br><span class="tablenote"><b>Note: </b>Currently, this array is only returned if the seller chooses to donate a percentage of the sales proceeds to a charitable organization registered with the eBay for Charity program.</span>'
+          description: An array of one or more monetary transactions that match the input criteria. Details for each monetary transaction may include the unique identifier of the order associated with the monetary transaction, the status of the transaction, the amount of the order, the order's buyer, and the unique identifier of the payout (if a payout has been initiated/issued for the order).
           items:
-            $ref: '#/components/schemas/Fee'
-        feeBasisAmount:
-          description: This amount is the order's total amount and equals what the buyer has paid. This value includes <b>transactions.amount</b>, <b>totalFeeAmount</b>, <b>eBayCollectedTaxAmount</b>, and shipping charges (if any).
-          $ref: '#/components/schemas/Amount'
-        lineItemId:
-          type: string
-          description: The unique identifier of an order line item.
-        marketplaceFees:
-          type: array
-          description: An array of all fees accrued for the order line item and deducted from a seller payout.
-          items:
-            $ref: '#/components/schemas/Fee'
-      description: This type is used to show the fees and donations that are deducted from a seller payout for each line item in an order.
-    Tax:
-      type: object
-      properties:
-        taxType:
-          type: string
-          description: The enumeration value returned here indicates the type of tax. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/finances/types/pay:TaxTypeEnum'>eBay API documentation</a>
-        amount:
-          description: Amount of tax.
-          $ref: '#/components/schemas/Amount'
-      description: This type is used to return the tax details of a transaction.
+            $ref: '#/components/schemas/Transaction'
+      description: 'This is the base response type of the <b>getTransactions</b> method. The <b>getTransactions</b> response includes details on one or more monetary transactions that match the input criteria, as well as pagination data. '
   securitySchemes:
     api_auth:
       type: oauth2

@@ -100,6 +100,15 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    RateTableResponse:
+      type: object
+      properties:
+        rateTables:
+          type: array
+          description: An array of all shipping rate tables defined for a marketplace (or all marketplaces if no <b>country_code</b> query parameter is used). This array will be returned as empty if the seller has no defined shipping rate tables for the specified marketplace.
+          items:
+            $ref: '#/components/schemas/RateTable'
+      description: This type is the base response of the <b>getRateTables</b> method.
     RateTable:
       type: object
       properties:
@@ -116,15 +125,6 @@ components:
           type: string
           description: A unique eBay-assigned ID for a seller's shipping rate table. These <b>rateTableId</b> values are used to associate shipping rate tables to fulfillment business policies or directly to listings through an add/revise/relist call in the Trading API.
       description: This type is used to provide details about each shipping rate table that is returned in the <b>getRateTables</b> response.
-    RateTableResponse:
-      type: object
-      properties:
-        rateTables:
-          type: array
-          description: An array of all shipping rate tables defined for a marketplace (or all marketplaces if no <b>country_code</b> query parameter is used). This array will be returned as empty if the seller has no defined shipping rate tables for the specified marketplace.
-          items:
-            $ref: '#/components/schemas/RateTable'
-      description: This type is the base response of the <b>getRateTables</b> method.
   securitySchemes:
     api_auth:
       type: oauth2

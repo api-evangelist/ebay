@@ -775,6 +775,25 @@ paths:
           default: /commerce/notification/v1
 components:
   schemas:
+    Subscription:
+      type: object
+      properties:
+        marketplaceId:
+          type: string
+          description: The marketplace with which the subscription is associated. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum'>eBay API documentation</a>
+        subscriptionId:
+          type: string
+          description: The subscription ID.
+        subscriptionLevel:
+          type: string
+          description: The subscription level. For example, subscription levels for an eBay store include Starter, Basic, Featured, Anchor, and Enterprise levels.
+        subscriptionType:
+          type: string
+          description: The kind of entity with which the subscription is associated, such as an eBay store. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:SubscriptionTypeEnum'>eBay API documentation</a>
+        term:
+          description: The term of the subscription plan (typically in months).
+          $ref: '#/components/schemas/TimeDuration'
+      description: This type is used by the <strong>getSubscription</strong> response container, which defines the subscription types and levels for the seller account.
     TimeDuration:
       type: object
       properties:
@@ -809,99 +828,6 @@ components:
           description: The total number of subscriptions displayed on the current page of results.
           format: int32
       description: 'This type is used by the response payload for the <b>getSubscription</b> method.<br><br><span class="tablenote"><b>Note</b>: Pagination has not yet been enabled for <b>getSubscription</b>, so all of the pagination-related fields are for future use.</span>'
-    Subscription:
-      type: object
-      properties:
-        marketplaceId:
-          type: string
-          description: The marketplace with which the subscription is associated. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum'>eBay API documentation</a>
-        subscriptionId:
-          type: string
-          description: The subscription ID.
-        subscriptionLevel:
-          type: string
-          description: The subscription level. For example, subscription levels for an eBay store include Starter, Basic, Featured, Anchor, and Enterprise levels.
-        subscriptionType:
-          type: string
-          description: The kind of entity with which the subscription is associated, such as an eBay store. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:SubscriptionTypeEnum'>eBay API documentation</a>
-        term:
-          description: The term of the subscription plan (typically in months).
-          $ref: '#/components/schemas/TimeDuration'
-      description: This type is used by the <strong>getSubscription</strong> response container, which defines the subscription types and levels for the seller account.
-    UpdateSubscriptionRequest:
-      type: object
-      properties:
-        destinationId:
-          type: string
-          description: The unique identifier of the destination endpoint that will receive notifications associated with this subscription. Use <b>getDestinations</b> to retrieve destination IDs.
-        payload:
-          description: The payload associated with this subscription.
-          $ref: '#/components/schemas/SubscriptionPayloadDetail'
-        status:
-          type: string
-          description: Set the status of the subscription being updated to ENABLED or DISABLED. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:SubscriptionStatusEnum'>eBay API documentation</a>
-      description: A type that describes the details of the update subscription request.
-    SubscriptionPayloadDetail:
-      type: object
-      properties:
-        deliveryProtocol:
-          type: string
-          description: The supported delivery protocol of the notification topic.<br><br><span class="tablenote"><b>Note:</b> <code>HTTPS</code> is currently the only supported delivery protocol of all notification topics. </span> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:ProtocolEnum'>eBay API documentation</a>
-        format:
-          type: string
-          description: The supported data format of the payload.<br><br><span class="tablenote"><b>Note:</b> JSON is currently the only supported format for all notification topics.</span> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:FormatTypeEnum'>eBay API documentation</a>
-        schemaVersion:
-          type: string
-          description: The supported schema version for the notification topic. See the <b>supportedPayloads.schemaVersion</b> field for the topic in <b>getTopics</b> or <b>getTopic</b> response.
-      description: A type that describes the details of the subscription payload.
-    Subscription_2:
-      type: object
-      properties:
-        creationDate:
-          type: string
-          description: The creation date for this subscription.
-        destinationId:
-          type: string
-          description: The unique identifier for the destination associated with this subscription.
-        filterId:
-          type: string
-          description: The unique identifier for the filter associated with this subscription.
-        payload:
-          description: The payload associated with this subscription.
-          $ref: '#/components/schemas/SubscriptionPayloadDetail'
-        status:
-          type: string
-          description: The status of this subscription. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:SubscriptionStatusEnum'>eBay API documentation</a>
-        subscriptionId:
-          type: string
-          description: The unique identifier for the subscription.
-        topicId:
-          type: string
-          description: The unique identifier for the topic associated with this subscription.
-      description: A type that describes the subscription.
-    SubscriptionSearchResponse:
-      type: object
-      properties:
-        href:
-          type: string
-          description: The path to the call URI that produced the current page of results.
-        limit:
-          type: integer
-          description: The value of the limit parameter submitted in the request, which is the maximum number of items to return per page, from the result set. A result set is the complete set of results returned by the method.<br><br><span class="tablenote"><b>Note:</b> Though this parameter is not required to be submitted in the request, the parameter defaults to <code>20</code> if omitted.</span><br><br><b>Default:</b> 20
-          format: int32
-        next:
-          type: string
-          description: The URL to access the next set of results. This field includes a <strong>continuation_token</strong>. No <b>prev</b> field is returned, but this value is persistent during the session so that you can use it to return to the next page.<br><br>This field is not returned if fewer records than specified by the <strong>limit</strong> field are returned.
-        subscriptions:
-          type: array
-          description: The subscriptions that match the search criteria.
-          items:
-            $ref: '#/components/schemas/Subscription_2'
-        total:
-          type: integer
-          description: The total number of matches for the search criteria.
-          format: int32
-      description: A type that describes the details of the subscription search response.
     CreateSubscriptionFilterRequest:
       type: object
       properties:
@@ -946,6 +872,80 @@ components:
           type: string
           description: The unique identifier of the notification topic to subscribe to. Use <b>getTopics</b> to get topic IDs.
       description: This type contains information about a subscription request.
+    Subscription_2:
+      type: object
+      properties:
+        creationDate:
+          type: string
+          description: The creation date for this subscription.
+        destinationId:
+          type: string
+          description: The unique identifier for the destination associated with this subscription.
+        filterId:
+          type: string
+          description: The unique identifier for the filter associated with this subscription.
+        payload:
+          description: The payload associated with this subscription.
+          $ref: '#/components/schemas/SubscriptionPayloadDetail'
+        status:
+          type: string
+          description: The status of this subscription. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:SubscriptionStatusEnum'>eBay API documentation</a>
+        subscriptionId:
+          type: string
+          description: The unique identifier for the subscription.
+        topicId:
+          type: string
+          description: The unique identifier for the topic associated with this subscription.
+      description: A type that describes the subscription.
+    UpdateSubscriptionRequest:
+      type: object
+      properties:
+        destinationId:
+          type: string
+          description: The unique identifier of the destination endpoint that will receive notifications associated with this subscription. Use <b>getDestinations</b> to retrieve destination IDs.
+        payload:
+          description: The payload associated with this subscription.
+          $ref: '#/components/schemas/SubscriptionPayloadDetail'
+        status:
+          type: string
+          description: Set the status of the subscription being updated to ENABLED or DISABLED. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:SubscriptionStatusEnum'>eBay API documentation</a>
+      description: A type that describes the details of the update subscription request.
+    SubscriptionSearchResponse:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The path to the call URI that produced the current page of results.
+        limit:
+          type: integer
+          description: The value of the limit parameter submitted in the request, which is the maximum number of items to return per page, from the result set. A result set is the complete set of results returned by the method.<br><br><span class="tablenote"><b>Note:</b> Though this parameter is not required to be submitted in the request, the parameter defaults to <code>20</code> if omitted.</span><br><br><b>Default:</b> 20
+          format: int32
+        next:
+          type: string
+          description: The URL to access the next set of results. This field includes a <strong>continuation_token</strong>. No <b>prev</b> field is returned, but this value is persistent during the session so that you can use it to return to the next page.<br><br>This field is not returned if fewer records than specified by the <strong>limit</strong> field are returned.
+        subscriptions:
+          type: array
+          description: The subscriptions that match the search criteria.
+          items:
+            $ref: '#/components/schemas/Subscription_2'
+        total:
+          type: integer
+          description: The total number of matches for the search criteria.
+          format: int32
+      description: A type that describes the details of the subscription search response.
+    SubscriptionPayloadDetail:
+      type: object
+      properties:
+        deliveryProtocol:
+          type: string
+          description: The supported delivery protocol of the notification topic.<br><br><span class="tablenote"><b>Note:</b> <code>HTTPS</code> is currently the only supported delivery protocol of all notification topics. </span> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:ProtocolEnum'>eBay API documentation</a>
+        format:
+          type: string
+          description: The supported data format of the payload.<br><br><span class="tablenote"><b>Note:</b> JSON is currently the only supported format for all notification topics.</span> For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:FormatTypeEnum'>eBay API documentation</a>
+        schemaVersion:
+          type: string
+          description: The supported schema version for the notification topic. See the <b>supportedPayloads.schemaVersion</b> field for the topic in <b>getTopics</b> or <b>getTopic</b> response.
+      description: A type that describes the details of the subscription payload.
   securitySchemes:
     api_auth:
       type: oauth2

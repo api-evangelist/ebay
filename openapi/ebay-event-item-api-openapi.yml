@@ -168,32 +168,36 @@ components:
           type: string
           description: 'The pricing treatment (discount) that was applied to the price of the item. <br /><br /><span class="tablenote"><b>Note: </b> The pricing treatment affects how and where the discounted price can be displayed.</span> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/buy/deal/types/api:PriceTreatmentEnum''>eBay API documentation</a>'
       description: A type that describes the seller discount.
-    Image:
+    EventItemSearchResponse:
       type: object
       properties:
-        height:
+        eventItems:
+          type: array
+          description: A list of event items that match the search criteria.
+          items:
+            $ref: '#/components/schemas/EventItem'
+        href:
           type: string
-          description: The height of the image.
-        imageUrl:
+          description: The relative path to the current set of results.
+        limit:
+          type: integer
+          description: The maximum number of items, from the current result set, returned on a single page.<br /><br /><b>Default:</b> <code>20</code>
+          format: int32
+        next:
           type: string
-          description: The relative path to the image location.
-        text:
+          description: The relative path to the next set of results.
+        offset:
+          type: integer
+          description: The number of items that will be skipped in the result set. This is used with the <b>limit</b> field to control the pagination of the output.<br /><br />For example, if the <b>offset</b> is set to <code>0</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 1 through 10 from the list of items returned. If the <b>offset</b> is set to <code>10</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 11 through 20 from the list of items returned.<br /><br /><b>Default:</b> <code>0</code>
+          format: int32
+        prev:
           type: string
-          description: The text associated with the image.
-        width:
-          type: string
-          description: The width of the image.
-      description: The type that defines the details of an image, such as size and URL.
-    ShippingOption:
-      type: object
-      properties:
-        shippingCost:
-          description: 'The final shipping cost for all items after all discounts are applied. <br /><br /><span class="tablenote"><b> Note: </b>The price does include the value-added tax (VAT) for applicable jurisdictions when requested from supported marketplaces. In this case, users must pass the <a href="/api-docs/static/rest-request-components.html#HTTP"><code>X-EBAY-C-MARKETPLACE-ID</code></a> request header specifying the supported marketplace (such as <code>EBAY_GB</code>) to see the VAT-inclusive pricing. For more information on VAT, refer to <a href="https://www.ebay.co.uk/help/listings/default/vat-obligations-eu?id=4650&st=12&pos=1&query=Your%20VAT%20obligations%20in%20the%20EU&intent=VAT">VAT Obligations in the EU</a>.</span>'
-          $ref: '#/components/schemas/Amount'
-        shippingCostType:
-          type: string
-          description: 'The class of the shipping cost. <br /><br /><b> Valid Values: </b> <code>FIXED</code> or <code>CALCULATED</code> <br /><br />Code so that your app gracefully handles any future changes to this list. '
-      description: The details provided for the shipping provider, such as shipping cost and type.
+          description: The relative path to the previous set of results.
+        total:
+          type: integer
+          description: The total number of matches for the specified search criteria.
+          format: int32
+      description: The result set for the event item search.
     EventItem:
       type: object
       properties:
@@ -264,36 +268,32 @@ components:
           type: string
           description: 'The designation used to specify the quantity of the event item, such as size, weight, volume, and count. This helps buyers compare prices. <br /><br />For example, the following tells the buyer that the item is 7.99 per 100 grams. <br /><br /><code>"unitPricingMeasure": "100g",<br /> "unitPrice": {<br />&nbsp;&nbsp;"value": "7.99",<br />&nbsp;&nbsp;"currency": "GBP"</code>'
       description: The detailed data returned for the event item.
-    EventItemSearchResponse:
+    Image:
       type: object
       properties:
-        eventItems:
-          type: array
-          description: A list of event items that match the search criteria.
-          items:
-            $ref: '#/components/schemas/EventItem'
-        href:
+        height:
           type: string
-          description: The relative path to the current set of results.
-        limit:
-          type: integer
-          description: The maximum number of items, from the current result set, returned on a single page.<br /><br /><b>Default:</b> <code>20</code>
-          format: int32
-        next:
+          description: The height of the image.
+        imageUrl:
           type: string
-          description: The relative path to the next set of results.
-        offset:
-          type: integer
-          description: The number of items that will be skipped in the result set. This is used with the <b>limit</b> field to control the pagination of the output.<br /><br />For example, if the <b>offset</b> is set to <code>0</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 1 through 10 from the list of items returned. If the <b>offset</b> is set to <code>10</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 11 through 20 from the list of items returned.<br /><br /><b>Default:</b> <code>0</code>
-          format: int32
-        prev:
+          description: The relative path to the image location.
+        text:
           type: string
-          description: The relative path to the previous set of results.
-        total:
-          type: integer
-          description: The total number of matches for the specified search criteria.
-          format: int32
-      description: The result set for the event item search.
+          description: The text associated with the image.
+        width:
+          type: string
+          description: The width of the image.
+      description: The type that defines the details of an image, such as size and URL.
+    ShippingOption:
+      type: object
+      properties:
+        shippingCost:
+          description: 'The final shipping cost for all items after all discounts are applied. <br /><br /><span class="tablenote"><b> Note: </b>The price does include the value-added tax (VAT) for applicable jurisdictions when requested from supported marketplaces. In this case, users must pass the <a href="/api-docs/static/rest-request-components.html#HTTP"><code>X-EBAY-C-MARKETPLACE-ID</code></a> request header specifying the supported marketplace (such as <code>EBAY_GB</code>) to see the VAT-inclusive pricing. For more information on VAT, refer to <a href="https://www.ebay.co.uk/help/listings/default/vat-obligations-eu?id=4650&st=12&pos=1&query=Your%20VAT%20obligations%20in%20the%20EU&intent=VAT">VAT Obligations in the EU</a>.</span>'
+          $ref: '#/components/schemas/Amount'
+        shippingCostType:
+          type: string
+          description: 'The class of the shipping cost. <br /><br /><b> Valid Values: </b> <code>FIXED</code> or <code>CALCULATED</code> <br /><br />Code so that your app gracefully handles any future changes to this list. '
+      description: The details provided for the shipping provider, such as shipping cost and type.
   securitySchemes:
     api_auth:
       type: oauth2

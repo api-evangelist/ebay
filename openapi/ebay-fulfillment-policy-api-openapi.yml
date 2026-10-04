@@ -450,30 +450,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    RegionSet:
-      type: object
-      properties:
-        regionExcluded:
-          type: array
-          description: 'An array of one or more <b>regionName</b> values that specify the areas to where a seller does not ship. A <b>regionExcluded</b> list should only be set in the top-level <b>shipToLocations</b> container and not within the <b>shippingServices.shipToLocations</b> container used to specify which shipping regions are serviced by each available shipping service option. <p>Many sellers are willing to ship to many international locations, but they may want to exclude some world regions or some countries as places they are willing to ship to.<br><br>This array will be returned as empty if no shipping regions are excluded with the fulfillment business policy.<br> <br><span class="tablenote"><b>Note: </b> The <b>regionExcluded</b> array is not applicable for motor vehicle business policies on the US, CA, or UK marketplaces. If this array is used in a <b>createFulfillmentPolicy</b> or <b>updateFulfillmentPolicy</b> request, it will be ignored.</span>'
-          items:
-            $ref: '#/components/schemas/Region'
-        regionIncluded:
-          type: array
-          description: 'An array of one or more <b>regionName</b> fields that specify the areas to where a seller ships. <br>Each eBay marketplace supports its own set of allowable shipping locations.<br> <br><span class="tablenote"><b>Note: </b> The <b>regionIncluded</b> array is not applicable for motor vehicle business policies on the US, CA, or UK marketplaces. If this array is used in a <b>createFulfillmentPolicy</b> or <b>updateFulfillmentPolicy</b> request, it will be ignored.</span>'
-          items:
-            $ref: '#/components/schemas/Region'
-      description: This type consists of the <b>regionIncluded</b> and <b>regionExcluded</b> arrays, which indicate the areas to where the seller does and doesn't ship.
-    Amount:
-      type: object
-      properties:
-        currency:
-          type: string
-          description: The base currency applied to the <b>value</b> field to establish a monetary amount.  <br><br>The currency is represented as a 3-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " title="https://www.iso.org " target="_blank">ISO 4217</a> currency code. For example, the code for the Canadian Dollar is <code>CAD</code>.<br><br><b>Default:</b> The default currency of the eBay marketplace that hosts the listing. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
-        value:
-          type: string
-          description: The monetary amount in the specified <b>currency</b>.
-      description: A complex type that describes the value of a monetary amount as represented by a global currency. When passing in an amount in a request payload, both <b>currency</b> and <b>value</b> fields are required, and both fields are also always returned for an amount in a response field.
     ErrorParameter:
       type: object
       properties:
@@ -484,6 +460,50 @@ components:
           type: string
           description: The value of the parameter that caused the error.
       description: A complex type that indicates a parameter that caused an error and the value of the parameter which caused the error.
+    FulfillmentPolicy:
+      type: object
+      properties:
+        categoryTypes:
+          type: array
+          description: This container indicates whether the fulfillment policy applies to motor vehicle listings, or if it applies to non-motor vehicle listings.
+          items:
+            $ref: '#/components/schemas/CategoryType'
+        description:
+          type: string
+          description: 'A seller-defined description of the fulfillment policy. This description is only for the seller''s use, and is not exposed on any eBay pages. This field is returned if set for the policy. <br><br><b>Max length</b>: 250'
+        freightShipping:
+          type: boolean
+          description: If returned as <code>true</code>, the seller offers freight shipping. Freight shipping can be used for large items over 150 lbs.
+        fulfillmentPolicyId:
+          type: string
+          description: A unique eBay-assigned ID for the fulfillment policy. This ID is generated when the policy is created.
+        globalShipping:
+          type: boolean
+          description: 'If returned as <code>true</code>, eBay''s Global Shipping Program will be used by the seller to ship items to international locations.<br><br><span class="tablenote"><b>Note</b>: On the US marketplace, the <em><b>Global Shipping Program</b></em> is scheduled to be replaced by a new intermediated international shipping program called <em><b>eBay International Shipping</b></em>. US sellers who are opted in to the Global Shipping Program will be automatically opted in to eBay International Shipping when it becomes available to them. All US sellers will be migrated by March 31, 2023. <br><br>eBay International Shipping is an account level setting, and no field needs to be set in a Fulfillment business policy to enable it. As long as the US seller''s account is opted in to eBay International Shipping, this shipping option will be enabled automatically for all listings where international shipping is available. <br><br>A US seller who is opted in to eBay International Shipping can also specify individual international shipping service options for a Fulfillment business policy.</span>'
+        handlingTime:
+          description: Specifies the maximum number of business days the seller commits to for preparing and shipping an order after receiving a cleared payment for the order. This time does not include the transit time it takes the shipping carrier to deliver the order. <p>If only local pickup or freight shipping is available for the item, this container may not get returned.</p>
+          $ref: '#/components/schemas/TimeDuration'
+        localPickup:
+          type: boolean
+          description: If returned as <code>true</code>, local pickup is available for this policy.
+        marketplaceId:
+          type: string
+          description: The ID of the eBay marketplace to which this fulfillment policy applies. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum'>eBay API documentation</a>
+        name:
+          type: string
+          description: 'A seller-defined name for this fulfillment policy. Names must be unique for policies assigned to the same marketplace. <br><br><b>Max length</b>: 64'
+        pickupDropOff:
+          type: boolean
+          description: If returned as <code>true</code>, the seller offers the "Click and Collect" option. <br><br>Currently, "Click and Collect" is available only to large retail merchants the eBay AU and UK marketplaces.
+        shippingOptions:
+          type: array
+          description: This array is used to provide detailed information on the domestic and international shipping options available for the policy. A separate <b>ShippingOption</b> object covers domestic shipping service options and international shipping service options (if the seller ships to international locations). <br><br>The <b>optionType</b> field indicates whether the <b>ShippingOption</b> object applies to domestic or international shipping, and the <b>costType</b> field indicates whether flat-rate shipping or calculated shipping will be used. <p>A separate <b>ShippingServices</b> object is used to specify cost and other details for every available domestic and international shipping service option. </p>
+          items:
+            $ref: '#/components/schemas/ShippingOption'
+        shipToLocations:
+          description: This container consists of the <b>regionIncluded</b> and <b>regionExcluded</b> containers, which define the geographical regions/countries/states or provinces/domestic regions where the seller does and doesn't ship to with this fulfillment policy.
+          $ref: '#/components/schemas/RegionSet'
+      description: This type is used by the <b>fulfillmentPolicy</b> response container, a container which defines a seller's fulfillment policy for a specific marketplace.
     Region:
       type: object
       properties:
@@ -494,6 +514,103 @@ components:
           type: string
           description: 'Reserved for future use. <!--The region''s type, which can be one of the following: ''COUNTRY'', ''COUNTRY_REGION'', ''STATE_OR_PROVINCE'', ''WORLD_REGION'', or ''WORLDWIDE''.--> For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/account/types/ba:RegionTypeEnum''>eBay API documentation</a>'
       description: This type is used to define specific shipping regions. There are four 'levels' of shipping regions, including large geographical regions (like 'Asia', 'Europe', or 'Middle East'), individual countries, US states or Canadian provinces, and special locations/domestic regions within a country (like 'Alaska/Hawaii' or 'PO Box').
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: The base currency applied to the <b>value</b> field to establish a monetary amount.  <br><br>The currency is represented as a 3-letter <a href="https://www.iso.org/iso-4217-currency-codes.html " title="https://www.iso.org " target="_blank">ISO 4217</a> currency code. For example, the code for the Canadian Dollar is <code>CAD</code>.<br><br><b>Default:</b> The default currency of the eBay marketplace that hosts the listing. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:CurrencyCodeEnum'>eBay API documentation</a>
+        value:
+          type: string
+          description: The monetary amount in the specified <b>currency</b>.
+      description: A complex type that describes the value of a monetary amount as represented by a global currency. When passing in an amount in a request payload, both <b>currency</b> and <b>value</b> fields are required, and both fields are also always returned for an amount in a response field.
+    Error:
+      type: object
+      properties:
+        category:
+          type: string
+          description: 'The category type for this error or warning. It is a string that can have one of three values:<ul><li><code>Application</code>: Indicates an exception or error occurred in the application code or at runtime. Examples include catching an exception in a service''s business logic, system failures, or request errors from a dependency.</li><li><code>Business</code>: Used when your service or a dependent service refused to continue processing on the resource because of a business rule violation such as "Seller does not ship item to Antarctica" or "Buyer ineligible to purchase an alcoholic item". Business errors are not syntactical input errors.</li><li><code>Request</code>: Used when there is anything wrong with the request, such as authentication, syntactical errors, rate limiting or missing headers, bad HTTP header values, and so on.</li></ul>'
+        domain:
+          type: string
+          description: Name of the domain ,or primary system, of the service or application where the error occurred.
+        errorId:
+          type: integer
+          description: A positive integer that uniquely identifies the specific error condition that occurred. Your application can use error codes as identifiers in your customized error-handling algorithms.
+          format: int32
+        inputRefIds:
+          type: array
+          description: Identifies specific request elements associated with the error, if any. inputRefId's response is format specific. For JSON, use <i>JSONPath</i> notation.
+          items:
+            type: string
+        longMessage:
+          type: string
+          description: A more detailed explanation of the error than given in the <code>message</code> error field.
+        message:
+          type: string
+          description: Information on how to correct the problem, in the end user's terms and language where applicable. Its value is at most 50 characters long. If applicable, the value is localized in the end user's requested locale.
+        outputRefIds:
+          type: array
+          description: Identifies specific response elements associated with the error, if any. Path format is the same as <code>inputRefId</code>.
+          items:
+            type: string
+        parameters:
+          type: array
+          description: This optional list of name/value pairs that contain context-specific <code>ErrorParameter</code> objects, with each item in the list being a parameter (or input field name) that caused an error condition. Each <code>ErrorParameter</code> object consists of two fields, a <code>name</code> and a <code>value</code>.
+          items:
+            $ref: '#/components/schemas/ErrorParameter'
+        subdomain:
+          type: string
+          description: If present, indicates the subsystem in which the error occurred.
+      description: A container that defines the elements of error and warning messages.
+    SetFulfillmentPolicyResponse:
+      type: object
+      properties:
+        categoryTypes:
+          type: array
+          description: This container indicates whether the fulfillment business policy applies to motor vehicle listings, or if it applies to non-motor vehicle listings.
+          items:
+            $ref: '#/components/schemas/CategoryType'
+        description:
+          type: string
+          description: 'A seller-defined description of the fulfillment policy. This description is only for the seller''s use, and is not exposed on any eBay pages. This field is returned if set for the policy. <br><br><b>Max length</b>: 250'
+        freightShipping:
+          type: boolean
+          description: If returned as <code>true</code>, the seller offers freight shipping. Freight shipping can be used for large items over 150 lbs.
+        fulfillmentPolicyId:
+          type: string
+          description: A unique eBay-assigned ID for a fulfillment business policy. This ID is generated when the policy is created.
+        globalShipping:
+          type: boolean
+          description: 'If returned as <code>true</code>, the eBay Global Shipping Program will be used by the seller to ship items to international locations.<br><br><span class="tablenote"><b>Note</b>: On the US marketplace, the <em><b>Global Shipping Program</b></em> is scheduled to be replaced by a new intermediated international shipping program called <em><b>eBay International Shipping</b></em>. US sellers who are opted in to the Global Shipping Program will be automatically opted in to eBay International Shipping when it becomes available to them. All US sellers will be migrated by March 31, 2023. <br><br>eBay International Shipping is an account level setting, and no field needs to be set in a Fulfillment business policy to enable it. As long as the US seller''s account is opted in to eBay International Shipping, this shipping option will be enabled automatically for all listings where international shipping is available. <br><br>A US seller who is opted in to eBay International Shipping can also specify individual international shipping service options for a Fulfillment business policy.</span>'
+        handlingTime:
+          description: Specifies the maximum number of business days the seller commits to for preparing and shipping an order after receiving a cleared payment for the order. This time does not include the transit time it takes the shipping carrier to deliver the order. <p>If only local pickup or freight shipping is available for the item, this container may not get returned.</p>
+          $ref: '#/components/schemas/TimeDuration'
+        localPickup:
+          type: boolean
+          description: If returned as <code>true</code>, local pickup is available for this policy.
+        marketplaceId:
+          type: string
+          description: The ID of the eBay marketplace to which this fulfillment business policy applies. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum'>eBay API documentation</a>
+        name:
+          type: string
+          description: 'A seller-defined name for this fulfillment business policy. Names must be unique for policies assigned to the same marketplace. <br><br><b>Max length</b>: 64'
+        pickupDropOff:
+          type: boolean
+          description: If returned as <code>true</code>, the seller offers the "Click and Collect" option. <br><br>Currently, "Click and Collect" is available only to large retail merchants the eBay AU and UK marketplaces.
+        shippingOptions:
+          type: array
+          description: This array is used to provide detailed information on the domestic and international shipping options available for the policy. A separate <b>ShippingOption</b> object covers domestic shipping service options and international shipping service options (if the seller ships to international locations). <br><br>The <b>optionType</b> field indicates whether the <b>ShippingOption</b> object applies to domestic or international shipping, and the <b>costType</b> field indicates whether flat-rate shipping or calculated shipping will be used. <p>A separate <b>ShippingServices</b> object is used to specify cost and other details for every available domestic and international shipping service option. </p>
+          items:
+            $ref: '#/components/schemas/ShippingOption'
+        shipToLocations:
+          description: This container consists of the <b>regionIncluded</b> and <b>regionExcluded</b> containers, which define the geographical regions/countries/states or provinces/domestic regions where the seller does and doesn't ship to with this fulfillment policy.
+          $ref: '#/components/schemas/RegionSet'
+        warnings:
+          type: array
+          description: An array of one or more errors or warnings that were generated during the processing of the request. If there were no issues with the request, this array will return empty.
+          items:
+            $ref: '#/components/schemas/Error'
+      description: Complex type that that gets populated with a response containing a fulfillment policy.
     FulfillmentPolicyRequest:
       type: object
       properties:
@@ -545,6 +662,20 @@ components:
           type: string
           description: The category type to which the policy applies (motor vehicles or non-motor vehicles). <br><br>The <code>MOTORS_VEHICLES</code> category type is not valid for return policies. eBay flows do not support the return of motor vehicles. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/api:CategoryTypeEnum'>eBay API documentation</a>
       description: The category type discerns whether the policy applies to motor vehicle listings, or to any other items except motor vehicle listings. <br><br>Each business policy can be associated with either or both categories ('MOTORS_VEHICLES' and 'ALL_EXCLUDING_MOTORS_VEHICLES'); however, return business policies are not applicable for motor vehicle listings.
+    RegionSet:
+      type: object
+      properties:
+        regionExcluded:
+          type: array
+          description: 'An array of one or more <b>regionName</b> values that specify the areas to where a seller does not ship. A <b>regionExcluded</b> list should only be set in the top-level <b>shipToLocations</b> container and not within the <b>shippingServices.shipToLocations</b> container used to specify which shipping regions are serviced by each available shipping service option. <p>Many sellers are willing to ship to many international locations, but they may want to exclude some world regions or some countries as places they are willing to ship to.<br><br>This array will be returned as empty if no shipping regions are excluded with the fulfillment business policy.<br> <br><span class="tablenote"><b>Note: </b> The <b>regionExcluded</b> array is not applicable for motor vehicle business policies on the US, CA, or UK marketplaces. If this array is used in a <b>createFulfillmentPolicy</b> or <b>updateFulfillmentPolicy</b> request, it will be ignored.</span>'
+          items:
+            $ref: '#/components/schemas/Region'
+        regionIncluded:
+          type: array
+          description: 'An array of one or more <b>regionName</b> fields that specify the areas to where a seller ships. <br>Each eBay marketplace supports its own set of allowable shipping locations.<br> <br><span class="tablenote"><b>Note: </b> The <b>regionIncluded</b> array is not applicable for motor vehicle business policies on the US, CA, or UK marketplaces. If this array is used in a <b>createFulfillmentPolicy</b> or <b>updateFulfillmentPolicy</b> request, it will be ignored.</span>'
+          items:
+            $ref: '#/components/schemas/Region'
+      description: This type consists of the <b>regionIncluded</b> and <b>regionExcluded</b> arrays, which indicate the areas to where the seller does and doesn't ship.
     TimeDuration:
       type: object
       properties:
@@ -589,80 +720,6 @@ components:
           items:
             $ref: '#/components/schemas/ShippingService'
       description: This type is used by the <b>shippingOptions</b> array, which is used to provide detailed information on the domestic and international shipping options available for the policy. A separate <b>ShippingOption</b> object covers domestic shipping service options and international shipping service options (if the seller ships to international locations).
-    FulfillmentPolicyResponse:
-      type: object
-      properties:
-        fulfillmentPolicies:
-          type: array
-          description: A list of all of the seller's fulfillment policies defined for the specified marketplace. This array will be returned as empty if no fulfillment policies are defined for the specified marketplace.
-          items:
-            $ref: '#/components/schemas/FulfillmentPolicy'
-        href:
-          type: string
-          description: This field is for future use.
-        limit:
-          type: integer
-          description: This field is for future use.
-          format: int32
-        next:
-          type: string
-          description: This field is for future use.
-        offset:
-          type: integer
-          description: This field is for future use.
-          format: int32
-        prev:
-          type: string
-          description: This field is for future use.
-        total:
-          type: integer
-          description: The total number of fulfillment policies retrieved in the result set.  <br><br>If no fulfillment policies are defined for the specified marketplace, this field is returned with a value of <code>0</code>.
-          format: int32
-      description: 'The response payload for the <b>getFulfillmentPolicies</b> method.<br><br><span class="tablenote"><b>Note</b>: Pagination has not yet been enabled for <b>getFulfillmentPolicies</b>, so all of the pagination-related fields are for future use.</span>'
-    FulfillmentPolicy:
-      type: object
-      properties:
-        categoryTypes:
-          type: array
-          description: This container indicates whether the fulfillment policy applies to motor vehicle listings, or if it applies to non-motor vehicle listings.
-          items:
-            $ref: '#/components/schemas/CategoryType'
-        description:
-          type: string
-          description: 'A seller-defined description of the fulfillment policy. This description is only for the seller''s use, and is not exposed on any eBay pages. This field is returned if set for the policy. <br><br><b>Max length</b>: 250'
-        freightShipping:
-          type: boolean
-          description: If returned as <code>true</code>, the seller offers freight shipping. Freight shipping can be used for large items over 150 lbs.
-        fulfillmentPolicyId:
-          type: string
-          description: A unique eBay-assigned ID for the fulfillment policy. This ID is generated when the policy is created.
-        globalShipping:
-          type: boolean
-          description: 'If returned as <code>true</code>, eBay''s Global Shipping Program will be used by the seller to ship items to international locations.<br><br><span class="tablenote"><b>Note</b>: On the US marketplace, the <em><b>Global Shipping Program</b></em> is scheduled to be replaced by a new intermediated international shipping program called <em><b>eBay International Shipping</b></em>. US sellers who are opted in to the Global Shipping Program will be automatically opted in to eBay International Shipping when it becomes available to them. All US sellers will be migrated by March 31, 2023. <br><br>eBay International Shipping is an account level setting, and no field needs to be set in a Fulfillment business policy to enable it. As long as the US seller''s account is opted in to eBay International Shipping, this shipping option will be enabled automatically for all listings where international shipping is available. <br><br>A US seller who is opted in to eBay International Shipping can also specify individual international shipping service options for a Fulfillment business policy.</span>'
-        handlingTime:
-          description: Specifies the maximum number of business days the seller commits to for preparing and shipping an order after receiving a cleared payment for the order. This time does not include the transit time it takes the shipping carrier to deliver the order. <p>If only local pickup or freight shipping is available for the item, this container may not get returned.</p>
-          $ref: '#/components/schemas/TimeDuration'
-        localPickup:
-          type: boolean
-          description: If returned as <code>true</code>, local pickup is available for this policy.
-        marketplaceId:
-          type: string
-          description: The ID of the eBay marketplace to which this fulfillment policy applies. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum'>eBay API documentation</a>
-        name:
-          type: string
-          description: 'A seller-defined name for this fulfillment policy. Names must be unique for policies assigned to the same marketplace. <br><br><b>Max length</b>: 64'
-        pickupDropOff:
-          type: boolean
-          description: If returned as <code>true</code>, the seller offers the "Click and Collect" option. <br><br>Currently, "Click and Collect" is available only to large retail merchants the eBay AU and UK marketplaces.
-        shippingOptions:
-          type: array
-          description: This array is used to provide detailed information on the domestic and international shipping options available for the policy. A separate <b>ShippingOption</b> object covers domestic shipping service options and international shipping service options (if the seller ships to international locations). <br><br>The <b>optionType</b> field indicates whether the <b>ShippingOption</b> object applies to domestic or international shipping, and the <b>costType</b> field indicates whether flat-rate shipping or calculated shipping will be used. <p>A separate <b>ShippingServices</b> object is used to specify cost and other details for every available domestic and international shipping service option. </p>
-          items:
-            $ref: '#/components/schemas/ShippingOption'
-        shipToLocations:
-          description: This container consists of the <b>regionIncluded</b> and <b>regionExcluded</b> containers, which define the geographical regions/countries/states or provinces/domestic regions where the seller does and doesn't ship to with this fulfillment policy.
-          $ref: '#/components/schemas/RegionSet'
-      description: This type is used by the <b>fulfillmentPolicy</b> response container, a container which defines a seller's fulfillment policy for a specific marketplace.
     ShippingService:
       type: object
       properties:
@@ -698,93 +755,36 @@ components:
           description: <span class="tablenote"> <strong>Note:</strong> DO NOT USE THIS FIELD. Shipping surcharges for domestic shipping service options can no longer be set with fulfillment business policies, except through shipping rate tables. <br><br>To do this, a seller would set up a surcharge-based shipping rate table and specify the surcharge in that table. Then, the seller would need to associate this shipping rate table to the fulfillment business policy by specifying the unique ID of the shipping rate table through the <b>shippingOptions.rateTableId</b> field. </span>Shipping surcharges cannot be applied at all to international shipping service options.
           $ref: '#/components/schemas/Amount'
       description: This type is used by the <b>shippingServices</b> array, an array that provides details about every domestic and international shipping service option that is defined for the policy.
-    SetFulfillmentPolicyResponse:
+    FulfillmentPolicyResponse:
       type: object
       properties:
-        categoryTypes:
+        fulfillmentPolicies:
           type: array
-          description: This container indicates whether the fulfillment business policy applies to motor vehicle listings, or if it applies to non-motor vehicle listings.
+          description: A list of all of the seller's fulfillment policies defined for the specified marketplace. This array will be returned as empty if no fulfillment policies are defined for the specified marketplace.
           items:
-            $ref: '#/components/schemas/CategoryType'
-        description:
+            $ref: '#/components/schemas/FulfillmentPolicy'
+        href:
           type: string
-          description: 'A seller-defined description of the fulfillment policy. This description is only for the seller''s use, and is not exposed on any eBay pages. This field is returned if set for the policy. <br><br><b>Max length</b>: 250'
-        freightShipping:
-          type: boolean
-          description: If returned as <code>true</code>, the seller offers freight shipping. Freight shipping can be used for large items over 150 lbs.
-        fulfillmentPolicyId:
-          type: string
-          description: A unique eBay-assigned ID for a fulfillment business policy. This ID is generated when the policy is created.
-        globalShipping:
-          type: boolean
-          description: 'If returned as <code>true</code>, the eBay Global Shipping Program will be used by the seller to ship items to international locations.<br><br><span class="tablenote"><b>Note</b>: On the US marketplace, the <em><b>Global Shipping Program</b></em> is scheduled to be replaced by a new intermediated international shipping program called <em><b>eBay International Shipping</b></em>. US sellers who are opted in to the Global Shipping Program will be automatically opted in to eBay International Shipping when it becomes available to them. All US sellers will be migrated by March 31, 2023. <br><br>eBay International Shipping is an account level setting, and no field needs to be set in a Fulfillment business policy to enable it. As long as the US seller''s account is opted in to eBay International Shipping, this shipping option will be enabled automatically for all listings where international shipping is available. <br><br>A US seller who is opted in to eBay International Shipping can also specify individual international shipping service options for a Fulfillment business policy.</span>'
-        handlingTime:
-          description: Specifies the maximum number of business days the seller commits to for preparing and shipping an order after receiving a cleared payment for the order. This time does not include the transit time it takes the shipping carrier to deliver the order. <p>If only local pickup or freight shipping is available for the item, this container may not get returned.</p>
-          $ref: '#/components/schemas/TimeDuration'
-        localPickup:
-          type: boolean
-          description: If returned as <code>true</code>, local pickup is available for this policy.
-        marketplaceId:
-          type: string
-          description: The ID of the eBay marketplace to which this fulfillment business policy applies. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/account/types/ba:MarketplaceIdEnum'>eBay API documentation</a>
-        name:
-          type: string
-          description: 'A seller-defined name for this fulfillment business policy. Names must be unique for policies assigned to the same marketplace. <br><br><b>Max length</b>: 64'
-        pickupDropOff:
-          type: boolean
-          description: If returned as <code>true</code>, the seller offers the "Click and Collect" option. <br><br>Currently, "Click and Collect" is available only to large retail merchants the eBay AU and UK marketplaces.
-        shippingOptions:
-          type: array
-          description: This array is used to provide detailed information on the domestic and international shipping options available for the policy. A separate <b>ShippingOption</b> object covers domestic shipping service options and international shipping service options (if the seller ships to international locations). <br><br>The <b>optionType</b> field indicates whether the <b>ShippingOption</b> object applies to domestic or international shipping, and the <b>costType</b> field indicates whether flat-rate shipping or calculated shipping will be used. <p>A separate <b>ShippingServices</b> object is used to specify cost and other details for every available domestic and international shipping service option. </p>
-          items:
-            $ref: '#/components/schemas/ShippingOption'
-        shipToLocations:
-          description: This container consists of the <b>regionIncluded</b> and <b>regionExcluded</b> containers, which define the geographical regions/countries/states or provinces/domestic regions where the seller does and doesn't ship to with this fulfillment policy.
-          $ref: '#/components/schemas/RegionSet'
-        warnings:
-          type: array
-          description: An array of one or more errors or warnings that were generated during the processing of the request. If there were no issues with the request, this array will return empty.
-          items:
-            $ref: '#/components/schemas/Error'
-      description: Complex type that that gets populated with a response containing a fulfillment policy.
-    Error:
-      type: object
-      properties:
-        category:
-          type: string
-          description: 'The category type for this error or warning. It is a string that can have one of three values:<ul><li><code>Application</code>: Indicates an exception or error occurred in the application code or at runtime. Examples include catching an exception in a service''s business logic, system failures, or request errors from a dependency.</li><li><code>Business</code>: Used when your service or a dependent service refused to continue processing on the resource because of a business rule violation such as "Seller does not ship item to Antarctica" or "Buyer ineligible to purchase an alcoholic item". Business errors are not syntactical input errors.</li><li><code>Request</code>: Used when there is anything wrong with the request, such as authentication, syntactical errors, rate limiting or missing headers, bad HTTP header values, and so on.</li></ul>'
-        domain:
-          type: string
-          description: Name of the domain ,or primary system, of the service or application where the error occurred.
-        errorId:
+          description: This field is for future use.
+        limit:
           type: integer
-          description: A positive integer that uniquely identifies the specific error condition that occurred. Your application can use error codes as identifiers in your customized error-handling algorithms.
+          description: This field is for future use.
           format: int32
-        inputRefIds:
-          type: array
-          description: Identifies specific request elements associated with the error, if any. inputRefId's response is format specific. For JSON, use <i>JSONPath</i> notation.
-          items:
-            type: string
-        longMessage:
+        next:
           type: string
-          description: A more detailed explanation of the error than given in the <code>message</code> error field.
-        message:
+          description: This field is for future use.
+        offset:
+          type: integer
+          description: This field is for future use.
+          format: int32
+        prev:
           type: string
-          description: Information on how to correct the problem, in the end user's terms and language where applicable. Its value is at most 50 characters long. If applicable, the value is localized in the end user's requested locale.
-        outputRefIds:
-          type: array
-          description: Identifies specific response elements associated with the error, if any. Path format is the same as <code>inputRefId</code>.
-          items:
-            type: string
-        parameters:
-          type: array
-          description: This optional list of name/value pairs that contain context-specific <code>ErrorParameter</code> objects, with each item in the list being a parameter (or input field name) that caused an error condition. Each <code>ErrorParameter</code> object consists of two fields, a <code>name</code> and a <code>value</code>.
-          items:
-            $ref: '#/components/schemas/ErrorParameter'
-        subdomain:
-          type: string
-          description: If present, indicates the subsystem in which the error occurred.
-      description: A container that defines the elements of error and warning messages.
+          description: This field is for future use.
+        total:
+          type: integer
+          description: The total number of fulfillment policies retrieved in the result set.  <br><br>If no fulfillment policies are defined for the specified marketplace, this field is returned with a value of <code>0</code>.
+          format: int32
+      description: 'The response payload for the <b>getFulfillmentPolicies</b> method.<br><br><span class="tablenote"><b>Note</b>: Pagination has not yet been enabled for <b>getFulfillmentPolicies</b>, so all of the pagination-related fields are for future use.</span>'
   securitySchemes:
     api_auth:
       type: oauth2

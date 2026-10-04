@@ -114,56 +114,20 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Amount:
+    BestSellingProductResponse:
       type: object
       properties:
-        currency:
-          type: string
-          description: The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html" target="_blank">ISO 4217</a> code representing the currency of the amount in the <b> value</b> field. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/marketing/types/bas:CurrencyCodeEnum'>eBay API documentation</a>
-        value:
-          type: string
-          description: 'The monetary amount, in the currency specified by the <b> currency</b> field. '
-      description: This type defines the monetary value of an amount and the currency used.
-    MarketPriceDetail:
-      type: object
-      properties:
-        conditionGroup:
-          type: string
-          description: 'The name for the condition of the product. For example: NEW'
-        conditionIds:
+        merchandisedProducts:
           type: array
-          description: An array of condition identifiers for the product.
+          description: An array of containers for the products.
           items:
-            type: string
-        estimatedStartPrice:
-          description: The lowest priced active item for this product on eBay.
-          $ref: '#/components/schemas/Amount'
-      description: The type that defines the fields for details about the product, such as condition and estimated start price.
-    Image:
-      type: object
-      properties:
-        height:
-          type: integer
-          description: '<b> Reserved for future use. </b> '
-          format: int32
-        imageUrl:
-          type: string
-          description: The URL of the image.
-        width:
-          type: integer
-          description: '<b> Reserved for future use. </b> '
-          format: int32
-      description: Type the defines the details of an image, such as size and URL. Currently only <b> imageUrl</b> is getting populated. The <b> height</b> and <b> width</b> were added for future use.
-    ErrorParameter:
-      type: object
-      properties:
-        name:
-          type: string
-          description: This is the name of input field that caused an issue with the call request.
-        value:
-          type: string
-          description: This is the actual value that was passed in for the element specified in the <b> name</b>  field.
-      description: An array of name/value pairs that provide details regarding the error.
+            $ref: '#/components/schemas/MerchandisedProduct'
+        warnings:
+          type: array
+          description: The container with all the warnings for the input request.
+          items:
+            $ref: '#/components/schemas/Error'
+      description: The type that defines the fields for the best selling product information.
     MerchandisedProduct:
       type: object
       properties:
@@ -198,39 +162,6 @@ components:
           type: string
           description: The title of the product.
       description: The type that defines the fields for product information, including price, condition, ratings, etc.
-    BestSellingProductResponse:
-      type: object
-      properties:
-        merchandisedProducts:
-          type: array
-          description: An array of containers for the products.
-          items:
-            $ref: '#/components/schemas/MerchandisedProduct'
-        warnings:
-          type: array
-          description: The container with all the warnings for the input request.
-          items:
-            $ref: '#/components/schemas/Error'
-      description: The type that defines the fields for the best selling product information.
-    RatingAspect:
-      type: object
-      properties:
-        count:
-          type: integer
-          description: The number of eBay users that rated the product on this aspect.
-          format: int32
-        description:
-          type: string
-          description: 'The name of the rating aspect. Camping tent examples: Is it lightweight? or Is it easy to set up?'
-        name:
-          type: string
-          description: 'The answer or value of the rating aspect. Camping tent examples: Lightweight or Easy to set up'
-        ratingAspectDistributions:
-          type: array
-          description: The container for the details of the aspect rating. The details show the aspect rating value, usually TRUE or FALSE and the user count and percentage.
-          items:
-            $ref: '#/components/schemas/RatingAspectDistribution'
-      description: The type that defines the fields for the product aspect ratings.
     RatingAspectDistribution:
       type: object
       properties:
@@ -245,6 +176,16 @@ components:
           type: string
           description: 'The rating aspect. For example: TRUE or FALSE'
       description: The type that defines the field for the aspect rating details, such as the aspect rating value, usually TRUE or FALSE and the user count and percentage.
+    Amount:
+      type: object
+      properties:
+        currency:
+          type: string
+          description: The three-letter <a href="https://www.iso.org/iso-4217-currency-codes.html" target="_blank">ISO 4217</a> code representing the currency of the amount in the <b> value</b> field. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/buy/marketing/types/bas:CurrencyCodeEnum'>eBay API documentation</a>
+        value:
+          type: string
+          description: 'The monetary amount, in the currency specified by the <b> currency</b> field. '
+      description: This type defines the monetary value of an amount and the currency used.
     Error:
       type: object
       properties:
@@ -283,6 +224,65 @@ components:
           type: string
           description: The name of the subdomain in which the error or warning occurred.
       description: The type that defines the fields that can be returned in an error.
+    MarketPriceDetail:
+      type: object
+      properties:
+        conditionGroup:
+          type: string
+          description: 'The name for the condition of the product. For example: NEW'
+        conditionIds:
+          type: array
+          description: An array of condition identifiers for the product.
+          items:
+            type: string
+        estimatedStartPrice:
+          description: The lowest priced active item for this product on eBay.
+          $ref: '#/components/schemas/Amount'
+      description: The type that defines the fields for details about the product, such as condition and estimated start price.
+    RatingAspect:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: The number of eBay users that rated the product on this aspect.
+          format: int32
+        description:
+          type: string
+          description: 'The name of the rating aspect. Camping tent examples: Is it lightweight? or Is it easy to set up?'
+        name:
+          type: string
+          description: 'The answer or value of the rating aspect. Camping tent examples: Lightweight or Easy to set up'
+        ratingAspectDistributions:
+          type: array
+          description: The container for the details of the aspect rating. The details show the aspect rating value, usually TRUE or FALSE and the user count and percentage.
+          items:
+            $ref: '#/components/schemas/RatingAspectDistribution'
+      description: The type that defines the fields for the product aspect ratings.
+    Image:
+      type: object
+      properties:
+        height:
+          type: integer
+          description: '<b> Reserved for future use. </b> '
+          format: int32
+        imageUrl:
+          type: string
+          description: The URL of the image.
+        width:
+          type: integer
+          description: '<b> Reserved for future use. </b> '
+          format: int32
+      description: Type the defines the details of an image, such as size and URL. Currently only <b> imageUrl</b> is getting populated. The <b> height</b> and <b> width</b> were added for future use.
+    ErrorParameter:
+      type: object
+      properties:
+        name:
+          type: string
+          description: This is the name of input field that caused an issue with the call request.
+        value:
+          type: string
+          description: This is the actual value that was passed in for the element specified in the <b> name</b>  field.
+      description: An array of name/value pairs that provide details regarding the error.
   securitySchemes:
     api_auth:
       type: oauth2

@@ -306,6 +306,26 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CreateVideoRequest:
+      type: object
+      properties:
+        classification:
+          type: array
+          description: The intended use for this video content. Currently, videos can only be added and associated with eBay listings, so the only supported value is <code>ITEM</code>.
+          items:
+            type: string
+            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/commerce/media/types/api:Classification''>eBay API documentation</a>'
+        description:
+          type: string
+          description: The description of the video.
+        size:
+          type: integer
+          description: The size, in bytes, of the video content. <br><br><b>Max:</b> 157,286,400 bytes
+          format: int32
+        title:
+          type: string
+          description: The title of the video.
+      description: The request to create a video, which must contain the video's <b>title</b>, <b>size</b>, and <b>classification</b>. <b>Description</b> is an optional field when creating videos.
     Video:
       type: object
       properties:
@@ -349,26 +369,6 @@ components:
           type: string
           description: The unique ID of the video.
       description: A response field that retrieves all the metadata for the video, including its <b>title</b>, <b>classification</b>, <b>size</b>, <b>description</b>, <b>status</b>, <b>status message</b> (if any), and <b>expiration date</b>.
-    Image:
-      type: object
-      properties:
-        imageUrl:
-          type: string
-          description: The URL to access this image.
-      description: The automatically generated thumbnail image of the video.
-    Moderation:
-      type: object
-      properties:
-        rejectReasons:
-          type: array
-          description: The reason(s) why the specified video was blocked by moderators.
-          items:
-            type: string
-            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/commerce/media/types/api:RejectReasonEnum''>eBay API documentation</a>'
-      description: A container that provides video moderation information when calling the <strong>getVideo</strong> method.<br /><br />This container is returned if the specified video has been blocked by moderators.<br /><br /><span class="tablenote"><span style="color:#478415"><strong>Tip:</strong></span> See <a href="https://www.ebay.com/help/selling/listings/creating-managing-listings/add-video-to-listing?id=5272#section2" target="_blank">Video moderation and restrictions</a> in the eBay Seller Center for details about video moderation.</span>
-    InputStream:
-      type: object
-      description: The streaming input of the video source. The input source must be an .mp4 file of the type MPEG-4 Part 10 or Advanced Video Coding (MPEG-4 AVC).
     Play:
       type: object
       properties:
@@ -379,26 +379,26 @@ components:
           type: string
           description: The protocol for the video playlist. Supported protocols are DASH (Dynamic Adaptive Streaming over HTTP) and HLS (HTTP Live Streaming). For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/media/types/api:ProtocolEnum'>eBay API documentation</a>
       description: The two streaming video URLs available for a successfully uploaded video with a status of <code>LIVE</code>. The supported streaming video protocols are DASH (Dynamic Adaptive Streaming over HTTP) and HLS (HTTP Live Streaming).
-    CreateVideoRequest:
+    InputStream:
+      type: object
+      description: The streaming input of the video source. The input source must be an .mp4 file of the type MPEG-4 Part 10 or Advanced Video Coding (MPEG-4 AVC).
+    Moderation:
       type: object
       properties:
-        classification:
+        rejectReasons:
           type: array
-          description: The intended use for this video content. Currently, videos can only be added and associated with eBay listings, so the only supported value is <code>ITEM</code>.
+          description: The reason(s) why the specified video was blocked by moderators.
           items:
             type: string
-            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/commerce/media/types/api:Classification''>eBay API documentation</a>'
-        description:
+            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/commerce/media/types/api:RejectReasonEnum''>eBay API documentation</a>'
+      description: A container that provides video moderation information when calling the <strong>getVideo</strong> method.<br /><br />This container is returned if the specified video has been blocked by moderators.<br /><br /><span class="tablenote"><span style="color:#478415"><strong>Tip:</strong></span> See <a href="https://www.ebay.com/help/selling/listings/creating-managing-listings/add-video-to-listing?id=5272#section2" target="_blank">Video moderation and restrictions</a> in the eBay Seller Center for details about video moderation.</span>
+    Image:
+      type: object
+      properties:
+        imageUrl:
           type: string
-          description: The description of the video.
-        size:
-          type: integer
-          description: The size, in bytes, of the video content. <br><br><b>Max:</b> 157,286,400 bytes
-          format: int32
-        title:
-          type: string
-          description: The title of the video.
-      description: The request to create a video, which must contain the video's <b>title</b>, <b>size</b>, and <b>classification</b>. <b>Description</b> is an optional field when creating videos.
+          description: The URL to access this image.
+      description: The automatically generated thumbnail image of the video.
   securitySchemes:
     api_auth:
       type: oauth2

@@ -90,21 +90,18 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Image:
+    Aspect:
       type: object
       properties:
-        height:
-          type: integer
-          description: The height of the image in pixels.
-          format: int32
-        imageUrl:
+        localizedName:
           type: string
-          description: The eBay Picture Services (EPS) URL of the image.
-        width:
-          type: integer
-          description: The width of the image in pixels.
-          format: int32
-      description: This type contains information about a product image stored in eBay Picture Services (EPS).
+          description: The localized name of this category aspect.
+        localizedValues:
+          type: array
+          description: A list of the localized values of this category aspect.
+          items:
+            type: string
+      description: This type contains the name and values of a category aspect.
     Product:
       type: object
       properties:
@@ -173,18 +170,21 @@ components:
           type: string
           description: The current version number of this product record in the catalog.
       description: This type contains the full details of a specified product, including information about the product's identifiers, product images, aspects, and categories.
-    Aspect:
+    Image:
       type: object
       properties:
-        localizedName:
+        height:
+          type: integer
+          description: The height of the image in pixels.
+          format: int32
+        imageUrl:
           type: string
-          description: The localized name of this category aspect.
-        localizedValues:
-          type: array
-          description: A list of the localized values of this category aspect.
-          items:
-            type: string
-      description: This type contains the name and values of a category aspect.
+          description: The eBay Picture Services (EPS) URL of the image.
+        width:
+          type: integer
+          description: The width of the image in pixels.
+          format: int32
+      description: This type contains information about a product image stored in eBay Picture Services (EPS).
   securitySchemes:
     api_auth:
       type: oauth2

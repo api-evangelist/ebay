@@ -116,22 +116,28 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    MetricBenchmark:
+    MetricDistribution:
       type: object
       properties:
-        adjustment:
-          type: string
-          description: If this field is present, it indicates that the rating given to the seller was "adjusted" for one reason or another.  <br><br>If eBay determines that the normal rating of a seller is impacted by circumstances beyond their control, they can issue an override to adjust the rating given to the seller. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/api:RatingAdjustmentTypeEnum'>eBay API documentation</a>
         basis:
           type: string
-          description: This field returns the "basis" by which the benchmark is calculated for the customer service metric type. <br><br>Currently, the only supported basis is <code>PEER_BENCHMARK</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/api:BenchmarkTypeEnum'>eBay API documentation</a>
-        metadata:
-          description: This field contains the benchmark data.
-          $ref: '#/components/schemas/BenchmarkMetadata'
-        rating:
+          description: This field returns the basis, or the method, by which the metric rating is calculated.
+        data:
+          type: array
+          description: This field returns a list of name/value pairs, where the <b>name</b> indicates the distribution being rated and the <b>value</b> indicates the count of seller transactions that meet the distribution criteria.
+          items:
+            $ref: '#/components/schemas/Distribution'
+      description: This complex data type describes the metric distribution by basis.
+    Distribution:
+      type: object
+      properties:
+        name:
           type: string
-          description: This field returns seller's rating for the customer service metric.  <br><br>The rating is set to a value that equals the relative deviation between the seller's metric value and the benchmark value for the customer service metric.  <br><br>Deviation values range from <code>LOW</code> to <code>VERY HIGH</code>, and the lower the deviation, the better the seller rating. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/api:RatingTypeEnum'>eBay API documentation</a>
-      description: This complex type defines the benchmark data, which includes the <b>average</b> value of the metric for the group (the benchmark) and the seller's overall <b>rating</b> when compared to the benchmark.
+          description: The name of a distribution in which the seller is active.
+        value:
+          type: string
+          description: This field contains the number of transactions the seller had in the distribution (identified by the associated <b>name</b> field) during the metric <b>evaluationCycle</b>.
+      description: This complex type defines of a piece of data that is grouped by the associated <b>basis</b>. It contains the <b>name</b> for the data set and its associated <b>value</b>.
     BenchmarkMetadata:
       type: object
       properties:
@@ -139,6 +145,39 @@ components:
           type: string
           description: This field returns the average value for the group, as defined by the specified <b>basis</b>.  <br><br>When the benchmark <b>basis</b> is set to <code>PEER_BENCHMARK</code>, the value returned in this field is the benchmark value to which the seller's metric <b>value</b> is compared to determine the seller's rating for the customer service metric.
       description: This complex type defines the fields that comprise the benchmark against which the seller's performance is compared. The comparison determines the seller's rating for the metric.
+    FindSellerStandardsProfilesResponse:
+      type: object
+      properties:
+        standardsProfiles:
+          type: array
+          description: A list of the seller's standards profiles.  <br><br>A "standards profile" is a set of eBay seller standards categories and the values related to the associated seller.  <br><br>Profiles are distinguished by a combination of cycle and program values. The "program" value specifies the region to which the data is from. The "cycle" value specifies whether the values were determined just now, or if the values are from the last official eBay seller standards evaluation.
+          items:
+            $ref: '#/components/schemas/StandardsProfile'
+      description: The response container for a list of seller profiles.
+    StandardsProfile:
+      type: object
+      properties:
+        cycle:
+          description: A complex type that specifies the profile's evaluation cycle (<code>CURRENT</code> or <code>PROJECTED</code>), the date the evaluation was calculated, and  the month to which the evaluation pertains.  <br><br>Each program has at least one cycle, but a program can include both cycle types.
+          $ref: '#/components/schemas/Cycle'
+        defaultProgram:
+          type: boolean
+          description: If set to <code>true</code>, this flag indicates this is the default program for the seller.  <br><br>Except for sellers in China, a seller's default program is the marketplace where they registered with eBay. Seller's in China select their default program when they register.
+        evaluationReason:
+          type: string
+          description: Specifies how the overall seller level was calculated.  <br><br>In the event of special circumstances (as determined by eBay), eBay may override the calculated seller level. In general, such overrides protect a seller's level. The usual value for both cycle types is "Seller level generated by standards monthly evaluation cycle."
+        metrics:
+          type: array
+          description: A list of the metrics upon which a seller's profile is evaluated.  <br><br>Each program's applicable metrics and requirements are listed at <a href="http://www.sps.ebay.com/sd/sdrequirements" target="_blank">eBay Top Rated seller program standards</a>.
+          items:
+            $ref: '#/components/schemas/Metric'
+        program:
+          type: string
+          description: Indicates the program used to generate the profile data. Values can be <code>PROGRAM_DE</code>, <code>PROGRAM_UK</code>, <code>PROGRAM_US</code>, or <code>PROGRAM_GLOBAL</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/ssp:ProgramEnum'>eBay API documentation</a>
+        standardsLevel:
+          type: string
+          description: The overall standards level of the seller, one of <code>TOP_RATED</code>, <code>ABOVE_STANDARD</code>, or <code>BELOW_STANDARD</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/ssp:StandardsLevelEnum'>eBay API documentation</a>
+      description: A complex type that defines a seller profile.
     Cycle:
       type: object
       properties:
@@ -170,61 +209,22 @@ components:
           type: string
           description: This field is set to the seller's numeric rating for the associated <b>metricKey</b> for the given <b>dimension</b> during the <b>evaluationCycle</b>.  <br><br>To determine the seller's rating for this metric, the value of this field is compared to the average metric value of the group.
       description: This complex data type defines the details of the customer service metric and benchmark data related to the associated <b>dimension</b>.
-    StandardsProfile:
+    MetricBenchmark:
       type: object
       properties:
-        cycle:
-          description: A complex type that specifies the profile's evaluation cycle (<code>CURRENT</code> or <code>PROJECTED</code>), the date the evaluation was calculated, and  the month to which the evaluation pertains.  <br><br>Each program has at least one cycle, but a program can include both cycle types.
-          $ref: '#/components/schemas/Cycle'
-        defaultProgram:
-          type: boolean
-          description: If set to <code>true</code>, this flag indicates this is the default program for the seller.  <br><br>Except for sellers in China, a seller's default program is the marketplace where they registered with eBay. Seller's in China select their default program when they register.
-        evaluationReason:
+        adjustment:
           type: string
-          description: Specifies how the overall seller level was calculated.  <br><br>In the event of special circumstances (as determined by eBay), eBay may override the calculated seller level. In general, such overrides protect a seller's level. The usual value for both cycle types is "Seller level generated by standards monthly evaluation cycle."
-        metrics:
-          type: array
-          description: A list of the metrics upon which a seller's profile is evaluated.  <br><br>Each program's applicable metrics and requirements are listed at <a href="http://www.sps.ebay.com/sd/sdrequirements" target="_blank">eBay Top Rated seller program standards</a>.
-          items:
-            $ref: '#/components/schemas/Metric'
-        program:
-          type: string
-          description: Indicates the program used to generate the profile data. Values can be <code>PROGRAM_DE</code>, <code>PROGRAM_UK</code>, <code>PROGRAM_US</code>, or <code>PROGRAM_GLOBAL</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/ssp:ProgramEnum'>eBay API documentation</a>
-        standardsLevel:
-          type: string
-          description: The overall standards level of the seller, one of <code>TOP_RATED</code>, <code>ABOVE_STANDARD</code>, or <code>BELOW_STANDARD</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/ssp:StandardsLevelEnum'>eBay API documentation</a>
-      description: A complex type that defines a seller profile.
-    FindSellerStandardsProfilesResponse:
-      type: object
-      properties:
-        standardsProfiles:
-          type: array
-          description: A list of the seller's standards profiles.  <br><br>A "standards profile" is a set of eBay seller standards categories and the values related to the associated seller.  <br><br>Profiles are distinguished by a combination of cycle and program values. The "program" value specifies the region to which the data is from. The "cycle" value specifies whether the values were determined just now, or if the values are from the last official eBay seller standards evaluation.
-          items:
-            $ref: '#/components/schemas/StandardsProfile'
-      description: The response container for a list of seller profiles.
-    MetricDistribution:
-      type: object
-      properties:
+          description: If this field is present, it indicates that the rating given to the seller was "adjusted" for one reason or another.  <br><br>If eBay determines that the normal rating of a seller is impacted by circumstances beyond their control, they can issue an override to adjust the rating given to the seller. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/api:RatingAdjustmentTypeEnum'>eBay API documentation</a>
         basis:
           type: string
-          description: This field returns the basis, or the method, by which the metric rating is calculated.
-        data:
-          type: array
-          description: This field returns a list of name/value pairs, where the <b>name</b> indicates the distribution being rated and the <b>value</b> indicates the count of seller transactions that meet the distribution criteria.
-          items:
-            $ref: '#/components/schemas/Distribution'
-      description: This complex data type describes the metric distribution by basis.
-    Distribution:
-      type: object
-      properties:
-        name:
+          description: This field returns the "basis" by which the benchmark is calculated for the customer service metric type. <br><br>Currently, the only supported basis is <code>PEER_BENCHMARK</code>. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/api:BenchmarkTypeEnum'>eBay API documentation</a>
+        metadata:
+          description: This field contains the benchmark data.
+          $ref: '#/components/schemas/BenchmarkMetadata'
+        rating:
           type: string
-          description: The name of a distribution in which the seller is active.
-        value:
-          type: string
-          description: This field contains the number of transactions the seller had in the distribution (identified by the associated <b>name</b> field) during the metric <b>evaluationCycle</b>.
-      description: This complex type defines of a piece of data that is grouped by the associated <b>basis</b>. It contains the <b>name</b> for the data set and its associated <b>value</b>.
+          description: This field returns seller's rating for the customer service metric.  <br><br>The rating is set to a value that equals the relative deviation between the seller's metric value and the benchmark value for the customer service metric.  <br><br>Deviation values range from <code>LOW</code> to <code>VERY HIGH</code>, and the lower the deviation, the better the seller rating. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/analytics/types/api:RatingTypeEnum'>eBay API documentation</a>
+      description: This complex type defines the benchmark data, which includes the <b>average</b> value of the metric for the group (the benchmark) and the seller's overall <b>rating</b> when compared to the benchmark.
   securitySchemes:
     api_auth:
       type: oauth2

@@ -174,6 +174,16 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    Coupon:
+      type: object
+      properties:
+        redemptionCode:
+          type: string
+          description: The coupon code.
+        terms:
+          description: The terms of use associated with the coupon.
+          $ref: '#/components/schemas/Terms'
+      description: The details for the coupon available for the item.
     Event:
       type: object
       properties:
@@ -212,16 +222,6 @@ components:
           type: string
           description: The title of the event.
       description: The result set for the event search.
-    Terms:
-      type: object
-      properties:
-        fullText:
-          type: string
-          description: A full-text description of the terms.
-        summary:
-          type: string
-          description: A summarized description of the terms.
-      description: The terms for the event, provided in a full-text description and summary.
     Image:
       type: object
       properties:
@@ -238,16 +238,6 @@ components:
           type: string
           description: The width of the image.
       description: The type that defines the details of an image, such as size and URL.
-    Coupon:
-      type: object
-      properties:
-        redemptionCode:
-          type: string
-          description: The coupon code.
-        terms:
-          description: The terms of use associated with the coupon.
-          $ref: '#/components/schemas/Terms'
-      description: The details for the coupon available for the item.
     EventSearchResponse:
       type: object
       properties:
@@ -278,6 +268,16 @@ components:
           description: The total number of matches for the specified search criteria.
           format: int32
       description: The result set for the specified event search criteria.
+    Terms:
+      type: object
+      properties:
+        fullText:
+          type: string
+          description: A full-text description of the terms.
+        summary:
+          type: string
+          description: A summarized description of the terms.
+      description: The terms for the event, provided in a full-text description and summary.
   securitySchemes:
     api_auth:
       type: oauth2

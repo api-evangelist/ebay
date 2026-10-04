@@ -276,6 +276,56 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CustomerServiceMetricTaskCollection:
+      type: object
+      properties:
+        href:
+          type: string
+          description: The URI of the current page of results.
+        limit:
+          type: integer
+          description: The value of the <strong>limit</strong> parameter submitted in the request, which is the maximum number of tasks to return per page, from the result set. A result set is the complete set of tasks returned by the method. <p> <span class="tablenote"><strong>Note:</strong> Even though this parameter is not required to be submitted in the request, the parameter defaults to 10 if omitted.</span></p><p> <span class="tablenote"><strong>Note:</strong> If this is the last or only page of the result set, the page may contain fewer tasks than the limit value. To determine the number of pages in a result set, divide the total value (total number of tasks matching input criteria) by this limit value, and then round up to the next integer. For example, if the <strong>total</strong> value was <code>120</code> (120 total tasks) and the <strong>limit</strong> value was <code>50</code> (show 50 tasks per page), the total number of pages in the result set is three, so the seller would have to make three separate <strong>getCustomerServiceMetricTasks</strong> calls to view all tasks matching the input criteria.</span></p>
+          format: int32
+        next:
+          type: string
+          description: The relative path to the call URI for the next page of results. This value is returned if there is an additional page of results to return from the result set.
+        offset:
+          type: integer
+          description: 'The number of results skipped in the result set before returning the first result. This value can be set in the request with the <b>offset</b> query parameter. <p class="tablenote"><strong>Note: </strong>The items in a paginated result set use a zero-based list where the first item in the list has an offset of <code>0</code>.</p>'
+          format: int32
+        prev:
+          type: string
+          description: The URI for the previous page of results. This parameter is returned if a previous page of results from the result set exists.
+        tasks:
+          type: array
+          description: An array of the customer service tasks on this page. The tasks are sorted by creation date. An empty array is returned if the filter criteria excludes all tasks.
+          items:
+            $ref: '#/components/schemas/ServiceMetricsTask'
+        total:
+          type: integer
+          description: The total number of tasks that match the criteria.
+          format: int32
+    CustomerServiceMetricsFilterCriteria:
+      type: object
+      properties:
+        customerServiceMetricType:
+          type: string
+          description: An enumeration value that specifies the customer service metric that eBay tracks to measure seller performance.<br><br>See <a href="/api-docs/sell/feed/types/api:CustomerServiceMetricTypeEnum">CustomerServiceMetricTypeEnum</a> for values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:CustomerServiceMetricTypeEnum'>eBay API documentation</a>
+        evaluationMarketplaceId:
+          type: string
+          description: An enumeration value that specifies the eBay marketplace where the evaluation occurs.<br><br>See <a href="/api-docs/sell/feed/types/bas:MarketplaceIdEnum">MarketplaceIdEnum</a> for values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/bas:MarketplaceIdEnum'>eBay API documentation</a>
+        listingCategories:
+          type: array
+          description: 'A list of listing category IDs on which the service metric is measured. A seller can use one or more L1 (top-level) eBay categories to get metrics specific to those L1 categories. The Category IDs for each L1 category are required. Category ID values for L1 categories can be retrieved using the Taxonomy API.<p> <span class="tablenote"><strong>Note: </strong>Pass this attribute to narrow down your filter results for the <code>ITEM_NOT_AS_DESCRIBED</code> customerServiceMetricType.</span></p> <p>Supported categories include:</p><p><code>primary(L1) category Id</code></p>'
+          items:
+            type: string
+        shippingRegions:
+          type: array
+          description: 'A list of shipping region enumeration values on which the service metric is measured. This comma delimited array allows the seller to customize the report to focus on domestic or international shipping. <p> <span class="tablenote"><strong>Note: </strong>Pass this attribute to narrow down your filter results for the <code>ITEM_NOT_RECEIVED</code> customerServiceMetricType.</span></p> <p>Supported categories include:</p><p><code>primary(L1) category Id</code></p>See <strong>ShippingRegionTypeEnum</strong> for values'
+          items:
+            type: string
+            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/feed/types/api:ShippingRegionTypeEnum''>eBay API documentation</a>'
+      description: A complex data type that filters data for report creation. See <strong>CustomerServiceMetricsFilterCriteria</strong> for fields and descriptions.
     ServiceMetricsTask:
       type: object
       properties:
@@ -316,56 +366,6 @@ components:
           type: string
           description: The version number of the customer service metric.<br><br><span class="tablenote"><b>Note:</b> This field <b>must</b> have a value of <code>1.0</code>.</span>
       description: The type that defines the fields for the Customer Service Metric reports generated with the Feed API.
-    CustomerServiceMetricsFilterCriteria:
-      type: object
-      properties:
-        customerServiceMetricType:
-          type: string
-          description: An enumeration value that specifies the customer service metric that eBay tracks to measure seller performance.<br><br>See <a href="/api-docs/sell/feed/types/api:CustomerServiceMetricTypeEnum">CustomerServiceMetricTypeEnum</a> for values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/api:CustomerServiceMetricTypeEnum'>eBay API documentation</a>
-        evaluationMarketplaceId:
-          type: string
-          description: An enumeration value that specifies the eBay marketplace where the evaluation occurs.<br><br>See <a href="/api-docs/sell/feed/types/bas:MarketplaceIdEnum">MarketplaceIdEnum</a> for values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/sell/feed/types/bas:MarketplaceIdEnum'>eBay API documentation</a>
-        listingCategories:
-          type: array
-          description: 'A list of listing category IDs on which the service metric is measured. A seller can use one or more L1 (top-level) eBay categories to get metrics specific to those L1 categories. The Category IDs for each L1 category are required. Category ID values for L1 categories can be retrieved using the Taxonomy API.<p> <span class="tablenote"><strong>Note: </strong>Pass this attribute to narrow down your filter results for the <code>ITEM_NOT_AS_DESCRIBED</code> customerServiceMetricType.</span></p> <p>Supported categories include:</p><p><code>primary(L1) category Id</code></p>'
-          items:
-            type: string
-        shippingRegions:
-          type: array
-          description: 'A list of shipping region enumeration values on which the service metric is measured. This comma delimited array allows the seller to customize the report to focus on domestic or international shipping. <p> <span class="tablenote"><strong>Note: </strong>Pass this attribute to narrow down your filter results for the <code>ITEM_NOT_RECEIVED</code> customerServiceMetricType.</span></p> <p>Supported categories include:</p><p><code>primary(L1) category Id</code></p>See <strong>ShippingRegionTypeEnum</strong> for values'
-          items:
-            type: string
-            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/sell/feed/types/api:ShippingRegionTypeEnum''>eBay API documentation</a>'
-      description: A complex data type that filters data for report creation. See <strong>CustomerServiceMetricsFilterCriteria</strong> for fields and descriptions.
-    CustomerServiceMetricTaskCollection:
-      type: object
-      properties:
-        href:
-          type: string
-          description: The URI of the current page of results.
-        limit:
-          type: integer
-          description: The value of the <strong>limit</strong> parameter submitted in the request, which is the maximum number of tasks to return per page, from the result set. A result set is the complete set of tasks returned by the method. <p> <span class="tablenote"><strong>Note:</strong> Even though this parameter is not required to be submitted in the request, the parameter defaults to 10 if omitted.</span></p><p> <span class="tablenote"><strong>Note:</strong> If this is the last or only page of the result set, the page may contain fewer tasks than the limit value. To determine the number of pages in a result set, divide the total value (total number of tasks matching input criteria) by this limit value, and then round up to the next integer. For example, if the <strong>total</strong> value was <code>120</code> (120 total tasks) and the <strong>limit</strong> value was <code>50</code> (show 50 tasks per page), the total number of pages in the result set is three, so the seller would have to make three separate <strong>getCustomerServiceMetricTasks</strong> calls to view all tasks matching the input criteria.</span></p>
-          format: int32
-        next:
-          type: string
-          description: The relative path to the call URI for the next page of results. This value is returned if there is an additional page of results to return from the result set.
-        offset:
-          type: integer
-          description: 'The number of results skipped in the result set before returning the first result. This value can be set in the request with the <b>offset</b> query parameter. <p class="tablenote"><strong>Note: </strong>The items in a paginated result set use a zero-based list where the first item in the list has an offset of <code>0</code>.</p>'
-          format: int32
-        prev:
-          type: string
-          description: The URI for the previous page of results. This parameter is returned if a previous page of results from the result set exists.
-        tasks:
-          type: array
-          description: An array of the customer service tasks on this page. The tasks are sorted by creation date. An empty array is returned if the filter criteria excludes all tasks.
-          items:
-            $ref: '#/components/schemas/ServiceMetricsTask'
-        total:
-          type: integer
-          description: The total number of tasks that match the criteria.
-          format: int32
   securitySchemes:
     api_auth:
       type: oauth2

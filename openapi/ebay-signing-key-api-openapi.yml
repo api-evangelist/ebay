@@ -199,6 +199,22 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    QuerySigningKeysResponse:
+      type: object
+      properties:
+        signingKeys:
+          type: array
+          description: An array of metadata information for keypairs owned by a user.
+          items:
+            $ref: '#/components/schemas/SigningKey'
+      description: This container stores metadata information for all keypairs that are owned by a user.
+    CreateSigningKeyRequest:
+      type: object
+      properties:
+        signingKeyCipher:
+          type: string
+          description: The enumerated value for the cipher to be used to create the signing key. Refer to <a href= "/api-docs/developer/key-management/types/api:SigningKeyCipher" target= "_blank">SigningKeyCiper</a> for the list of supported enum values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/developer/key_management/types/api:SigningKeyCipher'>eBay API documentation</a>
+      description: This request creates a new signing key.
     SigningKey:
       type: object
       properties:
@@ -226,22 +242,6 @@ components:
           type: string
           description: The system-generated eBay ID for the keypairs.
       description: This container stores metadata for a signing key.
-    CreateSigningKeyRequest:
-      type: object
-      properties:
-        signingKeyCipher:
-          type: string
-          description: The enumerated value for the cipher to be used to create the signing key. Refer to <a href= "/api-docs/developer/key-management/types/api:SigningKeyCipher" target= "_blank">SigningKeyCiper</a> for the list of supported enum values. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/developer/key_management/types/api:SigningKeyCipher'>eBay API documentation</a>
-      description: This request creates a new signing key.
-    QuerySigningKeysResponse:
-      type: object
-      properties:
-        signingKeys:
-          type: array
-          description: An array of metadata information for keypairs owned by a user.
-          items:
-            $ref: '#/components/schemas/SigningKey'
-      description: This container stores metadata information for all keypairs that are owned by a user.
   securitySchemes:
     api_auth:
       type: oauth2

@@ -143,25 +143,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    PayloadDetail:
-      type: object
-      properties:
-        deliveryProtocol:
-          type: string
-          description: The supported delivery protocols. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:ProtocolEnum'>eBay API documentation</a>
-        deprecated:
-          type: boolean
-          description: A deprecation indicator.
-        format:
-          type: array
-          description: The supported format. Presently, <code>JSON</code> is the only supported format.
-          items:
-            type: string
-            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/commerce/notification/types/api:FormatTypeEnum''>eBay API documentation</a>'
-        schemaVersion:
-          type: string
-          description: The supported schema version.
-      description: A type that describes the details about a topic's payload.
     TopicSearchResponse:
       type: object
       properties:
@@ -217,6 +198,25 @@ components:
           type: string
           description: The unique identifier for the topic.
       description: A type that describes the details of the topic.
+    PayloadDetail:
+      type: object
+      properties:
+        deliveryProtocol:
+          type: string
+          description: The supported delivery protocols. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/notification/types/api:ProtocolEnum'>eBay API documentation</a>
+        deprecated:
+          type: boolean
+          description: A deprecation indicator.
+        format:
+          type: array
+          description: The supported format. Presently, <code>JSON</code> is the only supported format.
+          items:
+            type: string
+            description: ' For implementation help, refer to <a href=''https://developer.ebay.com/api-docs/commerce/notification/types/api:FormatTypeEnum''>eBay API documentation</a>'
+        schemaVersion:
+          type: string
+          description: The supported schema version.
+      description: A type that describes the details about a topic's payload.
   securitySchemes:
     api_auth:
       type: oauth2

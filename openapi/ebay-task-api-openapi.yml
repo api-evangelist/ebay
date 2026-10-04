@@ -586,6 +586,9 @@ components:
           type: string
           description: The schemaVersion/version number of the file format:<br><ul><li><a href="/api-docs/sell/static/feed/lms-feeds-quick-reference.html#Version" target="_blank">Version Details / Schema Version</a></li><li><a href="/api-docs/sell/static/feed/fx-feeds-quick-reference.html#schema" target="_blank">Seller Hub feed schema version</a></li></ul>
       description: The type that defines the fields for the <b> createTask</b> method.
+    StreamingOutput:
+      type: object
+      description: File stream
     TaskCollection:
       type: object
       properties:
@@ -616,21 +619,6 @@ components:
           description: The total number of tasks that match the input criteria.
           format: int32
       description: The type that defines the fields for a paginated result set of tasks. The response consists of 0 or more sequenced <em> pages</em> where each page has 0 or more items.
-    UploadSummary:
-      type: object
-      properties:
-        failureCount:
-          type: integer
-          description: The number of records, such as the number of listings created or the number of pictures uploaded to a listing, that failed to process during the upload feed. Check the response file and correct any issues mentioned. If the feed fails before processing, no response file is provided. In this case check the REST output response.
-          format: int32
-        successCount:
-          type: integer
-          description: The number of records that were successfully processed during the upload feed.
-          format: int32
-      description: This container provides summary information on an upload feed (not applicable for download feed types).
-    StreamingOutput:
-      type: object
-      description: File stream
     Task:
       type: object
       properties:
@@ -659,6 +647,18 @@ components:
           description: This container provides summary information on an upload feed (not applicable for download feed types).
           $ref: '#/components/schemas/UploadSummary'
       description: The type that defines the fields for the task details.
+    UploadSummary:
+      type: object
+      properties:
+        failureCount:
+          type: integer
+          description: The number of records, such as the number of listings created or the number of pictures uploaded to a listing, that failed to process during the upload feed. Check the response file and correct any issues mentioned. If the feed fails before processing, no response file is provided. In this case check the REST output response.
+          format: int32
+        successCount:
+          type: integer
+          description: The number of records that were successfully processed during the upload feed.
+          format: int32
+      description: This container provides summary information on an upload feed (not applicable for download feed types).
   securitySchemes:
     api_auth:
       type: oauth2

@@ -180,21 +180,18 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    Image:
+    Refinement:
       type: object
       properties:
-        height:
-          type: integer
-          description: The height of the image in pixels.
-          format: int32
-        imageUrl:
+        aspectDistributions:
+          type: array
+          description: Contains information about one or more aspects that are associated with the category identified by <b>dominantCategoryId</b>.
+          items:
+            $ref: '#/components/schemas/AspectDistribution'
+        dominantCategoryId:
           type: string
-          description: The eBay Picture Services (EPS) URL of the image.
-        width:
-          type: integer
-          description: The width of the image in pixels.
-          format: int32
-      description: This type contains information about a product image stored in eBay Picture Services (EPS).
+          description: The ID of the category that eBay determines is most likely to cover the products matching the search criteria.
+      description: This type identifies a product category and the aspects associated with that category. Each aspect distribution container returns the distribution of values that have been used for the aspect.
     AspectValueDistribution:
       type: object
       properties:
@@ -209,18 +206,6 @@ components:
           type: string
           description: A HATEOAS reference that further refines the search with this particular <b>localizedAspectValue</b>.
       description: This type contains information about one value of a specified aspect. This value serves as a product refinement.
-    Aspect:
-      type: object
-      properties:
-        localizedName:
-          type: string
-          description: The localized name of this category aspect.
-        localizedValues:
-          type: array
-          description: A list of the localized values of this category aspect.
-          items:
-            type: string
-      description: This type contains the name and values of a category aspect.
     ProductSummary:
       type: object
       properties:
@@ -290,6 +275,33 @@ components:
           type: string
           description: The localized name of an aspect that is associated with the category identified by <b>dominantCategoryId</b>.
       description: This type contains information about one category aspect that is associated with a specified category.
+    Aspect:
+      type: object
+      properties:
+        localizedName:
+          type: string
+          description: The localized name of this category aspect.
+        localizedValues:
+          type: array
+          description: A list of the localized values of this category aspect.
+          items:
+            type: string
+      description: This type contains the name and values of a category aspect.
+    Image:
+      type: object
+      properties:
+        height:
+          type: integer
+          description: The height of the image in pixels.
+          format: int32
+        imageUrl:
+          type: string
+          description: The eBay Picture Services (EPS) URL of the image.
+        width:
+          type: integer
+          description: The width of the image in pixels.
+          format: int32
+      description: This type contains information about a product image stored in eBay Picture Services (EPS).
     ProductSearchResponse:
       type: object
       properties:
@@ -323,18 +335,6 @@ components:
           description: This field is reserved for internal or future use. <!-- The total number of product records in the returned collection of matched products. -->
           format: int32
       description: 'This type contains the specifications for the collection of products that match the search or filter criteria of a <b>search</b> call. A maximum of 200 product summaries is returned (the result set), fewer if you include the <b>limit</b> query parameter in the request. '
-    Refinement:
-      type: object
-      properties:
-        aspectDistributions:
-          type: array
-          description: Contains information about one or more aspects that are associated with the category identified by <b>dominantCategoryId</b>.
-          items:
-            $ref: '#/components/schemas/AspectDistribution'
-        dominantCategoryId:
-          type: string
-          description: The ID of the category that eBay determines is most likely to cover the products matching the search criteria.
-      description: This type identifies a product category and the aspects associated with that category. Each aspect distribution container returns the distribution of values that have been used for the aspect.
   securitySchemes:
     api_auth:
       type: oauth2

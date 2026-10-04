@@ -83,15 +83,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ComplianceSummary:
-      type: object
-      properties:
-        violationSummaries:
-          type: array
-          description: This container is an array of one or more policy violation counts. A policy violation count is returned for each unique eBay marketplace and compliance type violation. As long as there is at least one non-compliant listing for the specified compliance type(s), this container will be returned. If no non-compliant listings are found for the specified compliance type(s), an HTTP status code of <code>204 No Content</code> is returned, and there is no response body.
-          items:
-            $ref: '#/components/schemas/ComplianceSummaryInfo'
-      description: This type is the base type for the <strong>getListingViolationsSummary</strong> response. The <strong>violationSummaries</strong> container contains an array of policy violation counts for each unique eBay marketplace and compliance type violation.
     ComplianceSummaryInfo:
       type: object
       properties:
@@ -106,6 +97,15 @@ components:
           description: This integer value indicates the number of eBay listings that are currently violating the compliance type indicated in the <strong>complianceType</strong> field, for the eBay marketplace indicated in the <strong>marketplaceId</strong> field.
           format: int32
       description: This type is used by each unique eBay marketplace and compliance type combination that is returned in the <strong>getListingViolationsSummary</strong> response to indicate the total number of listing violations in regards to that eBay marketplace and compliance type.
+    ComplianceSummary:
+      type: object
+      properties:
+        violationSummaries:
+          type: array
+          description: This container is an array of one or more policy violation counts. A policy violation count is returned for each unique eBay marketplace and compliance type violation. As long as there is at least one non-compliant listing for the specified compliance type(s), this container will be returned. If no non-compliant listings are found for the specified compliance type(s), an HTTP status code of <code>204 No Content</code> is returned, and there is no response body.
+          items:
+            $ref: '#/components/schemas/ComplianceSummaryInfo'
+      description: This type is the base type for the <strong>getListingViolationsSummary</strong> response. The <strong>violationSummaries</strong> container contains an array of policy violation counts for each unique eBay marketplace and compliance type violation.
   securitySchemes:
     api_auth:
       type: oauth2

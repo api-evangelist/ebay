@@ -51,16 +51,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    SellingPrivileges:
-      type: object
-      properties:
-        sellerRegistrationCompleted:
-          type: boolean
-          description: If this field is returned as <code>true</code>, the seller's registration is completed. If this field is returned as <code>false</code>, the registration process is not complete.
-        sellingLimit:
-          description: This container lists the monthly cap for the quantity of items sold and total sales amount allowed for the seller's account. This container may not be returned if a seller does not have a monthly cap for total quantity sold and total sales amount.
-          $ref: '#/components/schemas/SellingLimit'
-      description: This type is used by the base response of the <b>getPrivileges</b> method.
     Amount:
       type: object
       properties:
@@ -82,6 +72,16 @@ components:
           description: This field shows the monthly cap for total quantity sold allowed for the seller's account. This container may not be returned if a seller does not have a monthly cap for total quantity sold.
           format: int32
       description: Type used by the <b>sellingLimit</b> container, a container that lists the monthly cap for the quantity of items sold and total sales amount allowed for the seller's account.
+    SellingPrivileges:
+      type: object
+      properties:
+        sellerRegistrationCompleted:
+          type: boolean
+          description: If this field is returned as <code>true</code>, the seller's registration is completed. If this field is returned as <code>false</code>, the registration process is not complete.
+        sellingLimit:
+          description: This container lists the monthly cap for the quantity of items sold and total sales amount allowed for the seller's account. This container may not be returned if a seller does not have a monthly cap for total quantity sold and total sales amount.
+          $ref: '#/components/schemas/SellingLimit'
+      description: This type is used by the base response of the <b>getPrivileges</b> method.
   securitySchemes:
     api_auth:
       type: oauth2
