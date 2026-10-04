@@ -6886,6 +6886,8 @@ apis:
   humanURL: https://developer.ebay.com/api-docs/sell/account/static/overview.html
   baseURL: https://api.ebay.com
   tags:
+  - Signing Key
+  tags_raw:
   - Signing_key
   properties:
   - type: OpenAPI
