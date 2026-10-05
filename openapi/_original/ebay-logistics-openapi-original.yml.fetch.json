@@ -1,0 +1,12 @@
+{
+ "url": "https://developer.ebay.com/api-docs/master/sell/logistics/openapi/3/sell_logistics_v1_oas3.json",
+ "requested_url": "https://developer.ebay.com/api-docs/master/sell/logistics/openapi/3/sell_logistics_v1_oas3.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 62692,
+ "sha256": "bba40dedd032826f96743903c94966e7777c38b8cab72963be807d4dd6a1ac08",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}

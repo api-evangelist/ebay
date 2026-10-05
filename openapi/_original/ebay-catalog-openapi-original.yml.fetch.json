@@ -1,0 +1,12 @@
+{
+ "url": "https://developer.ebay.com/api-docs/master/commerce/catalog/openapi/3/commerce_catalog_v1_beta_oas3.json",
+ "requested_url": "https://developer.ebay.com/api-docs/master/commerce/catalog/openapi/3/commerce_catalog_v1_beta_oas3.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 53036,
+ "sha256": "54ea8f0ada5d0761ab187b6d9c36f68aaee34da52fcdf1c22d1bab99a69a6591",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}

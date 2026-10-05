@@ -1,0 +1,12 @@
+{
+ "url": "https://developer.ebay.com/api-docs/master/buy/marketing/openapi/2/buy_marketing_v1_beta_oas2.json",
+ "requested_url": "https://developer.ebay.com/api-docs/master/buy/marketing/openapi/2/buy_marketing_v1_beta_oas2.json",
+ "status": 200,
+ "content_type": "application/json",
+ "bytes": 16465,
+ "sha256": "8738827073e4faf386d9795f36fbec5da4c1910a3e4a730bf9348244c9d44bd9",
+ "fetched_at": "2026-10-04",
+ "fetched_by": "APIEvangelist-Harvest/1.0 (+https://apievangelist.com)",
+ "match": "equivalent",
+ "note": "Re-fetched from the provider by verify-openapi-sources.py; the provider's current document describes the same operations (Jaccard 1.0), but the bytes differ, so the archive is an earlier or reformatted copy."
+}
