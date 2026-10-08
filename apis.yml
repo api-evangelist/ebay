@@ -7999,6 +7999,8 @@ apis:
   - type: ReleaseNotes
     url: https://developer.ebay.com/api-docs/developer/key-management/release-notes.html
 common:
+- type: FinOps
+  url: finops/ebay-finops.yml
 - type: Pricing
   url: https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822
 - type: Plans
