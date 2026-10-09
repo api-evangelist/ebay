@@ -126,3 +126,132 @@ plans:
   unit: per conversion
 rate_limit_statements:
 - Every month, you get up to 250 zero insertion fee listings, or more if you have an eBay Store
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - hybrid
+  - metered
+  - subscription
+  units: []
+  plans:
+  - name: Most categories
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Books & Magazines / Movies & TV / Music
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Coins & Paper Money (except Bullion)
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Coins & Paper Money > Bullion
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Women's Bags & Handbags
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Jewelry & Watches (except Watches, Parts & Accessories)
+    access: other
+    model: metered
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Watches, Parts & Accessories
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: NFT categories
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Select Business & Industrial categories
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Guitars & Basses
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Athletic Shoes
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Classified Ad listing format
+    access: other
+    model: hybrid
+    model_how: derived
+    units:
+    - other
+    periods:
+    - one-time
+  - name: Dispute fee
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: International fee
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
+  - name: Seller currency conversion charge
+    access: other
+    model: subscription
+    model_how: derived
+    units:
+    - other
+    periods:
+    - other
