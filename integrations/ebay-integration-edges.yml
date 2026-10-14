@@ -6,6 +6,7 @@ checked:
 - https://composio.dev/toolkits/ebay
 - https://monid.ai/tools/ebay
 - https://n8n.io/integrations/ebay/
+- https://storage.googleapis.com/tcfac/additional-consent-providers.csv
 - https://zapier.com/apps/ebay/integrations
 summary: null
 marketplace_apps:
@@ -357,6 +358,29 @@ edges:
   direction: third-party
   category: Communication
   partner_url: null
+- partner_name: Google Ad Tech Providers
+  partner: null
+  partner_match: domain
+  type: contract
+  channel: standard-directory
+  relationship: standard-participant
+  direction: partner-built
+  evidence: https://storage.googleapis.com/tcfac/additional-consent-providers.csv
+  contract_reference:
+    register: Google Ad Tech Providers (Additional Consent)
+    spec_file: null
+    role: google-atp
+    registered_name: eBay
+    register_id: '184'
+    products:
+    - eBay
+    matched_domain: ebay.com
+    api_families: null
+    api_families_basis: null
+    detected_by: sweep-adtech.py
+    detected: '2026-10-14'
+  detected_by: sweep-adtech.py
+  detected: '2026-10-14'
 templates:
 - title: Create Google Sheet rows for new eBay orders
   url: https://zapier.com/apps/ebay/integrations/google-sheets/47716/create-google-sheet-rows-for-new-ebay-orders

@@ -240,7 +240,6 @@
   arazzo: null
 - slug: ebay-microsoft-excel
   label: Microsoft Excel
-  partner: microsoft-excel
   partner_name: Microsoft Excel
   category: Microsoft
   type: marketplace
@@ -248,11 +247,10 @@
   channel: ipaas-usage
   evidence: https://zapier.com/apps/ebay/integrations/excel
   source: edge
-  status: pending-generation
+  status: pending-partner-spec
   arazzo: null
 - slug: ebay-amazon-seller-central
   label: Amazon Seller Central
-  partner: amazon-seller-central
   partner_name: Amazon Seller Central
   category: Amazon
   type: marketplace
@@ -260,7 +258,7 @@
   channel: ipaas-usage
   evidence: https://zapier.com/apps/ebay/integrations/amazon-seller-central
   source: edge
-  status: pending-generation
+  status: pending-partner-spec
   arazzo: null
 - slug: ebay-gmail
   label: Gmail
@@ -415,4 +413,27 @@
   evidence: https://zapier.com/apps/ebay/integrations/whatsapp-notifications
   source: edge
   status: pending-partner-spec
+  arazzo: null
+- slug: ebay-google-ad-tech-providers
+  label: Google Ad Tech Providers
+  partner_name: Google Ad Tech Providers
+  type: contract
+  channel: standard-directory
+  evidence: https://storage.googleapis.com/tcfac/additional-consent-providers.csv
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: Google Ad Tech Providers (Additional Consent)
+    spec_file: null
+    role: google-atp
+    registered_name: eBay
+    register_id: '184'
+    products:
+    - eBay
+    matched_domain: ebay.com
+    api_families: null
+    api_families_basis: null
+    detected_by: sweep-adtech.py
+    detected: '2026-10-14'
+  status: not-a-workflow
   arazzo: null
