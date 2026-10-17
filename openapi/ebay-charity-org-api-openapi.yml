@@ -154,6 +154,36 @@ paths:
       x-summary-source: derived
 components:
   schemas:
+    CharitySearchResponse:
+      type: object
+      properties:
+        charityOrgs:
+          type: array
+          description: The list of charitable organizations that match the search criteria.
+          items:
+            $ref: '#/components/schemas/CharityOrg'
+        href:
+          type: string
+          description: The relative path to the current set of results.
+        limit:
+          type: integer
+          description: The number of items, from the result set, returned in a single page.<br /><br /><b>Valid Values:</b> <code>1-100</code><br /><br /><b>Default:</b> <code>20</code>
+          format: int32
+        next:
+          type: string
+          description: The relative path to the next set of results.
+        offset:
+          type: integer
+          description: The number of items that will be skipped in the result set. This is used with the <b>limit</b> field to control the pagination of the output.<br /><br />For example, if the <b>offset</b> is set to <code>0</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 1 through 10 from the list of items returned. If the <b>offset</b> is set to <code>10</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 11 through 20 from the list of items returned.<br /><br /><b>Valid Values:</b> <code>0-10,000</code><br /><br /><b>Default:</b> <code>0</code>
+          format: int32
+        prev:
+          type: string
+          description: The relative path to the previous set of results.
+        total:
+          type: integer
+          description: The total number of matches for the search criteria.
+          format: int32
+      description: A single set of search results, with information for accessing other sets.
     GeoCoordinates:
       type: object
       properties:
@@ -164,6 +194,34 @@ components:
           type: number
           description: The longitude component of the geographic coordinate.
       description: Defines the format of a geographic coordinate.
+    CharityOrg:
+      type: object
+      properties:
+        charityOrgId:
+          type: string
+          description: The ID of the charitable organization.
+        description:
+          type: string
+          description: The description of the charitable organization.
+        location:
+          description: The location details of the charitable organization.
+          $ref: '#/components/schemas/Location'
+        logoImage:
+          description: The logo of the charitable organization.
+          $ref: '#/components/schemas/Image'
+        missionStatement:
+          type: string
+          description: The mission statement of the charitable organization.
+        name:
+          type: string
+          description: The name of the charitable organization.
+        registrationId:
+          type: string
+          description: The registration ID for the charitable organization.<br /><br /><span class="tablenote"><span style="color:#004680"><strong>Note:</strong></span> For the US marketplace, this is the EIN.</span>
+        website:
+          type: string
+          description: The link to the website for the charitable organization.
+      description: The full location, ID, logo and other details of the charity organization.
     Location:
       type: object
       properties:
@@ -202,64 +260,6 @@ components:
           type: string
           description: The two-letter <a href="https://www.iso.org/iso-3166-country-codes.html ">ISO 3166</a> standard of the country of the address. For implementation help, refer to <a href='https://developer.ebay.com/api-docs/commerce/charity/types/bas:CountryCodeEnum'>eBay API documentation</a>
       description: The physical location of the item.
-    CharitySearchResponse:
-      type: object
-      properties:
-        charityOrgs:
-          type: array
-          description: The list of charitable organizations that match the search criteria.
-          items:
-            $ref: '#/components/schemas/CharityOrg'
-        href:
-          type: string
-          description: The relative path to the current set of results.
-        limit:
-          type: integer
-          description: The number of items, from the result set, returned in a single page.<br /><br /><b>Valid Values:</b> <code>1-100</code><br /><br /><b>Default:</b> <code>20</code>
-          format: int32
-        next:
-          type: string
-          description: The relative path to the next set of results.
-        offset:
-          type: integer
-          description: The number of items that will be skipped in the result set. This is used with the <b>limit</b> field to control the pagination of the output.<br /><br />For example, if the <b>offset</b> is set to <code>0</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 1 through 10 from the list of items returned. If the <b>offset</b> is set to <code>10</code> and the <b>limit</b> is set to <code>10</code>, the method will retrieve items 11 through 20 from the list of items returned.<br /><br /><b>Valid Values:</b> <code>0-10,000</code><br /><br /><b>Default:</b> <code>0</code>
-          format: int32
-        prev:
-          type: string
-          description: The relative path to the previous set of results.
-        total:
-          type: integer
-          description: The total number of matches for the search criteria.
-          format: int32
-      description: A single set of search results, with information for accessing other sets.
-    CharityOrg:
-      type: object
-      properties:
-        charityOrgId:
-          type: string
-          description: The ID of the charitable organization.
-        description:
-          type: string
-          description: The description of the charitable organization.
-        location:
-          description: The location details of the charitable organization.
-          $ref: '#/components/schemas/Location'
-        logoImage:
-          description: The logo of the charitable organization.
-          $ref: '#/components/schemas/Image'
-        missionStatement:
-          type: string
-          description: The mission statement of the charitable organization.
-        name:
-          type: string
-          description: The name of the charitable organization.
-        registrationId:
-          type: string
-          description: The registration ID for the charitable organization.<br /><br /><span class="tablenote"><span style="color:#004680"><strong>Note:</strong></span> For the US marketplace, this is the EIN.</span>
-        website:
-          type: string
-          description: The link to the website for the charitable organization.
-      description: The full location, ID, logo and other details of the charity organization.
   securitySchemes:
     api_auth:
       type: oauth2

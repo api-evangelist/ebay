@@ -227,73 +227,6 @@ paths:
       x-summary-source: derived
 components:
   schemas:
-    ShippingFulfillmentPagedCollection:
-      type: object
-      properties:
-        fulfillments:
-          type: array
-          description: This array contains one or more fulfillments required for the order that was specified in method endpoint.
-          items:
-            $ref: '#/components/schemas/ShippingFulfillment'
-        total:
-          type: integer
-          description: The total number of fulfillments in the specified order.<br><br><span class="tablenote"><strong>Note:</strong> If no fulfillments are found for the order, this field is returned with a value of <code>0</code>.</span>
-          format: int32
-        warnings:
-          type: array
-          description: This array is only returned if one or more errors or warnings occur with the call request.
-          items:
-            $ref: '#/components/schemas/Error'
-      description: This type contains the specifications for the entire collection of shipping fulfillments that are associated with the order specified by a <b>getShippingFulfillments</b> call. The <b>fulfillments</b> container returns an array of all the fulfillments in the collection.
-    Error:
-      type: object
-      properties:
-        category:
-          type: string
-          description: The context or source of this error or warning.
-        domain:
-          type: string
-          description: The name of the domain containing the service or application. For example, <code>sell</code> is a domain.
-        errorId:
-          type: integer
-          description: A positive integer that uniquely identifies the specific error condition that occurred. Your application can use these values as error code identifiers in your customized error-handling algorithms.
-          format: int32
-        inputRefIds:
-          type: array
-          description: A list of one or more specific request elements (if any) associated with the error or warning. The format of these strings depends on the request payload format. For JSON, use JSONPath notation.
-          items:
-            type: string
-        longMessage:
-          type: string
-          description: An expanded version of the <b>message</b> field. <br><br><b>Maximum length:</b> 200 characters
-        message:
-          type: string
-          description: A message about the error or warning which is device agnostic and readable by end users and application developers. It explains what the error or warning is, and how to fix it (in a general sense). If applicable, the value is localized to the end user's requested locale. <br><br><b>Maximum length:</b> 50 characters
-        outputRefIds:
-          type: array
-          description: A list of one or more specific response elements (if any) associated with the error or warning. The format of these strings depends on the request payload format. For JSON, use JSONPath notation.
-          items:
-            type: string
-        parameters:
-          type: array
-          description: Contains a list of name-value pairs that provide additional information concerning this error or warning. Each item in the list is an input parameter that contributed to the error or warning condition.
-          items:
-            $ref: '#/components/schemas/ErrorParameter'
-        subdomain:
-          type: string
-          description: The name of the domain's subsystem or subdivision. For example, <code>fulfillment</code> is a subdomain in the <code>sell</code> domain.
-      description: 'This type contains a error or warning related to a call request. '
-    LineItemReference:
-      type: object
-      properties:
-        lineItemId:
-          type: string
-          description: This is the unique identifier of the eBay order line item that is part of the shipping fulfillment.<br><br>Line item Ids can be found in the lineItems.<b>lineItemId</b> field of the <a href="/api-docs/sell/fulfillment/resources/order/methods/getOrders" target="_blank">getOrders</a> response.
-        quantity:
-          type: integer
-          description: This is the number of lineItems associated with the <a href="#request.trackingNumber">trackingNumber</a> specified by the seller. This must be a whole number greater than zero (0).
-          format: int32
-      description: This type identifies the line item and quantity of that line item that comprises one fulfillment, such as a shipping package.
     ShippingFulfillment:
       type: object
       properties:
@@ -343,6 +276,73 @@ components:
           type: string
           description: The tracking number provided by the shipping carrier for this fulfillment. The seller should be careful that this tracking number is accurate since the buyer will use this tracking number to track shipment, and eBay has no way to verify the accuracy of this number.<br><br>This field and the <b>shippingCarrierCode</b> field are mutually dependent. If you include one, you must also include the other.<br><br><span class="tablenote"><strong>Note:</strong> If you include <b>trackingNumber</b> (and <b>shippingCarrierCode</b>) in the request, the resulting fulfillment's ID (returned in the HTTP location response header) is the tracking number. If you do not include shipment tracking information, the resulting fulfillment ID will default to an arbitrary number such as <code>999</code>.</span><br><span class="tablenote"><strong>Note:</strong> Only alphanumeric characters are supported for shipment tracking numbers. Spaces, hyphens, and all other special characters are not supported. Do not include a space in the tracking number even if a space appears in the tracking number on the shipping label.</span>
       description: This type contains the details for creating a fulfillment for an order.
+    Error:
+      type: object
+      properties:
+        category:
+          type: string
+          description: The context or source of this error or warning.
+        domain:
+          type: string
+          description: The name of the domain containing the service or application. For example, <code>sell</code> is a domain.
+        errorId:
+          type: integer
+          description: A positive integer that uniquely identifies the specific error condition that occurred. Your application can use these values as error code identifiers in your customized error-handling algorithms.
+          format: int32
+        inputRefIds:
+          type: array
+          description: A list of one or more specific request elements (if any) associated with the error or warning. The format of these strings depends on the request payload format. For JSON, use JSONPath notation.
+          items:
+            type: string
+        longMessage:
+          type: string
+          description: An expanded version of the <b>message</b> field. <br><br><b>Maximum length:</b> 200 characters
+        message:
+          type: string
+          description: A message about the error or warning which is device agnostic and readable by end users and application developers. It explains what the error or warning is, and how to fix it (in a general sense). If applicable, the value is localized to the end user's requested locale. <br><br><b>Maximum length:</b> 50 characters
+        outputRefIds:
+          type: array
+          description: A list of one or more specific response elements (if any) associated with the error or warning. The format of these strings depends on the request payload format. For JSON, use JSONPath notation.
+          items:
+            type: string
+        parameters:
+          type: array
+          description: Contains a list of name-value pairs that provide additional information concerning this error or warning. Each item in the list is an input parameter that contributed to the error or warning condition.
+          items:
+            $ref: '#/components/schemas/ErrorParameter'
+        subdomain:
+          type: string
+          description: The name of the domain's subsystem or subdivision. For example, <code>fulfillment</code> is a subdomain in the <code>sell</code> domain.
+      description: 'This type contains a error or warning related to a call request. '
+    LineItemReference:
+      type: object
+      properties:
+        lineItemId:
+          type: string
+          description: This is the unique identifier of the eBay order line item that is part of the shipping fulfillment.<br><br>Line item Ids can be found in the lineItems.<b>lineItemId</b> field of the <a href="/api-docs/sell/fulfillment/resources/order/methods/getOrders" target="_blank">getOrders</a> response.
+        quantity:
+          type: integer
+          description: This is the number of lineItems associated with the <a href="#request.trackingNumber">trackingNumber</a> specified by the seller. This must be a whole number greater than zero (0).
+          format: int32
+      description: This type identifies the line item and quantity of that line item that comprises one fulfillment, such as a shipping package.
+    ShippingFulfillmentPagedCollection:
+      type: object
+      properties:
+        fulfillments:
+          type: array
+          description: This array contains one or more fulfillments required for the order that was specified in method endpoint.
+          items:
+            $ref: '#/components/schemas/ShippingFulfillment'
+        total:
+          type: integer
+          description: The total number of fulfillments in the specified order.<br><br><span class="tablenote"><strong>Note:</strong> If no fulfillments are found for the order, this field is returned with a value of <code>0</code>.</span>
+          format: int32
+        warnings:
+          type: array
+          description: This array is only returned if one or more errors or warnings occur with the call request.
+          items:
+            $ref: '#/components/schemas/Error'
+      description: This type contains the specifications for the entire collection of shipping fulfillments that are associated with the order specified by a <b>getShippingFulfillments</b> call. The <b>fulfillments</b> container returns an array of all the fulfillments in the collection.
   securitySchemes:
     api_auth:
       type: oauth2
