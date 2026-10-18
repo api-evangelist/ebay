@@ -491,7 +491,7 @@
     - alpha
     in_cloud: true
     builder: unknown (community connector; contributor not in the record)
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: ebay-fivetran
   label: Fivetran
@@ -517,7 +517,7 @@
     - connectors/applications/ebay
     vendor_link: https://www.ebay.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: ebay-meltano
   label: Meltano
@@ -546,5 +546,5 @@
     quality:
     - unknown
     builder: 'community (Meltano Hub variant maintainers: dbt-labs)'
-  status: pending-partner-spec
+  status: not-a-workflow
   arazzo: null
