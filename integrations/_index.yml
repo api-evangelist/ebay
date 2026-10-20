@@ -15,6 +15,7 @@
   evidence: https://zapier.com/apps/ebay/integrations/google-sheets/47716/create-google-sheet-rows-for-new-ebay-orders
   template: https://zapier.com/apps/ebay/integrations/google-sheets/47716/create-google-sheet-rows-for-new-ebay-orders
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: ebay-record-wave-sales-for-new-orders-in-ebay
@@ -29,6 +30,7 @@
   evidence: https://zapier.com/apps/ebay/integrations/wave/176144/record-wave-sales-for-new-orders-in-ebay
   template: https://zapier.com/apps/ebay/integrations/wave/176144/record-wave-sales-for-new-orders-in-ebay
   source: template
+  relationship: ipaas-bridge
   status: pending-partner-spec
   arazzo: null
 - slug: ebay-send-new-ebay-orders-as-discord-channel-messages
@@ -43,6 +45,7 @@
   evidence: https://zapier.com/apps/discord/integrations/ebay/1211063/send-new-ebay-orders-as-discord-channel-messages
   template: https://zapier.com/apps/discord/integrations/ebay/1211063/send-new-ebay-orders-as-discord-channel-messages
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: ebay-create-iris-kashflow-invoices-for-new-ebay-orders
@@ -56,6 +59,7 @@
   evidence: https://zapier.com/apps/ebay/integrations/iris-kashflow/420063/create-iris-kashflow-invoices-for-new-ebay-orders
   template: https://zapier.com/apps/ebay/integrations/iris-kashflow/420063/create-iris-kashflow-invoices-for-new-ebay-orders
   source: template
+  relationship: ipaas-bridge
   status: pending-partner-spec
   arazzo: null
 - slug: ebay-create-xero-sales-invoices-for-new-ebay-orders
@@ -70,6 +74,7 @@
   evidence: https://zapier.com/apps/ebay/integrations/xero/47718/create-xero-sales-invoices-for-new-ebay-orders
   template: https://zapier.com/apps/ebay/integrations/xero/47718/create-xero-sales-invoices-for-new-ebay-orders
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: ebay-create-update-hubspot-contacts-from-new-ebay-orders
@@ -84,6 +89,7 @@
   evidence: https://zapier.com/apps/ebay/integrations/hubspot/58324/createupdate-hubspot-contacts-from-new-ebay-orders
   template: https://zapier.com/apps/ebay/integrations/hubspot/58324/createupdate-hubspot-contacts-from-new-ebay-orders
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: ebay-send-slack-channel-messages-for-new-orders-in-ebay
@@ -98,6 +104,7 @@
   evidence: https://zapier.com/apps/ebay/integrations/slack/176160/send-slack-channel-messages-for-new-orders-in-ebay
   template: https://zapier.com/apps/ebay/integrations/slack/176160/send-slack-channel-messages-for-new-orders-in-ebay
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: ebay-create-wave-invoices-for-new-ebay-orders
@@ -112,6 +119,7 @@
   evidence: https://zapier.com/apps/ebay/integrations/wave/47764/create-wave-invoices-for-new-ebay-orders
   template: https://zapier.com/apps/ebay/integrations/wave/47764/create-wave-invoices-for-new-ebay-orders
   source: template
+  relationship: ipaas-bridge
   status: pending-partner-spec
   arazzo: null
 - slug: ebay-create-items-in-notion-databases-for-new-orders-in-ebay
@@ -126,6 +134,7 @@
   evidence: https://zapier.com/apps/ebay/integrations/notion/607873/create-items-in-notion-databases-for-new-orders-in-ebay
   template: https://zapier.com/apps/ebay/integrations/notion/607873/create-items-in-notion-databases-for-new-orders-in-ebay
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: ebay-create-xero-contacts-from-new-ebay-orders
@@ -140,6 +149,7 @@
   evidence: https://zapier.com/apps/ebay/integrations/xero/53563/create-xero-contacts-from-new-ebay-orders
   template: https://zapier.com/apps/ebay/integrations/xero/53563/create-xero-contacts-from-new-ebay-orders
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
   arazzo: null
 - slug: ebay-copy-new-ebay-orders-to-google-sheets-worksheets
@@ -154,265 +164,8 @@
   evidence: https://zapier.com/apps/ebay/integrations/google-sheets/1730876/copy-new-ebay-orders-to-google-sheets-worksheets
   template: https://zapier.com/apps/ebay/integrations/google-sheets/1730876/copy-new-ebay-orders-to-google-sheets-worksheets
   source: template
+  relationship: ipaas-bridge
   status: pending-generation
-  arazzo: null
-- slug: ebay-shopify
-  label: Shopify
-  partner: shopify
-  partner_name: Shopify
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/shopify
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: ebay-quickbooks-online
-  label: QuickBooks Online
-  partner_name: QuickBooks Online
-  category: Accounting
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/quickbooks
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: ebay-mygadgetrepairs
-  label: MyGadgetRepairs
-  partner_name: MyGadgetRepairs
-  category: CRM (Customer Relationship Management)
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/mygadgetrepairs
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: ebay-mailchimp
-  label: Mailchimp
-  partner: mailchimp
-  partner_name: Mailchimp
-  category: Marketing Automation
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/mailchimp
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: ebay-airtable
-  label: Airtable
-  partner: airtable
-  partner_name: Airtable
-  category: Databases
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/airtable
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: ebay-square
-  label: Square
-  partner: square
-  partner_name: Square
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/square
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: ebay-woocommerce
-  label: WooCommerce
-  partner: woocommerce
-  partner_name: WooCommerce
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/woocommerce
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: ebay-microsoft-excel
-  label: Microsoft Excel
-  partner_name: Microsoft Excel
-  category: Microsoft
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/excel
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: ebay-amazon-seller-central
-  label: Amazon Seller Central
-  partner_name: Amazon Seller Central
-  category: Amazon
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/amazon-seller-central
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: ebay-gmail
-  label: Gmail
-  partner: gmail
-  partner_name: Gmail
-  category: Email
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/gmail
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: ebay-google-ads
-  label: Google Ads
-  partner: google-ads
-  partner_name: Google Ads
-  category: Ads & Conversion
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/google-ads
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: ebay-freshbooks
-  label: FreshBooks
-  partner: freshbooks
-  partner_name: FreshBooks
-  category: Accounting
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/freshbooks
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: ebay-pinterest
-  label: Pinterest
-  partner: pinterest
-  partner_name: Pinterest
-  category: Social Media Accounts
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/pinterest
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: ebay-google-drive
-  label: Google Drive
-  partner: google-drive
-  partner_name: Google Drive
-  category: File Management & Storage
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/google-drive
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: ebay-shipstation
-  label: ShipStation
-  partner: shipstation
-  partner_name: ShipStation
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/shipstation
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: ebay-paypal
-  label: PayPal
-  partner: paypal
-  partner_name: PayPal
-  category: Payment Processing
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/paypal
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: ebay-zoho-inventory
-  label: Zoho Inventory
-  partner: zoho-inventory
-  partner_name: Zoho Inventory
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/zoho-inventory
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: ebay-freeagent
-  label: FreeAgent
-  partner: freeagent
-  partner_name: FreeAgent
-  category: Accounting
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/freeagent
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: ebay-facebook-conversions-for-business-admins
-  label: Facebook Conversions (for Business admins)
-  partner_name: Facebook Conversions (for Business admins)
-  category: Ads & Conversion
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/facebook-conversions-business
-  source: edge
-  status: pending-partner-spec
-  arazzo: null
-- slug: ebay-trustpilot
-  label: Trustpilot
-  partner: trustpilot
-  partner_name: Trustpilot
-  category: Reviews
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/trustpilot
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: ebay-ecwid-by-lightspeed
-  label: Ecwid by Lightspeed
-  partner: ecwid
-  partner_name: Ecwid by Lightspeed
-  category: eCommerce
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/ecwid
-  source: edge
-  status: pending-generation
-  arazzo: null
-- slug: ebay-whatsapp-notifications
-  label: WhatsApp Notifications
-  partner_name: WhatsApp Notifications
-  category: Communication
-  type: marketplace
-  marketplace: zapier
-  channel: ipaas-usage
-  evidence: https://zapier.com/apps/ebay/integrations/whatsapp-notifications
-  source: edge
-  status: pending-partner-spec
   arazzo: null
 - slug: ebay-google-ad-tech-providers
   label: Google Ad Tech Providers
@@ -547,4 +300,287 @@
     - unknown
     builder: 'community (Meltano Hub variant maintainers: dbt-labs)'
   status: not-a-workflow
+  arazzo: null
+- slug: ebay-shopify
+  label: Shopify
+  partner: shopify
+  partner_name: Shopify
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/shopify
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-quickbooks-online
+  label: QuickBooks Online
+  partner: quickbooks
+  partner_name: QuickBooks Online
+  category: Accounting
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/quickbooks
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: ebay-mygadgetrepairs
+  label: MyGadgetRepairs
+  partner_name: MyGadgetRepairs
+  category: CRM (Customer Relationship Management)
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/mygadgetrepairs
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: ebay-mailchimp
+  label: Mailchimp
+  partner: mailchimp
+  partner_name: Mailchimp
+  category: Marketing Automation
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/mailchimp
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-airtable
+  label: Airtable
+  partner: airtable
+  partner_name: Airtable
+  category: Databases
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/airtable
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-square
+  label: Square
+  partner: square
+  partner_name: Square
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/square
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-woocommerce
+  label: WooCommerce
+  partner: woocommerce
+  partner_name: WooCommerce
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/woocommerce
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-microsoft-excel
+  label: Microsoft Excel
+  partner_name: Microsoft Excel
+  category: Microsoft
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/excel
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: ebay-gmail
+  label: Gmail
+  partner: gmail
+  partner_name: Gmail
+  category: Email
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/gmail
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
+  arazzo: null
+- slug: ebay-amazon-seller-central
+  label: Amazon Seller Central
+  partner: amazon
+  partner_name: Amazon Seller Central
+  category: Amazon
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/amazon-seller-central
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-google-ads
+  label: Google Ads
+  partner: google-ads
+  partner_name: Google Ads
+  category: Ads & Conversion
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/google-ads
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-freshbooks
+  label: FreshBooks
+  partner: freshbooks
+  partner_name: FreshBooks
+  category: Accounting
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/freshbooks
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-pinterest
+  label: Pinterest
+  partner: pinterest
+  partner_name: Pinterest
+  category: Social Media Accounts
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/pinterest
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-google-drive
+  label: Google Drive
+  partner: google-drive
+  partner_name: Google Drive
+  category: File Management & Storage
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/google-drive
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-shipstation
+  label: ShipStation
+  partner: shipstation
+  partner_name: ShipStation
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/shipstation
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-paypal
+  label: PayPal
+  partner: paypal
+  partner_name: PayPal
+  category: Payment Processing
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/paypal
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-zoho-inventory
+  label: Zoho Inventory
+  partner: zoho-inventory
+  partner_name: Zoho Inventory
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/zoho-inventory
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-freeagent
+  label: FreeAgent
+  partner: freeagent
+  partner_name: FreeAgent
+  category: Accounting
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/freeagent
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-facebook-conversions-for-business-admins
+  label: Facebook Conversions (for Business admins)
+  partner: facebook
+  partner_name: Facebook Conversions (for Business admins)
+  category: Ads & Conversion
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/facebook-conversions-business
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-trustpilot
+  label: Trustpilot
+  partner: trustpilot
+  partner_name: Trustpilot
+  category: Reviews
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/trustpilot
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-ecwid-by-lightspeed
+  label: Ecwid by Lightspeed
+  partner: ecwid
+  partner_name: Ecwid by Lightspeed
+  category: eCommerce
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/ecwid
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-generation
+  arazzo: null
+- slug: ebay-whatsapp-notifications
+  label: WhatsApp Notifications
+  partner_name: WhatsApp Notifications
+  category: Communication
+  type: marketplace
+  marketplace: zapier
+  channel: ipaas-usage
+  evidence: https://zapier.com/apps/ebay/integrations/whatsapp-notifications
+  source: edge
+  relationship: ipaas-bridge
+  status: pending-partner-spec
   arazzo: null
