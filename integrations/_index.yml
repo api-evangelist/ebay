@@ -610,3 +610,54 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
+- slug: ebay-apis-guru-openapi-directory
+  label: APIs.guru OpenAPI Directory
+  partner: apis-guru
+  partner_name: APIs.guru OpenAPI Directory
+  category: API definition directory listing (OpenAPI)
+  type: register
+  channel: standard-directory
+  evidence: https://apis.guru/
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: APIs.guru OpenAPI Directory
+    spec_file: null
+    standard: APIs.guru OpenAPI Directory
+    role: listed-in-directory
+    directory_provider: apiz.ebay.com
+    matched_domain: ebay.com
+    matched_by: domain
+    apis_listed: 25
+    version_count: 25
+    first_added: '2020-07-16'
+    last_updated: '2023-03-06'
+    origin_publisher_hosted: true
+    origin_hosts:
+    - developer.ebay.com
+    categories:
+    - ecommerce
+    own_openapi_files: 71
+    listings:
+    - key: apiz.ebay.com:commerce-identity
+      title: Identity API
+      preferred: v1.1.0
+      versions: 1
+      swagger_url: https://api.apis.guru/v2/specs/apiz.ebay.com/commerce-identity/v1.1.0/openapi.json
+      origin_url: https://developer.ebay.com/api-docs/master/commerce/identity/openapi/3/commerce_identity_v1_oas3.json
+      openapi_version: 3.0.0
+    - key: apiz.ebay.com:sell-finances
+      title: eBay Finances API
+      preferred: v1.15.0
+      versions: 1
+      swagger_url: https://api.apis.guru/v2/specs/apiz.ebay.com/sell-finances/v1.15.0/openapi.json
+      origin_url: https://developer.ebay.com/api-docs/master/sell/finances/openapi/3/sell_finances_v1_oas3.json
+      openapi_version: 3.0.0
+    signal_note: 'participation only: a community directory listing (APIs.guru collects definitions; the provider
+      did not file them). Signals: version_count, apis_listed, origin_publisher_hosted.'
+    detected_by: sweep-openapi-directory-apis-guru.py
+    detected: '2026-10-22'
+    also_directory_providers:
+    - ebay.com
+  status: not-a-workflow
+  arazzo: null
