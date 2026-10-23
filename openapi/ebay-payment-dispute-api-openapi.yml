@@ -1257,3 +1257,9 @@ components:
             https://api.ebay.com/oauth/api_scope/sell.finances: View and manage your payment and order information to display this information to you and allow you to initiate refunds using the third party application
             https://api.ebay.com/oauth/api_scope/sell.payment.dispute: View and manage disputes and related details (including payment and order information).
             https://api.ebay.com/oauth/api_scope/sell.fulfillment.readonly: View your order fulfillments
+x-provenance:
+  method: harvested
+  publisher: eBay
+  source: https://developer.ebay.com/api-docs/master/sell/fulfillment/openapi/3/sell_fulfillment_v1_oas3.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)

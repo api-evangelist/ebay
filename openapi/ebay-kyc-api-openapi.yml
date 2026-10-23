@@ -98,3 +98,9 @@ components:
           scopes:
             https://api.ebay.com/oauth/api_scope/sell.account.readonly: View your account settings
             https://api.ebay.com/oauth/api_scope/sell.account: View and manage your account settings
+x-provenance:
+  method: harvested
+  publisher: eBay
+  source: https://developer.ebay.com/api-docs/master/sell/account/openapi/3/sell_account_v1_oas3.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)

@@ -346,3 +346,9 @@ components:
           scopes:
             https://api.ebay.com/oauth/api_scope/commerce.catalog.readonly: ' This scope would allow signed in user to read catalog data.'
             https://api.ebay.com/oauth/api_scope/sell.inventory: View and manage your inventory and offers
+x-provenance:
+  method: harvested
+  publisher: eBay
+  source: https://developer.ebay.com/api-docs/master/commerce/catalog/openapi/3/commerce_catalog_v1_beta_oas3.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)

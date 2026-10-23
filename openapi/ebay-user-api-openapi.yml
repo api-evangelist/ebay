@@ -199,3 +199,9 @@ components:
             https://api.ebay.com/oauth/api_scope/commerce.identity.readonly: View a user's basic information, such as username or business account details, from their eBay member account
             https://api.ebay.com/oauth/api_scope/commerce.identity.name.readonly: View a user's first and last name from their eBay member account
             https://api.ebay.com/oauth/api_scope/commerce.identity.phone.readonly: View a user's personal telephone information from their eBay member account
+x-provenance:
+  method: harvested
+  publisher: eBay
+  source: https://developer.ebay.com/api-docs/master/commerce/identity/openapi/3/commerce_identity_v1_oas3.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)

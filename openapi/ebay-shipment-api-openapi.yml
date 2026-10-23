@@ -555,3 +555,9 @@ components:
           tokenUrl: https://api.ebay.com/identity/v1/oauth2/token
           scopes:
             https://api.ebay.com/oauth/api_scope/sell.logistics: ' This scope would allow signed in user to access Logistics information.'
+x-provenance:
+  method: harvested
+  publisher: eBay
+  source: https://developer.ebay.com/api-docs/master/sell/logistics/openapi/3/sell_logistics_v1_oas3.json
+  note: split by refine-openapis from the provider's own published document, verified by fetch (openapi/_original/*.fetch.json);
+    stamped by stamp-openapi-provenance.py (roadmap#793)
