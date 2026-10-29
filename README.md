@@ -1,4 +1,4 @@
-# eBay (ebay)
+# eBay
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,425 +66,264 @@
 
 eBay is a multinational e-commerce corporation that operates a website facilitating consumer-to-consumer and business-to-consumer sales through its online platform. Users can buy and sell a wide range of products, including electronics, fashion, collectibles, and more, in an auction-style or buy-it-now format. eBay provides a secure and user-friendly platform for sellers to reach a global audience and for buyers to access a vast selection of items.
 
-**URL:** [Visit APIs.json URL](https://raw.githubusercontent.com/api-evangelist/ebay/refs/heads/main/apis.yml)
+**Areas:** Auctions · Commerce · Product · Marketplace · Fortune 500
+
+## eBay on APIs.io
+
+Everything profiled for eBay is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/ebay/](https://apis.io/providers/ebay/)** — or go straight to one of the APIs or properties below.
+
+### APIs (64)
+
+- [eBay Advertising_eligibility API](https://apis.io/apis/ebay/ebay-advertising-eligibility-api/) — The Advertising_eligibility API from eBay — 1 operation(s) for advertising_eligibility.
+- [eBay Bidding API](https://apis.io/apis/ebay/ebay-bidding-api/) — The Bidding API from eBay — 2 operation(s) for bidding.
+- [eBay Category_tree API](https://apis.io/apis/ebay/ebay-category-tree-api/) — The Category_tree API from eBay — 8 operation(s) for category_tree.
+- [eBay Charity_org API](https://apis.io/apis/ebay/ebay-charity-org-api/) — The Charity_org API from eBay — 2 operation(s) for charity_org.
+- [eBay Config API](https://apis.io/apis/ebay/ebay-config-api/) — The Config API from eBay — 1 operation(s) for config.
+- [eBay Country API](https://apis.io/apis/ebay/ebay-country-api/) — The Country API from eBay — 1 operation(s) for country.
+- [eBay Custom_policy API](https://apis.io/apis/ebay/ebay-custom-policy-api/) — The Custom_policy API from eBay — 2 operation(s) for custom_policy.
+- [eBay Customer_service_metric API](https://apis.io/apis/ebay/ebay-customer-service-metric-api/) — The Customer_service_metric API from eBay — 1 operation(s) for customer_service_metric.
+- [eBay Customer_service_metric_task API](https://apis.io/apis/ebay/ebay-customer-service-metric-task-api/) — The Customer_service_metric_task API from eBay — 2 operation(s) for customer_service_metric_task.
+- [eBay Deal_item API](https://apis.io/apis/ebay/ebay-deal-item-api/) — The Deal_item API from eBay — 1 operation(s) for deal_item.
+- [eBay Destination API](https://apis.io/apis/ebay/ebay-destination-api/) — The Destination API from eBay — 2 operation(s) for destination.
+- [eBay Event API](https://apis.io/apis/ebay/ebay-event-api/) — The Event API from eBay — 2 operation(s) for event.
+- [eBay Event_item API](https://apis.io/apis/ebay/ebay-event-item-api/) — The Event_item API from eBay — 1 operation(s) for event_item.
+- [eBay Fulfillment_policy API](https://apis.io/apis/ebay/ebay-fulfillment-policy-api/) — The Fulfillment_policy API from eBay — 4 operation(s) for fulfillment_policy.
+- [eBay Guest_checkout_session API](https://apis.io/apis/ebay/ebay-guest-checkout-session-api/) — The Guest_checkout_session API from eBay — 7 operation(s) for guest_checkout_session.
+- [eBay Guest_purchase_order API](https://apis.io/apis/ebay/ebay-guest-purchase-order-api/) — The Guest_purchase_order API from eBay — 1 operation(s) for guest_purchase_order.
+- [eBay Inventory_item API](https://apis.io/apis/ebay/ebay-inventory-item-api/) — The Inventory_item API from eBay — 5 operation(s) for inventory_item.
+- [eBay Inventory_item_group API](https://apis.io/apis/ebay/ebay-inventory-item-group-api/) — The Inventory_item_group API from eBay — 1 operation(s) for inventory_item_group.
+- [eBay Inventory_task API](https://apis.io/apis/ebay/ebay-inventory-task-api/) — The Inventory_task API from eBay — 2 operation(s) for inventory_task.
+- [eBay Item API](https://apis.io/apis/ebay/ebay-item-api/) — The Item API from eBay — 5 operation(s) for item.
+- [eBay Item_sales API](https://apis.io/apis/ebay/ebay-item-sales-api/) — The Item_sales API from eBay — 1 operation(s) for item_sales.
+- [eBay Item_summary API](https://apis.io/apis/ebay/ebay-item-summary-api/) — The Item_summary API from eBay — 2 operation(s) for item_summary.
+- [eBay Kyc API](https://apis.io/apis/ebay/ebay-kyc-api/) — The Kyc API from eBay — 1 operation(s) for kyc.
+- [eBay Language API](https://apis.io/apis/ebay/ebay-language-api/) — The Language API from eBay — 1 operation(s) for language.
+- [eBay Listing API](https://apis.io/apis/ebay/ebay-listing-api/) — The Listing API from eBay — 1 operation(s) for listing.
+- [eBay Listing_recommendation API](https://apis.io/apis/ebay/ebay-listing-recommendation-api/) — The Listing_recommendation API from eBay — 1 operation(s) for listing_recommendation.
+- [eBay Listing_violation API](https://apis.io/apis/ebay/ebay-listing-violation-api/) — The Listing_violation API from eBay — 1 operation(s) for listing_violation.
+- [eBay Listing_violation_summary API](https://apis.io/apis/ebay/ebay-listing-violation-summary-api/) — The Listing_violation_summary API from eBay — 1 operation(s) for listing_violation_summary.
+- [eBay Location API](https://apis.io/apis/ebay/ebay-location-api/) — The Location API from eBay — 5 operation(s) for location.
+- [eBay Marketplace API](https://apis.io/apis/ebay/ebay-marketplace-api/) — The Marketplace API from eBay — 7 operation(s) for marketplace.
+- [eBay Merchandised_product API](https://apis.io/apis/ebay/ebay-merchandised-product-api/) — The Merchandised_product API from eBay — 1 operation(s) for merchandised_product.
+- [eBay Offer API](https://apis.io/apis/ebay/ebay-offer-api/) — The Offer API from eBay — 9 operation(s) for offer.
+- [eBay Onboarding API](https://apis.io/apis/ebay/ebay-onboarding-api/) — The Onboarding API from eBay — 1 operation(s) for onboarding.
+- [eBay Order API](https://apis.io/apis/ebay/ebay-order-api/) — The Order API from eBay — 3 operation(s) for order.
+- [eBay Order_task API](https://apis.io/apis/ebay/ebay-order-task-api/) — The Order_task API from eBay — 2 operation(s) for order_task.
+- [eBay Payment_dispute API](https://apis.io/apis/ebay/ebay-payment-dispute-api/) — The Payment_dispute API from eBay — 9 operation(s) for payment_dispute.
+- [eBay Payment_policy API](https://apis.io/apis/ebay/ebay-payment-policy-api/) — The Payment_policy API from eBay — 3 operation(s) for payment_policy.
+- [eBay Payments_program API](https://apis.io/apis/ebay/ebay-payments-program-api/) — The Payments_program API from eBay — 1 operation(s) for payments_program.
+- [eBay Payout API](https://apis.io/apis/ebay/ebay-payout-api/) — The Payout API from eBay — 3 operation(s) for payout.
+- [eBay Privilege API](https://apis.io/apis/ebay/ebay-privilege-api/) — The Privilege API from eBay — 1 operation(s) for privilege.
+- [eBay Product API](https://apis.io/apis/ebay/ebay-product-api/) — The Product API from eBay — 1 operation(s) for product.
+- [eBay Product_compatibility API](https://apis.io/apis/ebay/ebay-product-compatibility-api/) — The Product_compatibility API from eBay — 1 operation(s) for product_compatibility.
+- [eBay Product_summary API](https://apis.io/apis/ebay/ebay-product-summary-api/) — The Product_summary API from eBay — 1 operation(s) for product_summary.
+- [eBay Program API](https://apis.io/apis/ebay/ebay-program-api/) — The Program API from eBay — 3 operation(s) for program.
+- [eBay Public_key API](https://apis.io/apis/ebay/ebay-public-key-api/) — The Public_key API from eBay — 1 operation(s) for public_key.
+- [eBay Rate_table API](https://apis.io/apis/ebay/ebay-rate-table-api/) — The Rate_table API from eBay — 1 operation(s) for rate_table.
+- [eBay Register API](https://apis.io/apis/ebay/ebay-register-api/) — The Register API from eBay — 1 operation(s) for register.
+- [eBay Return_policy API](https://apis.io/apis/ebay/ebay-return-policy-api/) — The Return_policy API from eBay — 3 operation(s) for return_policy.
+- [eBay Sales_tax API](https://apis.io/apis/ebay/ebay-sales-tax-api/) — The Sales_tax API from eBay — 2 operation(s) for sales_tax.
+- [eBay Schedule API](https://apis.io/apis/ebay/ebay-schedule-api/) — The Schedule API from eBay — 5 operation(s) for schedule.
+- [eBay Seller_funds_summary API](https://apis.io/apis/ebay/ebay-seller-funds-summary-api/) — The Seller_funds_summary API from eBay — 1 operation(s) for seller_funds_summary.
+- [eBay Seller_standards_profile API](https://apis.io/apis/ebay/ebay-seller-standards-profile-api/) — The Seller_standards_profile API from eBay — 2 operation(s) for seller_standards_profile.
+- [eBay Shipment API](https://apis.io/apis/ebay/ebay-shipment-api/) — The Shipment API from eBay — 4 operation(s) for shipment.
+- [eBay Shipping_fulfillment API](https://apis.io/apis/ebay/ebay-shipping-fulfillment-api/) — The Shipping_fulfillment API from eBay — 2 operation(s) for shipping_fulfillment.
+- [eBay Shipping_quote API](https://apis.io/apis/ebay/ebay-shipping-quote-api/) — The Shipping_quote API from eBay — 2 operation(s) for shipping_quote.
+- [eBay Signing_key API](https://apis.io/apis/ebay/ebay-signing-key-api/) — The Signing_key API from eBay — 2 operation(s) for signing_key.
+- [eBay Subscription API](https://apis.io/apis/ebay/ebay-subscription-api/) — The Subscription API from eBay — 7 operation(s) for subscription.
+- [eBay Task API](https://apis.io/apis/ebay/ebay-task-api/) — The Task API from eBay — 5 operation(s) for task.
+- [eBay Topic API](https://apis.io/apis/ebay/ebay-topic-api/) — The Topic API from eBay — 2 operation(s) for topic.
+- [eBay Traffic_report API](https://apis.io/apis/ebay/ebay-traffic-report-api/) — The Traffic_report API from eBay — 1 operation(s) for traffic_report.
+- [eBay Transaction API](https://apis.io/apis/ebay/ebay-transaction-api/) — The Transaction API from eBay — 2 operation(s) for transaction.
+- [eBay Transfer API](https://apis.io/apis/ebay/ebay-transfer-api/) — The Transfer API from eBay — 1 operation(s) for transfer.
+- [eBay User API](https://apis.io/apis/ebay/ebay-user-api/) — The User API from eBay — 1 operation(s) for user.
+- [eBay Video API](https://apis.io/apis/ebay/ebay-video-api/) — The Video API from eBay — 3 operation(s) for video.
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### Agentic access (1)
+
+Which operations an agent can call, which act, and which need a human in the loop.
+
+- [Ebay Agentic Access](https://apis.io/agentic-access/ebay/ebay-agentic-access/)
+
+#### JSON Schema (471)
+
+The data models the API reads and writes.
+
+- [AcceptPaymentDisputeRequest](https://apis.io/schemas/ebay/ebay-acceptpaymentdisputerequest/)
+- [Ad](https://apis.io/schemas/ebay/ebay-ad/)
+- [AddEvidencePaymentDisputeRequest](https://apis.io/schemas/ebay/ebay-addevidencepaymentdisputerequest/)
+- [AddEvidencePaymentDisputeResponse](https://apis.io/schemas/ebay/ebay-addevidencepaymentdisputeresponse/)
+- [AdditionalOption](https://apis.io/schemas/ebay/ebay-additionaloption/)
+- [AdditionalProductIdentity](https://apis.io/schemas/ebay/ebay-additionalproductidentity/)
+- [AddonService](https://apis.io/schemas/ebay/ebay-addonservice/)
+- [Address](https://apis.io/schemas/ebay/ebay-address/)
+- [Adjustment](https://apis.io/schemas/ebay/ebay-adjustment/)
+- [Amount](https://apis.io/schemas/ebay/ebay-amount/)
+- [AncestorReference](https://apis.io/schemas/ebay/ebay-ancestorreference/)
+- [AppliedPromotion](https://apis.io/schemas/ebay/ebay-appliedpromotion/)
+- [AppointmentDetails](https://apis.io/schemas/ebay/ebay-appointmentdetails/)
+- [Aspect](https://apis.io/schemas/ebay/ebay-aspect/)
+- [AspectConstraint](https://apis.io/schemas/ebay/ebay-aspectconstraint/)
+- [AspectDistribution](https://apis.io/schemas/ebay/ebay-aspectdistribution/)
+- [AspectGroup](https://apis.io/schemas/ebay/ebay-aspectgroup/)
+- [AspectMetadata](https://apis.io/schemas/ebay/ebay-aspectmetadata/)
+- [AspectRecommendations](https://apis.io/schemas/ebay/ebay-aspectrecommendations/)
+- [AspectValue](https://apis.io/schemas/ebay/ebay-aspectvalue/)
+- [AspectValueDistribution](https://apis.io/schemas/ebay/ebay-aspectvaluedistribution/)
+- [AttributeNameValue](https://apis.io/schemas/ebay/ebay-attributenamevalue/)
+- [AuthenticityGuaranteeProgram](https://apis.io/schemas/ebay/ebay-authenticityguaranteeprogram/)
+- [AuthenticityVerificationProgram](https://apis.io/schemas/ebay/ebay-authenticityverificationprogram/)
+- [AuthorizationRevocationData](https://apis.io/schemas/ebay/ebay-authorizationrevocationdata/)
+- …and 446 more published on APIs.io
 
-## Scope
+#### JSON Structure (1)
 
-- **Type:** Index
-- **Position:** Consumer
-- **Access:** 3rd-Party
+Data models expressed in JSON Structure.
 
-## Tags:
+- [Ebay Structure](https://apis.io/json-structure/ebay/ebay-structure/)
 
- - Auctions, Commerce, Products, Marketplace
+#### Vocabulary (1)
 
-## Timestamps
+The provider's domain terms, defined.
 
-- **Created:** 2023-11-09
-- **Modified:** 2026-04-28
+- [eBay Domain Vocabulary](https://apis.io/vocabularies/ebay/ebay-vocabulary/)
 
-## APIs
+#### Collections (64)
 
-### eBay Account API
-The eBay Account API allows sellers to programmatically configure their seller accounts on eBay, including payment policies, return policies, fulfillment policies, sales tax tables, and program opt-ins.
+Postman and Open Collection request collections.
 
-**Human URL:** [https://developer.ebay.com/api-docs/sell/account/static/overview.html](https://developer.ebay.com/api-docs/sell/account/static/overview.html)
+- [eBay Account Advertising_eligibility API](https://apis.io/collections/ebay/open-ebay-advertising-eligibility-api/)
+- [eBay Account Advertising_eligibility Bidding API](https://apis.io/collections/ebay/open-ebay-bidding-api/)
+- [eBay Account Advertising_eligibility Category_tree API](https://apis.io/collections/ebay/open-ebay-category-tree-api/)
+- [eBay Account Advertising_eligibility Charity_org API](https://apis.io/collections/ebay/open-ebay-charity-org-api/)
+- [eBay Account Advertising_eligibility Config API](https://apis.io/collections/ebay/open-ebay-config-api/)
+- [eBay Account Advertising_eligibility Country API](https://apis.io/collections/ebay/open-ebay-country-api/)
+- [eBay Account Advertising_eligibility Custom_policy API](https://apis.io/collections/ebay/open-ebay-custom-policy-api/)
+- [eBay Account Advertising_eligibility Customer_service_metric API](https://apis.io/collections/ebay/open-ebay-customer-service-metric-api/)
+- [eBay Account Advertising_eligibility Customer_service_metric_task API](https://apis.io/collections/ebay/open-ebay-customer-service-metric-task-api/)
+- [eBay Account Advertising_eligibility Deal_item API](https://apis.io/collections/ebay/open-ebay-deal-item-api/)
+- [eBay Account Advertising_eligibility Destination API](https://apis.io/collections/ebay/open-ebay-destination-api/)
+- [eBay Account Advertising_eligibility Event API](https://apis.io/collections/ebay/open-ebay-event-api/)
+- [eBay Account Advertising_eligibility Event_item API](https://apis.io/collections/ebay/open-ebay-event-item-api/)
+- [eBay Account Advertising_eligibility Fulfillment_policy API](https://apis.io/collections/ebay/open-ebay-fulfillment-policy-api/)
+- [eBay Account Advertising_eligibility Guest_checkout_session API](https://apis.io/collections/ebay/open-ebay-guest-checkout-session-api/)
+- [eBay Account Advertising_eligibility Guest_purchase_order API](https://apis.io/collections/ebay/open-ebay-guest-purchase-order-api/)
+- [eBay Account Advertising_eligibility Inventory_item API](https://apis.io/collections/ebay/open-ebay-inventory-item-api/)
+- [eBay Account Advertising_eligibility Inventory_item_group API](https://apis.io/collections/ebay/open-ebay-inventory-item-group-api/)
+- [eBay Account Advertising_eligibility Inventory_task API](https://apis.io/collections/ebay/open-ebay-inventory-task-api/)
+- [eBay Account Advertising_eligibility Item API](https://apis.io/collections/ebay/open-ebay-item-api/)
+- [eBay Account Advertising_eligibility Item_sales API](https://apis.io/collections/ebay/open-ebay-item-sales-api/)
+- [eBay Account Advertising_eligibility Item_summary API](https://apis.io/collections/ebay/open-ebay-item-summary-api/)
+- [eBay Account Advertising_eligibility Kyc API](https://apis.io/collections/ebay/open-ebay-kyc-api/)
+- [eBay Account Advertising_eligibility Language API](https://apis.io/collections/ebay/open-ebay-language-api/)
+- [eBay Account Advertising_eligibility Listing API](https://apis.io/collections/ebay/open-ebay-listing-api/)
+- …and 39 more published on APIs.io
 
-**Base URL:** https://api.ebay.com
+#### Governance rules (1)
 
-#### Tags: Sell, Account
+Spectral rulesets for the provider's contracts.
 
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/sell/account/static/overview.html)
-- [OpenAPI](openapi/ebay-account-openapi-original.yml)
+- [eBay — jsonschema rules](https://apis.io/rules/ebay/ebay-jsonschema-spectral-rules/)
 
-### eBay Analytics API
-The eBay Analytics API provides sellers with key performance metrics, traffic reports, customer service metrics, and seller standards information so they can measure and improve their performance on eBay.
+#### Security (2)
 
-**Human URL:** [https://developer.ebay.com/api-docs/sell/analytics/static/overview.html](https://developer.ebay.com/api-docs/sell/analytics/static/overview.html)
+Authentication, trust centre, and vulnerability disclosure.
 
-**Base URL:** https://api.ebay.com
+- [Ebay Authentication](https://apis.io/security/ebay/ebay-authentication/)
+- [Ebay Domain Security](https://apis.io/security/ebay/ebay-domain-security/)
 
-#### Tags: Sell, Analytics
+#### OAuth scopes (1)
 
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/sell/analytics/static/overview.html)
-- [OpenAPI](openapi/ebay-analytics-openapi-original.yml)
+The permissions the API asks for.
 
-### eBay Compliance API
-The eBay Compliance API surfaces listing-violation and policy-compliance issues so sellers can identify and resolve listings that conflict with eBay marketplace policies.
+- [Ebay Scopes](https://apis.io/scopes/ebay/ebay-scopes/)
 
-**Human URL:** [https://developer.ebay.com/api-docs/sell/compliance/resources/methods](https://developer.ebay.com/api-docs/sell/compliance/resources/methods)
+#### Plans and pricing (2)
 
-**Base URL:** https://api.ebay.com
+Published plans, tiers and prices.
 
-#### Tags: Sell, Compliance
+- [Ebay Plans Pricing](https://apis.io/plans/ebay/ebay-plans-pricing/)
+- [Ebay Price Estimates](https://apis.io/plans/ebay/ebay-price-estimates/)
 
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/sell/compliance/resources/methods)
-- [OpenAPI](openapi/ebay-compliance-openapi-original.yml)
+#### Rate limits (1)
 
-### eBay Feed API
-The eBay Feed API lets developers download large bulk feed files of eBay item, product, and order data for offline analysis and synchronization.
+Published request limits.
 
-**Human URL:** [https://developer.ebay.com/api-docs/sell/feed/resources/methods](https://developer.ebay.com/api-docs/sell/feed/resources/methods)
+- [Ebay Rate Limits](https://apis.io/rate-limits/ebay/ebay-rate-limits/)
 
-**Base URL:** https://api.ebay.com
+#### FinOps (1)
 
-#### Tags: Sell, Feed
+What the API costs to run, by operation.
 
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/sell/feed/resources/methods)
-- [OpenAPI](openapi/ebay-feed-openapi-original.yml)
+- [Ebay Finops](https://apis.io/finops/ebay/ebay-finops/)
 
-### eBay Browse API
-The eBay Browse API enables buyers to search and browse the eBay catalog, retrieve item details, and discover items by aspect or category.
+## Where to find this API
 
-**Human URL:** [https://developer.ebay.com/api-docs/buy/browse/overview.html](https://developer.ebay.com/api-docs/buy/browse/overview.html)
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-**Base URL:** https://api.ebay.com
-
-#### Tags: Buy, Browse, Search
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/buy/browse/overview.html)
-- [OpenAPI](openapi/ebay-browse-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/buy/browse/release-notes.html)
-
-### eBay Deal API
-The eBay Deal API exposes the deals and promotions surfaced on eBay's deal pages so applications can present discounted offers to shoppers.
-
-**Human URL:** [https://developer.ebay.com/api-docs/buy/deal/resources/methods](https://developer.ebay.com/api-docs/buy/deal/resources/methods)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Buy, Deals
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/buy/deal/resources/methods)
-- [OpenAPI](openapi/ebay-deal-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/buy/deal/release-notes.html)
-
-### eBay Marketing API
-The eBay Marketing API provides merchandising placements, "also viewed" recommendations, and similar item suggestions to drive buyer engagement.
-
-**Human URL:** [https://developer.ebay.com/api-docs/buy/marketing/resources/methods](https://developer.ebay.com/api-docs/buy/marketing/resources/methods)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Buy, Marketing
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/buy/marketing/resources/methods)
-- [OpenAPI](openapi/ebay-market-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/buy/marketing/release-notes.html)
-
-### eBay Marketplace Insights API
-The eBay Marketplace Insights API gives access to historical sold-item data across the eBay marketplace so applications can analyze pricing trends and sell-through rates.
-
-**Human URL:** [https://developer.ebay.com/api-docs/buy/marketplace-insights/resources/methods](https://developer.ebay.com/api-docs/buy/marketplace-insights/resources/methods)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Buy, Insights, Analytics
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/buy/marketplace-insights/resources/methods)
-- [OpenAPI](openapi/ebay-marketplace-insights-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/buy/marketplace-insights/release-notes.html)
-
-### eBay Offer API
-The eBay Offer API supports the offers experience for buyers, allowing applications to discover and act on offers across eligible listings.
-
-**Human URL:** [https://developer.ebay.com/api-docs/buy/offer/overview.html](https://developer.ebay.com/api-docs/buy/offer/overview.html)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Buy, Offers
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/buy/offer/overview.html)
-- [OpenAPI](openapi/ebay-offer-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/buy/offer/release-notes.html)
-
-### eBay Order API
-The eBay Order API enables buyer-side checkout and order management workflows, including guest checkout sessions and order retrieval.
-
-**Human URL:** [https://developer.ebay.com/api-docs/buy/order/overview.html](https://developer.ebay.com/api-docs/buy/order/overview.html)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Buy, Orders, Checkout
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/buy/order/overview.html)
-- [OpenAPI](openapi/ebay-order-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/buy/order/release-notes.html)
-
-### eBay Finances API
-The eBay Finances API gives sellers programmatic access to payouts, transactions, transfers, and seller funds tied to managed payments.
-
-**Human URL:** [https://developer.ebay.com/api-docs/sell/finances/overview.html](https://developer.ebay.com/api-docs/sell/finances/overview.html)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Sell, Finances, Payments
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/sell/finances/overview.html)
-- [OpenAPI](openapi/ebay-finances-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/sell/finances/release-notes.html)
-
-### eBay Fulfillment API
-The eBay Fulfillment API helps sellers manage post-purchase order fulfillment, shipments, tracking, and refunds.
-
-**Human URL:** [https://developer.ebay.com/api-docs/sell/fulfillment/overview.html](https://developer.ebay.com/api-docs/sell/fulfillment/overview.html)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Sell, Fulfillment, Orders
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/sell/fulfillment/overview.html)
-- [OpenAPI](openapi/ebay-fulfillment-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/sell/fulfillment/release-notes.html)
-
-### eBay Inventory API
-The eBay Inventory API allows sellers to manage inventory items, offers, and listing publication on the eBay marketplace.
-
-**Human URL:** [https://developer.ebay.com/api-docs/sell/inventory/overview.html](https://developer.ebay.com/api-docs/sell/inventory/overview.html)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Sell, Inventory, Listings
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/sell/inventory/overview.html)
-- [OpenAPI](openapi/ebay-inventory-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/sell/inventory/release-notes.html)
-
-### eBay Logistics API
-The eBay Logistics API provides shipping rate quotes and label purchasing for sellers fulfilling orders inside or outside the eBay platform.
-
-**Human URL:** [https://developer.ebay.com/api-docs/sell/logistics/overview.html](https://developer.ebay.com/api-docs/sell/logistics/overview.html)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Sell, Logistics, Shipping
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/sell/logistics/overview.html)
-- [OpenAPI](openapi/ebay-logistics-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/sell/logistics/release-notes.html)
-
-### eBay Metadata API
-The eBay Metadata API exposes marketplace policies and configuration metadata that govern selling activity across countries and categories.
-
-**Human URL:** [https://developer.ebay.com/api-docs/sell/metadata/overview.html](https://developer.ebay.com/api-docs/sell/metadata/overview.html)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Sell, Metadata
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/sell/metadata/overview.html)
-- [OpenAPI](openapi/ebay-metadata-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/sell/metadata/release-notes.html)
-
-### eBay Negotiation API
-The eBay Negotiation API lets sellers send targeted offers to interested buyers with discounted pricing on eligible listings.
-
-**Human URL:** [https://developer.ebay.com/api-docs/sell/negotiation/overview.html](https://developer.ebay.com/api-docs/sell/negotiation/overview.html)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Sell, Negotiation, Offers
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/sell/negotiation/overview.html)
-- [OpenAPI](openapi/ebay-negotiation-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/sell/negotiation/release-notes.html)
-
-### eBay Recommendation API
-The eBay Recommendation API surfaces actionable recommendations sellers can apply to improve listing performance, such as enabling Promoted Listings.
-
-**Human URL:** [https://developer.ebay.com/api-docs/sell/recommendation/overview.html](https://developer.ebay.com/api-docs/sell/recommendation/overview.html)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Sell, Recommendations
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/sell/recommendation/overview.html)
-- [OpenAPI](openapi/ebay-recommendation-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/sell/recommendation/release-notes.html)
-
-### eBay Stores API
-The eBay Stores API lets sellers manage the categories that organize listings within their eBay Store storefront.
-
-**Human URL:** [https://developer.ebay.com/api-docs/sell/stores/overview.html](https://developer.ebay.com/api-docs/sell/stores/overview.html)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Sell, Stores
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/sell/stores/overview.html)
-- [OpenAPI](openapi/ebay-stores-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/sell/stores/release-notes.html)
-
-### eBay Catalog API
-The eBay Catalog API gives access to the eBay product catalog so sellers can attach items to canonical product entries when listing.
-
-**Human URL:** [https://developer.ebay.com/api-docs/commerce/catalog/resources/methods](https://developer.ebay.com/api-docs/commerce/catalog/resources/methods)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Commerce, Catalog, Products
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/commerce/catalog/resources/methods)
-- [OpenAPI](openapi/ebay-catalog-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/commerce/catalog/release-notes.html)
-
-### eBay Charity API
-The eBay Charity API exposes the registered charitable organizations supported by eBay for Charity so applications can search and reference them.
-
-**Human URL:** [https://developer.ebay.com/api-docs/commerce/charity/overview.html](https://developer.ebay.com/api-docs/commerce/charity/overview.html)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Commerce, Charity
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/commerce/charity/overview.html)
-- [OpenAPI](openapi/ebay-charity-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/commerce/charity/release-notes.html)
-
-### eBay Identity API
-The eBay Identity API returns information about the authenticated eBay user so applications can personalize the buying or selling experience.
-
-**Human URL:** [https://developer.ebay.com/api-docs/commerce/identity/overview.html](https://developer.ebay.com/api-docs/commerce/identity/overview.html)
-
-**Base URL:** https://apiz.ebay.com
-
-#### Tags: Commerce, Identity
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/commerce/identity/overview.html)
-- [OpenAPI](openapi/ebay-identity-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/commerce/identity/release-notes.html)
-
-### eBay Media API
-The eBay Media API allows sellers to upload and manage video assets that can be associated with their listings.
-
-**Human URL:** [https://developer.ebay.com/api-docs/commerce/media/overview.html](https://developer.ebay.com/api-docs/commerce/media/overview.html)
-
-**Base URL:** https://apim.ebay.com
-
-#### Tags: Commerce, Media, Video
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/commerce/media/overview.html)
-- [OpenAPI](openapi/ebay-media-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/commerce/media/release-notes.html)
-
-### eBay Notification API
-The eBay Notification API manages destinations and subscriptions for the event-driven notifications eBay publishes to integrators, including marketplace account deletion, item availability, item price, campaign budget status, and authorization revocation events.
-
-**Human URL:** [https://developer.ebay.com/api-docs/commerce/notification/overview.html](https://developer.ebay.com/api-docs/commerce/notification/overview.html)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Commerce, Notifications, Events
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/commerce/notification/overview.html)
-- [OpenAPI](openapi/ebay-notification-openapi-original.yml)
-- [AsyncAPI](openapi/ebay-priority-listing-revisions-asyncapi-original.yml)
-- [AsyncAPI](openapi/ebay-market-account-deletion-asyncapi-original.yml)
-- [AsyncAPI](openapi/ebay-item-price-asyncapi-original.yml)
-- [AsyncAPI](openapi/ebay-item-availability-asyncapi-original.yml)
-- [AsyncAPI](openapi/ebay-campaign-budget-status-asyncapi-original.yml)
-- [AsyncAPI](openapi/ebay-authorization-revocation-asyncapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/commerce/notification/release-notes.html)
-
-### eBay Taxonomy API
-The eBay Taxonomy API exposes the category trees and item-aspect metadata that govern how items are classified across eBay marketplaces.
-
-**Human URL:** [https://developer.ebay.com/api-docs/commerce/taxonomy/overview.html](https://developer.ebay.com/api-docs/commerce/taxonomy/overview.html)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Commerce, Taxonomy, Categories
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/commerce/taxonomy/overview.html)
-- [OpenAPI](openapi/ebay-taxonomy-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/commerce/taxonomy/release-notes.html)
-
-### eBay Translation API
-The eBay Translation API provides machine translation of seller-supplied content such as listing titles and descriptions into supported eBay marketplace languages.
-
-**Human URL:** [https://developer.ebay.com/api-docs/commerce/translation/overview.html](https://developer.ebay.com/api-docs/commerce/translation/overview.html)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Commerce, Translation, Localization
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/commerce/translation/overview.html)
-- [OpenAPI](openapi/ebay-translation-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/commerce/translation/release-notes.html)
-
-### eBay Client Registration API
-The eBay Client Registration API enables developers to create the application keys (App ID, Cert ID, Dev ID) used to authenticate calls to eBay APIs.
-
-**Human URL:** [https://developer.ebay.com/api-docs/developer/client-registration/overview.html](https://developer.ebay.com/api-docs/developer/client-registration/overview.html)
-
-**Base URL:** https://api.ebay.com
-
-#### Tags: Developer, Registration, Authentication
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/developer/client-registration/overview.html)
-- [OpenAPI](openapi/ebay-client-registration-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/developer/client-registration/release-notes.html)
-
-### eBay Key Management API
-The eBay Key Management API manages the public/private key pairs developers use to sign requests for sensitive operations on the eBay platform.
-
-**Human URL:** [https://developer.ebay.com/api-docs/developer/key-management/overview.html](https://developer.ebay.com/api-docs/developer/key-management/overview.html)
-
-**Base URL:** https://apiz.ebay.com
-
-#### Tags: Developer, Keys, Security
-
-#### Properties
-- [Documentation](https://developer.ebay.com/api-docs/developer/key-management/overview.html)
-- [OpenAPI](openapi/ebay-key-management-openapi-original.yml)
-- [Release Notes](https://developer.ebay.com/api-docs/developer/key-management/release-notes.html)
-
-## Common Properties
-
-- [Developer Portal](https://developer.ebay.com/)
-- [Getting Started](https://developer.ebay.com/develop/get-started)
-- [Guides](https://developer.ebay.com/develop/guides)
-- [Tools](https://developer.ebay.com/develop/tools)
-- [SDKs](https://developer.ebay.com/develop/ebay-sdks)
-- [Widgets](https://developer.ebay.com/develop/widgets)
+- [Website](https://ebay.com)
+- [Getting started](https://developer.ebay.com/develop/get-started)
+- [Pricing](https://www.ebay.com/help/selling/fees-credits-invoices/selling-fees?id=4822)
 - [Support](https://developer.ebay.com/my/support/tickets)
-- [Rate Limits](https://developer.ebay.com/develop/apis/api-call-limits)
-- [Status](https://developer.ebay.com/support/api-status)
-- [Forum](https://community.ebay.com/t5/Developer-Groups/ct-p/developergroup)
-- [License](https://developer.ebay.com/join/api-license-agreement)
-- [FAQ](https://developer.ebay.com/support/faq)
 - [Blog](https://developer.ebay.com/updates/blog)
-- [Newsletter](https://developer.ebay.com/updates/newsletter)
-- [Events](https://developer.ebay.com/grow/events)
+- [GitHub](https://github.com/ebay)
+- [Status](https://developer.ebay.com/support/api-status)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** API Evangelist
+**Kin Score 49.5** — developing · rubric 0.25.0 · scored 2026-10-23
 
-**Email:** info@apievangelist.com
+| Facet | Score |
+|---|---|
+| Discoverability | 71.4 |
+| Contract quality | 53.4 |
+| Contract governance | 9.8 |
+| Operational transparency | 42.1 |
+| Developer ergonomics | 57.1 |
+| Access clarity | 42.1 |
+
+**Agent readiness 32.0** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | verified |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | documented (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 21.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/ebay/](https://apis.io/providers/ebay/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for eBay: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/ebay/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
